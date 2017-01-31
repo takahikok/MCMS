@@ -29,6 +29,8 @@ namespace Project1 {
 			(*Setting)["DL850"]["Control"] = checkBox1->Checked ? "Enable" : "Disable";
 			(*Setting)["DL850"]["IPAddress"] = kbtn::StringTostring(textBox1->Text).c_str();
 			(*Setting)["DL850"]["StragePath"] = kbtn::StringTostring(textBox2->Text).c_str();
+			(*Setting)["DL850"]["UserName"] = kbtn::StringTostring(textBox3->Text).c_str();
+			(*Setting)["DL850"]["Password"] = kbtn::StringTostring(textBox4->Text).c_str();
 			(*Setting)["DL850"]["GPIBAdress"] = 4;
 			return 0;
 		}
@@ -36,6 +38,8 @@ namespace Project1 {
 		{
 			checkBox1->Checked = (bool)((*Setting)["DL850"]["Control"] == "Enable");
 			textBox1->Text = gcnew String((*Setting)["DL850"]["IPAddress"].c_str());
+			textBox3->Text = gcnew String((*Setting)["DL850"]["UserName"].c_str());
+			textBox4->Text = gcnew String((*Setting)["DL850"]["Password"].c_str());
 			return 0;
 		}
 	public:
@@ -70,7 +74,7 @@ namespace Project1 {
 	private: System::Windows::Forms::Button^  button3;
 
 
-	private: System::Windows::Forms::Label^  label2;
+
 	private: System::Windows::Forms::Label^  label1;
 
 	private: System::Windows::Forms::CheckBox^  checkBox1;
@@ -80,6 +84,10 @@ namespace Project1 {
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::Label^  label4;
 	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::TextBox^  textBox3;
+	private: System::Windows::Forms::TextBox^  textBox4;
+	private: System::Windows::Forms::Label^  label8;
 	private: System::ComponentModel::IContainer^  components;
 	protected:
 
@@ -105,29 +113,35 @@ namespace Project1 {
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
 			this->contextMenuStrip1 = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->label6);
+			this->groupBox1->Controls->Add(this->textBox3);
+			this->groupBox1->Controls->Add(this->textBox4);
+			this->groupBox1->Controls->Add(this->label8);
 			this->groupBox1->Controls->Add(this->label5);
 			this->groupBox1->Controls->Add(this->label4);
 			this->groupBox1->Controls->Add(this->label3);
 			this->groupBox1->Controls->Add(this->textBox2);
 			this->groupBox1->Controls->Add(this->textBox1);
-			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->checkBox1);
 			this->groupBox1->Location = System::Drawing::Point(16, 16);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(685, 129);
+			this->groupBox1->Size = System::Drawing::Size(685, 192);
 			this->groupBox1->TabIndex = 0;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"DL850";
@@ -174,14 +188,6 @@ namespace Project1 {
 			this->textBox1->Size = System::Drawing::Size(100, 22);
 			this->textBox1->TabIndex = 5;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &SetupADCConnection::textBox1_TextChanged);
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(337, 90);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(0, 15);
-			this->label2->TabIndex = 4;
 			// 
 			// label1
 			// 
@@ -239,6 +245,39 @@ namespace Project1 {
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
 			this->contextMenuStrip1->Size = System::Drawing::Size(67, 4);
 			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(248, 104);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(64, 15);
+			this->label6->TabIndex = 14;
+			this->label6->Text = L"パスワード";
+			// 
+			// textBox3
+			// 
+			this->textBox3->Location = System::Drawing::Point(128, 128);
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->Size = System::Drawing::Size(100, 22);
+			this->textBox3->TabIndex = 13;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Location = System::Drawing::Point(248, 128);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(100, 22);
+			this->textBox4->TabIndex = 12;
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->Location = System::Drawing::Point(128, 104);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(70, 15);
+			this->label8->TabIndex = 10;
+			this->label8->Text = L"ユーザー名";
+			this->label8->Click += gcnew System::EventHandler(this, &SetupADCConnection::label8_Click);
+			// 
 			// SetupADCConnection
 			// 
 			this->AcceptButton = this->button3;
@@ -275,6 +314,8 @@ namespace Project1 {
 		this->SaveSettings();
 	}
 private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
+}
+private: System::Void label8_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 };
 }

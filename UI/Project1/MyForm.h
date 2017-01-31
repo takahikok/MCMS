@@ -1,7 +1,10 @@
 #include "SetupADCConnection.h"
 #include "tkadc.h"
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "clx/ini.h"
+#include "clx/ftp.h"
 #pragma once
 
 
@@ -532,7 +535,11 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 	Œv‘ª’âŽ~ToolStripMenuItem_Click(sender, e);
 }
 private: System::Void •Û‘¶ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-
+	clx::ftp session((*Setting)["DL850"]["IPAddress"].c_str(), 21);
+	session.login((*Setting)["DL850"]["UserName"], (*Setting)["DL850"]["Password"]);
+	session.cd("HD-0");
+	session.retrieve("0000.PNG", "0000.PNG", clx::ftp::binary);
+	session.finish();
 }
 private: System::Void toolStripButton3_Click(System::Object^  sender, System::EventArgs^  e) {
 	•Û‘¶ToolStripMenuItem_Click(sender, e);
