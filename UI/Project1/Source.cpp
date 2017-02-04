@@ -15,7 +15,7 @@ int main(array<String^>^ args)
 	DL750 = new TKADC;
 	DL850 = new TKADC;
 
-	const char SETTING_FILE_PATH[] = "C:\\Users\\ppl\\Source\\Repos\\MCMS\\UI\\Project1\\settings.ini";
+	const char SETTING_FILE_PATH[] = "settings.ini";
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
 
