@@ -142,9 +142,9 @@ namespace Project1 {
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->checkBox1);
 			this->groupBox1->Location = System::Drawing::Point(12, 13);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(2);
 			this->groupBox1->Size = System::Drawing::Size(514, 154);
 			this->groupBox1->TabIndex = 0;
 			this->groupBox1->TabStop = false;
@@ -164,7 +164,7 @@ namespace Project1 {
 			// textBox3
 			// 
 			this->textBox3->Location = System::Drawing::Point(96, 102);
-			this->textBox3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox3->Margin = System::Windows::Forms::Padding(2);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(76, 19);
 			this->textBox3->TabIndex = 13;
@@ -172,7 +172,7 @@ namespace Project1 {
 			// textBox4
 			// 
 			this->textBox4->Location = System::Drawing::Point(186, 102);
-			this->textBox4->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox4->Margin = System::Windows::Forms::Padding(2);
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(76, 19);
 			this->textBox4->TabIndex = 12;
@@ -222,7 +222,7 @@ namespace Project1 {
 			// textBox2
 			// 
 			this->textBox2->Location = System::Drawing::Point(186, 45);
-			this->textBox2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox2->Margin = System::Windows::Forms::Padding(2);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(76, 19);
 			this->textBox2->TabIndex = 6;
@@ -230,7 +230,7 @@ namespace Project1 {
 			// textBox1
 			// 
 			this->textBox1->Location = System::Drawing::Point(96, 45);
-			this->textBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(76, 19);
 			this->textBox1->TabIndex = 5;
@@ -250,7 +250,7 @@ namespace Project1 {
 			// 
 			this->checkBox1->AutoSize = true;
 			this->checkBox1->Location = System::Drawing::Point(18, 45);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->checkBox1->Margin = System::Windows::Forms::Padding(2);
 			this->checkBox1->Name = L"checkBox1";
 			this->checkBox1->Size = System::Drawing::Size(48, 16);
 			this->checkBox1->TabIndex = 1;
@@ -260,10 +260,10 @@ namespace Project1 {
 			// button1
 			// 
 			this->button1->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->button1->Location = System::Drawing::Point(466, 282);
-			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button1->Location = System::Drawing::Point(448, 280);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(56, 18);
+			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 1;
 			this->button1->Text = L"キャンセル";
 			this->button1->UseVisualStyleBackColor = true;
@@ -271,10 +271,10 @@ namespace Project1 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(406, 282);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Location = System::Drawing::Point(365, 280);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(56, 18);
+			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 2;
 			this->button2->Text = L"適用";
 			this->button2->UseVisualStyleBackColor = true;
@@ -282,10 +282,10 @@ namespace Project1 {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(345, 282);
-			this->button3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button3->Location = System::Drawing::Point(280, 280);
+			this->button3->Margin = System::Windows::Forms::Padding(2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(56, 18);
+			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 3;
 			this->button3->Text = L"OK";
 			this->button3->UseVisualStyleBackColor = true;
@@ -308,7 +308,7 @@ namespace Project1 {
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->groupBox1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"SetupADCConnection";
 			this->Text = L"SetupADCConnection";
 			this->Load += gcnew System::EventHandler(this, &SetupADCConnection::SetupADCConnection_Load);
