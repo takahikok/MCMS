@@ -46,11 +46,17 @@ int TKADC::Stop()
 	return this->SendMessage(":stop");
 }
 
+int TKADC::WaitADC2()
+{
+	return 0;
+}
+
 int TKADC::WaitADC()
 {
 	char send_msg[1024];
 	char rcv_msg[1024];
 	int rcv_length;
+	MSG msg;
 
 //	printf("[%s] Busy\n", device->name);
 	for (;;) {
@@ -63,7 +69,11 @@ int TKADC::WaitADC()
 		condition = std::stol((std::string)rcv_msg);
 		if (!condition)
 			break;
+//		GetMessage(&msg, NULL, 0, 0);
+//		TranslateMessage(&msg);
+//		DispatchMessage(&msg);
 		Sleep(1);
+		System::Windows::Forms::Application::DoEvents();
 	}
 	return 0;
 error:
@@ -116,6 +126,7 @@ DWORD WINAPI EventFunc(LPVOID pContext)
 error:
 	return TmcGetLastError(pThread->GetDeviceID());
 }
+
 void TKADC::BeginThread(void)
 {
 	m_run = TRUE;

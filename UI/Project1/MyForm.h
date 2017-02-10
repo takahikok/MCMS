@@ -495,12 +495,10 @@ private: System::Void ‚·‚×‚Ä•Û‘¶ToolStripMenuItem_Click(System::Object^  sender,
 private: System::Void Œv‘ªŠJŽnToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	DL850->Start();
 	DL850->WaitADC();
-//	DL850->BeginThread();
-//	DL850->TermThread();
-	DL850->Stop();
+//	DL850->Stop();
 //	DL850->WaitADC();
-/*	DL850->SaveShot("DL850001");
-	clx::ftp session((*Setting)["DL850"]["IPAddress"].c_str(), 21);
+	DL850->SaveShot("DL850001");
+/*	clx::ftp session((*Setting)["DL850"]["IPAddress"].c_str(), 21);
 	session.login((*Setting)["DL850"]["UserName"], (*Setting)["DL850"]["Password"]);
 	session.cd("HD-0");
 	session.retrieve("DL850001.WDF", "DL850001.WDF", clx::ftp::binary);

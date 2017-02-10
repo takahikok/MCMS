@@ -22,6 +22,7 @@ public:
 	int Start();
 	int Stop();
 	int WaitADC();
+	int WaitADC2();
 	int SaveShot(const char* file_name);
 
 	void BeginThread();
