@@ -3,6 +3,9 @@
 #include <string.h>
 #include "tmctl.h"
 
+#include <Windows.h>
+#include <WinBase.h>
+
 #ifndef __TKADC__
 #define __TKADC__
 
@@ -18,6 +21,16 @@ public:
 	int SendMessage(const char* message);
 	int Start();
 	int Stop();
+	int WaitADC();
+	int SaveShot(const char* file_name);
+
+	void BeginThread();
+	void TermThread();
+	bool m_run;
+	HANDLE m_hThread;
+	DWORD m_dwThrdAddr;
+	int GetDeviceID();
+
 private:
 	int device_id;
 	int wire_type;
@@ -25,6 +38,7 @@ private:
 	char name[256];
 	char file_name_header[32];
 	char file_path[32];
+//	DWORD WINAPI EventFunc(LPVOID pContext);
 
 };
 

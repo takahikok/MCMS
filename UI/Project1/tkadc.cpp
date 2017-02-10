@@ -1,5 +1,6 @@
 #include "tkadc.h"
-#include <string.h>  
+#include <string>  
+#include <Windows.h>
 
 
 TKADC::TKADC()
@@ -45,6 +46,87 @@ int TKADC::Stop()
 	return this->SendMessage(":stop");
 }
 
+int TKADC::WaitADC()
+{
+	char send_msg[1024];
+	char rcv_msg[1024];
+	int rcv_length;
+
+//	printf("[%s] Busy\n", device->name);
+	for (;;) {
+		int condition;
+		
+		if (TmcSend(device_id, ":status:condition?"))
+			goto error;
+		if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
+			goto error;
+		condition = std::stol((std::string)rcv_msg);
+		if (!condition)
+			break;
+		Sleep(1);
+	}
+	return 0;
+error:
+	return TmcGetLastError(device_id);
+}
+int TKADC::GetDeviceID(void)
+{
+	return this->device_id;
+}
+
+int TKADC::SaveShot(const char* file_name)
+{
+	std::string send_msg;
+	char rcv_msg[1024];
+	int rcv_length;
+
+	send_msg = (std::string)":file:save:name \"" + file_name + "\"";
+//	sprintf_s(send_msg, ":file:save:name \"%s\"", file_name);
+//	printf("%s\n", send_msg);
+	if (TmcSend(device_id, (char*)send_msg.c_str()))
+		goto error;
+	if (TmcSend(device_id, ":file:save:binary"))
+		goto error;
+	return 0;
+error:
+	return TmcGetLastError(device_id);
+}
+
+DWORD WINAPI EventFunc(LPVOID pContext)
+{
+	TKADC* pThread = (TKADC*)pContext;
+	int i;
+	char send_msg[1024];
+	char rcv_msg[1024];
+	int rcv_length;
+
+	for (;;) {
+		int condition;
+
+		if (TmcSend(pThread->GetDeviceID(), ":status:condition?"))
+			goto error;
+		if (TmcReceive(pThread->GetDeviceID(), rcv_msg, sizeof(rcv_msg), &rcv_length))
+			goto error;
+		condition = std::stol((std::string)rcv_msg);
+		if (!condition)
+			break;
+		Sleep(0);
+	}
+	return 0;
+error:
+	return TmcGetLastError(pThread->GetDeviceID());
+}
+void TKADC::BeginThread(void)
+{
+	m_run = TRUE;
+	m_hThread = CreateThread(NULL, 0, EventFunc, this, 0, &m_dwThrdAddr);
+}
+void TKADC::TermThread(void)
+{
+	m_run = FALSE;
+	WaitForSingleObject(m_hThread, 3000);
+	CloseHandle(m_hThread);
+}
 
 
 int TKLoadDeviceSettings(struct DEVICE *device)
