@@ -42,6 +42,20 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton4;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton5;
 
+	private:
+		int Connection(void)
+		{
+			return DL850->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str());
+		}
+		int Download(std::string filename)
+		{
+			clx::ftp session((std::string)((*Setting)["DL850"]["IPAddress"]), 21);
+			session.login((std::string)((*Setting)["DL850"]["UserName"].c_str()), (std::string)(clx::base64::decode((*Setting)["DL850"]["Password"].c_str())));
+			session.cd("HD-0");
+			session.retrieve(filename, filename, clx::ftp::binary);
+			session.finish();
+			return 0;
+		}
 	public:
 		MyForm(clx::ini* Setting_, TKADC* DL750_, TKADC* DL850_)
 		{
@@ -55,6 +69,10 @@ namespace Project1 {
 			Setting = Setting_;
 			DL750 = DL750_;
 			DL850 = DL850_;
+
+			if((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")
+				if (Connection())
+					MessageBox::Show("Connection failed.");
 		}
 
 
@@ -484,7 +502,7 @@ private: System::Void toolStripMenuItem2_Click(System::Object^  sender, System::
 		MessageBox::Show("Disconnection failed.");
 }
 private: System::Void 計測器接続ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (!DL850->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
+	if (!Connection())
 		MessageBox::Show("Connect!");
 	else
 		MessageBox::Show("Connection failed.");
@@ -494,16 +512,11 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 }
 private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	DL850->Start();
-	DL850->WaitADC();
+//	DL850->WaitADC();
 //	DL850->Stop();
 //	DL850->WaitADC();
-	DL850->SaveShot("DL850001");
-/*	clx::ftp session((*Setting)["DL850"]["IPAddress"].c_str(), 21);
-	session.login((*Setting)["DL850"]["UserName"], (*Setting)["DL850"]["Password"]);
-	session.cd("HD-0");
-	session.retrieve("DL850001.WDF", "DL850001.WDF", clx::ftp::binary);
-	session.finish();
-*/	
+//	DL850->SaveShot("DL850001");
+	Download("0000.WDF");
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	DL850->Stop();
@@ -523,11 +536,6 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 	計測停止ToolStripMenuItem_Click(sender, e);
 }
 private: System::Void 保存ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	clx::ftp session((*Setting)["DL850"]["IPAddress"].c_str(), 21);
-	session.login((*Setting)["DL850"]["UserName"], (*Setting)["DL850"]["Password"]);
-	session.cd("HD-0");
-	session.retrieve("DTB00098.WDF", "DTB00098.WDF", clx::ftp::binary);
-	session.finish();
 }
 private: System::Void toolStripButton3_Click(System::Object^  sender, System::EventArgs^  e) {
 	保存ToolStripMenuItem_Click(sender, e);
