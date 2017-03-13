@@ -3,6 +3,7 @@
 #include "tkadc.h"
 #include <iostream>
 #include "clx/ini.h"
+#define SETTING_FILE_PATH "settings.ini"
 
 using namespace System;                                                                                                      
 using namespace System::Windows::Forms;
@@ -15,9 +16,11 @@ int main(array<String^>^ args)
 	DL750 = new TKADC;
 	DL850 = new TKADC;
 
-	const char SETTING_FILE_PATH[] = "settings.ini";
+//	const char SETTING_FILE_PATH[] = "settings.ini";
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
+//	Setting->insert("System");
+//	(*Setting)["System"]["Path"] = ;
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
