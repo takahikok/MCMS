@@ -5,7 +5,9 @@
 #include <sstream>
 #include "clx/ini.h"
 #include "clx/ftp.h"
+#include <iomanip>
 #pragma once
+#define SETTING_FILE_PATH "settings.ini"
 
 
 namespace Project1 {
@@ -56,6 +58,12 @@ namespace Project1 {
 			session.finish();
 			return 0;
 		}
+		std::string MakeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
+		{
+			std::ostringstream fname;
+			fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (DL850->GetNextLocalShotNumber()) << suffix;
+			return (std::string)fname.str();
+		}
 	public:
 		MyForm(clx::ini* Setting_, TKADC* DL750_, TKADC* DL850_)
 		{
@@ -73,6 +81,9 @@ namespace Project1 {
 			if((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")
 				if (Connection())
 					MessageBox::Show("Connection failed.");
+
+			DL850->SetLastLocalShotNumber(std::stoi((*Setting)["DL850"]["LastLocalShotNumber"]));
+			DL850->SetLocalShotNumberMax(std::stoi((*Setting)["DL850"]["LocalShotNumberMax"]));
 		}
 
 
@@ -511,12 +522,16 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 	MessageBox::Show("huge");
 }
 private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+//	DL850->SetLastLocalShotNumber(0);
+//	DL850->SetLocalShotNumberMax(99999);
 	DL850->Start();
-//	DL850->WaitADC();
+	DL850->WaitADC();
 //	DL850->Stop();
-//	DL850->WaitADC();
-//	DL850->SaveShot("DL850001");
-	Download("0000.WDF");
+	DL850->SaveShot(MakeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ""));
+	Download(MakeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ".WDF"));
+	DL850->IncrementLocalShotNumber();
+	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(DL850->GetLastLocalShotNumber());
+	Setting->write(SETTING_FILE_PATH);
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	DL850->Stop();

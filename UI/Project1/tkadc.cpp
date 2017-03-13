@@ -84,7 +84,7 @@ int TKADC::GetDeviceID(void)
 	return this->device_id;
 }
 
-int TKADC::SaveShot(const char* file_name)
+int TKADC::SaveShot(std:: string file_name)
 {
 	std::string send_msg;
 	char rcv_msg[1024];
@@ -262,5 +262,38 @@ int TKADCSaveShot(struct DEVICE *device, const char* file_name)
 	return 0;
 error:
 	return TmcGetLastError(device->device_id);
+}
+
+int TKADC::GetLastLocalShotNumber()
+{
+	return next_local_shot_number - 1;
+}
+
+int TKADC::GetNextLocalShotNumber()
+{
+	return next_local_shot_number;
+}
+
+int TKADC::SetLastLocalShotNumber(int new_local_shot_number)
+{
+	return next_local_shot_number = new_local_shot_number + 1;
+}
+
+int TKADC::IncrementLocalShotNumber()
+{
+	next_local_shot_number++;
+	if (next_local_shot_number > local_shot_number_max)
+		next_local_shot_number = 1;
+	return next_local_shot_number;
+}
+
+int TKADC::SetLocalShotNumberMax(int new_local_shot_number_max)
+{
+	return local_shot_number_max = new_local_shot_number_max;
+}
+
+int TKADC::GetLocalShotNumberMax()
+{
+	return local_shot_number_max;
 }
 

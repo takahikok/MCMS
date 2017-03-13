@@ -29,10 +29,10 @@ namespace Project1 {
 			Setting->insert("DL850");
 			(*Setting)["DL850"]["Control"] = checkBox1->Checked ? "Enable" : "Disable";
 			(*Setting)["DL850"]["ConnectOnStartup"] = checkBox2->Checked ? "Enable" : "Disable";
-			(*Setting)["DL850"]["IPAddress"] = kbtn::StringTostring(textBox1->Text).c_str();
-			(*Setting)["DL850"]["StragePath"] = kbtn::StringTostring(textBox2->Text).c_str();
-			(*Setting)["DL850"]["UserName"] = kbtn::StringTostring(textBox3->Text).c_str();
-			(*Setting)["DL850"]["Password"] = clx::base64::encode(kbtn::StringTostring(textBox4->Text).c_str());
+			(*Setting)["DL850"]["IPAddress"] = kbtn::SystemStringToString(textBox1->Text).c_str();
+			(*Setting)["DL850"]["StragePath"] = kbtn::SystemStringToString(textBox2->Text).c_str();
+			(*Setting)["DL850"]["UserName"] = kbtn::SystemStringToString(textBox3->Text).c_str();
+			(*Setting)["DL850"]["Password"] = clx::base64::encode(kbtn::SystemStringToString(textBox4->Text).c_str());
 			(*Setting)["DL850"]["GPIBAdress"] = 4;
 			return 0;
 		}
