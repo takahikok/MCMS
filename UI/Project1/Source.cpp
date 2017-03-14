@@ -1,5 +1,7 @@
 #include "MyForm.h" // [2]‚Å•t‚¯‚½Form–¼.h
-#include "SetupADCConnection.h" // [2]‚Å•t‚¯‚½Form–¼.h
+#include "SetupADCConnection.h"
+#include "SetupADCMeasurement.h"
+#include "SetupPlot.h"
 #include "tkadc.h"
 #include <iostream>
 #include "clx/ini.h"
@@ -16,11 +18,8 @@ int main(array<String^>^ args)
 	DL750 = new TKADC;
 	DL850 = new TKADC;
 
-//	const char SETTING_FILE_PATH[] = "settings.ini";
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
-//	Setting->insert("System");
-//	(*Setting)["System"]["Path"] = ;
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);

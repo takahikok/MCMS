@@ -147,6 +147,7 @@
     <ClCompile Include="MyForm1.cpp" />
     <ClCompile Include="SetupADCConnection.cpp" />
     <ClCompile Include="SetupADCMeasurement.cpp" />
+    <ClCompile Include="SetupPlot.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="tkadc.cpp" />
     <ClCompile Include="tkshotno.cpp" />
@@ -180,6 +181,9 @@
     <ClInclude Include="SetupADCMeasurement.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="SetupPlot.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="tkadc.h" />
     <ClInclude Include="tkshotno.h" />
     <ClInclude Include="tmctl.h" />
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetupADCMeasurement.resx">
       <DependentUpon>SetupADCMeasurement.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupPlot.resx">
+      <DependentUpon>SetupPlot.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
