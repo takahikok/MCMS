@@ -101,5 +101,8 @@
     <EmbeddedResource Include="SetupADCMeasurement.resx">
       <Filter>リソース ファイル</Filter>
     </EmbeddedResource>
+    <EmbeddedResource Include="SetupPlot.resx">
+      <Filter>リソース ファイル</Filter>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
