@@ -73,6 +73,44 @@ namespace Project1 {
 			fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (DL850->GetNextLocalShotNumber()) << suffix;
 			return (std::string)fname.str();
 		}
+
+		template<typename T> int ReadHDRLine(std::string buf, int trace_number, char* key_name, T* data)
+		{
+			switch (trace_number) {
+			case 1:
+				sscanf(buf.c_str(), "%s %f", key_name, &(data[0]));
+				break;
+			case 2:
+				sscanf(buf.c_str(), "%s %f %f", key_name, &(data[0]), &(data[1]));
+				break;
+			case 3:
+				sscanf(buf.c_str(), "%s %f %f %f", key_name, &(data[0]), &(data[1]), &(data[2]));
+				break;
+			case 4:
+				sscanf(buf.c_str(), "%s %f %f %f %f", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
+				break;
+			}
+			return 0;
+		}
+		template<> int ReadHDRLine(std::string buf, int trace_number, char* key_name, int* data)
+		{
+			switch (trace_number) {
+			case 1:
+				sscanf(buf.c_str(), "%s %d", key_name, &(data[0]));
+				break;
+			case 2:
+				sscanf(buf.c_str(), "%s %d %d", key_name, &(data[0]), &(data[1]));
+				break;
+			case 3:
+				sscanf(buf.c_str(), "%s %d %d %d", key_name, &(data[0]), &(data[1]), &(data[2]));
+				break;
+			case 4:
+				sscanf(buf.c_str(), "%s %d %d %d %d", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
+				break;
+			}
+			return 0;
+		}
+
 	public:
 		MyForm(clx::ini* Setting_, TKADC* DL750_, TKADC* DL850_)
 		{
@@ -194,6 +232,9 @@ namespace Project1 {
 			// 
 			// menuStrip1
 			// 
+			this->menuStrip1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->menuStrip1->Dock = System::Windows::Forms::DockStyle::None;
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
 				this->faToolStripMenuItem,
@@ -202,7 +243,7 @@ namespace Project1 {
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(803, 31);
+			this->menuStrip1->Size = System::Drawing::Size(308, 31);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::menuStrip1_ItemClicked);
@@ -364,7 +405,7 @@ namespace Project1 {
 				this->toolStripButton1,
 					this->toolStripButton2, this->toolStripButton3
 			});
-			this->toolStrip1->Location = System::Drawing::Point(193, 30);
+			this->toolStrip1->Location = System::Drawing::Point(4, 0);
 			this->toolStrip1->Name = L"toolStrip1";
 			this->toolStrip1->Size = System::Drawing::Size(206, 30);
 			this->toolStrip1->TabIndex = 1;
@@ -403,22 +444,25 @@ namespace Project1 {
 			// statusStrip1
 			// 
 			this->statusStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->statusStrip1->Location = System::Drawing::Point(0, 410);
+			this->statusStrip1->Location = System::Drawing::Point(0, 533);
 			this->statusStrip1->Name = L"statusStrip1";
 			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 13, 0);
-			this->statusStrip1->Size = System::Drawing::Size(803, 22);
+			this->statusStrip1->Size = System::Drawing::Size(782, 22);
 			this->statusStrip1->TabIndex = 2;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
 			// tabControl1
 			// 
+			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
-			this->tabControl1->Location = System::Drawing::Point(8, 0);
+			this->tabControl1->Location = System::Drawing::Point(0, 0);
 			this->tabControl1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(792, 344);
+			this->tabControl1->Size = System::Drawing::Size(776, 468);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
@@ -428,7 +472,7 @@ namespace Project1 {
 			this->tabPage1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->tabPage1->Size = System::Drawing::Size(784, 315);
+			this->tabPage1->Size = System::Drawing::Size(768, 439);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -436,7 +480,7 @@ namespace Project1 {
 			// pictureBox1
 			// 
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
-			this->pictureBox1->Location = System::Drawing::Point(64, 20);
+			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(244, 188);
@@ -449,31 +493,38 @@ namespace Project1 {
 			this->tabPage2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->tabPage2->Size = System::Drawing::Size(784, 315);
+			this->tabPage2->Size = System::Drawing::Size(768, 439);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"tabPage2";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// toolStripContainer2
 			// 
+			this->toolStripContainer2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			// 
+			// toolStripContainer2.BottomToolStripPanel
+			// 
+			this->toolStripContainer2->BottomToolStripPanel->Enabled = false;
 			// 
 			// toolStripContainer2.ContentPanel
 			// 
 			this->toolStripContainer2->ContentPanel->Controls->Add(this->tabControl1);
 			this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(800, 316);
+			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(776, 466);
 			this->toolStripContainer2->Location = System::Drawing::Point(0, 32);
 			this->toolStripContainer2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->toolStripContainer2->Name = L"toolStripContainer2";
-			this->toolStripContainer2->Size = System::Drawing::Size(800, 376);
+			this->toolStripContainer2->Size = System::Drawing::Size(776, 496);
 			this->toolStripContainer2->TabIndex = 6;
 			this->toolStripContainer2->Text = L"toolStripContainer2";
 			// 
 			// toolStripContainer2.TopToolStripPanel
 			// 
-			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip2);
 			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip3);
+			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			// 
 			// toolStrip2
 			// 
@@ -483,7 +534,7 @@ namespace Project1 {
 				this->toolStripButton4,
 					this->toolStripButton5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(3, 0);
+			this->toolStrip2->Location = System::Drawing::Point(370, 0);
 			this->toolStrip2->Name = L"toolStrip2";
 			this->toolStrip2->Size = System::Drawing::Size(237, 30);
 			this->toolStrip2->TabIndex = 2;
@@ -516,9 +567,9 @@ namespace Project1 {
 				this->toolStripButton6,
 					this->toolStripButton7
 			});
-			this->toolStrip3->Location = System::Drawing::Point(3, 30);
+			this->toolStrip3->Location = System::Drawing::Point(214, 0);
 			this->toolStrip3->Name = L"toolStrip3";
-			this->toolStrip3->Size = System::Drawing::Size(190, 30);
+			this->toolStrip3->Size = System::Drawing::Size(151, 30);
 			this->toolStrip3->TabIndex = 3;
 			// 
 			// toolStripButton6
@@ -545,7 +596,7 @@ namespace Project1 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(803, 432);
+			this->ClientSize = System::Drawing::Size(782, 555);
 			this->Controls->Add(this->toolStripContainer2);
 			this->Controls->Add(this->statusStrip1);
 			this->Controls->Add(this->menuStrip1);
@@ -642,15 +693,82 @@ private: System::Void toolStripButton3_Click(System::Object^  sender, System::Ev
 }
 private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	SetupPlot^ f = gcnew SetupPlot(Setting);
-	f->Show();
+	f->Show(); 
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	std::string data_file_name = "ECR00039";
+//	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
+//	std::ifstream ifs(data_file_name + ".HDR");
+	std::ifstream ifs("ECR00039.HDR");
+	std::string buf;
+	float hresolution;
+	float hoffset;
+	for (int i = 1; std::getline(ifs, buf); i++) {
+		int trace_number;
+		char key_name[64];
+		int idata[4];
+		float fdata[4];
+
+		switch (i) {
+		//TraceNumber
+		case 13:
+			ReadHDRLine(buf, 1, key_name, idata);
+			trace_number = idata[0];
+			break;
+
+		//HResolution
+		case 26:
+			ReadHDRLine(buf, trace_number, key_name, fdata);
+			hresolution = fdata[0];
+			break;
+
+		//HOffset
+		case 27:
+			ReadHDRLine(buf, trace_number, key_name, fdata);
+			hoffset = fdata[0];
+			break;
+#if 0
+		//Date
+		case 29:
+			ReadHDRLine(buf, trace_number, key_name, fdata);
+			hoffset = fdata[0];
+			break;
+
+		//Time
+		case 30:
+			ReadHDRLine(buf, trace_number, key_name, fdata);
+			hresolution = fdata[0];
+			break;
+#endif
+		}
+	}
+
 	delete this->pictureBox1->Image;
 	std::ofstream of;
 	of.open("plot.plt", std::ios::trunc);
 	of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
 	of << "set out \"graph1.png\"" << std::endl;
-	of << "plot sin(x), sin(x)" << std::endl;
+//	of << "plot using " << std::endl;
+	of << "set datafile separator \',\'" << std::endl;
+	of << "set multiplot " << std::endl;
+	of << "set origin 0.0, 0.46" << std::endl;
+	of << "set size 1.0, 0.5" << std::endl;
+	of << "set lmargin 7.5" << std::endl;
+	of << "set rmargin 2" << std::endl;
+	of << "set tmargin 0" << std::endl;
+	of << "set bmargin 0" << std::endl;
+	of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
+	of << "set yrange [*<0:0<*]" << std::endl;
+	of << "plot \"" << data_file_name << ".CSV\""
+		<< " every 10"
+		<< " using (" << hoffset << " + (column(0)) * 10 * " << hresolution << "):7"
+		<< " with line" 
+		<< std::endl;
+	of << "" << std::endl;
+	of << "" << std::endl;
+	of << "" << std::endl;
+	of << "" << std::endl;
+	of << "" << std::endl;
 	std::system("gnuplot plot.plt");
 	this->pictureBox1->Location = System::Drawing::Point(0, 0);
 	this->pictureBox1->Size = System::Drawing::Size(640,480);

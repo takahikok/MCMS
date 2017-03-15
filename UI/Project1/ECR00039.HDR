@@ -1,0 +1,78 @@
+//YOKOGAWA ASCII FILE FORMAT
+
+$PublicInfo
+FormatVersion       1.11            
+Model               DL750           
+Endian              Big             
+DataFormat          Trace           
+GroupNumber         3               
+TraceTotalNumber    12              
+DataOffset          119436          
+
+$Group1             
+TraceNumber         4               
+BlockNumber         1               
+TraceName           CH1             CH2             CH3             CH4             
+BlockSize           200200          200200          200200          200200          
+VResolution         8.3333333E-05   4.1666667E-04   4.1666667E-04   8.3333333E-06   
+VOffset             0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   
+VDataType           IS2             IS2             IS2             IS2             
+VUnit               V               V               V               V               
+VPlusOverData       ?               ?               ?               ?               
+VMinusOverData      ?               ?               ?               ?               
+VIllegalData        -32768          -32768          -32768          -32768          
+VMaxData            32767           32767           32767           32767           
+VMinData            -32767          -32767          -32767          -32767          
+HResolution         5.0000000E-07   5.0000000E-07   5.0000000E-07   5.0000000E-07   
+HOffset             -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  
+HUnit               s               s               s               s               
+Date                2016/02/26      2016/02/26      2016/02/26      2016/02/26      
+Time                16:23:15.48     16:23:15.48     16:23:15.48     16:23:15.48     
+
+$Group2             
+TraceNumber         4               
+BlockNumber         1               
+TraceName           CH5             CH6             CH7             CH8             
+BlockSize           200200          200200          200200          200200          
+VResolution         4.1666667E-04   4.1666667E-04   4.1666667E-05   4.1666667E-04   
+VOffset             0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   
+VDataType           IS2             IS2             IS2             IS2             
+VUnit               V               V               V               V               
+VPlusOverData       ?               ?               ?               ?               
+VMinusOverData      ?               ?               ?               ?               
+VIllegalData        -32768          -32768          -32768          -32768          
+VMaxData            32767           32767           32767           32767           
+VMinData            -32767          -32767          -32767          -32767          
+HResolution         5.0000000E-07   5.0000000E-07   5.0000000E-07   5.0000000E-07   
+HOffset             -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  
+HUnit               s               s               s               s               
+Date                2016/02/26      2016/02/26      2016/02/26      2016/02/26      
+Time                16:23:15.48     16:23:15.48     16:23:15.48     16:23:15.48     
+
+$Group3             
+TraceNumber         4               
+BlockNumber         1               
+TraceName           CH9             CH10            CH11            CH12            
+BlockSize           200200          200200          200200          200200          
+VResolution         4.1666667E-04   4.1666667E-06   4.1666667E-04   4.1666667E-04   
+VOffset             0.0000000E+00   0.0000000E+00   0.0000000E+00   0.0000000E+00   
+VDataType           IS2             IS2             IS2             IS2             
+VUnit               V               V               V               V               
+VPlusOverData       ?               ?               ?               ?               
+VMinusOverData      ?               ?               ?               ?               
+VIllegalData        -32768          -32768          -32768          -32768          
+VMaxData            32767           32767           32767           32767           
+VMinData            -32767          -32767          -32767          -32767          
+HResolution         5.0000000E-07   5.0000000E-07   5.0000000E-07   5.0000000E-07   
+HOffset             -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  -1.0000000E-02  
+HUnit               s               s               s               s               
+Date                2016/02/26      2016/02/26      2016/02/26      2016/02/26      
+Time                16:23:15.48     16:23:15.48     16:23:15.48     16:23:15.48     
+
+$PrivateInfo
+DisplayPointNo.     1               1               1               1               1               1               1               1               1               1               1               1               
+ModelVersion        6.31            
+PTraceName          CH1             CH2             CH3             CH4             CH5             CH6             CH7             CH8             CH9             CH10            CH11            CH12            
+PUpperScaleData     1.800V          9.000V          7.900V          20.0mV          6.000V          5.500V          100.0mV         7.500V          7.000V          10.00mV         9.000V          9.000V          
+PLowerScaleData     -0.200V         -1.000V         -2.100V         -180.0mV        -4.000V         -4.500V         -900.0mV        -2.500V         -3.000V         -90.00mV        -1.000V         -1.000V         
+POffsetName         0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        0.00000V        
