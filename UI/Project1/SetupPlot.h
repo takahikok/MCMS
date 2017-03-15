@@ -20,36 +20,33 @@ namespace Project1 {
 	public ref class SetupPlot : public System::Windows::Forms::Form
 	{
 	private:
-		clx::ini* Setting;
+		clx::ini* ShotSetting;
 		int SaveSettings(void)
 		{
-			Setting->insert("DL850");
-			(*Setting)["DL850"]["Control"] = checkBox1->Checked ? "Enable" : "Disable";
-			(*Setting)["DL850"]["ConnectOnStartup"] = checkBox2->Checked ? "Enable" : "Disable";
-			(*Setting)["DL850"]["IPAddress"] = kbtn::SystemStringToString(textBox1->Text).c_str();
-			(*Setting)["DL850"]["StragePath"] = kbtn::SystemStringToString(textBox2->Text).c_str();
-			(*Setting)["DL850"]["UserName"] = kbtn::SystemStringToString(textBox3->Text).c_str();
-			(*Setting)["DL850"]["Password"] = clx::base64::encode(kbtn::SystemStringToString(textBox4->Text).c_str());
-			(*Setting)["DL850"]["GPIBAdress"] = 4;
+			ShotSetting->insert("CH1.Plot");
+			(*ShotSetting)["CH1.Plot"]["Plot"] = checkBoxEnCH1->Checked ? "Enable" : "Disable";
+			(*ShotSetting)["CH1.Plot"]["TargetFigure"] = std::to_string(comboBoxFig1->SelectedIndex);
+			(*ShotSetting)["CH1.Plot"]["LabelName"] = kbtn::SystemStringToString(textBoxLN1->Text).c_str();
+
+			ShotSetting->write(((*ShotSetting)["This"]["FileName"] + ".ini").c_str());
 			return 0;
 		}
 		int LoadSettings(void)
 		{
-			checkBox1->Checked = (bool)((*Setting)["DL850"]["Control"] == "Enable");
-			checkBox2->Checked = (bool)((*Setting)["DL850"]["ConnectOnStartup"] == "Enable");
-			textBox1->Text = gcnew String((*Setting)["DL850"]["IPAddress"].c_str());
-			textBox3->Text = gcnew String((*Setting)["DL850"]["UserName"].c_str());
-			textBox4->Text = gcnew String(clx::base64::decode((*Setting)["DL850"]["Password"]).c_str());
+			checkBoxEnCH1->Checked = (bool)((*ShotSetting)["CH1.Plot"]["Plot"] == "Enable");
+			comboBoxFig1->SelectedIndex = std::strtol((*ShotSetting)["CH1.Plot"]["TargetFigure"].c_str(), nullptr, 10);
+			textBoxLN1->Text = gcnew String((*ShotSetting)["CH1.Plot"]["LabelName"].c_str());
 			return 0;
 		}
 	public:
-		SetupPlot(clx::ini* Setting_)
+		SetupPlot(clx::ini* ShotSetting_)
 		{
 			InitializeComponent();
 			//
 			//TODO: ここにコンストラクター コードを追加します
 			//
-			Setting = Setting_;
+			ShotSetting = ShotSetting_;
+			//this->SaveSettings();
 			this->LoadSettings();
 		}
 
@@ -75,24 +72,24 @@ namespace Project1 {
 	private: System::Windows::Forms::CheckBox^  checkBox36;
 	private: System::Windows::Forms::CheckBox^  checkBox35;
 	private: System::Windows::Forms::TextBox^  textBox95;
-	private: System::Windows::Forms::CheckBox^  checkBox47;
-	private: System::Windows::Forms::CheckBox^  checkBox48;
+
+
 	private: System::Windows::Forms::TextBox^  textBox96;
 	private: System::Windows::Forms::TextBox^  textBox97;
 	private: System::Windows::Forms::CheckBox^  checkBox49;
 	private: System::Windows::Forms::TextBox^  textBox98;
 	private: System::Windows::Forms::TextBox^  textBox99;
 	private: System::Windows::Forms::TextBox^  textBox90;
-	private: System::Windows::Forms::CheckBox^  checkBox42;
-	private: System::Windows::Forms::CheckBox^  checkBox43;
+
+
 	private: System::Windows::Forms::TextBox^  textBox91;
 	private: System::Windows::Forms::TextBox^  textBox92;
 	private: System::Windows::Forms::CheckBox^  checkBox44;
 	private: System::Windows::Forms::TextBox^  textBox93;
 	private: System::Windows::Forms::TextBox^  textBox94;
 	private: System::Windows::Forms::TextBox^  textBox85;
-	private: System::Windows::Forms::CheckBox^  checkBox37;
-	private: System::Windows::Forms::CheckBox^  checkBox38;
+
+
 	private: System::Windows::Forms::TextBox^  textBox86;
 	private: System::Windows::Forms::TextBox^  textBox87;
 	private: System::Windows::Forms::CheckBox^  checkBox39;
@@ -100,8 +97,8 @@ namespace Project1 {
 	private: System::Windows::Forms::TextBox^  textBox89;
 	private: System::Windows::Forms::TextBox^  textBox84;
 	private: System::Windows::Forms::Label^  label72;
-	private: System::Windows::Forms::CheckBox^  checkBox33;
-	private: System::Windows::Forms::CheckBox^  checkBox34;
+
+
 	private: System::Windows::Forms::TextBox^  textBox80;
 	private: System::Windows::Forms::TextBox^  textBox81;
 	private: System::Windows::Forms::Label^  label70;
@@ -121,224 +118,306 @@ namespace Project1 {
 	private: System::Windows::Forms::CheckBox^  checkBox31;
 	private: System::Windows::Forms::Label^  label71;
 	private: System::Windows::Forms::Label^  label69;
-	private: System::Windows::Forms::TextBox^  textBox4;
+private: System::Windows::Forms::TextBox^  textBoxLNT;
+
 	private: System::Windows::Forms::TextBox^  textBox82;
 	private: System::Windows::Forms::Label^  label11;
 	private: System::Windows::Forms::TextBox^  textBox83;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::ComboBox^  comboBox1;
+private: System::Windows::Forms::ComboBox^  comboBoxUn;
+
 	private: System::Windows::Forms::ComboBox^  comboBox27;
 	private: System::Windows::Forms::CheckBox^  checkBox26;
 	private: System::Windows::Forms::CheckBox^  checkBox27;
 	private: System::Windows::Forms::CheckBox^  checkBox25;
 	private: System::Windows::Forms::GroupBox^  groupBox2;
-	private: System::Windows::Forms::ComboBox^  comboBox19;
+private: System::Windows::Forms::ComboBox^  comboBoxFig12;
+
 	private: System::Windows::Forms::Button^  button17;
-	private: System::Windows::Forms::ComboBox^  comboBox20;
+private: System::Windows::Forms::ComboBox^  comboBoxFig11;
+
 	private: System::Windows::Forms::Button^  button18;
-	private: System::Windows::Forms::ComboBox^  comboBox21;
+private: System::Windows::Forms::ComboBox^  comboBoxFig10;
+
 	private: System::Windows::Forms::Button^  button19;
-	private: System::Windows::Forms::ComboBox^  comboBox22;
+private: System::Windows::Forms::ComboBox^  comboBoxFig9;
+
 	private: System::Windows::Forms::Button^  button20;
-	private: System::Windows::Forms::ComboBox^  comboBox23;
+private: System::Windows::Forms::ComboBox^  comboBoxFig24;
+
 	private: System::Windows::Forms::Button^  button21;
-	private: System::Windows::Forms::ComboBox^  comboBox24;
+private: System::Windows::Forms::ComboBox^  comboBoxFig23;
+
 	private: System::Windows::Forms::Button^  button22;
-	private: System::Windows::Forms::ComboBox^  comboBox25;
+private: System::Windows::Forms::ComboBox^  comboBoxFig22;
+
 	private: System::Windows::Forms::Button^  button23;
-	private: System::Windows::Forms::ComboBox^  comboBox26;
+private: System::Windows::Forms::ComboBox^  comboBoxFig21;
+
 	private: System::Windows::Forms::Button^  button24;
 	private: System::Windows::Forms::TextBox^  textBox50;
 	private: System::Windows::Forms::Label^  label46;
 	private: System::Windows::Forms::TextBox^  textBox51;
-	private: System::Windows::Forms::TextBox^  textBox52;
-	private: System::Windows::Forms::CheckBox^  checkBox17;
+private: System::Windows::Forms::TextBox^  textBoxLN24;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH24;
+
 	private: System::Windows::Forms::Label^  label47;
 	private: System::Windows::Forms::TextBox^  textBox53;
 	private: System::Windows::Forms::Label^  label48;
 	private: System::Windows::Forms::TextBox^  textBox54;
-	private: System::Windows::Forms::TextBox^  textBox55;
-	private: System::Windows::Forms::CheckBox^  checkBox18;
+private: System::Windows::Forms::TextBox^  textBoxLN23;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH23;
+
 	private: System::Windows::Forms::Label^  label49;
 	private: System::Windows::Forms::TextBox^  textBox56;
 	private: System::Windows::Forms::Label^  label50;
 	private: System::Windows::Forms::TextBox^  textBox57;
-	private: System::Windows::Forms::TextBox^  textBox58;
-	private: System::Windows::Forms::CheckBox^  checkBox19;
+private: System::Windows::Forms::TextBox^  textBoxLN22;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH22;
+
 	private: System::Windows::Forms::Label^  label51;
 	private: System::Windows::Forms::TextBox^  textBox59;
 	private: System::Windows::Forms::Label^  label52;
 	private: System::Windows::Forms::TextBox^  textBox60;
-	private: System::Windows::Forms::TextBox^  textBox61;
-	private: System::Windows::Forms::CheckBox^  checkBox20;
+private: System::Windows::Forms::TextBox^  textBoxLN21;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH21;
+
 	private: System::Windows::Forms::Label^  label53;
 	private: System::Windows::Forms::TextBox^  textBox62;
 	private: System::Windows::Forms::Label^  label54;
 	private: System::Windows::Forms::TextBox^  textBox63;
-	private: System::Windows::Forms::TextBox^  textBox64;
-	private: System::Windows::Forms::CheckBox^  checkBox21;
+private: System::Windows::Forms::TextBox^  textBoxLN12;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH12;
+
 	private: System::Windows::Forms::Label^  label55;
 	private: System::Windows::Forms::TextBox^  textBox65;
 	private: System::Windows::Forms::Label^  label56;
 	private: System::Windows::Forms::TextBox^  textBox66;
-	private: System::Windows::Forms::TextBox^  textBox67;
-	private: System::Windows::Forms::CheckBox^  checkBox22;
+private: System::Windows::Forms::TextBox^  textBoxLN11;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH11;
+
 	private: System::Windows::Forms::Label^  label57;
 	private: System::Windows::Forms::TextBox^  textBox68;
 	private: System::Windows::Forms::Label^  label58;
 	private: System::Windows::Forms::TextBox^  textBox69;
-	private: System::Windows::Forms::TextBox^  textBox70;
-	private: System::Windows::Forms::CheckBox^  checkBox23;
+private: System::Windows::Forms::TextBox^  textBoxLN10;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH10;
+
 	private: System::Windows::Forms::Label^  label59;
 	private: System::Windows::Forms::TextBox^  textBox71;
 	private: System::Windows::Forms::Label^  label60;
 	private: System::Windows::Forms::TextBox^  textBox72;
-	private: System::Windows::Forms::TextBox^  textBox73;
-	private: System::Windows::Forms::CheckBox^  checkBox24;
+private: System::Windows::Forms::TextBox^  textBoxLN9;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH9;
+
 	private: System::Windows::Forms::Label^  label61;
-	private: System::Windows::Forms::ComboBox^  comboBox2;
+private: System::Windows::Forms::ComboBox^  comboBoxFig8;
+
 	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::ComboBox^  comboBox4;
+private: System::Windows::Forms::ComboBox^  comboBoxFig7;
+
 	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::ComboBox^  comboBox5;
+private: System::Windows::Forms::ComboBox^  comboBoxFig6;
+
 	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::ComboBox^  comboBox6;
+private: System::Windows::Forms::ComboBox^  comboBoxFig5;
+
 	private: System::Windows::Forms::Button^  button4;
-	private: System::Windows::Forms::ComboBox^  comboBox7;
+private: System::Windows::Forms::ComboBox^  comboBoxFig4;
+
 	private: System::Windows::Forms::Button^  button5;
-	private: System::Windows::Forms::ComboBox^  comboBox8;
+private: System::Windows::Forms::ComboBox^  comboBoxFig3;
+
 	private: System::Windows::Forms::Button^  button6;
-	private: System::Windows::Forms::ComboBox^  comboBox9;
+private: System::Windows::Forms::ComboBox^  comboBoxFig2;
+
 	private: System::Windows::Forms::Button^  button7;
 	private: System::Windows::Forms::Label^  label8;
-	private: System::Windows::Forms::ComboBox^  comboBox10;
+private: System::Windows::Forms::ComboBox^  comboBoxFig1;
+
 	private: System::Windows::Forms::Label^  label10;
-	private: System::Windows::Forms::Button^  button8;
-	private: System::Windows::Forms::ComboBox^  comboBox11;
+private: System::Windows::Forms::Button^  buttonCol1;
+
+private: System::Windows::Forms::ComboBox^  comboBoxFig20;
+
+
 	private: System::Windows::Forms::Button^  button9;
-	private: System::Windows::Forms::ComboBox^  comboBox12;
+private: System::Windows::Forms::ComboBox^  comboBoxFig19;
+
 	private: System::Windows::Forms::Button^  button10;
-	private: System::Windows::Forms::ComboBox^  comboBox13;
+private: System::Windows::Forms::ComboBox^  comboBoxFig18;
+
 	private: System::Windows::Forms::Button^  button11;
-	private: System::Windows::Forms::ComboBox^  comboBox14;
+private: System::Windows::Forms::ComboBox^  comboBoxFig17;
+
 	private: System::Windows::Forms::Button^  button12;
-	private: System::Windows::Forms::ComboBox^  comboBox15;
+private: System::Windows::Forms::ComboBox^  comboBoxFig16;
+
 	private: System::Windows::Forms::Button^  button13;
-	private: System::Windows::Forms::ComboBox^  comboBox16;
+private: System::Windows::Forms::ComboBox^  comboBoxFig15;
+
 	private: System::Windows::Forms::Button^  button14;
-	private: System::Windows::Forms::ComboBox^  comboBox17;
+private: System::Windows::Forms::ComboBox^  comboBoxFig14;
+
 	private: System::Windows::Forms::Button^  button15;
 	private: System::Windows::Forms::Label^  label39;
-	private: System::Windows::Forms::ComboBox^  comboBox18;
+private: System::Windows::Forms::ComboBox^  comboBoxFig13;
+
 	private: System::Windows::Forms::Label^  label40;
 	private: System::Windows::Forms::Button^  button16;
 	private: System::Windows::Forms::TextBox^  textBox26;
 	private: System::Windows::Forms::Label^  label25;
 	private: System::Windows::Forms::TextBox^  textBox27;
-	private: System::Windows::Forms::TextBox^  textBox28;
-	private: System::Windows::Forms::CheckBox^  checkBox9;
+private: System::Windows::Forms::TextBox^  textBoxLN20;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH20;
+
 	private: System::Windows::Forms::Label^  label26;
 	private: System::Windows::Forms::TextBox^  textBox29;
 	private: System::Windows::Forms::Label^  label27;
 	private: System::Windows::Forms::TextBox^  textBox30;
-	private: System::Windows::Forms::TextBox^  textBox31;
-	private: System::Windows::Forms::CheckBox^  checkBox10;
+private: System::Windows::Forms::TextBox^  textBoxLN19;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH19;
+
 	private: System::Windows::Forms::Label^  label28;
 	private: System::Windows::Forms::TextBox^  textBox32;
 	private: System::Windows::Forms::Label^  label29;
 	private: System::Windows::Forms::TextBox^  textBox33;
-	private: System::Windows::Forms::TextBox^  textBox34;
-	private: System::Windows::Forms::CheckBox^  checkBox11;
+private: System::Windows::Forms::TextBox^  textBoxLN18;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH18;
+
 	private: System::Windows::Forms::Label^  label30;
 	private: System::Windows::Forms::TextBox^  textBox35;
 	private: System::Windows::Forms::Label^  label31;
 	private: System::Windows::Forms::TextBox^  textBox36;
-	private: System::Windows::Forms::TextBox^  textBox37;
-	private: System::Windows::Forms::CheckBox^  checkBox12;
+private: System::Windows::Forms::TextBox^  textBoxLN17;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH17;
+
 	private: System::Windows::Forms::Label^  label32;
 	private: System::Windows::Forms::TextBox^  textBox38;
 	private: System::Windows::Forms::Label^  label33;
 	private: System::Windows::Forms::TextBox^  textBox39;
-	private: System::Windows::Forms::TextBox^  textBox40;
-	private: System::Windows::Forms::CheckBox^  checkBox13;
+private: System::Windows::Forms::TextBox^  textBoxLN16;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH16;
+
+
 	private: System::Windows::Forms::Label^  label34;
 	private: System::Windows::Forms::TextBox^  textBox41;
 	private: System::Windows::Forms::Label^  label35;
 	private: System::Windows::Forms::TextBox^  textBox42;
-	private: System::Windows::Forms::TextBox^  textBox43;
-	private: System::Windows::Forms::CheckBox^  checkBox14;
+private: System::Windows::Forms::TextBox^  textBoxLN15;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH15;
+
 	private: System::Windows::Forms::Label^  label36;
 	private: System::Windows::Forms::TextBox^  textBox44;
 	private: System::Windows::Forms::Label^  label37;
 	private: System::Windows::Forms::TextBox^  textBox45;
-	private: System::Windows::Forms::TextBox^  textBox46;
-	private: System::Windows::Forms::CheckBox^  checkBox15;
+private: System::Windows::Forms::TextBox^  textBoxLN14;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH14;
+
 	private: System::Windows::Forms::Label^  label38;
 	private: System::Windows::Forms::TextBox^  textBox47;
 	private: System::Windows::Forms::Label^  label41;
 	private: System::Windows::Forms::TextBox^  textBox48;
 	private: System::Windows::Forms::Label^  label42;
-	private: System::Windows::Forms::TextBox^  textBox49;
+private: System::Windows::Forms::TextBox^  textBoxLN13;
+
 	private: System::Windows::Forms::Label^  label43;
-	private: System::Windows::Forms::CheckBox^  checkBox16;
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH13;
+
 	private: System::Windows::Forms::Label^  label44;
 	private: System::Windows::Forms::Label^  label45;
 	private: System::Windows::Forms::TextBox^  textBox14;
 	private: System::Windows::Forms::Label^  label17;
 	private: System::Windows::Forms::TextBox^  textBox15;
-	private: System::Windows::Forms::TextBox^  textBox16;
-	private: System::Windows::Forms::CheckBox^  checkBox5;
+private: System::Windows::Forms::TextBox^  textBoxLN8;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH8;
+
 	private: System::Windows::Forms::Label^  label18;
 	private: System::Windows::Forms::TextBox^  textBox17;
 	private: System::Windows::Forms::Label^  label19;
 	private: System::Windows::Forms::TextBox^  textBox18;
-	private: System::Windows::Forms::TextBox^  textBox19;
-	private: System::Windows::Forms::CheckBox^  checkBox6;
+private: System::Windows::Forms::TextBox^  textBoxLN7;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH7;
+
 	private: System::Windows::Forms::Label^  label20;
 	private: System::Windows::Forms::TextBox^  textBox20;
 	private: System::Windows::Forms::Label^  label21;
 	private: System::Windows::Forms::TextBox^  textBox21;
-	private: System::Windows::Forms::TextBox^  textBox22;
-	private: System::Windows::Forms::CheckBox^  checkBox7;
+private: System::Windows::Forms::TextBox^  textBoxLN6;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH6;
+
 	private: System::Windows::Forms::Label^  label22;
 	private: System::Windows::Forms::TextBox^  textBox23;
 	private: System::Windows::Forms::Label^  label23;
 	private: System::Windows::Forms::TextBox^  textBox24;
-	private: System::Windows::Forms::TextBox^  textBox25;
-	private: System::Windows::Forms::CheckBox^  checkBox8;
+private: System::Windows::Forms::TextBox^  textBoxLN5;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH5;
+
 	private: System::Windows::Forms::Label^  label24;
 	private: System::Windows::Forms::TextBox^  textBox8;
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::TextBox^  textBox9;
-	private: System::Windows::Forms::TextBox^  textBox10;
-	private: System::Windows::Forms::CheckBox^  checkBox3;
+private: System::Windows::Forms::TextBox^  textBoxLN4;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH4;
+
 	private: System::Windows::Forms::Label^  label14;
 	private: System::Windows::Forms::TextBox^  textBox11;
 	private: System::Windows::Forms::Label^  label15;
 	private: System::Windows::Forms::TextBox^  textBox12;
-	private: System::Windows::Forms::TextBox^  textBox13;
-	private: System::Windows::Forms::CheckBox^  checkBox4;
+private: System::Windows::Forms::TextBox^  textBoxLN3;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH3;
+
 	private: System::Windows::Forms::Label^  label16;
 	private: System::Windows::Forms::TextBox^  textBox5;
 	private: System::Windows::Forms::Label^  label9;
 	private: System::Windows::Forms::TextBox^  textBox6;
-	private: System::Windows::Forms::TextBox^  textBox7;
-	private: System::Windows::Forms::CheckBox^  checkBox2;
+private: System::Windows::Forms::TextBox^  textBoxLN2;
+
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH2;
+
 	private: System::Windows::Forms::Label^  label12;
 	private: System::Windows::Forms::TextBox^  textBox3;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::TextBox^  textBox2;
 	private: System::Windows::Forms::Label^  label6;
-	private: System::Windows::Forms::TextBox^  textBox1;
+private: System::Windows::Forms::TextBox^  textBoxLN1;
+
 	private: System::Windows::Forms::Label^  label5;
-	private: System::Windows::Forms::CheckBox^  checkBox1;
+private: System::Windows::Forms::CheckBox^  checkBoxEnCH1;
+
 	private: System::Windows::Forms::Label^  label3;
 	private: System::Windows::Forms::Label^  label4;
-private: System::Windows::Forms::Button^  button25;
-private: System::Windows::Forms::Button^  button26;
-private: System::Windows::Forms::Button^  button27;
-private: System::Windows::Forms::Button^  button28;
+private: System::Windows::Forms::Button^  buttonOk;
+
+private: System::Windows::Forms::Button^  buttonApply;
+private: System::Windows::Forms::Button^  buttonCancel;
+private: System::Windows::Forms::Button^  buttonLoad;
+
+
+
+
 private: System::Windows::Forms::Label^  label63;
 
 	private:
@@ -364,24 +443,18 @@ private: System::Windows::Forms::Label^  label63;
 			this->checkBox36 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox35 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox95 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox47 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox48 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox96 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox97 = (gcnew System::Windows::Forms::TextBox());
 			this->checkBox49 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox98 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox99 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox90 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox42 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox43 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox91 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox92 = (gcnew System::Windows::Forms::TextBox());
 			this->checkBox44 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox93 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox94 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox85 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox37 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox38 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox86 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox87 = (gcnew System::Windows::Forms::TextBox());
 			this->checkBox39 = (gcnew System::Windows::Forms::CheckBox());
@@ -389,8 +462,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox89 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox84 = (gcnew System::Windows::Forms::TextBox());
 			this->label72 = (gcnew System::Windows::Forms::Label());
-			this->checkBox33 = (gcnew System::Windows::Forms::CheckBox());
-			this->checkBox34 = (gcnew System::Windows::Forms::CheckBox());
 			this->textBox80 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox81 = (gcnew System::Windows::Forms::TextBox());
 			this->label70 = (gcnew System::Windows::Forms::Label());
@@ -410,224 +481,224 @@ private: System::Windows::Forms::Label^  label63;
 			this->checkBox31 = (gcnew System::Windows::Forms::CheckBox());
 			this->label71 = (gcnew System::Windows::Forms::Label());
 			this->label69 = (gcnew System::Windows::Forms::Label());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxLNT = (gcnew System::Windows::Forms::TextBox());
 			this->textBox82 = (gcnew System::Windows::Forms::TextBox());
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->textBox83 = (gcnew System::Windows::Forms::TextBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxUn = (gcnew System::Windows::Forms::ComboBox());
 			this->comboBox27 = (gcnew System::Windows::Forms::ComboBox());
 			this->checkBox26 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox27 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox25 = (gcnew System::Windows::Forms::CheckBox());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->comboBox19 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig12 = (gcnew System::Windows::Forms::ComboBox());
 			this->button17 = (gcnew System::Windows::Forms::Button());
-			this->comboBox20 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig11 = (gcnew System::Windows::Forms::ComboBox());
 			this->button18 = (gcnew System::Windows::Forms::Button());
-			this->comboBox21 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig10 = (gcnew System::Windows::Forms::ComboBox());
 			this->button19 = (gcnew System::Windows::Forms::Button());
-			this->comboBox22 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig9 = (gcnew System::Windows::Forms::ComboBox());
 			this->button20 = (gcnew System::Windows::Forms::Button());
-			this->comboBox23 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig24 = (gcnew System::Windows::Forms::ComboBox());
 			this->button21 = (gcnew System::Windows::Forms::Button());
-			this->comboBox24 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig23 = (gcnew System::Windows::Forms::ComboBox());
 			this->button22 = (gcnew System::Windows::Forms::Button());
-			this->comboBox25 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig22 = (gcnew System::Windows::Forms::ComboBox());
 			this->button23 = (gcnew System::Windows::Forms::Button());
-			this->comboBox26 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig21 = (gcnew System::Windows::Forms::ComboBox());
 			this->button24 = (gcnew System::Windows::Forms::Button());
 			this->textBox50 = (gcnew System::Windows::Forms::TextBox());
 			this->label46 = (gcnew System::Windows::Forms::Label());
 			this->textBox51 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox52 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox17 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN24 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH24 = (gcnew System::Windows::Forms::CheckBox());
 			this->label47 = (gcnew System::Windows::Forms::Label());
 			this->textBox53 = (gcnew System::Windows::Forms::TextBox());
 			this->label48 = (gcnew System::Windows::Forms::Label());
 			this->textBox54 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox55 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox18 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN23 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH23 = (gcnew System::Windows::Forms::CheckBox());
 			this->label49 = (gcnew System::Windows::Forms::Label());
 			this->textBox56 = (gcnew System::Windows::Forms::TextBox());
 			this->label50 = (gcnew System::Windows::Forms::Label());
 			this->textBox57 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox58 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox19 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN22 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH22 = (gcnew System::Windows::Forms::CheckBox());
 			this->label51 = (gcnew System::Windows::Forms::Label());
 			this->textBox59 = (gcnew System::Windows::Forms::TextBox());
 			this->label52 = (gcnew System::Windows::Forms::Label());
 			this->textBox60 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox61 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox20 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN21 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH21 = (gcnew System::Windows::Forms::CheckBox());
 			this->label53 = (gcnew System::Windows::Forms::Label());
 			this->textBox62 = (gcnew System::Windows::Forms::TextBox());
 			this->label54 = (gcnew System::Windows::Forms::Label());
 			this->textBox63 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox64 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox21 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN12 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH12 = (gcnew System::Windows::Forms::CheckBox());
 			this->label55 = (gcnew System::Windows::Forms::Label());
 			this->textBox65 = (gcnew System::Windows::Forms::TextBox());
 			this->label56 = (gcnew System::Windows::Forms::Label());
 			this->textBox66 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox67 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox22 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN11 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH11 = (gcnew System::Windows::Forms::CheckBox());
 			this->label57 = (gcnew System::Windows::Forms::Label());
 			this->textBox68 = (gcnew System::Windows::Forms::TextBox());
 			this->label58 = (gcnew System::Windows::Forms::Label());
 			this->textBox69 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox70 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox23 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN10 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH10 = (gcnew System::Windows::Forms::CheckBox());
 			this->label59 = (gcnew System::Windows::Forms::Label());
 			this->textBox71 = (gcnew System::Windows::Forms::TextBox());
 			this->label60 = (gcnew System::Windows::Forms::Label());
 			this->textBox72 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox73 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox24 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN9 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH9 = (gcnew System::Windows::Forms::CheckBox());
 			this->label61 = (gcnew System::Windows::Forms::Label());
-			this->comboBox2 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig8 = (gcnew System::Windows::Forms::ComboBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->comboBox4 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig7 = (gcnew System::Windows::Forms::ComboBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->comboBox5 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig6 = (gcnew System::Windows::Forms::ComboBox());
 			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->comboBox6 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig5 = (gcnew System::Windows::Forms::ComboBox());
 			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->comboBox7 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig4 = (gcnew System::Windows::Forms::ComboBox());
 			this->button5 = (gcnew System::Windows::Forms::Button());
-			this->comboBox8 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig3 = (gcnew System::Windows::Forms::ComboBox());
 			this->button6 = (gcnew System::Windows::Forms::Button());
-			this->comboBox9 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig2 = (gcnew System::Windows::Forms::ComboBox());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->comboBox10 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig1 = (gcnew System::Windows::Forms::ComboBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->button8 = (gcnew System::Windows::Forms::Button());
-			this->comboBox11 = (gcnew System::Windows::Forms::ComboBox());
+			this->buttonCol1 = (gcnew System::Windows::Forms::Button());
+			this->comboBoxFig20 = (gcnew System::Windows::Forms::ComboBox());
 			this->button9 = (gcnew System::Windows::Forms::Button());
-			this->comboBox12 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig19 = (gcnew System::Windows::Forms::ComboBox());
 			this->button10 = (gcnew System::Windows::Forms::Button());
-			this->comboBox13 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig18 = (gcnew System::Windows::Forms::ComboBox());
 			this->button11 = (gcnew System::Windows::Forms::Button());
-			this->comboBox14 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig17 = (gcnew System::Windows::Forms::ComboBox());
 			this->button12 = (gcnew System::Windows::Forms::Button());
-			this->comboBox15 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig16 = (gcnew System::Windows::Forms::ComboBox());
 			this->button13 = (gcnew System::Windows::Forms::Button());
-			this->comboBox16 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig15 = (gcnew System::Windows::Forms::ComboBox());
 			this->button14 = (gcnew System::Windows::Forms::Button());
-			this->comboBox17 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig14 = (gcnew System::Windows::Forms::ComboBox());
 			this->button15 = (gcnew System::Windows::Forms::Button());
 			this->label39 = (gcnew System::Windows::Forms::Label());
-			this->comboBox18 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxFig13 = (gcnew System::Windows::Forms::ComboBox());
 			this->label40 = (gcnew System::Windows::Forms::Label());
 			this->button16 = (gcnew System::Windows::Forms::Button());
 			this->textBox26 = (gcnew System::Windows::Forms::TextBox());
 			this->label25 = (gcnew System::Windows::Forms::Label());
 			this->textBox27 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox28 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox9 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN20 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH20 = (gcnew System::Windows::Forms::CheckBox());
 			this->label26 = (gcnew System::Windows::Forms::Label());
 			this->textBox29 = (gcnew System::Windows::Forms::TextBox());
 			this->label27 = (gcnew System::Windows::Forms::Label());
 			this->textBox30 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox31 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox10 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN19 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH19 = (gcnew System::Windows::Forms::CheckBox());
 			this->label28 = (gcnew System::Windows::Forms::Label());
 			this->textBox32 = (gcnew System::Windows::Forms::TextBox());
 			this->label29 = (gcnew System::Windows::Forms::Label());
 			this->textBox33 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox34 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox11 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN18 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH18 = (gcnew System::Windows::Forms::CheckBox());
 			this->label30 = (gcnew System::Windows::Forms::Label());
 			this->textBox35 = (gcnew System::Windows::Forms::TextBox());
 			this->label31 = (gcnew System::Windows::Forms::Label());
 			this->textBox36 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox37 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox12 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN17 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH17 = (gcnew System::Windows::Forms::CheckBox());
 			this->label32 = (gcnew System::Windows::Forms::Label());
 			this->textBox38 = (gcnew System::Windows::Forms::TextBox());
 			this->label33 = (gcnew System::Windows::Forms::Label());
 			this->textBox39 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox40 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox13 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN16 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH16 = (gcnew System::Windows::Forms::CheckBox());
 			this->label34 = (gcnew System::Windows::Forms::Label());
 			this->textBox41 = (gcnew System::Windows::Forms::TextBox());
 			this->label35 = (gcnew System::Windows::Forms::Label());
 			this->textBox42 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox43 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox14 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN15 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH15 = (gcnew System::Windows::Forms::CheckBox());
 			this->label36 = (gcnew System::Windows::Forms::Label());
 			this->textBox44 = (gcnew System::Windows::Forms::TextBox());
 			this->label37 = (gcnew System::Windows::Forms::Label());
 			this->textBox45 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox46 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox15 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN14 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH14 = (gcnew System::Windows::Forms::CheckBox());
 			this->label38 = (gcnew System::Windows::Forms::Label());
 			this->textBox47 = (gcnew System::Windows::Forms::TextBox());
 			this->label41 = (gcnew System::Windows::Forms::Label());
 			this->textBox48 = (gcnew System::Windows::Forms::TextBox());
 			this->label42 = (gcnew System::Windows::Forms::Label());
-			this->textBox49 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxLN13 = (gcnew System::Windows::Forms::TextBox());
 			this->label43 = (gcnew System::Windows::Forms::Label());
-			this->checkBox16 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBoxEnCH13 = (gcnew System::Windows::Forms::CheckBox());
 			this->label44 = (gcnew System::Windows::Forms::Label());
 			this->label45 = (gcnew System::Windows::Forms::Label());
 			this->textBox14 = (gcnew System::Windows::Forms::TextBox());
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->textBox15 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox16 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox5 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN8 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH8 = (gcnew System::Windows::Forms::CheckBox());
 			this->label18 = (gcnew System::Windows::Forms::Label());
 			this->textBox17 = (gcnew System::Windows::Forms::TextBox());
 			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->textBox18 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox19 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox6 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN7 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH7 = (gcnew System::Windows::Forms::CheckBox());
 			this->label20 = (gcnew System::Windows::Forms::Label());
 			this->textBox20 = (gcnew System::Windows::Forms::TextBox());
 			this->label21 = (gcnew System::Windows::Forms::Label());
 			this->textBox21 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox22 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox7 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN6 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH6 = (gcnew System::Windows::Forms::CheckBox());
 			this->label22 = (gcnew System::Windows::Forms::Label());
 			this->textBox23 = (gcnew System::Windows::Forms::TextBox());
 			this->label23 = (gcnew System::Windows::Forms::Label());
 			this->textBox24 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox25 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox8 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN5 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH5 = (gcnew System::Windows::Forms::CheckBox());
 			this->label24 = (gcnew System::Windows::Forms::Label());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN4 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH4 = (gcnew System::Windows::Forms::CheckBox());
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
 			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN3 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH3 = (gcnew System::Windows::Forms::CheckBox());
 			this->label16 = (gcnew System::Windows::Forms::Label());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
-			this->checkBox2 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBoxLN2 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBoxEnCH2 = (gcnew System::Windows::Forms::CheckBox());
 			this->label12 = (gcnew System::Windows::Forms::Label());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxLN1 = (gcnew System::Windows::Forms::TextBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBoxEnCH1 = (gcnew System::Windows::Forms::CheckBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->label4 = (gcnew System::Windows::Forms::Label());
-			this->button25 = (gcnew System::Windows::Forms::Button());
-			this->button26 = (gcnew System::Windows::Forms::Button());
-			this->button27 = (gcnew System::Windows::Forms::Button());
-			this->button28 = (gcnew System::Windows::Forms::Button());
+			this->buttonOk = (gcnew System::Windows::Forms::Button());
+			this->buttonApply = (gcnew System::Windows::Forms::Button());
+			this->buttonCancel = (gcnew System::Windows::Forms::Button());
+			this->buttonLoad = (gcnew System::Windows::Forms::Button());
 			this->label63 = (gcnew System::Windows::Forms::Label());
 			this->groupBox3->SuspendLayout();
 			this->groupBox1->SuspendLayout();
@@ -645,24 +716,18 @@ private: System::Windows::Forms::Label^  label63;
 			this->groupBox3->Controls->Add(this->checkBox36);
 			this->groupBox3->Controls->Add(this->checkBox35);
 			this->groupBox3->Controls->Add(this->textBox95);
-			this->groupBox3->Controls->Add(this->checkBox47);
-			this->groupBox3->Controls->Add(this->checkBox48);
 			this->groupBox3->Controls->Add(this->textBox96);
 			this->groupBox3->Controls->Add(this->textBox97);
 			this->groupBox3->Controls->Add(this->checkBox49);
 			this->groupBox3->Controls->Add(this->textBox98);
 			this->groupBox3->Controls->Add(this->textBox99);
 			this->groupBox3->Controls->Add(this->textBox90);
-			this->groupBox3->Controls->Add(this->checkBox42);
-			this->groupBox3->Controls->Add(this->checkBox43);
 			this->groupBox3->Controls->Add(this->textBox91);
 			this->groupBox3->Controls->Add(this->textBox92);
 			this->groupBox3->Controls->Add(this->checkBox44);
 			this->groupBox3->Controls->Add(this->textBox93);
 			this->groupBox3->Controls->Add(this->textBox94);
 			this->groupBox3->Controls->Add(this->textBox85);
-			this->groupBox3->Controls->Add(this->checkBox37);
-			this->groupBox3->Controls->Add(this->checkBox38);
 			this->groupBox3->Controls->Add(this->textBox86);
 			this->groupBox3->Controls->Add(this->textBox87);
 			this->groupBox3->Controls->Add(this->checkBox39);
@@ -670,8 +735,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->groupBox3->Controls->Add(this->textBox89);
 			this->groupBox3->Controls->Add(this->textBox84);
 			this->groupBox3->Controls->Add(this->label72);
-			this->groupBox3->Controls->Add(this->checkBox33);
-			this->groupBox3->Controls->Add(this->checkBox34);
 			this->groupBox3->Controls->Add(this->textBox80);
 			this->groupBox3->Controls->Add(this->textBox81);
 			this->groupBox3->Controls->Add(this->label70);
@@ -683,7 +746,7 @@ private: System::Windows::Forms::Label^  label63;
 			this->groupBox3->Controls->Add(this->textBox79);
 			this->groupBox3->Location = System::Drawing::Point(16, 456);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Size = System::Drawing::Size(816, 152);
+			this->groupBox3->Size = System::Drawing::Size(568, 152);
 			this->groupBox3->TabIndex = 316;
 			this->groupBox3->TabStop = false;
 			this->groupBox3->Text = L"Y axis";
@@ -775,26 +838,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox95->Size = System::Drawing::Size(120, 19);
 			this->textBox95->TabIndex = 338;
 			// 
-			// checkBox47
-			// 
-			this->checkBox47->AutoSize = true;
-			this->checkBox47->Location = System::Drawing::Point(704, 120);
-			this->checkBox47->Name = L"checkBox47";
-			this->checkBox47->Size = System::Drawing::Size(105, 16);
-			this->checkBox47->TabIndex = 344;
-			this->checkBox47->Text = L"show minor grid";
-			this->checkBox47->UseVisualStyleBackColor = true;
-			// 
-			// checkBox48
-			// 
-			this->checkBox48->AutoSize = true;
-			this->checkBox48->Location = System::Drawing::Point(584, 120);
-			this->checkBox48->Name = L"checkBox48";
-			this->checkBox48->Size = System::Drawing::Size(105, 16);
-			this->checkBox48->TabIndex = 343;
-			this->checkBox48->Text = L"show major grid";
-			this->checkBox48->UseVisualStyleBackColor = true;
-			// 
 			// textBox96
 			// 
 			this->textBox96->Location = System::Drawing::Point(520, 120);
@@ -840,26 +883,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox90->Size = System::Drawing::Size(120, 19);
 			this->textBox90->TabIndex = 330;
 			// 
-			// checkBox42
-			// 
-			this->checkBox42->AutoSize = true;
-			this->checkBox42->Location = System::Drawing::Point(704, 96);
-			this->checkBox42->Name = L"checkBox42";
-			this->checkBox42->Size = System::Drawing::Size(105, 16);
-			this->checkBox42->TabIndex = 336;
-			this->checkBox42->Text = L"show minor grid";
-			this->checkBox42->UseVisualStyleBackColor = true;
-			// 
-			// checkBox43
-			// 
-			this->checkBox43->AutoSize = true;
-			this->checkBox43->Location = System::Drawing::Point(584, 96);
-			this->checkBox43->Name = L"checkBox43";
-			this->checkBox43->Size = System::Drawing::Size(105, 16);
-			this->checkBox43->TabIndex = 335;
-			this->checkBox43->Text = L"show major grid";
-			this->checkBox43->UseVisualStyleBackColor = true;
-			// 
 			// textBox91
 			// 
 			this->textBox91->Location = System::Drawing::Point(520, 96);
@@ -904,26 +927,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox85->Name = L"textBox85";
 			this->textBox85->Size = System::Drawing::Size(120, 19);
 			this->textBox85->TabIndex = 322;
-			// 
-			// checkBox37
-			// 
-			this->checkBox37->AutoSize = true;
-			this->checkBox37->Location = System::Drawing::Point(704, 72);
-			this->checkBox37->Name = L"checkBox37";
-			this->checkBox37->Size = System::Drawing::Size(105, 16);
-			this->checkBox37->TabIndex = 328;
-			this->checkBox37->Text = L"show minor grid";
-			this->checkBox37->UseVisualStyleBackColor = true;
-			// 
-			// checkBox38
-			// 
-			this->checkBox38->AutoSize = true;
-			this->checkBox38->Location = System::Drawing::Point(584, 72);
-			this->checkBox38->Name = L"checkBox38";
-			this->checkBox38->Size = System::Drawing::Size(105, 16);
-			this->checkBox38->TabIndex = 327;
-			this->checkBox38->Text = L"show major grid";
-			this->checkBox38->UseVisualStyleBackColor = true;
 			// 
 			// textBox86
 			// 
@@ -978,26 +981,6 @@ private: System::Windows::Forms::Label^  label63;
 			this->label72->Size = System::Drawing::Size(58, 12);
 			this->label72->TabIndex = 310;
 			this->label72->Text = L"figure title";
-			// 
-			// checkBox33
-			// 
-			this->checkBox33->AutoSize = true;
-			this->checkBox33->Location = System::Drawing::Point(704, 48);
-			this->checkBox33->Name = L"checkBox33";
-			this->checkBox33->Size = System::Drawing::Size(105, 16);
-			this->checkBox33->TabIndex = 320;
-			this->checkBox33->Text = L"show minor grid";
-			this->checkBox33->UseVisualStyleBackColor = true;
-			// 
-			// checkBox34
-			// 
-			this->checkBox34->AutoSize = true;
-			this->checkBox34->Location = System::Drawing::Point(584, 48);
-			this->checkBox34->Name = L"checkBox34";
-			this->checkBox34->Size = System::Drawing::Size(105, 16);
-			this->checkBox34->TabIndex = 319;
-			this->checkBox34->Text = L"show major grid";
-			this->checkBox34->UseVisualStyleBackColor = true;
 			// 
 			// textBox80
 			// 
@@ -1079,21 +1062,19 @@ private: System::Windows::Forms::Label^  label63;
 			this->groupBox1->Controls->Add(this->textBox76);
 			this->groupBox1->Controls->Add(this->textBox77);
 			this->groupBox1->Controls->Add(this->label62);
-			this->groupBox1->Controls->Add(this->checkBox32);
-			this->groupBox1->Controls->Add(this->checkBox30);
 			this->groupBox1->Controls->Add(this->checkBox31);
 			this->groupBox1->Controls->Add(this->label71);
 			this->groupBox1->Controls->Add(this->label69);
-			this->groupBox1->Controls->Add(this->textBox4);
+			this->groupBox1->Controls->Add(this->textBoxLNT);
 			this->groupBox1->Controls->Add(this->textBox82);
 			this->groupBox1->Controls->Add(this->label11);
 			this->groupBox1->Controls->Add(this->textBox83);
 			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->label1);
-			this->groupBox1->Controls->Add(this->comboBox1);
+			this->groupBox1->Controls->Add(this->comboBoxUn);
 			this->groupBox1->Location = System::Drawing::Point(16, 368);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(816, 80);
+			this->groupBox1->Size = System::Drawing::Size(568, 80);
 			this->groupBox1->TabIndex = 315;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"X axis";
@@ -1133,7 +1114,7 @@ private: System::Windows::Forms::Label^  label63;
 			// checkBox32
 			// 
 			this->checkBox32->AutoSize = true;
-			this->checkBox32->Location = System::Drawing::Point(704, 48);
+			this->checkBox32->Location = System::Drawing::Point(616, 512);
 			this->checkBox32->Name = L"checkBox32";
 			this->checkBox32->Size = System::Drawing::Size(105, 16);
 			this->checkBox32->TabIndex = 260;
@@ -1143,7 +1124,7 @@ private: System::Windows::Forms::Label^  label63;
 			// checkBox30
 			// 
 			this->checkBox30->AutoSize = true;
-			this->checkBox30->Location = System::Drawing::Point(584, 48);
+			this->checkBox30->Location = System::Drawing::Point(616, 488);
 			this->checkBox30->Name = L"checkBox30";
 			this->checkBox30->Size = System::Drawing::Size(105, 16);
 			this->checkBox30->TabIndex = 259;
@@ -1178,12 +1159,12 @@ private: System::Windows::Forms::Label^  label63;
 			this->label69->TabIndex = 250;
 			this->label69->Text = L"xtics";
 			// 
-			// textBox4
+			// textBoxLNT
 			// 
-			this->textBox4->Location = System::Drawing::Point(64, 48);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(120, 19);
-			this->textBox4->TabIndex = 20;
+			this->textBoxLNT->Location = System::Drawing::Point(64, 48);
+			this->textBoxLNT->Name = L"textBoxLNT";
+			this->textBoxLNT->Size = System::Drawing::Size(120, 19);
+			this->textBoxLNT->TabIndex = 20;
 			// 
 			// textBox82
 			// 
@@ -1226,18 +1207,18 @@ private: System::Windows::Forms::Label^  label63;
 			this->label1->TabIndex = 3;
 			this->label1->Text = L"Time";
 			// 
-			// comboBox1
+			// comboBoxUn
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(200, 48);
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(48, 20);
-			this->comboBox1->TabIndex = 4;
+			this->comboBoxUn->FormattingEnabled = true;
+			this->comboBoxUn->Location = System::Drawing::Point(200, 48);
+			this->comboBoxUn->Name = L"comboBoxUn";
+			this->comboBoxUn->Size = System::Drawing::Size(48, 20);
+			this->comboBoxUn->TabIndex = 4;
 			// 
 			// comboBox27
 			// 
 			this->comboBox27->FormattingEnabled = true;
-			this->comboBox27->Location = System::Drawing::Point(416, 624);
+			this->comboBox27->Location = System::Drawing::Point(648, 464);
 			this->comboBox27->Name = L"comboBox27";
 			this->comboBox27->Size = System::Drawing::Size(40, 20);
 			this->comboBox27->TabIndex = 313;
@@ -1245,7 +1226,7 @@ private: System::Windows::Forms::Label^  label63;
 			// checkBox26
 			// 
 			this->checkBox26->AutoSize = true;
-			this->checkBox26->Location = System::Drawing::Point(216, 624);
+			this->checkBox26->Location = System::Drawing::Point(616, 416);
 			this->checkBox26->Name = L"checkBox26";
 			this->checkBox26->Size = System::Drawing::Size(79, 16);
 			this->checkBox26->TabIndex = 314;
@@ -1255,7 +1236,7 @@ private: System::Windows::Forms::Label^  label63;
 			// checkBox27
 			// 
 			this->checkBox27->AutoSize = true;
-			this->checkBox27->Location = System::Drawing::Point(328, 624);
+			this->checkBox27->Location = System::Drawing::Point(616, 440);
 			this->checkBox27->Name = L"checkBox27";
 			this->checkBox27->Size = System::Drawing::Size(81, 16);
 			this->checkBox27->TabIndex = 311;
@@ -1265,7 +1246,7 @@ private: System::Windows::Forms::Label^  label63;
 			// checkBox25
 			// 
 			this->checkBox25->AutoSize = true;
-			this->checkBox25->Location = System::Drawing::Point(32, 624);
+			this->checkBox25->Location = System::Drawing::Point(616, 392);
 			this->checkBox25->Name = L"checkBox25";
 			this->checkBox25->Size = System::Drawing::Size(132, 16);
 			this->checkBox25->TabIndex = 312;
@@ -1274,206 +1255,206 @@ private: System::Windows::Forms::Label^  label63;
 			// 
 			// groupBox2
 			// 
-			this->groupBox2->Controls->Add(this->comboBox19);
+			this->groupBox2->Controls->Add(this->comboBoxFig12);
 			this->groupBox2->Controls->Add(this->button17);
-			this->groupBox2->Controls->Add(this->comboBox20);
+			this->groupBox2->Controls->Add(this->comboBoxFig11);
 			this->groupBox2->Controls->Add(this->button18);
-			this->groupBox2->Controls->Add(this->comboBox21);
+			this->groupBox2->Controls->Add(this->comboBoxFig10);
 			this->groupBox2->Controls->Add(this->button19);
-			this->groupBox2->Controls->Add(this->comboBox22);
+			this->groupBox2->Controls->Add(this->comboBoxFig9);
 			this->groupBox2->Controls->Add(this->button20);
-			this->groupBox2->Controls->Add(this->comboBox23);
+			this->groupBox2->Controls->Add(this->comboBoxFig24);
 			this->groupBox2->Controls->Add(this->button21);
-			this->groupBox2->Controls->Add(this->comboBox24);
+			this->groupBox2->Controls->Add(this->comboBoxFig23);
 			this->groupBox2->Controls->Add(this->button22);
-			this->groupBox2->Controls->Add(this->comboBox25);
+			this->groupBox2->Controls->Add(this->comboBoxFig22);
 			this->groupBox2->Controls->Add(this->button23);
-			this->groupBox2->Controls->Add(this->comboBox26);
+			this->groupBox2->Controls->Add(this->comboBoxFig21);
 			this->groupBox2->Controls->Add(this->button24);
 			this->groupBox2->Controls->Add(this->textBox50);
 			this->groupBox2->Controls->Add(this->label46);
 			this->groupBox2->Controls->Add(this->textBox51);
-			this->groupBox2->Controls->Add(this->textBox52);
-			this->groupBox2->Controls->Add(this->checkBox17);
+			this->groupBox2->Controls->Add(this->textBoxLN24);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH24);
 			this->groupBox2->Controls->Add(this->label47);
 			this->groupBox2->Controls->Add(this->textBox53);
 			this->groupBox2->Controls->Add(this->label48);
 			this->groupBox2->Controls->Add(this->textBox54);
-			this->groupBox2->Controls->Add(this->textBox55);
-			this->groupBox2->Controls->Add(this->checkBox18);
+			this->groupBox2->Controls->Add(this->textBoxLN23);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH23);
 			this->groupBox2->Controls->Add(this->label49);
 			this->groupBox2->Controls->Add(this->textBox56);
 			this->groupBox2->Controls->Add(this->label50);
 			this->groupBox2->Controls->Add(this->textBox57);
-			this->groupBox2->Controls->Add(this->textBox58);
-			this->groupBox2->Controls->Add(this->checkBox19);
+			this->groupBox2->Controls->Add(this->textBoxLN22);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH22);
 			this->groupBox2->Controls->Add(this->label51);
 			this->groupBox2->Controls->Add(this->textBox59);
 			this->groupBox2->Controls->Add(this->label52);
 			this->groupBox2->Controls->Add(this->textBox60);
-			this->groupBox2->Controls->Add(this->textBox61);
-			this->groupBox2->Controls->Add(this->checkBox20);
+			this->groupBox2->Controls->Add(this->textBoxLN21);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH21);
 			this->groupBox2->Controls->Add(this->label53);
 			this->groupBox2->Controls->Add(this->textBox62);
 			this->groupBox2->Controls->Add(this->label54);
 			this->groupBox2->Controls->Add(this->textBox63);
-			this->groupBox2->Controls->Add(this->textBox64);
-			this->groupBox2->Controls->Add(this->checkBox21);
+			this->groupBox2->Controls->Add(this->textBoxLN12);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH12);
 			this->groupBox2->Controls->Add(this->label55);
 			this->groupBox2->Controls->Add(this->textBox65);
 			this->groupBox2->Controls->Add(this->label56);
 			this->groupBox2->Controls->Add(this->textBox66);
-			this->groupBox2->Controls->Add(this->textBox67);
-			this->groupBox2->Controls->Add(this->checkBox22);
+			this->groupBox2->Controls->Add(this->textBoxLN11);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH11);
 			this->groupBox2->Controls->Add(this->label57);
 			this->groupBox2->Controls->Add(this->textBox68);
 			this->groupBox2->Controls->Add(this->label58);
 			this->groupBox2->Controls->Add(this->textBox69);
-			this->groupBox2->Controls->Add(this->textBox70);
-			this->groupBox2->Controls->Add(this->checkBox23);
+			this->groupBox2->Controls->Add(this->textBoxLN10);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH10);
 			this->groupBox2->Controls->Add(this->label59);
 			this->groupBox2->Controls->Add(this->textBox71);
 			this->groupBox2->Controls->Add(this->label60);
 			this->groupBox2->Controls->Add(this->textBox72);
-			this->groupBox2->Controls->Add(this->textBox73);
-			this->groupBox2->Controls->Add(this->checkBox24);
+			this->groupBox2->Controls->Add(this->textBoxLN9);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH9);
 			this->groupBox2->Controls->Add(this->label61);
-			this->groupBox2->Controls->Add(this->comboBox2);
+			this->groupBox2->Controls->Add(this->comboBoxFig8);
 			this->groupBox2->Controls->Add(this->button1);
-			this->groupBox2->Controls->Add(this->comboBox4);
+			this->groupBox2->Controls->Add(this->comboBoxFig7);
 			this->groupBox2->Controls->Add(this->button2);
-			this->groupBox2->Controls->Add(this->comboBox5);
+			this->groupBox2->Controls->Add(this->comboBoxFig6);
 			this->groupBox2->Controls->Add(this->button3);
-			this->groupBox2->Controls->Add(this->comboBox6);
+			this->groupBox2->Controls->Add(this->comboBoxFig5);
 			this->groupBox2->Controls->Add(this->button4);
-			this->groupBox2->Controls->Add(this->comboBox7);
+			this->groupBox2->Controls->Add(this->comboBoxFig4);
 			this->groupBox2->Controls->Add(this->button5);
-			this->groupBox2->Controls->Add(this->comboBox8);
+			this->groupBox2->Controls->Add(this->comboBoxFig3);
 			this->groupBox2->Controls->Add(this->button6);
-			this->groupBox2->Controls->Add(this->comboBox9);
+			this->groupBox2->Controls->Add(this->comboBoxFig2);
 			this->groupBox2->Controls->Add(this->button7);
 			this->groupBox2->Controls->Add(this->label8);
-			this->groupBox2->Controls->Add(this->comboBox10);
+			this->groupBox2->Controls->Add(this->comboBoxFig1);
 			this->groupBox2->Controls->Add(this->label10);
-			this->groupBox2->Controls->Add(this->button8);
-			this->groupBox2->Controls->Add(this->comboBox11);
+			this->groupBox2->Controls->Add(this->buttonCol1);
+			this->groupBox2->Controls->Add(this->comboBoxFig20);
 			this->groupBox2->Controls->Add(this->button9);
-			this->groupBox2->Controls->Add(this->comboBox12);
+			this->groupBox2->Controls->Add(this->comboBoxFig19);
 			this->groupBox2->Controls->Add(this->button10);
-			this->groupBox2->Controls->Add(this->comboBox13);
+			this->groupBox2->Controls->Add(this->comboBoxFig18);
 			this->groupBox2->Controls->Add(this->button11);
-			this->groupBox2->Controls->Add(this->comboBox14);
+			this->groupBox2->Controls->Add(this->comboBoxFig17);
 			this->groupBox2->Controls->Add(this->button12);
-			this->groupBox2->Controls->Add(this->comboBox15);
+			this->groupBox2->Controls->Add(this->comboBoxFig16);
 			this->groupBox2->Controls->Add(this->button13);
-			this->groupBox2->Controls->Add(this->comboBox16);
+			this->groupBox2->Controls->Add(this->comboBoxFig15);
 			this->groupBox2->Controls->Add(this->button14);
-			this->groupBox2->Controls->Add(this->comboBox17);
+			this->groupBox2->Controls->Add(this->comboBoxFig14);
 			this->groupBox2->Controls->Add(this->button15);
 			this->groupBox2->Controls->Add(this->label39);
-			this->groupBox2->Controls->Add(this->comboBox18);
+			this->groupBox2->Controls->Add(this->comboBoxFig13);
 			this->groupBox2->Controls->Add(this->label40);
 			this->groupBox2->Controls->Add(this->button16);
 			this->groupBox2->Controls->Add(this->textBox26);
 			this->groupBox2->Controls->Add(this->label25);
 			this->groupBox2->Controls->Add(this->textBox27);
-			this->groupBox2->Controls->Add(this->textBox28);
-			this->groupBox2->Controls->Add(this->checkBox9);
+			this->groupBox2->Controls->Add(this->textBoxLN20);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH20);
 			this->groupBox2->Controls->Add(this->label26);
 			this->groupBox2->Controls->Add(this->textBox29);
 			this->groupBox2->Controls->Add(this->label27);
 			this->groupBox2->Controls->Add(this->textBox30);
-			this->groupBox2->Controls->Add(this->textBox31);
-			this->groupBox2->Controls->Add(this->checkBox10);
+			this->groupBox2->Controls->Add(this->textBoxLN19);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH19);
 			this->groupBox2->Controls->Add(this->label28);
 			this->groupBox2->Controls->Add(this->textBox32);
 			this->groupBox2->Controls->Add(this->label29);
 			this->groupBox2->Controls->Add(this->textBox33);
-			this->groupBox2->Controls->Add(this->textBox34);
-			this->groupBox2->Controls->Add(this->checkBox11);
+			this->groupBox2->Controls->Add(this->textBoxLN18);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH18);
 			this->groupBox2->Controls->Add(this->label30);
 			this->groupBox2->Controls->Add(this->textBox35);
 			this->groupBox2->Controls->Add(this->label31);
 			this->groupBox2->Controls->Add(this->textBox36);
-			this->groupBox2->Controls->Add(this->textBox37);
-			this->groupBox2->Controls->Add(this->checkBox12);
+			this->groupBox2->Controls->Add(this->textBoxLN17);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH17);
 			this->groupBox2->Controls->Add(this->label32);
 			this->groupBox2->Controls->Add(this->textBox38);
 			this->groupBox2->Controls->Add(this->label33);
 			this->groupBox2->Controls->Add(this->textBox39);
-			this->groupBox2->Controls->Add(this->textBox40);
-			this->groupBox2->Controls->Add(this->checkBox13);
+			this->groupBox2->Controls->Add(this->textBoxLN16);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH16);
 			this->groupBox2->Controls->Add(this->label34);
 			this->groupBox2->Controls->Add(this->textBox41);
 			this->groupBox2->Controls->Add(this->label35);
 			this->groupBox2->Controls->Add(this->textBox42);
-			this->groupBox2->Controls->Add(this->textBox43);
-			this->groupBox2->Controls->Add(this->checkBox14);
+			this->groupBox2->Controls->Add(this->textBoxLN15);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH15);
 			this->groupBox2->Controls->Add(this->label36);
 			this->groupBox2->Controls->Add(this->textBox44);
 			this->groupBox2->Controls->Add(this->label37);
 			this->groupBox2->Controls->Add(this->textBox45);
-			this->groupBox2->Controls->Add(this->textBox46);
-			this->groupBox2->Controls->Add(this->checkBox15);
+			this->groupBox2->Controls->Add(this->textBoxLN14);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH14);
 			this->groupBox2->Controls->Add(this->label38);
 			this->groupBox2->Controls->Add(this->textBox47);
 			this->groupBox2->Controls->Add(this->label41);
 			this->groupBox2->Controls->Add(this->textBox48);
 			this->groupBox2->Controls->Add(this->label42);
-			this->groupBox2->Controls->Add(this->textBox49);
+			this->groupBox2->Controls->Add(this->textBoxLN13);
 			this->groupBox2->Controls->Add(this->label43);
-			this->groupBox2->Controls->Add(this->checkBox16);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH13);
 			this->groupBox2->Controls->Add(this->label44);
 			this->groupBox2->Controls->Add(this->label45);
 			this->groupBox2->Controls->Add(this->textBox14);
 			this->groupBox2->Controls->Add(this->label17);
 			this->groupBox2->Controls->Add(this->textBox15);
-			this->groupBox2->Controls->Add(this->textBox16);
-			this->groupBox2->Controls->Add(this->checkBox5);
+			this->groupBox2->Controls->Add(this->textBoxLN8);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH8);
 			this->groupBox2->Controls->Add(this->label18);
 			this->groupBox2->Controls->Add(this->textBox17);
 			this->groupBox2->Controls->Add(this->label19);
 			this->groupBox2->Controls->Add(this->textBox18);
-			this->groupBox2->Controls->Add(this->textBox19);
-			this->groupBox2->Controls->Add(this->checkBox6);
+			this->groupBox2->Controls->Add(this->textBoxLN7);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH7);
 			this->groupBox2->Controls->Add(this->label20);
 			this->groupBox2->Controls->Add(this->textBox20);
 			this->groupBox2->Controls->Add(this->label21);
 			this->groupBox2->Controls->Add(this->textBox21);
-			this->groupBox2->Controls->Add(this->textBox22);
-			this->groupBox2->Controls->Add(this->checkBox7);
+			this->groupBox2->Controls->Add(this->textBoxLN6);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH6);
 			this->groupBox2->Controls->Add(this->label22);
 			this->groupBox2->Controls->Add(this->textBox23);
 			this->groupBox2->Controls->Add(this->label23);
 			this->groupBox2->Controls->Add(this->textBox24);
-			this->groupBox2->Controls->Add(this->textBox25);
-			this->groupBox2->Controls->Add(this->checkBox8);
+			this->groupBox2->Controls->Add(this->textBoxLN5);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH5);
 			this->groupBox2->Controls->Add(this->label24);
 			this->groupBox2->Controls->Add(this->textBox8);
 			this->groupBox2->Controls->Add(this->label13);
 			this->groupBox2->Controls->Add(this->textBox9);
-			this->groupBox2->Controls->Add(this->textBox10);
-			this->groupBox2->Controls->Add(this->checkBox3);
+			this->groupBox2->Controls->Add(this->textBoxLN4);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH4);
 			this->groupBox2->Controls->Add(this->label14);
 			this->groupBox2->Controls->Add(this->textBox11);
 			this->groupBox2->Controls->Add(this->label15);
 			this->groupBox2->Controls->Add(this->textBox12);
-			this->groupBox2->Controls->Add(this->textBox13);
-			this->groupBox2->Controls->Add(this->checkBox4);
+			this->groupBox2->Controls->Add(this->textBoxLN3);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH3);
 			this->groupBox2->Controls->Add(this->label16);
 			this->groupBox2->Controls->Add(this->textBox5);
 			this->groupBox2->Controls->Add(this->label9);
 			this->groupBox2->Controls->Add(this->textBox6);
-			this->groupBox2->Controls->Add(this->textBox7);
-			this->groupBox2->Controls->Add(this->checkBox2);
+			this->groupBox2->Controls->Add(this->textBoxLN2);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH2);
 			this->groupBox2->Controls->Add(this->label12);
 			this->groupBox2->Controls->Add(this->textBox3);
 			this->groupBox2->Controls->Add(this->label7);
 			this->groupBox2->Controls->Add(this->textBox2);
 			this->groupBox2->Controls->Add(this->label6);
-			this->groupBox2->Controls->Add(this->textBox1);
+			this->groupBox2->Controls->Add(this->textBoxLN1);
 			this->groupBox2->Controls->Add(this->label5);
-			this->groupBox2->Controls->Add(this->checkBox1);
+			this->groupBox2->Controls->Add(this->checkBoxEnCH1);
 			this->groupBox2->Controls->Add(this->label3);
 			this->groupBox2->Controls->Add(this->label4);
 			this->groupBox2->Location = System::Drawing::Point(16, 8);
@@ -1483,13 +1464,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Data set";
 			// 
-			// comboBox19
+			// comboBoxFig12
 			// 
-			this->comboBox19->FormattingEnabled = true;
-			this->comboBox19->Location = System::Drawing::Point(72, 312);
-			this->comboBox19->Name = L"comboBox19";
-			this->comboBox19->Size = System::Drawing::Size(40, 20);
-			this->comboBox19->TabIndex = 243;
+			this->comboBoxFig12->FormattingEnabled = true;
+			this->comboBoxFig12->Location = System::Drawing::Point(72, 312);
+			this->comboBoxFig12->Name = L"comboBoxFig12";
+			this->comboBoxFig12->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig12->TabIndex = 243;
 			// 
 			// button17
 			// 
@@ -1501,13 +1482,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button17->Text = L"■";
 			this->button17->UseVisualStyleBackColor = true;
 			// 
-			// comboBox20
+			// comboBoxFig11
 			// 
-			this->comboBox20->FormattingEnabled = true;
-			this->comboBox20->Location = System::Drawing::Point(72, 288);
-			this->comboBox20->Name = L"comboBox20";
-			this->comboBox20->Size = System::Drawing::Size(40, 20);
-			this->comboBox20->TabIndex = 241;
+			this->comboBoxFig11->FormattingEnabled = true;
+			this->comboBoxFig11->Location = System::Drawing::Point(72, 288);
+			this->comboBoxFig11->Name = L"comboBoxFig11";
+			this->comboBoxFig11->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig11->TabIndex = 241;
 			// 
 			// button18
 			// 
@@ -1519,13 +1500,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button18->Text = L"■";
 			this->button18->UseVisualStyleBackColor = true;
 			// 
-			// comboBox21
+			// comboBoxFig10
 			// 
-			this->comboBox21->FormattingEnabled = true;
-			this->comboBox21->Location = System::Drawing::Point(72, 264);
-			this->comboBox21->Name = L"comboBox21";
-			this->comboBox21->Size = System::Drawing::Size(40, 20);
-			this->comboBox21->TabIndex = 239;
+			this->comboBoxFig10->FormattingEnabled = true;
+			this->comboBoxFig10->Location = System::Drawing::Point(72, 264);
+			this->comboBoxFig10->Name = L"comboBoxFig10";
+			this->comboBoxFig10->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig10->TabIndex = 239;
 			// 
 			// button19
 			// 
@@ -1537,13 +1518,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button19->Text = L"■";
 			this->button19->UseVisualStyleBackColor = true;
 			// 
-			// comboBox22
+			// comboBoxFig9
 			// 
-			this->comboBox22->FormattingEnabled = true;
-			this->comboBox22->Location = System::Drawing::Point(72, 240);
-			this->comboBox22->Name = L"comboBox22";
-			this->comboBox22->Size = System::Drawing::Size(40, 20);
-			this->comboBox22->TabIndex = 237;
+			this->comboBoxFig9->FormattingEnabled = true;
+			this->comboBoxFig9->Location = System::Drawing::Point(72, 240);
+			this->comboBoxFig9->Name = L"comboBoxFig9";
+			this->comboBoxFig9->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig9->TabIndex = 237;
 			// 
 			// button20
 			// 
@@ -1555,13 +1536,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button20->Text = L"■";
 			this->button20->UseVisualStyleBackColor = true;
 			// 
-			// comboBox23
+			// comboBoxFig24
 			// 
-			this->comboBox23->FormattingEnabled = true;
-			this->comboBox23->Location = System::Drawing::Point(480, 312);
-			this->comboBox23->Name = L"comboBox23";
-			this->comboBox23->Size = System::Drawing::Size(40, 20);
-			this->comboBox23->TabIndex = 235;
+			this->comboBoxFig24->FormattingEnabled = true;
+			this->comboBoxFig24->Location = System::Drawing::Point(480, 312);
+			this->comboBoxFig24->Name = L"comboBoxFig24";
+			this->comboBoxFig24->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig24->TabIndex = 235;
 			// 
 			// button21
 			// 
@@ -1573,13 +1554,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button21->Text = L"■";
 			this->button21->UseVisualStyleBackColor = true;
 			// 
-			// comboBox24
+			// comboBoxFig23
 			// 
-			this->comboBox24->FormattingEnabled = true;
-			this->comboBox24->Location = System::Drawing::Point(480, 288);
-			this->comboBox24->Name = L"comboBox24";
-			this->comboBox24->Size = System::Drawing::Size(40, 20);
-			this->comboBox24->TabIndex = 233;
+			this->comboBoxFig23->FormattingEnabled = true;
+			this->comboBoxFig23->Location = System::Drawing::Point(480, 288);
+			this->comboBoxFig23->Name = L"comboBoxFig23";
+			this->comboBoxFig23->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig23->TabIndex = 233;
 			// 
 			// button22
 			// 
@@ -1591,13 +1572,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button22->Text = L"■";
 			this->button22->UseVisualStyleBackColor = true;
 			// 
-			// comboBox25
+			// comboBoxFig22
 			// 
-			this->comboBox25->FormattingEnabled = true;
-			this->comboBox25->Location = System::Drawing::Point(480, 264);
-			this->comboBox25->Name = L"comboBox25";
-			this->comboBox25->Size = System::Drawing::Size(40, 20);
-			this->comboBox25->TabIndex = 231;
+			this->comboBoxFig22->FormattingEnabled = true;
+			this->comboBoxFig22->Location = System::Drawing::Point(480, 264);
+			this->comboBoxFig22->Name = L"comboBoxFig22";
+			this->comboBoxFig22->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig22->TabIndex = 231;
 			// 
 			// button23
 			// 
@@ -1609,13 +1590,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button23->Text = L"■";
 			this->button23->UseVisualStyleBackColor = true;
 			// 
-			// comboBox26
+			// comboBoxFig21
 			// 
-			this->comboBox26->FormattingEnabled = true;
-			this->comboBox26->Location = System::Drawing::Point(480, 240);
-			this->comboBox26->Name = L"comboBox26";
-			this->comboBox26->Size = System::Drawing::Size(40, 20);
-			this->comboBox26->TabIndex = 229;
+			this->comboBoxFig21->FormattingEnabled = true;
+			this->comboBoxFig21->Location = System::Drawing::Point(480, 240);
+			this->comboBoxFig21->Name = L"comboBoxFig21";
+			this->comboBoxFig21->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig21->TabIndex = 229;
 			// 
 			// button24
 			// 
@@ -1650,22 +1631,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox51->Size = System::Drawing::Size(32, 19);
 			this->textBox51->TabIndex = 225;
 			// 
-			// textBox52
+			// textBoxLN24
 			// 
-			this->textBox52->Location = System::Drawing::Point(568, 312);
-			this->textBox52->Name = L"textBox52";
-			this->textBox52->Size = System::Drawing::Size(120, 19);
-			this->textBox52->TabIndex = 224;
+			this->textBoxLN24->Location = System::Drawing::Point(568, 312);
+			this->textBoxLN24->Name = L"textBoxLN24";
+			this->textBoxLN24->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN24->TabIndex = 224;
 			// 
-			// checkBox17
+			// checkBoxEnCH24
 			// 
-			this->checkBox17->AutoSize = true;
-			this->checkBox17->Location = System::Drawing::Point(424, 312);
-			this->checkBox17->Name = L"checkBox17";
-			this->checkBox17->Size = System::Drawing::Size(46, 16);
-			this->checkBox17->TabIndex = 223;
-			this->checkBox17->Text = L"CH1";
-			this->checkBox17->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH24->AutoSize = true;
+			this->checkBoxEnCH24->Location = System::Drawing::Point(424, 312);
+			this->checkBoxEnCH24->Name = L"checkBoxEnCH24";
+			this->checkBoxEnCH24->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH24->TabIndex = 223;
+			this->checkBoxEnCH24->Text = L"CH1";
+			this->checkBoxEnCH24->UseVisualStyleBackColor = true;
 			// 
 			// label47
 			// 
@@ -1699,22 +1680,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox54->Size = System::Drawing::Size(32, 19);
 			this->textBox54->TabIndex = 219;
 			// 
-			// textBox55
+			// textBoxLN23
 			// 
-			this->textBox55->Location = System::Drawing::Point(568, 288);
-			this->textBox55->Name = L"textBox55";
-			this->textBox55->Size = System::Drawing::Size(120, 19);
-			this->textBox55->TabIndex = 218;
+			this->textBoxLN23->Location = System::Drawing::Point(568, 288);
+			this->textBoxLN23->Name = L"textBoxLN23";
+			this->textBoxLN23->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN23->TabIndex = 218;
 			// 
-			// checkBox18
+			// checkBoxEnCH23
 			// 
-			this->checkBox18->AutoSize = true;
-			this->checkBox18->Location = System::Drawing::Point(424, 288);
-			this->checkBox18->Name = L"checkBox18";
-			this->checkBox18->Size = System::Drawing::Size(46, 16);
-			this->checkBox18->TabIndex = 217;
-			this->checkBox18->Text = L"CH1";
-			this->checkBox18->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH23->AutoSize = true;
+			this->checkBoxEnCH23->Location = System::Drawing::Point(424, 288);
+			this->checkBoxEnCH23->Name = L"checkBoxEnCH23";
+			this->checkBoxEnCH23->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH23->TabIndex = 217;
+			this->checkBoxEnCH23->Text = L"CH1";
+			this->checkBoxEnCH23->UseVisualStyleBackColor = true;
 			// 
 			// label49
 			// 
@@ -1748,22 +1729,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox57->Size = System::Drawing::Size(32, 19);
 			this->textBox57->TabIndex = 213;
 			// 
-			// textBox58
+			// textBoxLN22
 			// 
-			this->textBox58->Location = System::Drawing::Point(568, 264);
-			this->textBox58->Name = L"textBox58";
-			this->textBox58->Size = System::Drawing::Size(120, 19);
-			this->textBox58->TabIndex = 212;
+			this->textBoxLN22->Location = System::Drawing::Point(568, 264);
+			this->textBoxLN22->Name = L"textBoxLN22";
+			this->textBoxLN22->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN22->TabIndex = 212;
 			// 
-			// checkBox19
+			// checkBoxEnCH22
 			// 
-			this->checkBox19->AutoSize = true;
-			this->checkBox19->Location = System::Drawing::Point(424, 264);
-			this->checkBox19->Name = L"checkBox19";
-			this->checkBox19->Size = System::Drawing::Size(46, 16);
-			this->checkBox19->TabIndex = 211;
-			this->checkBox19->Text = L"CH1";
-			this->checkBox19->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH22->AutoSize = true;
+			this->checkBoxEnCH22->Location = System::Drawing::Point(424, 264);
+			this->checkBoxEnCH22->Name = L"checkBoxEnCH22";
+			this->checkBoxEnCH22->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH22->TabIndex = 211;
+			this->checkBoxEnCH22->Text = L"CH1";
+			this->checkBoxEnCH22->UseVisualStyleBackColor = true;
 			// 
 			// label51
 			// 
@@ -1797,22 +1778,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox60->Size = System::Drawing::Size(32, 19);
 			this->textBox60->TabIndex = 207;
 			// 
-			// textBox61
+			// textBoxLN21
 			// 
-			this->textBox61->Location = System::Drawing::Point(568, 240);
-			this->textBox61->Name = L"textBox61";
-			this->textBox61->Size = System::Drawing::Size(120, 19);
-			this->textBox61->TabIndex = 206;
+			this->textBoxLN21->Location = System::Drawing::Point(568, 240);
+			this->textBoxLN21->Name = L"textBoxLN21";
+			this->textBoxLN21->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN21->TabIndex = 206;
 			// 
-			// checkBox20
+			// checkBoxEnCH21
 			// 
-			this->checkBox20->AutoSize = true;
-			this->checkBox20->Location = System::Drawing::Point(424, 240);
-			this->checkBox20->Name = L"checkBox20";
-			this->checkBox20->Size = System::Drawing::Size(46, 16);
-			this->checkBox20->TabIndex = 205;
-			this->checkBox20->Text = L"CH1";
-			this->checkBox20->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH21->AutoSize = true;
+			this->checkBoxEnCH21->Location = System::Drawing::Point(424, 240);
+			this->checkBoxEnCH21->Name = L"checkBoxEnCH21";
+			this->checkBoxEnCH21->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH21->TabIndex = 205;
+			this->checkBoxEnCH21->Text = L"CH1";
+			this->checkBoxEnCH21->UseVisualStyleBackColor = true;
 			// 
 			// label53
 			// 
@@ -1846,22 +1827,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox63->Size = System::Drawing::Size(32, 19);
 			this->textBox63->TabIndex = 201;
 			// 
-			// textBox64
+			// textBoxLN12
 			// 
-			this->textBox64->Location = System::Drawing::Point(160, 312);
-			this->textBox64->Name = L"textBox64";
-			this->textBox64->Size = System::Drawing::Size(120, 19);
-			this->textBox64->TabIndex = 200;
+			this->textBoxLN12->Location = System::Drawing::Point(160, 312);
+			this->textBoxLN12->Name = L"textBoxLN12";
+			this->textBoxLN12->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN12->TabIndex = 200;
 			// 
-			// checkBox21
+			// checkBoxEnCH12
 			// 
-			this->checkBox21->AutoSize = true;
-			this->checkBox21->Location = System::Drawing::Point(16, 312);
-			this->checkBox21->Name = L"checkBox21";
-			this->checkBox21->Size = System::Drawing::Size(52, 16);
-			this->checkBox21->TabIndex = 199;
-			this->checkBox21->Text = L"CH12";
-			this->checkBox21->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH12->AutoSize = true;
+			this->checkBoxEnCH12->Location = System::Drawing::Point(16, 312);
+			this->checkBoxEnCH12->Name = L"checkBoxEnCH12";
+			this->checkBoxEnCH12->Size = System::Drawing::Size(52, 16);
+			this->checkBoxEnCH12->TabIndex = 199;
+			this->checkBoxEnCH12->Text = L"CH12";
+			this->checkBoxEnCH12->UseVisualStyleBackColor = true;
 			// 
 			// label55
 			// 
@@ -1895,22 +1876,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox66->Size = System::Drawing::Size(32, 19);
 			this->textBox66->TabIndex = 195;
 			// 
-			// textBox67
+			// textBoxLN11
 			// 
-			this->textBox67->Location = System::Drawing::Point(160, 288);
-			this->textBox67->Name = L"textBox67";
-			this->textBox67->Size = System::Drawing::Size(120, 19);
-			this->textBox67->TabIndex = 194;
+			this->textBoxLN11->Location = System::Drawing::Point(160, 288);
+			this->textBoxLN11->Name = L"textBoxLN11";
+			this->textBoxLN11->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN11->TabIndex = 194;
 			// 
-			// checkBox22
+			// checkBoxEnCH11
 			// 
-			this->checkBox22->AutoSize = true;
-			this->checkBox22->Location = System::Drawing::Point(16, 288);
-			this->checkBox22->Name = L"checkBox22";
-			this->checkBox22->Size = System::Drawing::Size(46, 16);
-			this->checkBox22->TabIndex = 193;
-			this->checkBox22->Text = L"CH1";
-			this->checkBox22->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH11->AutoSize = true;
+			this->checkBoxEnCH11->Location = System::Drawing::Point(16, 288);
+			this->checkBoxEnCH11->Name = L"checkBoxEnCH11";
+			this->checkBoxEnCH11->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH11->TabIndex = 193;
+			this->checkBoxEnCH11->Text = L"CH1";
+			this->checkBoxEnCH11->UseVisualStyleBackColor = true;
 			// 
 			// label57
 			// 
@@ -1944,22 +1925,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox69->Size = System::Drawing::Size(32, 19);
 			this->textBox69->TabIndex = 189;
 			// 
-			// textBox70
+			// textBoxLN10
 			// 
-			this->textBox70->Location = System::Drawing::Point(160, 264);
-			this->textBox70->Name = L"textBox70";
-			this->textBox70->Size = System::Drawing::Size(120, 19);
-			this->textBox70->TabIndex = 188;
+			this->textBoxLN10->Location = System::Drawing::Point(160, 264);
+			this->textBoxLN10->Name = L"textBoxLN10";
+			this->textBoxLN10->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN10->TabIndex = 188;
 			// 
-			// checkBox23
+			// checkBoxEnCH10
 			// 
-			this->checkBox23->AutoSize = true;
-			this->checkBox23->Location = System::Drawing::Point(16, 264);
-			this->checkBox23->Name = L"checkBox23";
-			this->checkBox23->Size = System::Drawing::Size(46, 16);
-			this->checkBox23->TabIndex = 187;
-			this->checkBox23->Text = L"CH1";
-			this->checkBox23->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH10->AutoSize = true;
+			this->checkBoxEnCH10->Location = System::Drawing::Point(16, 264);
+			this->checkBoxEnCH10->Name = L"checkBoxEnCH10";
+			this->checkBoxEnCH10->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH10->TabIndex = 187;
+			this->checkBoxEnCH10->Text = L"CH1";
+			this->checkBoxEnCH10->UseVisualStyleBackColor = true;
 			// 
 			// label59
 			// 
@@ -1993,22 +1974,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox72->Size = System::Drawing::Size(32, 19);
 			this->textBox72->TabIndex = 183;
 			// 
-			// textBox73
+			// textBoxLN9
 			// 
-			this->textBox73->Location = System::Drawing::Point(160, 240);
-			this->textBox73->Name = L"textBox73";
-			this->textBox73->Size = System::Drawing::Size(120, 19);
-			this->textBox73->TabIndex = 182;
+			this->textBoxLN9->Location = System::Drawing::Point(160, 240);
+			this->textBoxLN9->Name = L"textBoxLN9";
+			this->textBoxLN9->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN9->TabIndex = 182;
 			// 
-			// checkBox24
+			// checkBoxEnCH9
 			// 
-			this->checkBox24->AutoSize = true;
-			this->checkBox24->Location = System::Drawing::Point(16, 240);
-			this->checkBox24->Name = L"checkBox24";
-			this->checkBox24->Size = System::Drawing::Size(46, 16);
-			this->checkBox24->TabIndex = 181;
-			this->checkBox24->Text = L"CH1";
-			this->checkBox24->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH9->AutoSize = true;
+			this->checkBoxEnCH9->Location = System::Drawing::Point(16, 240);
+			this->checkBoxEnCH9->Name = L"checkBoxEnCH9";
+			this->checkBoxEnCH9->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH9->TabIndex = 181;
+			this->checkBoxEnCH9->Text = L"CH1";
+			this->checkBoxEnCH9->UseVisualStyleBackColor = true;
 			// 
 			// label61
 			// 
@@ -2019,13 +2000,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->label61->TabIndex = 180;
 			this->label61->Text = L"*";
 			// 
-			// comboBox2
+			// comboBoxFig8
 			// 
-			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Location = System::Drawing::Point(72, 216);
-			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(40, 20);
-			this->comboBox2->TabIndex = 179;
+			this->comboBoxFig8->FormattingEnabled = true;
+			this->comboBoxFig8->Location = System::Drawing::Point(72, 216);
+			this->comboBoxFig8->Name = L"comboBoxFig8";
+			this->comboBoxFig8->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig8->TabIndex = 179;
 			// 
 			// button1
 			// 
@@ -2037,13 +2018,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button1->Text = L"■";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
-			// comboBox4
+			// comboBoxFig7
 			// 
-			this->comboBox4->FormattingEnabled = true;
-			this->comboBox4->Location = System::Drawing::Point(72, 192);
-			this->comboBox4->Name = L"comboBox4";
-			this->comboBox4->Size = System::Drawing::Size(40, 20);
-			this->comboBox4->TabIndex = 177;
+			this->comboBoxFig7->FormattingEnabled = true;
+			this->comboBoxFig7->Location = System::Drawing::Point(72, 192);
+			this->comboBoxFig7->Name = L"comboBoxFig7";
+			this->comboBoxFig7->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig7->TabIndex = 177;
 			// 
 			// button2
 			// 
@@ -2055,13 +2036,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button2->Text = L"■";
 			this->button2->UseVisualStyleBackColor = true;
 			// 
-			// comboBox5
+			// comboBoxFig6
 			// 
-			this->comboBox5->FormattingEnabled = true;
-			this->comboBox5->Location = System::Drawing::Point(72, 168);
-			this->comboBox5->Name = L"comboBox5";
-			this->comboBox5->Size = System::Drawing::Size(40, 20);
-			this->comboBox5->TabIndex = 175;
+			this->comboBoxFig6->FormattingEnabled = true;
+			this->comboBoxFig6->Location = System::Drawing::Point(72, 168);
+			this->comboBoxFig6->Name = L"comboBoxFig6";
+			this->comboBoxFig6->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig6->TabIndex = 175;
 			// 
 			// button3
 			// 
@@ -2073,13 +2054,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button3->Text = L"■";
 			this->button3->UseVisualStyleBackColor = true;
 			// 
-			// comboBox6
+			// comboBoxFig5
 			// 
-			this->comboBox6->FormattingEnabled = true;
-			this->comboBox6->Location = System::Drawing::Point(72, 144);
-			this->comboBox6->Name = L"comboBox6";
-			this->comboBox6->Size = System::Drawing::Size(40, 20);
-			this->comboBox6->TabIndex = 173;
+			this->comboBoxFig5->FormattingEnabled = true;
+			this->comboBoxFig5->Location = System::Drawing::Point(72, 144);
+			this->comboBoxFig5->Name = L"comboBoxFig5";
+			this->comboBoxFig5->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig5->TabIndex = 173;
 			// 
 			// button4
 			// 
@@ -2091,13 +2072,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button4->Text = L"■";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
-			// comboBox7
+			// comboBoxFig4
 			// 
-			this->comboBox7->FormattingEnabled = true;
-			this->comboBox7->Location = System::Drawing::Point(72, 120);
-			this->comboBox7->Name = L"comboBox7";
-			this->comboBox7->Size = System::Drawing::Size(40, 20);
-			this->comboBox7->TabIndex = 171;
+			this->comboBoxFig4->FormattingEnabled = true;
+			this->comboBoxFig4->Location = System::Drawing::Point(72, 120);
+			this->comboBoxFig4->Name = L"comboBoxFig4";
+			this->comboBoxFig4->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig4->TabIndex = 171;
 			// 
 			// button5
 			// 
@@ -2109,13 +2090,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button5->Text = L"■";
 			this->button5->UseVisualStyleBackColor = true;
 			// 
-			// comboBox8
+			// comboBoxFig3
 			// 
-			this->comboBox8->FormattingEnabled = true;
-			this->comboBox8->Location = System::Drawing::Point(72, 96);
-			this->comboBox8->Name = L"comboBox8";
-			this->comboBox8->Size = System::Drawing::Size(40, 20);
-			this->comboBox8->TabIndex = 169;
+			this->comboBoxFig3->FormattingEnabled = true;
+			this->comboBoxFig3->Location = System::Drawing::Point(72, 96);
+			this->comboBoxFig3->Name = L"comboBoxFig3";
+			this->comboBoxFig3->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig3->TabIndex = 169;
 			// 
 			// button6
 			// 
@@ -2127,13 +2108,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button6->Text = L"■";
 			this->button6->UseVisualStyleBackColor = true;
 			// 
-			// comboBox9
+			// comboBoxFig2
 			// 
-			this->comboBox9->FormattingEnabled = true;
-			this->comboBox9->Location = System::Drawing::Point(72, 72);
-			this->comboBox9->Name = L"comboBox9";
-			this->comboBox9->Size = System::Drawing::Size(40, 20);
-			this->comboBox9->TabIndex = 167;
+			this->comboBoxFig2->FormattingEnabled = true;
+			this->comboBoxFig2->Location = System::Drawing::Point(72, 72);
+			this->comboBoxFig2->Name = L"comboBoxFig2";
+			this->comboBoxFig2->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig2->TabIndex = 167;
 			// 
 			// button7
 			// 
@@ -2154,13 +2135,17 @@ private: System::Windows::Forms::Label^  label63;
 			this->label8->TabIndex = 165;
 			this->label8->Text = L"figure";
 			// 
-			// comboBox10
+			// comboBoxFig1
 			// 
-			this->comboBox10->FormattingEnabled = true;
-			this->comboBox10->Location = System::Drawing::Point(72, 48);
-			this->comboBox10->Name = L"comboBox10";
-			this->comboBox10->Size = System::Drawing::Size(40, 20);
-			this->comboBox10->TabIndex = 164;
+			this->comboBoxFig1->FormattingEnabled = true;
+			this->comboBoxFig1->Items->AddRange(gcnew cli::array< System::Object^  >(8) {
+				L"a1", L"a2", L"b1", L"b2", L"c1", L"c2", L"d1",
+					L"d2"
+			});
+			this->comboBoxFig1->Location = System::Drawing::Point(72, 48);
+			this->comboBoxFig1->Name = L"comboBoxFig1";
+			this->comboBoxFig1->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig1->TabIndex = 164;
 			// 
 			// label10
 			// 
@@ -2171,23 +2156,24 @@ private: System::Windows::Forms::Label^  label63;
 			this->label10->TabIndex = 163;
 			this->label10->Text = L"color";
 			// 
-			// button8
+			// buttonCol1
 			// 
-			this->button8->ForeColor = System::Drawing::Color::Red;
-			this->button8->Location = System::Drawing::Point(120, 48);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(24, 23);
-			this->button8->TabIndex = 162;
-			this->button8->Text = L"■";
-			this->button8->UseVisualStyleBackColor = true;
+			this->buttonCol1->ForeColor = System::Drawing::Color::Red;
+			this->buttonCol1->Location = System::Drawing::Point(120, 48);
+			this->buttonCol1->Name = L"buttonCol1";
+			this->buttonCol1->Size = System::Drawing::Size(24, 23);
+			this->buttonCol1->TabIndex = 162;
+			this->buttonCol1->Text = L"■";
+			this->buttonCol1->UseVisualStyleBackColor = true;
+			this->buttonCol1->Click += gcnew System::EventHandler(this, &SetupPlot::buttonCol1_Click);
 			// 
-			// comboBox11
+			// comboBoxFig20
 			// 
-			this->comboBox11->FormattingEnabled = true;
-			this->comboBox11->Location = System::Drawing::Point(480, 216);
-			this->comboBox11->Name = L"comboBox11";
-			this->comboBox11->Size = System::Drawing::Size(40, 20);
-			this->comboBox11->TabIndex = 161;
+			this->comboBoxFig20->FormattingEnabled = true;
+			this->comboBoxFig20->Location = System::Drawing::Point(480, 216);
+			this->comboBoxFig20->Name = L"comboBoxFig20";
+			this->comboBoxFig20->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig20->TabIndex = 161;
 			// 
 			// button9
 			// 
@@ -2199,13 +2185,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button9->Text = L"■";
 			this->button9->UseVisualStyleBackColor = true;
 			// 
-			// comboBox12
+			// comboBoxFig19
 			// 
-			this->comboBox12->FormattingEnabled = true;
-			this->comboBox12->Location = System::Drawing::Point(480, 192);
-			this->comboBox12->Name = L"comboBox12";
-			this->comboBox12->Size = System::Drawing::Size(40, 20);
-			this->comboBox12->TabIndex = 159;
+			this->comboBoxFig19->FormattingEnabled = true;
+			this->comboBoxFig19->Location = System::Drawing::Point(480, 192);
+			this->comboBoxFig19->Name = L"comboBoxFig19";
+			this->comboBoxFig19->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig19->TabIndex = 159;
 			// 
 			// button10
 			// 
@@ -2217,13 +2203,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button10->Text = L"■";
 			this->button10->UseVisualStyleBackColor = true;
 			// 
-			// comboBox13
+			// comboBoxFig18
 			// 
-			this->comboBox13->FormattingEnabled = true;
-			this->comboBox13->Location = System::Drawing::Point(480, 168);
-			this->comboBox13->Name = L"comboBox13";
-			this->comboBox13->Size = System::Drawing::Size(40, 20);
-			this->comboBox13->TabIndex = 157;
+			this->comboBoxFig18->FormattingEnabled = true;
+			this->comboBoxFig18->Location = System::Drawing::Point(480, 168);
+			this->comboBoxFig18->Name = L"comboBoxFig18";
+			this->comboBoxFig18->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig18->TabIndex = 157;
 			// 
 			// button11
 			// 
@@ -2235,13 +2221,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button11->Text = L"■";
 			this->button11->UseVisualStyleBackColor = true;
 			// 
-			// comboBox14
+			// comboBoxFig17
 			// 
-			this->comboBox14->FormattingEnabled = true;
-			this->comboBox14->Location = System::Drawing::Point(480, 144);
-			this->comboBox14->Name = L"comboBox14";
-			this->comboBox14->Size = System::Drawing::Size(40, 20);
-			this->comboBox14->TabIndex = 155;
+			this->comboBoxFig17->FormattingEnabled = true;
+			this->comboBoxFig17->Location = System::Drawing::Point(480, 144);
+			this->comboBoxFig17->Name = L"comboBoxFig17";
+			this->comboBoxFig17->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig17->TabIndex = 155;
 			// 
 			// button12
 			// 
@@ -2253,13 +2239,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button12->Text = L"■";
 			this->button12->UseVisualStyleBackColor = true;
 			// 
-			// comboBox15
+			// comboBoxFig16
 			// 
-			this->comboBox15->FormattingEnabled = true;
-			this->comboBox15->Location = System::Drawing::Point(480, 120);
-			this->comboBox15->Name = L"comboBox15";
-			this->comboBox15->Size = System::Drawing::Size(40, 20);
-			this->comboBox15->TabIndex = 153;
+			this->comboBoxFig16->FormattingEnabled = true;
+			this->comboBoxFig16->Location = System::Drawing::Point(480, 120);
+			this->comboBoxFig16->Name = L"comboBoxFig16";
+			this->comboBoxFig16->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig16->TabIndex = 153;
 			// 
 			// button13
 			// 
@@ -2271,13 +2257,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button13->Text = L"■";
 			this->button13->UseVisualStyleBackColor = true;
 			// 
-			// comboBox16
+			// comboBoxFig15
 			// 
-			this->comboBox16->FormattingEnabled = true;
-			this->comboBox16->Location = System::Drawing::Point(480, 96);
-			this->comboBox16->Name = L"comboBox16";
-			this->comboBox16->Size = System::Drawing::Size(40, 20);
-			this->comboBox16->TabIndex = 151;
+			this->comboBoxFig15->FormattingEnabled = true;
+			this->comboBoxFig15->Location = System::Drawing::Point(480, 96);
+			this->comboBoxFig15->Name = L"comboBoxFig15";
+			this->comboBoxFig15->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig15->TabIndex = 151;
 			// 
 			// button14
 			// 
@@ -2289,13 +2275,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->button14->Text = L"■";
 			this->button14->UseVisualStyleBackColor = true;
 			// 
-			// comboBox17
+			// comboBoxFig14
 			// 
-			this->comboBox17->FormattingEnabled = true;
-			this->comboBox17->Location = System::Drawing::Point(480, 72);
-			this->comboBox17->Name = L"comboBox17";
-			this->comboBox17->Size = System::Drawing::Size(40, 20);
-			this->comboBox17->TabIndex = 149;
+			this->comboBoxFig14->FormattingEnabled = true;
+			this->comboBoxFig14->Location = System::Drawing::Point(480, 72);
+			this->comboBoxFig14->Name = L"comboBoxFig14";
+			this->comboBoxFig14->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig14->TabIndex = 149;
 			// 
 			// button15
 			// 
@@ -2316,13 +2302,13 @@ private: System::Windows::Forms::Label^  label63;
 			this->label39->TabIndex = 147;
 			this->label39->Text = L"figure";
 			// 
-			// comboBox18
+			// comboBoxFig13
 			// 
-			this->comboBox18->FormattingEnabled = true;
-			this->comboBox18->Location = System::Drawing::Point(480, 48);
-			this->comboBox18->Name = L"comboBox18";
-			this->comboBox18->Size = System::Drawing::Size(40, 20);
-			this->comboBox18->TabIndex = 146;
+			this->comboBoxFig13->FormattingEnabled = true;
+			this->comboBoxFig13->Location = System::Drawing::Point(480, 48);
+			this->comboBoxFig13->Name = L"comboBoxFig13";
+			this->comboBoxFig13->Size = System::Drawing::Size(40, 20);
+			this->comboBoxFig13->TabIndex = 146;
 			// 
 			// label40
 			// 
@@ -2366,22 +2352,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox27->Size = System::Drawing::Size(32, 19);
 			this->textBox27->TabIndex = 139;
 			// 
-			// textBox28
+			// textBoxLN20
 			// 
-			this->textBox28->Location = System::Drawing::Point(568, 216);
-			this->textBox28->Name = L"textBox28";
-			this->textBox28->Size = System::Drawing::Size(120, 19);
-			this->textBox28->TabIndex = 138;
+			this->textBoxLN20->Location = System::Drawing::Point(568, 216);
+			this->textBoxLN20->Name = L"textBoxLN20";
+			this->textBoxLN20->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN20->TabIndex = 138;
 			// 
-			// checkBox9
+			// checkBoxEnCH20
 			// 
-			this->checkBox9->AutoSize = true;
-			this->checkBox9->Location = System::Drawing::Point(424, 216);
-			this->checkBox9->Name = L"checkBox9";
-			this->checkBox9->Size = System::Drawing::Size(46, 16);
-			this->checkBox9->TabIndex = 137;
-			this->checkBox9->Text = L"CH1";
-			this->checkBox9->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH20->AutoSize = true;
+			this->checkBoxEnCH20->Location = System::Drawing::Point(424, 216);
+			this->checkBoxEnCH20->Name = L"checkBoxEnCH20";
+			this->checkBoxEnCH20->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH20->TabIndex = 137;
+			this->checkBoxEnCH20->Text = L"CH1";
+			this->checkBoxEnCH20->UseVisualStyleBackColor = true;
 			// 
 			// label26
 			// 
@@ -2415,22 +2401,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox30->Size = System::Drawing::Size(32, 19);
 			this->textBox30->TabIndex = 131;
 			// 
-			// textBox31
+			// textBoxLN19
 			// 
-			this->textBox31->Location = System::Drawing::Point(568, 192);
-			this->textBox31->Name = L"textBox31";
-			this->textBox31->Size = System::Drawing::Size(120, 19);
-			this->textBox31->TabIndex = 130;
+			this->textBoxLN19->Location = System::Drawing::Point(568, 192);
+			this->textBoxLN19->Name = L"textBoxLN19";
+			this->textBoxLN19->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN19->TabIndex = 130;
 			// 
-			// checkBox10
+			// checkBoxEnCH19
 			// 
-			this->checkBox10->AutoSize = true;
-			this->checkBox10->Location = System::Drawing::Point(424, 192);
-			this->checkBox10->Name = L"checkBox10";
-			this->checkBox10->Size = System::Drawing::Size(46, 16);
-			this->checkBox10->TabIndex = 129;
-			this->checkBox10->Text = L"CH1";
-			this->checkBox10->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH19->AutoSize = true;
+			this->checkBoxEnCH19->Location = System::Drawing::Point(424, 192);
+			this->checkBoxEnCH19->Name = L"checkBoxEnCH19";
+			this->checkBoxEnCH19->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH19->TabIndex = 129;
+			this->checkBoxEnCH19->Text = L"CH1";
+			this->checkBoxEnCH19->UseVisualStyleBackColor = true;
 			// 
 			// label28
 			// 
@@ -2464,22 +2450,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox33->Size = System::Drawing::Size(32, 19);
 			this->textBox33->TabIndex = 123;
 			// 
-			// textBox34
+			// textBoxLN18
 			// 
-			this->textBox34->Location = System::Drawing::Point(568, 168);
-			this->textBox34->Name = L"textBox34";
-			this->textBox34->Size = System::Drawing::Size(120, 19);
-			this->textBox34->TabIndex = 122;
+			this->textBoxLN18->Location = System::Drawing::Point(568, 168);
+			this->textBoxLN18->Name = L"textBoxLN18";
+			this->textBoxLN18->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN18->TabIndex = 122;
 			// 
-			// checkBox11
+			// checkBoxEnCH18
 			// 
-			this->checkBox11->AutoSize = true;
-			this->checkBox11->Location = System::Drawing::Point(424, 168);
-			this->checkBox11->Name = L"checkBox11";
-			this->checkBox11->Size = System::Drawing::Size(46, 16);
-			this->checkBox11->TabIndex = 121;
-			this->checkBox11->Text = L"CH1";
-			this->checkBox11->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH18->AutoSize = true;
+			this->checkBoxEnCH18->Location = System::Drawing::Point(424, 168);
+			this->checkBoxEnCH18->Name = L"checkBoxEnCH18";
+			this->checkBoxEnCH18->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH18->TabIndex = 121;
+			this->checkBoxEnCH18->Text = L"CH1";
+			this->checkBoxEnCH18->UseVisualStyleBackColor = true;
 			// 
 			// label30
 			// 
@@ -2513,22 +2499,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox36->Size = System::Drawing::Size(32, 19);
 			this->textBox36->TabIndex = 115;
 			// 
-			// textBox37
+			// textBoxLN17
 			// 
-			this->textBox37->Location = System::Drawing::Point(568, 144);
-			this->textBox37->Name = L"textBox37";
-			this->textBox37->Size = System::Drawing::Size(120, 19);
-			this->textBox37->TabIndex = 114;
+			this->textBoxLN17->Location = System::Drawing::Point(568, 144);
+			this->textBoxLN17->Name = L"textBoxLN17";
+			this->textBoxLN17->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN17->TabIndex = 114;
 			// 
-			// checkBox12
+			// checkBoxEnCH17
 			// 
-			this->checkBox12->AutoSize = true;
-			this->checkBox12->Location = System::Drawing::Point(424, 144);
-			this->checkBox12->Name = L"checkBox12";
-			this->checkBox12->Size = System::Drawing::Size(46, 16);
-			this->checkBox12->TabIndex = 113;
-			this->checkBox12->Text = L"CH1";
-			this->checkBox12->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH17->AutoSize = true;
+			this->checkBoxEnCH17->Location = System::Drawing::Point(424, 144);
+			this->checkBoxEnCH17->Name = L"checkBoxEnCH17";
+			this->checkBoxEnCH17->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH17->TabIndex = 113;
+			this->checkBoxEnCH17->Text = L"CH1";
+			this->checkBoxEnCH17->UseVisualStyleBackColor = true;
 			// 
 			// label32
 			// 
@@ -2562,22 +2548,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox39->Size = System::Drawing::Size(32, 19);
 			this->textBox39->TabIndex = 107;
 			// 
-			// textBox40
+			// textBoxLN16
 			// 
-			this->textBox40->Location = System::Drawing::Point(568, 120);
-			this->textBox40->Name = L"textBox40";
-			this->textBox40->Size = System::Drawing::Size(120, 19);
-			this->textBox40->TabIndex = 106;
+			this->textBoxLN16->Location = System::Drawing::Point(568, 120);
+			this->textBoxLN16->Name = L"textBoxLN16";
+			this->textBoxLN16->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN16->TabIndex = 106;
 			// 
-			// checkBox13
+			// checkBoxEnCH16
 			// 
-			this->checkBox13->AutoSize = true;
-			this->checkBox13->Location = System::Drawing::Point(424, 120);
-			this->checkBox13->Name = L"checkBox13";
-			this->checkBox13->Size = System::Drawing::Size(46, 16);
-			this->checkBox13->TabIndex = 105;
-			this->checkBox13->Text = L"CH1";
-			this->checkBox13->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH16->AutoSize = true;
+			this->checkBoxEnCH16->Location = System::Drawing::Point(424, 120);
+			this->checkBoxEnCH16->Name = L"checkBoxEnCH16";
+			this->checkBoxEnCH16->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH16->TabIndex = 105;
+			this->checkBoxEnCH16->Text = L"CH1";
+			this->checkBoxEnCH16->UseVisualStyleBackColor = true;
 			// 
 			// label34
 			// 
@@ -2611,22 +2597,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox42->Size = System::Drawing::Size(32, 19);
 			this->textBox42->TabIndex = 99;
 			// 
-			// textBox43
+			// textBoxLN15
 			// 
-			this->textBox43->Location = System::Drawing::Point(568, 96);
-			this->textBox43->Name = L"textBox43";
-			this->textBox43->Size = System::Drawing::Size(120, 19);
-			this->textBox43->TabIndex = 98;
+			this->textBoxLN15->Location = System::Drawing::Point(568, 96);
+			this->textBoxLN15->Name = L"textBoxLN15";
+			this->textBoxLN15->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN15->TabIndex = 98;
 			// 
-			// checkBox14
+			// checkBoxEnCH15
 			// 
-			this->checkBox14->AutoSize = true;
-			this->checkBox14->Location = System::Drawing::Point(424, 96);
-			this->checkBox14->Name = L"checkBox14";
-			this->checkBox14->Size = System::Drawing::Size(46, 16);
-			this->checkBox14->TabIndex = 97;
-			this->checkBox14->Text = L"CH1";
-			this->checkBox14->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH15->AutoSize = true;
+			this->checkBoxEnCH15->Location = System::Drawing::Point(424, 96);
+			this->checkBoxEnCH15->Name = L"checkBoxEnCH15";
+			this->checkBoxEnCH15->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH15->TabIndex = 97;
+			this->checkBoxEnCH15->Text = L"CH1";
+			this->checkBoxEnCH15->UseVisualStyleBackColor = true;
 			// 
 			// label36
 			// 
@@ -2660,22 +2646,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox45->Size = System::Drawing::Size(32, 19);
 			this->textBox45->TabIndex = 91;
 			// 
-			// textBox46
+			// textBoxLN14
 			// 
-			this->textBox46->Location = System::Drawing::Point(568, 72);
-			this->textBox46->Name = L"textBox46";
-			this->textBox46->Size = System::Drawing::Size(120, 19);
-			this->textBox46->TabIndex = 90;
+			this->textBoxLN14->Location = System::Drawing::Point(568, 72);
+			this->textBoxLN14->Name = L"textBoxLN14";
+			this->textBoxLN14->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN14->TabIndex = 90;
 			// 
-			// checkBox15
+			// checkBoxEnCH14
 			// 
-			this->checkBox15->AutoSize = true;
-			this->checkBox15->Location = System::Drawing::Point(424, 72);
-			this->checkBox15->Name = L"checkBox15";
-			this->checkBox15->Size = System::Drawing::Size(46, 16);
-			this->checkBox15->TabIndex = 89;
-			this->checkBox15->Text = L"CH1";
-			this->checkBox15->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH14->AutoSize = true;
+			this->checkBoxEnCH14->Location = System::Drawing::Point(424, 72);
+			this->checkBoxEnCH14->Name = L"checkBoxEnCH14";
+			this->checkBoxEnCH14->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH14->TabIndex = 89;
+			this->checkBoxEnCH14->Text = L"CH1";
+			this->checkBoxEnCH14->UseVisualStyleBackColor = true;
 			// 
 			// label38
 			// 
@@ -2718,12 +2704,12 @@ private: System::Windows::Forms::Label^  label63;
 			this->label42->TabIndex = 80;
 			this->label42->Text = L"calc (y = a * x + b)";
 			// 
-			// textBox49
+			// textBoxLN13
 			// 
-			this->textBox49->Location = System::Drawing::Point(568, 48);
-			this->textBox49->Name = L"textBox49";
-			this->textBox49->Size = System::Drawing::Size(120, 19);
-			this->textBox49->TabIndex = 79;
+			this->textBoxLN13->Location = System::Drawing::Point(568, 48);
+			this->textBoxLN13->Name = L"textBoxLN13";
+			this->textBoxLN13->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN13->TabIndex = 79;
 			// 
 			// label43
 			// 
@@ -2734,15 +2720,15 @@ private: System::Windows::Forms::Label^  label63;
 			this->label43->TabIndex = 77;
 			this->label43->Text = L"column";
 			// 
-			// checkBox16
+			// checkBoxEnCH13
 			// 
-			this->checkBox16->AutoSize = true;
-			this->checkBox16->Location = System::Drawing::Point(424, 48);
-			this->checkBox16->Name = L"checkBox16";
-			this->checkBox16->Size = System::Drawing::Size(46, 16);
-			this->checkBox16->TabIndex = 78;
-			this->checkBox16->Text = L"CH1";
-			this->checkBox16->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH13->AutoSize = true;
+			this->checkBoxEnCH13->Location = System::Drawing::Point(424, 48);
+			this->checkBoxEnCH13->Name = L"checkBoxEnCH13";
+			this->checkBoxEnCH13->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH13->TabIndex = 78;
+			this->checkBoxEnCH13->Text = L"CH1";
+			this->checkBoxEnCH13->UseVisualStyleBackColor = true;
 			// 
 			// label44
 			// 
@@ -2785,22 +2771,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox15->Size = System::Drawing::Size(32, 19);
 			this->textBox15->TabIndex = 70;
 			// 
-			// textBox16
+			// textBoxLN8
 			// 
-			this->textBox16->Location = System::Drawing::Point(160, 216);
-			this->textBox16->Name = L"textBox16";
-			this->textBox16->Size = System::Drawing::Size(120, 19);
-			this->textBox16->TabIndex = 69;
+			this->textBoxLN8->Location = System::Drawing::Point(160, 216);
+			this->textBoxLN8->Name = L"textBoxLN8";
+			this->textBoxLN8->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN8->TabIndex = 69;
 			// 
-			// checkBox5
+			// checkBoxEnCH8
 			// 
-			this->checkBox5->AutoSize = true;
-			this->checkBox5->Location = System::Drawing::Point(16, 216);
-			this->checkBox5->Name = L"checkBox5";
-			this->checkBox5->Size = System::Drawing::Size(52, 16);
-			this->checkBox5->TabIndex = 68;
-			this->checkBox5->Text = L"CH12";
-			this->checkBox5->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH8->AutoSize = true;
+			this->checkBoxEnCH8->Location = System::Drawing::Point(16, 216);
+			this->checkBoxEnCH8->Name = L"checkBoxEnCH8";
+			this->checkBoxEnCH8->Size = System::Drawing::Size(52, 16);
+			this->checkBoxEnCH8->TabIndex = 68;
+			this->checkBoxEnCH8->Text = L"CH12";
+			this->checkBoxEnCH8->UseVisualStyleBackColor = true;
 			// 
 			// label18
 			// 
@@ -2834,22 +2820,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox18->Size = System::Drawing::Size(32, 19);
 			this->textBox18->TabIndex = 62;
 			// 
-			// textBox19
+			// textBoxLN7
 			// 
-			this->textBox19->Location = System::Drawing::Point(160, 192);
-			this->textBox19->Name = L"textBox19";
-			this->textBox19->Size = System::Drawing::Size(120, 19);
-			this->textBox19->TabIndex = 61;
+			this->textBoxLN7->Location = System::Drawing::Point(160, 192);
+			this->textBoxLN7->Name = L"textBoxLN7";
+			this->textBoxLN7->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN7->TabIndex = 61;
 			// 
-			// checkBox6
+			// checkBoxEnCH7
 			// 
-			this->checkBox6->AutoSize = true;
-			this->checkBox6->Location = System::Drawing::Point(16, 192);
-			this->checkBox6->Name = L"checkBox6";
-			this->checkBox6->Size = System::Drawing::Size(46, 16);
-			this->checkBox6->TabIndex = 60;
-			this->checkBox6->Text = L"CH1";
-			this->checkBox6->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH7->AutoSize = true;
+			this->checkBoxEnCH7->Location = System::Drawing::Point(16, 192);
+			this->checkBoxEnCH7->Name = L"checkBoxEnCH7";
+			this->checkBoxEnCH7->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH7->TabIndex = 60;
+			this->checkBoxEnCH7->Text = L"CH1";
+			this->checkBoxEnCH7->UseVisualStyleBackColor = true;
 			// 
 			// label20
 			// 
@@ -2883,22 +2869,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox21->Size = System::Drawing::Size(32, 19);
 			this->textBox21->TabIndex = 54;
 			// 
-			// textBox22
+			// textBoxLN6
 			// 
-			this->textBox22->Location = System::Drawing::Point(160, 168);
-			this->textBox22->Name = L"textBox22";
-			this->textBox22->Size = System::Drawing::Size(120, 19);
-			this->textBox22->TabIndex = 53;
+			this->textBoxLN6->Location = System::Drawing::Point(160, 168);
+			this->textBoxLN6->Name = L"textBoxLN6";
+			this->textBoxLN6->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN6->TabIndex = 53;
 			// 
-			// checkBox7
+			// checkBoxEnCH6
 			// 
-			this->checkBox7->AutoSize = true;
-			this->checkBox7->Location = System::Drawing::Point(16, 168);
-			this->checkBox7->Name = L"checkBox7";
-			this->checkBox7->Size = System::Drawing::Size(46, 16);
-			this->checkBox7->TabIndex = 52;
-			this->checkBox7->Text = L"CH1";
-			this->checkBox7->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH6->AutoSize = true;
+			this->checkBoxEnCH6->Location = System::Drawing::Point(16, 168);
+			this->checkBoxEnCH6->Name = L"checkBoxEnCH6";
+			this->checkBoxEnCH6->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH6->TabIndex = 52;
+			this->checkBoxEnCH6->Text = L"CH1";
+			this->checkBoxEnCH6->UseVisualStyleBackColor = true;
 			// 
 			// label22
 			// 
@@ -2932,22 +2918,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox24->Size = System::Drawing::Size(32, 19);
 			this->textBox24->TabIndex = 46;
 			// 
-			// textBox25
+			// textBoxLN5
 			// 
-			this->textBox25->Location = System::Drawing::Point(160, 144);
-			this->textBox25->Name = L"textBox25";
-			this->textBox25->Size = System::Drawing::Size(120, 19);
-			this->textBox25->TabIndex = 45;
+			this->textBoxLN5->Location = System::Drawing::Point(160, 144);
+			this->textBoxLN5->Name = L"textBoxLN5";
+			this->textBoxLN5->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN5->TabIndex = 45;
 			// 
-			// checkBox8
+			// checkBoxEnCH5
 			// 
-			this->checkBox8->AutoSize = true;
-			this->checkBox8->Location = System::Drawing::Point(16, 144);
-			this->checkBox8->Name = L"checkBox8";
-			this->checkBox8->Size = System::Drawing::Size(46, 16);
-			this->checkBox8->TabIndex = 44;
-			this->checkBox8->Text = L"CH1";
-			this->checkBox8->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH5->AutoSize = true;
+			this->checkBoxEnCH5->Location = System::Drawing::Point(16, 144);
+			this->checkBoxEnCH5->Name = L"checkBoxEnCH5";
+			this->checkBoxEnCH5->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH5->TabIndex = 44;
+			this->checkBoxEnCH5->Text = L"CH1";
+			this->checkBoxEnCH5->UseVisualStyleBackColor = true;
 			// 
 			// label24
 			// 
@@ -2981,22 +2967,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox9->Size = System::Drawing::Size(32, 19);
 			this->textBox9->TabIndex = 38;
 			// 
-			// textBox10
+			// textBoxLN4
 			// 
-			this->textBox10->Location = System::Drawing::Point(160, 120);
-			this->textBox10->Name = L"textBox10";
-			this->textBox10->Size = System::Drawing::Size(120, 19);
-			this->textBox10->TabIndex = 37;
+			this->textBoxLN4->Location = System::Drawing::Point(160, 120);
+			this->textBoxLN4->Name = L"textBoxLN4";
+			this->textBoxLN4->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN4->TabIndex = 37;
 			// 
-			// checkBox3
+			// checkBoxEnCH4
 			// 
-			this->checkBox3->AutoSize = true;
-			this->checkBox3->Location = System::Drawing::Point(16, 120);
-			this->checkBox3->Name = L"checkBox3";
-			this->checkBox3->Size = System::Drawing::Size(46, 16);
-			this->checkBox3->TabIndex = 36;
-			this->checkBox3->Text = L"CH1";
-			this->checkBox3->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH4->AutoSize = true;
+			this->checkBoxEnCH4->Location = System::Drawing::Point(16, 120);
+			this->checkBoxEnCH4->Name = L"checkBoxEnCH4";
+			this->checkBoxEnCH4->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH4->TabIndex = 36;
+			this->checkBoxEnCH4->Text = L"CH4";
+			this->checkBoxEnCH4->UseVisualStyleBackColor = true;
 			// 
 			// label14
 			// 
@@ -3030,22 +3016,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox12->Size = System::Drawing::Size(32, 19);
 			this->textBox12->TabIndex = 30;
 			// 
-			// textBox13
+			// textBoxLN3
 			// 
-			this->textBox13->Location = System::Drawing::Point(160, 96);
-			this->textBox13->Name = L"textBox13";
-			this->textBox13->Size = System::Drawing::Size(120, 19);
-			this->textBox13->TabIndex = 29;
+			this->textBoxLN3->Location = System::Drawing::Point(160, 96);
+			this->textBoxLN3->Name = L"textBoxLN3";
+			this->textBoxLN3->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN3->TabIndex = 29;
 			// 
-			// checkBox4
+			// checkBoxEnCH3
 			// 
-			this->checkBox4->AutoSize = true;
-			this->checkBox4->Location = System::Drawing::Point(16, 96);
-			this->checkBox4->Name = L"checkBox4";
-			this->checkBox4->Size = System::Drawing::Size(46, 16);
-			this->checkBox4->TabIndex = 28;
-			this->checkBox4->Text = L"CH1";
-			this->checkBox4->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH3->AutoSize = true;
+			this->checkBoxEnCH3->Location = System::Drawing::Point(16, 96);
+			this->checkBoxEnCH3->Name = L"checkBoxEnCH3";
+			this->checkBoxEnCH3->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH3->TabIndex = 28;
+			this->checkBoxEnCH3->Text = L"CH3";
+			this->checkBoxEnCH3->UseVisualStyleBackColor = true;
 			// 
 			// label16
 			// 
@@ -3079,22 +3065,22 @@ private: System::Windows::Forms::Label^  label63;
 			this->textBox6->Size = System::Drawing::Size(32, 19);
 			this->textBox6->TabIndex = 22;
 			// 
-			// textBox7
+			// textBoxLN2
 			// 
-			this->textBox7->Location = System::Drawing::Point(160, 72);
-			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(120, 19);
-			this->textBox7->TabIndex = 21;
+			this->textBoxLN2->Location = System::Drawing::Point(160, 72);
+			this->textBoxLN2->Name = L"textBoxLN2";
+			this->textBoxLN2->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN2->TabIndex = 21;
 			// 
-			// checkBox2
+			// checkBoxEnCH2
 			// 
-			this->checkBox2->AutoSize = true;
-			this->checkBox2->Location = System::Drawing::Point(16, 72);
-			this->checkBox2->Name = L"checkBox2";
-			this->checkBox2->Size = System::Drawing::Size(46, 16);
-			this->checkBox2->TabIndex = 20;
-			this->checkBox2->Text = L"CH1";
-			this->checkBox2->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH2->AutoSize = true;
+			this->checkBoxEnCH2->Location = System::Drawing::Point(16, 72);
+			this->checkBoxEnCH2->Name = L"checkBoxEnCH2";
+			this->checkBoxEnCH2->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH2->TabIndex = 20;
+			this->checkBoxEnCH2->Text = L"CH2";
+			this->checkBoxEnCH2->UseVisualStyleBackColor = true;
 			// 
 			// label12
 			// 
@@ -3137,12 +3123,12 @@ private: System::Windows::Forms::Label^  label63;
 			this->label6->TabIndex = 10;
 			this->label6->Text = L"calc (y = a * x + b)";
 			// 
-			// textBox1
+			// textBoxLN1
 			// 
-			this->textBox1->Location = System::Drawing::Point(160, 48);
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(120, 19);
-			this->textBox1->TabIndex = 9;
+			this->textBoxLN1->Location = System::Drawing::Point(160, 48);
+			this->textBoxLN1->Name = L"textBoxLN1";
+			this->textBoxLN1->Size = System::Drawing::Size(120, 19);
+			this->textBoxLN1->TabIndex = 9;
 			// 
 			// label5
 			// 
@@ -3153,15 +3139,15 @@ private: System::Windows::Forms::Label^  label63;
 			this->label5->TabIndex = 7;
 			this->label5->Text = L"column";
 			// 
-			// checkBox1
+			// checkBoxEnCH1
 			// 
-			this->checkBox1->AutoSize = true;
-			this->checkBox1->Location = System::Drawing::Point(16, 48);
-			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(46, 16);
-			this->checkBox1->TabIndex = 7;
-			this->checkBox1->Text = L"CH1";
-			this->checkBox1->UseVisualStyleBackColor = true;
+			this->checkBoxEnCH1->AutoSize = true;
+			this->checkBoxEnCH1->Location = System::Drawing::Point(16, 48);
+			this->checkBoxEnCH1->Name = L"checkBoxEnCH1";
+			this->checkBoxEnCH1->Size = System::Drawing::Size(46, 16);
+			this->checkBoxEnCH1->TabIndex = 7;
+			this->checkBoxEnCH1->Text = L"CH1";
+			this->checkBoxEnCH1->UseVisualStyleBackColor = true;
 			// 
 			// label3
 			// 
@@ -3181,53 +3167,53 @@ private: System::Windows::Forms::Label^  label63;
 			this->label4->TabIndex = 3;
 			this->label4->Text = L"*";
 			// 
-			// button25
+			// buttonOk
 			// 
-			this->button25->Location = System::Drawing::Point(592, 696);
-			this->button25->Margin = System::Windows::Forms::Padding(2);
-			this->button25->Name = L"button25";
-			this->button25->Size = System::Drawing::Size(75, 23);
-			this->button25->TabIndex = 319;
-			this->button25->Text = L"OK";
-			this->button25->UseVisualStyleBackColor = true;
-			this->button25->Click += gcnew System::EventHandler(this, &SetupPlot::button25_Click);
+			this->buttonOk->Location = System::Drawing::Point(592, 696);
+			this->buttonOk->Margin = System::Windows::Forms::Padding(2);
+			this->buttonOk->Name = L"buttonOk";
+			this->buttonOk->Size = System::Drawing::Size(75, 23);
+			this->buttonOk->TabIndex = 319;
+			this->buttonOk->Text = L"OK";
+			this->buttonOk->UseVisualStyleBackColor = true;
+			this->buttonOk->Click += gcnew System::EventHandler(this, &SetupPlot::button25_Click);
 			// 
-			// button26
+			// buttonApply
 			// 
-			this->button26->Location = System::Drawing::Point(677, 696);
-			this->button26->Margin = System::Windows::Forms::Padding(2);
-			this->button26->Name = L"button26";
-			this->button26->Size = System::Drawing::Size(75, 23);
-			this->button26->TabIndex = 318;
-			this->button26->Text = L"適用";
-			this->button26->UseVisualStyleBackColor = true;
-			this->button26->Click += gcnew System::EventHandler(this, &SetupPlot::button26_Click);
+			this->buttonApply->Location = System::Drawing::Point(677, 696);
+			this->buttonApply->Margin = System::Windows::Forms::Padding(2);
+			this->buttonApply->Name = L"buttonApply";
+			this->buttonApply->Size = System::Drawing::Size(75, 23);
+			this->buttonApply->TabIndex = 318;
+			this->buttonApply->Text = L"適用";
+			this->buttonApply->UseVisualStyleBackColor = true;
+			this->buttonApply->Click += gcnew System::EventHandler(this, &SetupPlot::button26_Click);
 			// 
-			// button27
+			// buttonCancel
 			// 
-			this->button27->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->button27->Location = System::Drawing::Point(760, 696);
-			this->button27->Margin = System::Windows::Forms::Padding(2);
-			this->button27->Name = L"button27";
-			this->button27->Size = System::Drawing::Size(75, 23);
-			this->button27->TabIndex = 317;
-			this->button27->Text = L"キャンセル";
-			this->button27->UseVisualStyleBackColor = true;
-			this->button27->Click += gcnew System::EventHandler(this, &SetupPlot::button27_Click);
+			this->buttonCancel->DialogResult = System::Windows::Forms::DialogResult::Cancel;
+			this->buttonCancel->Location = System::Drawing::Point(760, 696);
+			this->buttonCancel->Margin = System::Windows::Forms::Padding(2);
+			this->buttonCancel->Name = L"buttonCancel";
+			this->buttonCancel->Size = System::Drawing::Size(75, 23);
+			this->buttonCancel->TabIndex = 317;
+			this->buttonCancel->Text = L"キャンセル";
+			this->buttonCancel->UseVisualStyleBackColor = true;
+			this->buttonCancel->Click += gcnew System::EventHandler(this, &SetupPlot::button27_Click);
 			// 
-			// button28
+			// buttonLoad
 			// 
-			this->button28->Location = System::Drawing::Point(16, 696);
-			this->button28->Name = L"button28";
-			this->button28->Size = System::Drawing::Size(75, 23);
-			this->button28->TabIndex = 320;
-			this->button28->Text = L"読込";
-			this->button28->UseVisualStyleBackColor = true;
+			this->buttonLoad->Location = System::Drawing::Point(16, 696);
+			this->buttonLoad->Name = L"buttonLoad";
+			this->buttonLoad->Size = System::Drawing::Size(75, 23);
+			this->buttonLoad->TabIndex = 320;
+			this->buttonLoad->Text = L"読込";
+			this->buttonLoad->UseVisualStyleBackColor = true;
 			// 
 			// label63
 			// 
 			this->label63->AutoSize = true;
-			this->label63->Location = System::Drawing::Point(464, 624);
+			this->label63->Location = System::Drawing::Point(696, 464);
 			this->label63->Name = L"label63";
 			this->label63->Size = System::Drawing::Size(36, 12);
 			this->label63->TabIndex = 321;
@@ -3235,16 +3221,18 @@ private: System::Windows::Forms::Label^  label63;
 			// 
 			// SetupPlot
 			// 
-			this->AcceptButton = this->button25;
+			this->AcceptButton = this->buttonOk;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->CancelButton = this->button27;
+			this->CancelButton = this->buttonCancel;
 			this->ClientSize = System::Drawing::Size(847, 726);
 			this->Controls->Add(this->label63);
-			this->Controls->Add(this->button28);
-			this->Controls->Add(this->button25);
-			this->Controls->Add(this->button26);
-			this->Controls->Add(this->button27);
+			this->Controls->Add(this->buttonLoad);
+			this->Controls->Add(this->buttonOk);
+			this->Controls->Add(this->buttonApply);
+			this->Controls->Add(this->checkBox32);
+			this->Controls->Add(this->buttonCancel);
+			this->Controls->Add(this->checkBox30);
 			this->Controls->Add(this->groupBox3);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->comboBox27);
@@ -3275,6 +3263,21 @@ private: System::Windows::Forms::Label^  label63;
 
 private: System::Void button27_Click(System::Object^  sender, System::EventArgs^  e) {
 	Close();
+}
+private: System::Void buttonCol1_Click(System::Object^  sender, System::EventArgs^  e) {
+	ColorDialog^ MyDialog = gcnew ColorDialog;
+	// Keeps the user from selecting a custom color.
+	MyDialog->AllowFullOpen = false;
+	// Allows the user to get help. (The default is false.)
+	MyDialog->ShowHelp = true;
+	// Sets the initial color select to the current text color.
+	MyDialog->Color = buttonCol1->ForeColor;
+
+	// Update the text box color if the user clicks OK 
+	if (MyDialog->ShowDialog() == ::System::Windows::Forms::DialogResult::OK)
+	{
+		buttonCol1->ForeColor = MyDialog->Color;
+	}
 }
 };
 }

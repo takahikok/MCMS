@@ -12,6 +12,9 @@
 #pragma once
 #define SETTING_FILE_PATH "settings.ini"
 
+//std::string data_file_name = "ECR00039";
+#define data_file_name (std::string)"ECR00039"
+
 
 namespace Project1 {
 
@@ -29,6 +32,8 @@ namespace Project1 {
 	{
 	private: 
 		clx::ini* Setting;
+		clx::ini* ShotSetting;
+
 		TKADC* DL750;
 		TKADC* DL850;
 	private: System::Windows::Forms::ToolStripMenuItem^  計測停止ToolStripMenuItem;
@@ -692,14 +697,16 @@ private: System::Void toolStripButton3_Click(System::Object^  sender, System::Ev
 	保存ToolStripMenuItem_Click(sender, e);
 }
 private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	SetupPlot^ f = gcnew SetupPlot(Setting);
+	ShotSetting = new clx::ini((data_file_name + ".ini").c_str());
+	ShotSetting->insert("This");
+	(*ShotSetting)["This"]["FileName"] = data_file_name;
+	ShotSetting->write((data_file_name + ".ini").c_str());
+	SetupPlot^ f = gcnew SetupPlot(ShotSetting);
 	f->Show(); 
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	std::string data_file_name = "ECR00039";
 //	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
-//	std::ifstream ifs(data_file_name + ".HDR");
-	std::ifstream ifs("ECR00039.HDR");
+	std::ifstream ifs(data_file_name + ".HDR");
 	std::string buf;
 	float hresolution;
 	float hoffset;
@@ -742,6 +749,7 @@ private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender,
 #endif
 		}
 	}
+//	ShotSetting = new clx::ini(data_file_name + ".ini");
 
 	delete this->pictureBox1->Image;
 	std::ofstream of;
