@@ -150,7 +150,7 @@ namespace Project1 {
 			this->groupBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox1->Size = System::Drawing::Size(685, 192);
+			this->groupBox1->Size = System::Drawing::Size(685, 168);
 			this->groupBox1->TabIndex = 0;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"DL850";
@@ -307,7 +307,7 @@ namespace Project1 {
 			// 
 			this->contextMenuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->contextMenuStrip1->Name = L"contextMenuStrip1";
-			this->contextMenuStrip1->Size = System::Drawing::Size(67, 4);
+			this->contextMenuStrip1->Size = System::Drawing::Size(61, 4);
 			// 
 			// SetupADCConnection
 			// 

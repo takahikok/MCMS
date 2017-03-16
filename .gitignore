@@ -244,3 +244,9 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /UI/Project1/ECR00039.CSV
+/UI/Project1/D8T00004.WDF
+/UI/Project1/D8T00003.WDF
+/UI/Project1/D7T00004.WVF
+/UI/Project1/D7T00004.HDR
+/UI/Project1/D7T00003.WVF
+/UI/Project1/D7T00000.WVF

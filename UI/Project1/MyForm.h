@@ -61,9 +61,27 @@ namespace Project1 {
 	private:
 		int Connection(void)
 		{
-			return DL850->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str());
+			int error_no;
+			if (error_no = DL750->Open(TM_CTL_ETHER, ((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
+				goto error;
+			if (error_no = DL850->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
+				goto error;
+//			Download750("D7T00000.WVF");
+			return 0;
+		error:
+			return error_no;
 		}
-		int Download(std::string filename)
+		int Download750(std::string filename)
+		{
+			clx::ftp session((std::string)((*Setting)["DL750"]["IPAddress"]), 21);
+//			session.login((std::string)((*Setting)["DL750"]["UserName"].c_str()), (std::string)(clx::base64::decode((*Setting)["DL750"]["Password"].c_str())));
+			session.login("ppl", "hs-3900");
+			session.cd("HD-0");
+			session.retrieve(filename, filename, clx::ftp::binary);
+			session.finish();
+			return 0;
+		}
+		int Download850(std::string filename)
 		{
 			clx::ftp session((std::string)((*Setting)["DL850"]["IPAddress"]), 21);
 			session.login((std::string)((*Setting)["DL850"]["UserName"].c_str()), (std::string)(clx::base64::decode((*Setting)["DL850"]["Password"].c_str())));
@@ -75,7 +93,7 @@ namespace Project1 {
 		std::string MakeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
 		{
 			std::ostringstream fname;
-			fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (DL850->GetNextLocalShotNumber()) << suffix;
+			fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (local_shot_number) << suffix;
 			return (std::string)fname.str();
 		}
 
@@ -134,6 +152,8 @@ namespace Project1 {
 				if (Connection())
 					MessageBox::Show("Connection failed.");
 
+			DL750->SetLastLocalShotNumber(std::stoi((*Setting)["DL750"]["LastLocalShotNumber"]));
+			DL750->SetLocalShotNumberMax(std::stoi((*Setting)["DL750"]["LocalShotNumberMax"]));
 			DL850->SetLastLocalShotNumber(std::stoi((*Setting)["DL850"]["LastLocalShotNumber"]));
 			DL850->SetLocalShotNumberMax(std::stoi((*Setting)["DL850"]["LocalShotNumberMax"]));
 		}
@@ -149,6 +169,7 @@ namespace Project1 {
 			{
 				delete components;
 			}
+			DL750->Close();
 			DL850->Close();
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
@@ -648,6 +669,10 @@ private: System::Void さようならToolStripMenuItem_Click(System::Object^  sender,
 	Close();
 }
 private: System::Void toolStripMenuItem2_Click(System::Object^  sender, System::EventArgs^  e) {
+	if (!DL750->Close())
+		MessageBox::Show("Disconnected!");
+	else
+		MessageBox::Show("Disconnection failed.");
 	if (!DL850->Close())
 		MessageBox::Show("Disconnected!");
 	else
@@ -663,18 +688,30 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 	MessageBox::Show("huge");
 }
 private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+//	DL750->SetLastLocalShotNumber(0);
+//	DL750->SetLocalShotNumberMax(99999);
 //	DL850->SetLastLocalShotNumber(0);
 //	DL850->SetLocalShotNumberMax(99999);
+	DL750->Start();
 	DL850->Start();
+	DL750->WaitADC();
 	DL850->WaitADC();
-//	DL850->Stop();
+	//	DL850->Stop();
+	DL750->SaveShot(MakeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ""));
 	DL850->SaveShot(MakeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ""));
-	Download(MakeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ".WDF"));
+	DL750->WaitADC();
+	DL850->WaitADC();
+	Download750(MakeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ".WVF"));
+	Download750(MakeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ".HDR"));
+	Download850(MakeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ".WDF"));
+	DL750->IncrementLocalShotNumber();
 	DL850->IncrementLocalShotNumber();
+	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(DL750->GetLastLocalShotNumber());
 	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(DL850->GetLastLocalShotNumber());
 	Setting->write(SETTING_FILE_PATH);
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
+	DL750->Stop();
 	DL850->Stop();
 }
 private: System::Void menuStrip1_ItemClicked(System::Object^  sender, System::Windows::Forms::ToolStripItemClickedEventArgs^  e) {
