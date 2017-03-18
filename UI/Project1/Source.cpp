@@ -5,6 +5,8 @@
 #include "tkadc.h"
 #include <iostream>
 #include "clx/ini.h"
+#include "tkshotinfo.h"
+
 #define SETTING_FILE_PATH "settings.ini"
 
 using namespace System;                                                                                                      
@@ -17,6 +19,7 @@ int main(array<String^>^ args)
 	TKADC* DL850;
 	DL750 = new TKADC;
 	DL850 = new TKADC;
+
 
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);

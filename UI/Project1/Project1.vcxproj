@@ -154,6 +154,8 @@
     <ClCompile Include="SetupPlot.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="tkadc.cpp" />
+    <ClCompile Include="tkadcinfo.cpp" />
+    <ClCompile Include="tkshotinfo.cpp" />
     <ClCompile Include="tkshotno.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +191,8 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="tkadc.h" />
+    <ClInclude Include="tkadcinfo.h" />
+    <ClInclude Include="tkshotinfo.h" />
     <ClInclude Include="tkshotno.h" />
     <ClInclude Include="tmctl.h" />
   </ItemGroup>

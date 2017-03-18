@@ -2,6 +2,8 @@
 #include "SetupADCMeasurement.h"
 #include "SetupPlot.h"
 #include "tkadc.h"
+#include "tkadcinfo.h"
+#include "tkshotinfo.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -36,6 +38,7 @@ namespace Project1 {
 
 		TKADC* DL750;
 		TKADC* DL850;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  計測停止ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStrip^  toolStrip1;
 	private: System::Windows::Forms::StatusStrip^  statusStrip1;
@@ -742,8 +745,10 @@ private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender,
 	f->Show(); 
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-//	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
-	std::ifstream ifs(data_file_name + ".HDR");
+	TKSHOT ThisShot(-1);
+	ThisShot.AppendShotDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
+	//	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
+	std::ifstream ifs(ThisShot.GetShotDataFileName(TKADCINFO_ADC_ID_DL750) + ".HDR");
 	std::string buf;
 	float hresolution;
 	float hoffset;
@@ -788,6 +793,7 @@ private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender,
 	}
 //	ShotSetting = new clx::ini(data_file_name + ".ini");
 
+//	TKPlot->SetPath();
 	delete this->pictureBox1->Image;
 	std::ofstream of;
 	of.open("plot.plt", std::ios::trunc);

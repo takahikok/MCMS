@@ -8,7 +8,9 @@
 #ifndef __TKADC__
 #define __TKADC__
 
-#define DEVICE_MAX 2
+//#define DEVICE_MAX 2
+#define TKADC_ADC_TYPE_DL750 TKADC::ADCType::ADCTypeDL750
+#define TKADC_ADC_TYPE_DL850 TKADC::ADCType::ADCTypeDL850
 
 class TKADC
 {
@@ -39,6 +41,12 @@ public:
 	int SetLocalShotNumberMax(int new_local_shot_number_max);
 	int GetLocalShotNumberMax();
 
+	enum class ADCType
+	{
+		ADCTypeDL750,
+		ADCTypeDL850
+	};
+
 
 private:
 	int device_id;
@@ -62,6 +70,7 @@ struct DEVICE {
 	char file_path[32];
 };
 
+#if 0
 int TKLoadDeviceSettings(struct DEVICE *device);
 int TKADCOpenADC(struct DEVICE *device);
 int TKADCCloseADC(struct DEVICE *device);
@@ -70,5 +79,5 @@ int TKADCStartADC(struct DEVICE *device);
 int TKADCManualTrigger(struct DEVICE *device);
 int TKADCWaitADC(struct DEVICE *device);
 int TKADCSaveShot(struct DEVICE *device, const char* file_name);
-
+#endif
 #endif

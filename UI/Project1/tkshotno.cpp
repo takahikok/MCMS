@@ -1,6 +1,6 @@
 #include "tkshotno.h"
 
-static char Shot_no_file_path[256];
+static char shot_num_file_path[256];
 
 int TKSNIncrementShotNo(void)
 {
@@ -19,10 +19,10 @@ int TKSNSetShotNo(void)
 
 int TKSNGetShotNoFilePath(char* file_path)
 {
-	return strcpy_s(Shot_no_file_path, file_path);
+	return strcpy_s(shot_num_file_path, file_path);
 }
 
 int TKSNSetShotNoFilePath(char* file_path)
 {
-	return strcpy_s(Shot_no_file_path, file_path);
+	return strcpy_s(shot_num_file_path, file_path);
 }

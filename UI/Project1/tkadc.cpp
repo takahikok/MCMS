@@ -102,6 +102,8 @@ error:
 	return TmcGetLastError(device_id);
 }
 
+#if 0
+
 DWORD WINAPI EventFunc(LPVOID pContext)
 {
 	TKADC* pThread = (TKADC*)pContext;
@@ -263,7 +265,7 @@ int TKADCSaveShot(struct DEVICE *device, const char* file_name)
 error:
 	return TmcGetLastError(device->device_id);
 }
-
+#endif
 int TKADC::GetLastLocalShotNumber()
 {
 	return next_local_shot_number - 1;
