@@ -1,6 +1,6 @@
 #include "tkadc.h"
 #include <string>  
-#include <Windows.h>
+//#include <Windows.h>
 
 
 TKADC::TKADC()

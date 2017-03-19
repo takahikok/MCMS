@@ -100,43 +100,6 @@ namespace Project1 {
 			return (std::string)fname.str();
 		}
 
-		template<typename T> int ReadHDRLine(std::string buf, int trace_number, char* key_name, T* data)
-		{
-			switch (trace_number) {
-			case 1:
-				sscanf(buf.c_str(), "%s %f", key_name, &(data[0]));
-				break;
-			case 2:
-				sscanf(buf.c_str(), "%s %f %f", key_name, &(data[0]), &(data[1]));
-				break;
-			case 3:
-				sscanf(buf.c_str(), "%s %f %f %f", key_name, &(data[0]), &(data[1]), &(data[2]));
-				break;
-			case 4:
-				sscanf(buf.c_str(), "%s %f %f %f %f", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
-				break;
-			}
-			return 0;
-		}
-		template<> int ReadHDRLine(std::string buf, int trace_number, char* key_name, int* data)
-		{
-			switch (trace_number) {
-			case 1:
-				sscanf(buf.c_str(), "%s %d", key_name, &(data[0]));
-				break;
-			case 2:
-				sscanf(buf.c_str(), "%s %d %d", key_name, &(data[0]), &(data[1]));
-				break;
-			case 3:
-				sscanf(buf.c_str(), "%s %d %d %d", key_name, &(data[0]), &(data[1]), &(data[2]));
-				break;
-			case 4:
-				sscanf(buf.c_str(), "%s %d %d %d %d", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
-				break;
-			}
-			return 0;
-		}
-
 	public:
 		MyForm(clx::ini* Setting_, TKADC* DL750_, TKADC* DL850_)
 		{
@@ -748,49 +711,6 @@ private: System::Void ƒOƒ‰ƒt•`‰æToolStripMenuItem_Click(System::Object^  sender,
 	TKSHOT ThisShot(-1);
 	ThisShot.AppendShotDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
 	//	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
-	std::ifstream ifs(ThisShot.GetShotDataFileName(TKADCINFO_ADC_ID_DL750) + ".HDR");
-	std::string buf;
-	float hresolution;
-	float hoffset;
-	for (int i = 1; std::getline(ifs, buf); i++) {
-		int trace_number;
-		char key_name[64];
-		int idata[4];
-		float fdata[4];
-
-		switch (i) {
-		//TraceNumber
-		case 13:
-			ReadHDRLine(buf, 1, key_name, idata);
-			trace_number = idata[0];
-			break;
-
-		//HResolution
-		case 26:
-			ReadHDRLine(buf, trace_number, key_name, fdata);
-			hresolution = fdata[0];
-			break;
-
-		//HOffset
-		case 27:
-			ReadHDRLine(buf, trace_number, key_name, fdata);
-			hoffset = fdata[0];
-			break;
-#if 0
-		//Date
-		case 29:
-			ReadHDRLine(buf, trace_number, key_name, fdata);
-			hoffset = fdata[0];
-			break;
-
-		//Time
-		case 30:
-			ReadHDRLine(buf, trace_number, key_name, fdata);
-			hresolution = fdata[0];
-			break;
-#endif
-		}
-	}
 //	ShotSetting = new clx::ini(data_file_name + ".ini");
 
 //	TKPlot->SetPath();
@@ -812,7 +732,7 @@ private: System::Void ƒOƒ‰ƒt•`‰æToolStripMenuItem_Click(System::Object^  sender,
 	of << "set yrange [*<0:0<*]" << std::endl;
 	of << "plot \"" << data_file_name << ".CSV\""
 		<< " every 10"
-		<< " using (" << hoffset << " + (column(0)) * 10 * " << hresolution << "):7"
+		<< " using (" << ThisShot.GetHOffset(TKADCINFO_ADC_ID_DL750) << " + (column(0)) * 10 * " << ThisShot.GetHResolution(TKADCINFO_ADC_ID_DL750) << "):7"
 		<< " with line" 
 		<< std::endl;
 	of << "" << std::endl;
