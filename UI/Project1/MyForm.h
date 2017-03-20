@@ -709,38 +709,13 @@ private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender,
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	TKSHOT ThisShot(-1);
-	ThisShot.AppendShotDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
+	TKPLOT TKPlot(&ThisShot);
+	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
 	//	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
 //	ShotSetting = new clx::ini(data_file_name + ".ini");
 
-//	TKPlot->SetPath();
 	delete this->pictureBox1->Image;
-	std::ofstream of;
-	of.open("plot.plt", std::ios::trunc);
-	of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
-	of << "set out \"graph1.png\"" << std::endl;
-//	of << "plot using " << std::endl;
-	of << "set datafile separator \',\'" << std::endl;
-	of << "set multiplot " << std::endl;
-	of << "set origin 0.0, 0.46" << std::endl;
-	of << "set size 1.0, 0.5" << std::endl;
-	of << "set lmargin 7.5" << std::endl;
-	of << "set rmargin 2" << std::endl;
-	of << "set tmargin 0" << std::endl;
-	of << "set bmargin 0" << std::endl;
-	of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
-	of << "set yrange [*<0:0<*]" << std::endl;
-	of << "plot \"" << data_file_name << ".CSV\""
-		<< " every 10"
-		<< " using (" << ThisShot.GetHOffset(TKADCINFO_ADC_ID_DL750) << " + (column(0)) * 10 * " << ThisShot.GetHResolution(TKADCINFO_ADC_ID_DL750) << "):7"
-		<< " with line" 
-		<< std::endl;
-	of << "" << std::endl;
-	of << "" << std::endl;
-	of << "" << std::endl;
-	of << "" << std::endl;
-	of << "" << std::endl;
-	std::system("gnuplot plot.plt");
+	TKPlot.PlotRaw();
 	this->pictureBox1->Location = System::Drawing::Point(0, 0);
 	this->pictureBox1->Size = System::Drawing::Size(640,480);
 	this->pictureBox1->Image = dynamic_cast<Image^>(gcnew Bitmap("graph1.png"));

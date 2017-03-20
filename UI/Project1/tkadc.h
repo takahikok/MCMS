@@ -2,8 +2,8 @@
 #include <iostream>
 #include "tmctl.h"
 
-#include <Windows.h>
-#include <WinBase.h>
+//#include <Windows.h>
+//#include <WinBase.h>
 
 #ifndef __TKADC__
 #define __TKADC__
@@ -11,7 +11,7 @@
 //#define DEVICE_MAX 2
 #define TKADC_ADC_TYPE_DL750 TKADC::ADCType::ADCTypeDL750
 #define TKADC_ADC_TYPE_DL850 TKADC::ADCType::ADCTypeDL850
-
+#define TKADC_ADC_CHANNEL_MAX 18
 class TKADC
 {
 public:

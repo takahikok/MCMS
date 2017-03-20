@@ -8,6 +8,7 @@
 //#include "clx/ftp.h"
 #include <iomanip>
 #include <fstream>
+#include <cstdlib>
 #include <ctime>
 #ifndef __TKSHOTINFO__
 #define __TKSHOTINFO__
@@ -22,7 +23,9 @@ private:
 
 	int trace_total_number;
 
+	std::string model_name;
 	struct CHDATA {
+		int ch_number;
 		std::string trace_name;
 		float v_resolution;
 		float v_offset;
@@ -31,166 +34,22 @@ private:
 		struct std::tm time;
 	};
 	std::vector<TKDATA::CHDATA> CHData;
+	int channel_number_to_trace_number[TKADC_ADC_CHANNEL_MAX];
 
-	inline void readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata)
-	{
-		char data[4][256];
-		switch (trace_number) {
-		case 1:
-			sscanf(buf.c_str(), "%s %s", key_name, &(data[0]));
-			break;
-		case 2:
-			sscanf(buf.c_str(), "%s %s %s", key_name, &(data[0]), &(data[1]));
-			break;
-		case 3:
-			sscanf(buf.c_str(), "%s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]));
-			break;
-		case 4:
-			sscanf(buf.c_str(), "%s %s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
-			break;
-		}
-		for (int i = 0; i < trace_number; i++)
-			odata[i] = (std::string)data[i];
-	}
-	template<typename T> int readHDRLine(std::string buf, int trace_number, char* key_name, T* data)
-	{
-		readHDRLineString(buf, trace_number, key_name, data);
-		return 0;
-	}
-	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, float* data)
-	{
-		std::string idata[4];
-		readHDRLineString(buf, trace_number, key_name, idata);
-		for (int i = 0; i < trace_number; i++)
-			data[i] = std::stof(idata[i], NULL);
-		return 0;
-	}
-	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, int* data)
-	{
-		std::string idata[4];
-		readHDRLineString(buf, trace_number, key_name, idata);
-		for (int i = 0; i < trace_number; i++)
-			data[i] = std::stoi(idata[i], NULL, 10);
-		return 0;
-	}
-	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, struct std::tm* data)
-	{
-		std::string idata[4];
-		readHDRLineString(buf, trace_number, key_name, idata);
-		for (int i = 0; i < trace_number; i++, data) {
-			std::stringstream ss;
-			std::string ibuf;
-			ss << idata[i];
-			if ((std::string)key_name == "Date") {
-				std::getline(ss, ibuf, '/');
-				(data + i)->tm_year = std::stoi(ibuf) - 1900;
-				std::getline(ss, ibuf, '/');
-				(data + i)->tm_mon = std::stoi(ibuf) - 1;
-				std::getline(ss, ibuf, '/');
-				(data + i)->tm_mday = std::stoi(ibuf);
-			} else if ((std::string)key_name == "Time") {
-				std::getline(ss, ibuf, ':');
-				(data + i)->tm_hour = std::stoi(ibuf);
-				std::getline(ss, ibuf, ':');
-				(data + i)->tm_min = std::stoi(ibuf);
-				std::getline(ss, ibuf, ':');
-				(data + i)->tm_sec = (int)std::stof(ibuf);
-			} else {
-				return -1;
-			}
-		}
-		return 0;
-	}
+	inline void readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata);
+	template<typename T> int readHDRLine(std::string buf, int trace_number, char* key_name, T* data);
+	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, float* data);
+	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, int* data);
+	template<> int readHDRLine(std::string buf, int trace_number, char* key_name, struct std::tm* data);
+	int traceNameToCHNumber(std::string trace_name);
 
 public:
-	int ParseHDR()
+	TKDATA()
 	{
-		std::ifstream ifs(data_file_name + ".HDR");
-		std::string buf;
-		for (int lines = 1, current_trace_number = 0; std::getline(ifs, buf); lines++) {
-			int group_number;
-			int trace_number;
-			char key_name[64];
-			int idata[4];
-			float fdata[4];
-			std::string sdata[4];
-			char cdata[4][64];
-			struct std::tm tmdata[4];
-
-			switch (lines) {
-				
-			//GroupNumber
-			case 8:
-				readHDRLine(buf, 1, key_name, idata);
-				group_number = idata[0];
-				break;
-		
-			//TraceTotalNumber
-			case 9:
-				readHDRLine(buf, 1, key_name, idata);
-				trace_total_number = idata[0];
-				break;
-
-			//TraceNumber
-			case 13:
-			case 33:
-			case 53:
-			case 73:
-				readHDRLine(buf, 1, key_name, idata);
-				trace_number = idata[0];
-				break;
-
-			//TraceName
-			case 15:
-			case 35:
-			case 55:
-			case 75:
-				for (int i = 0; i < trace_number; i++)
-					CHData.push_back(TKDATA::CHDATA());
-				readHDRLine(buf, trace_number, key_name, sdata);
-				for (int i = 0; i < trace_number; i++)
-					CHData[i].trace_name = sdata[i];
-				current_trace_number += trace_number;
-				break;
-
-			//HResolution
-			case 26:
-			case 46:
-			case 66:
-			case 86:
-				readHDRLine(buf, trace_number, key_name, fdata);
-				for (int i = 0; i < trace_number; i++)
-					CHData[i].h_resolution = fdata[i];
-				break;
-
-			//HOffset
-			case 27:
-			case 47:
-			case 67:
-			case 87:
-				readHDRLine(buf, trace_number, key_name, fdata);
-				for (int i = 0; i < trace_number; i++)
-					CHData[i].h_offset = fdata[i];
-				break;
-
-			//Date
-			case 29:
-			case 49:
-			case 69:
-			case 89:
-			//Time
-			case 30:
-			case 50:
-			case 70:
-			case 90:
-				readHDRLine(buf, trace_number, key_name, tmdata);
-				for (int i = 0; i < trace_number; i++)
-					CHData[i].time = tmdata[i];
-				break;
-			}
-		}
-		return 0;
+		for (int i = 0; i < TKADC_ADC_CHANNEL_MAX; i++)
+			channel_number_to_trace_number[i] = -1;
 	}
+	int ParseHDR();
 	int SetADCID(TKADCINFO::ADCID iadc_id)
 	{
 		adc_id = iadc_id;
@@ -217,14 +76,23 @@ public:
 	{
 		return CHData[0].h_offset;
 	}
+	std::string GetModelName()
+	{
+		return model_name;
+	}
+	int GetTraceTotalNumber()
+	{
+		return trace_total_number;
+	}
+	int ChannnelNumberToTraceNumber(int channel_number)
+	{
+		return channel_number_to_trace_number[channel_number];
+	}
+	int GetChannelNumber(int trace_index)
+	{
+		return CHData[trace_index].ch_number;
+	}
 
-
-};
-
-class TKPLOT
-{
-private:
-public:
 
 };
 
@@ -238,7 +106,7 @@ private:
 	std::vector<TKDATA> TKData;
 
 	int plot_num;
-	std::vector<TKPLOT> TKPlot;
+//	std::vector<TKPLOT> TKPlot;
 
 
 	int getADCDataIndexByADCID(TKADCINFO::ADCID adc_id)
@@ -273,7 +141,7 @@ public:
 	{
 		return adc_num;
 	}
-	std::string GetShotDataFileName(TKADCINFO::ADCID adc_id)
+	std::string GetDataFileName(TKADCINFO::ADCID adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetDataFileName();
 	}
@@ -283,7 +151,7 @@ public:
 		shot_number = ishot_number;
 		return 0;
 	}
-	int AppendShotDataFile(TKADCINFO::ADCID adc_id, std::string data_file_name)
+	int AppendDataFile(TKADCINFO::ADCID adc_id, std::string data_file_name)
 	{
 		TKDATA *this_data;
 		adc_num++;
@@ -302,7 +170,103 @@ public:
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetHOffset();
 	}
+	std::string GetModelName(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetModelName();
+	}
+	int GetTraceTotalNumber(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetTraceTotalNumber();
+	}
+	int ADCIDToADCDataIndex(TKADCINFO::ADCID adc_id)
+	{
+		return getADCDataIndexByADCID(adc_id);
+	}
+	TKADCINFO::ADCID GetADCID(int adc_index)
+	{
+		return TKData[adc_index].GetADCID();
+	}
+	int GetChannelNumber(TKADCINFO::ADCID adc_id, int trace_index)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetChannelNumber(trace_index);
+	}
 };
 
+
+class TKPLOT
+{
+private:
+	TKSHOT* TKShot;
+public:
+	TKPLOT(TKSHOT* TKShot_)
+	{
+		TKShot = TKShot_;
+	}
+	int Plot()
+	{
+		std::ofstream of;
+		of.open("plot.plt", std::ios::trunc);
+		of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
+		of << "set out \"graph1.png\"" << std::endl;
+		//	of << "plot using " << std::endl;
+		of << "set datafile separator \',\'" << std::endl;
+		of << "set multiplot " << std::endl;
+		of << "set origin 0.0, 0.46" << std::endl;
+		of << "set size 1.0, 0.5" << std::endl;
+		of << "set lmargin 7.5" << std::endl;
+		of << "set rmargin 2" << std::endl;
+		of << "set tmargin 0" << std::endl;
+		of << "set bmargin 0" << std::endl;
+		of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
+		of << "set yrange [*<0:0<*]" << std::endl;
+		of << "plot \"" << TKShot->GetDataFileName(TKADCINFO_ADC_ID_DL750) << ".CSV\""
+			<< " every 10"
+			<< " using (" << TKShot->GetHOffset(TKADCINFO_ADC_ID_DL750) << " + (column(0)) * 10 * " << TKShot->GetHResolution(TKADCINFO_ADC_ID_DL750) << "):7"
+			<< " with line"
+			<< std::endl;
+		of << "" << std::endl;
+		of << "" << std::endl;
+		of << "" << std::endl;
+		of << "" << std::endl;
+		of << "" << std::endl;
+		std::system("gnuplot plot.plt");
+		return 0;
+	}
+	int PlotRaw()
+	{
+		for (int data_index = 0; data_index < TKShot->GetADCNumber(); data_index++) {
+			for (int trace_index = 0; trace_index < TKShot->GetTraceTotalNumber(TKShot->GetADCID(data_index)); trace_index++) {
+				std::ofstream of;
+				std::string plot_file_name;
+				plot_file_name = "PlotRaw_" + TKShot->GetModelName(TKShot->GetADCID(data_index)) + "_CH" + std::to_string(trace_index + 1);
+				of.open(plot_file_name + ".plt", std::ios::trunc);
+				of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
+				of << "set out \"" << plot_file_name << ".png\"" << std::endl;
+				//	of << "plot using " << std::endl;
+				of << "set datafile separator \',\'" << std::endl;
+				of << "set multiplot " << std::endl;
+				of << "set origin 0.0, 0.46" << std::endl;
+				of << "set size 1.0, 0.5" << std::endl;
+				of << "set lmargin 7.5" << std::endl;
+				of << "set rmargin 2" << std::endl;
+				of << "set tmargin 0" << std::endl;
+				of << "set bmargin 0" << std::endl;
+				of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
+				of << "set yrange [*<0:0<*]" << std::endl;
+				of << "plot \"" << TKShot->GetDataFileName(TKShot->GetADCID(data_index)) << ".CSV\""
+					<< " every 10"
+					<< " using (" << TKShot->GetHOffset(TKShot->GetADCID(data_index)) << " + (column(0)) * 10 * " << TKShot->GetHResolution(TKShot->GetADCID(data_index)) << ")"
+					<< ":" << std::to_string(TKShot->GetChannelNumber(TKShot->GetADCID(data_index), trace_index))
+					<< " with line"
+					<< std::endl;
+				of << "" << std::endl;
+
+				std::system(((std::string)"gnuplot " + plot_file_name + ".plt").c_str());
+			}
+		}
+		return 0;
+	}
+
+};
 
 #endif
