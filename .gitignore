@@ -241,6 +241,11 @@ ModelManifest.xml
 # Paket dependency manager
 .paket/paket.exe
 
+#
+*.CSV
+*.plt
+*.png
+
 # FAKE - F# Make
 .fake/
 /UI/Project1/ECR00039.CSV
@@ -250,3 +255,4 @@ ModelManifest.xml
 /UI/Project1/D7T00004.HDR
 /UI/Project1/D7T00003.WVF
 /UI/Project1/D7T00000.WVF
+/UI/Project1/DTB00200.CSV
