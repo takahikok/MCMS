@@ -31,5 +31,9 @@ int main(array<String^>^ args)
 	Application::Run(gcnew Project1::MyForm(Setting, thisShot, DL750, DL850));
 
 	Setting->write(SETTING_FILE_PATH);
+	delete DL750;
+	delete DL850;
+	delete thisShot;
+	delete Setting;
 	return 0;
 }

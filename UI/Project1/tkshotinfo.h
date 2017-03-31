@@ -252,7 +252,7 @@ public:
 			for (int trace_index = 0; trace_index < TKShot->GetTraceTotalNumber(TKShot->GetADCID(data_index)); trace_index++) {
 				std::ofstream of;
 				std::string plot_file_name;
-				plot_file_name = "PlotRaw_" + TKShot->GetModelName(TKShot->GetADCID(data_index)) + "_CH" + std::to_string(trace_index + 1);
+				plot_file_name = "PlotRaw_" + TKShot->GetModelName(TKShot->GetADCID(data_index)) + "_CH" + std::to_string(TKShot->GetChannelNumber(TKShot->GetADCID(data_index), trace_index));
 				of.open(plot_file_name + ".plt", std::ios::trunc);
 //				of << "set term png enhanced transparent truecolor font arial 11 size 600, 300" << std::endl;
 				of << "set term png enhanced transparent truecolor font arial 11 size 400, 200" << std::endl;
@@ -271,7 +271,7 @@ public:
 				of << "set bmargin 0" << std::endl;
 //				of << "set label 2 left at graph 0,1.05 \""
 					of << "set label 2 left at graph 0,1.06 \""
-					<< "CH" << std::to_string(trace_index + 1)
+					<< "CH" << std::to_string(TKShot->GetChannelNumber(TKShot->GetADCID(data_index), trace_index))
 					<< " - " << TKShot->GetModelName(TKShot->GetADCID(data_index))
 					<< "\"" << std::endl;
 //				of << "set label 3 right at graph 1,1.05 \""
@@ -287,7 +287,7 @@ public:
 				of << "plot \"" << TKShot->GetDataFileName(TKShot->GetADCID(data_index)) << ".CSV\""
 					<< " every 10"
 					<< " using (" << TKShot->GetHOffset(TKShot->GetADCID(data_index)) << " + (column(0)) * 10 * " << TKShot->GetHResolution(TKShot->GetADCID(data_index)) << ")"
-					<< ":" << std::to_string(TKShot->GetChannelNumber(TKShot->GetADCID(data_index), trace_index))
+					<< ":" << std::to_string(trace_index + 1)
 					<< " with line"
 					<< std::endl;
 				of << "" << std::endl;

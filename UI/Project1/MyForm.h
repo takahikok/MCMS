@@ -1101,10 +1101,14 @@ private: System::Void ƒOƒ‰ƒt•`‰æToolStripMenuItem_Click(System::Object^  sender,
 	TKSHOT ThisShot;
 //	TKSHOT* thisshot = &ThisShot;
 	TKPLOT TKPlot(&ThisShot);
-#if 1
+#if 0
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, data_file_name2);
 #else
+	//Conv
+	std::system(((std::string)"wvfconv.exe " + MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, "") + " > " + MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, "") + ".CSV").c_str());
+	std::system(((std::string)"WDFCon.exe " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + ".WDF").c_str());
+	std::system(((std::string)"wvfconv.exe " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + " > " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + ".CSV").c_str());
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, ""));
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, ""));
 #endif

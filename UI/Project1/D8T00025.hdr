@@ -1,0 +1,35 @@
+//YOKOGAWA ASCII FILE FORMAT
+
+$PublicInfo
+FormatVersion     1.02
+Model             Xviewer
+Endian            Ltl
+DataFormat        Block
+GroupNumber       1
+TraceTotalNumber  2
+DataOffset        0
+
+$Group1
+TraceNumber       2
+BlockNumber       1
+TraceName         CH2             CH3             
+BlockSize         200200          200200          
+VResolution       2.083333333E-004 4.166666667E-004 
+VOffset           0.000000E+000   0.000000E+000   
+VDataType         IS2             IS2             
+VUnit             V               V               
+VPlusOverData     ?               ?               
+VMinusOverData    ?               ?               
+VIllegalData      32768           32768           
+VMaxData          32767           32767           
+VMinData          -32767          -32767          
+HResolution       5.000000000E-007 5.000000000E-007 
+HOffset           0.000000000E+000 0.000000000E+000 
+HUnit             s               s               
+Date              2017/03/31      2017/03/31      
+Time              23:11:06.00487477 23:11:06.00487477 
+
+$PrivateInfo
+StdBlockSize      200200 
+StdHResolution    5.000000000E-007 
+StartOffset       0 0 
