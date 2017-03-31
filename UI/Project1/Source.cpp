@@ -19,15 +19,16 @@ int main(array<String^>^ args)
 	TKADC* DL850;
 	DL750 = new TKADC;
 	DL850 = new TKADC;
-
-
+	TKSHOT* thisShot;
+	thisShot = new TKSHOT;
+	
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	// gcnew [1]で付けたプロジェクト名::[2]で付けたForm名()
-	Application::Run(gcnew Project1::MyForm(Setting, DL750, DL850));
+	Application::Run(gcnew Project1::MyForm(Setting, thisShot, DL750, DL850));
 
 	Setting->write(SETTING_FILE_PATH);
 	return 0;

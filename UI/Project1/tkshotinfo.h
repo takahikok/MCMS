@@ -34,6 +34,7 @@ private:
 		struct std::tm time;
 	};
 	std::vector<TKDATA::CHDATA> CHData;
+//	TKDATA::CHDATA CHData[TKADC_ADC_CHANNEL_MAX];
 	int channel_number_to_trace_number[TKADC_ADC_CHANNEL_MAX];
 
 	inline void readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata);
@@ -102,8 +103,9 @@ private:
 	int shot_number;
 	bool is_current_shot;
 
-	int adc_num;
+	int adc_num = 0;
 	std::vector<TKDATA> TKData;
+//	TKDATA TKData[2];
 
 	int plot_num;
 //	std::vector<TKPLOT> TKPlot;
@@ -118,8 +120,9 @@ private:
 	}
 
 public:
-	TKSHOT(int ishot_num)
+	TKSHOT()
 	{
+		/*int ishot_num
 		adc_num = 0;
 		shot_number = ishot_num;
 		if (ishot_num == -1) {
@@ -131,6 +134,8 @@ public:
 			is_current_shot = false;
 
 		}
+		*/
+
 	}
 	~TKSHOT()
 	{
@@ -153,13 +158,21 @@ public:
 	}
 	int AppendDataFile(TKADCINFO::ADCID adc_id, std::string data_file_name)
 	{
+		
 		TKDATA *this_data;
 		adc_num++;
-		TKData.push_back(TKDATA());
+	TKData.push_back(TKDATA());
 		this_data = &(TKData[adc_num - 1]);
 		this_data->SetADCID(adc_id);
 		this_data->SetDataFileName(data_file_name);
 		this_data->ParseHDR();
+		return 0;
+		adc_num++;
+		TKData.push_back(TKDATA::TKDATA());
+//		TKData.resize(16);
+		TKData[adc_num - 1].SetADCID(adc_id);
+		TKData[adc_num - 1].SetDataFileName(data_file_name);
+		TKData[adc_num - 1].ParseHDR();
 		return 0;
 	}
 	float GetHResolution(TKADCINFO::ADCID adc_id)
@@ -232,27 +245,45 @@ public:
 		std::system("gnuplot plot.plt");
 		return 0;
 	}
-	int PlotRaw()
+	int PlotRaw(std::vector<std::string> &oplot_file_name)
 	{
+		int total_plot = 0;
 		for (int data_index = 0; data_index < TKShot->GetADCNumber(); data_index++) {
 			for (int trace_index = 0; trace_index < TKShot->GetTraceTotalNumber(TKShot->GetADCID(data_index)); trace_index++) {
 				std::ofstream of;
 				std::string plot_file_name;
 				plot_file_name = "PlotRaw_" + TKShot->GetModelName(TKShot->GetADCID(data_index)) + "_CH" + std::to_string(trace_index + 1);
 				of.open(plot_file_name + ".plt", std::ios::trunc);
-				of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
+//				of << "set term png enhanced transparent truecolor font arial 11 size 600, 300" << std::endl;
+				of << "set term png enhanced transparent truecolor font arial 11 size 400, 200" << std::endl;
 				of << "set out \"" << plot_file_name << ".png\"" << std::endl;
 				//	of << "plot using " << std::endl;
 				of << "set datafile separator \',\'" << std::endl;
+				of << "set nokey" << std::endl;
 				of << "set multiplot " << std::endl;
-				of << "set origin 0.0, 0.46" << std::endl;
-				of << "set size 1.0, 0.5" << std::endl;
-				of << "set lmargin 7.5" << std::endl;
-				of << "set rmargin 2" << std::endl;
+//				of << "set origin 0.15, 0.2" << std::endl;
+//				of << "set size 0.7, 0.7" << std::endl;
+				of << "set origin 0.2, 0.25" << std::endl;
+				of << "set size 0.75, 0.65" << std::endl;
+				of << "set lmargin 0" << std::endl;
+				of << "set rmargin 0" << std::endl;
 				of << "set tmargin 0" << std::endl;
 				of << "set bmargin 0" << std::endl;
-				of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
+//				of << "set label 2 left at graph 0,1.05 \""
+					of << "set label 2 left at graph 0,1.06 \""
+					<< "CH" << std::to_string(trace_index + 1)
+					<< " - " << TKShot->GetModelName(TKShot->GetADCID(data_index))
+					<< "\"" << std::endl;
+//				of << "set label 3 right at graph 1,1.05 \""
+					of << "set label 3 right at graph 1,1.06 \""
+					<< "#" << std::to_string(0)
+					<< "\"" << std::endl;
 				of << "set yrange [*<0:0<*]" << std::endl;
+//				of << "set xlabel \"Time [s]\"" << std::endl;
+//				of << "set ylabel \"Voltage [V]\"" << std::endl;
+				of << "set format y \"%1.1tE%+-T\"" << std::endl;
+				of << "set label 10 center at graph 0.5, -0.3 \"Time [s]\"" << std::endl;
+				of << "set label 11 center at graph -0.23, 0.5 rotate \"Voltage [V]\"" << std::endl;
 				of << "plot \"" << TKShot->GetDataFileName(TKShot->GetADCID(data_index)) << ".CSV\""
 					<< " every 10"
 					<< " using (" << TKShot->GetHOffset(TKShot->GetADCID(data_index)) << " + (column(0)) * 10 * " << TKShot->GetHResolution(TKShot->GetADCID(data_index)) << ")"
@@ -262,9 +293,11 @@ public:
 				of << "" << std::endl;
 
 				std::system(((std::string)"gnuplot " + plot_file_name + ".plt").c_str());
+				oplot_file_name.push_back(plot_file_name.c_str());
+				total_plot++;
 			}
 		}
-		return 0;
+		return total_plot;
 	}
 
 };
