@@ -1,21 +1,21 @@
 #include "tkshotinfo.h"
-
+#define _CRT_NONSTDC_NO_WARNINGS
 
 inline void TKDATA::readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata)
 {
 	char data[4][256];
 	switch (trace_number) {
 	case 1:
-		sscanf(buf.c_str(), "%s %s", key_name, &(data[0]));
+		std::sscanf(buf.c_str(), "%s %s", key_name, &(data[0]));
 		break;
 	case 2:
-		sscanf(buf.c_str(), "%s %s %s", key_name, &(data[0]), &(data[1]));
+		std::sscanf(buf.c_str(), "%s %s %s", key_name, &(data[0]), &(data[1]));
 		break;
 	case 3:
-		sscanf(buf.c_str(), "%s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]));
+		std::sscanf(buf.c_str(), "%s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]));
 		break;
 	case 4:
-		sscanf(buf.c_str(), "%s %s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
+		std::sscanf(buf.c_str(), "%s %s %s %s %s", key_name, &(data[0]), &(data[1]), &(data[2]), &(data[3]));
 		break;
 	}
 	for (int i = 0; i < trace_number; i++)
@@ -85,7 +85,6 @@ int TKDATA::ParseHDR()
 		int idata[4];
 		float fdata[4];
 		std::string sdata[4];
-		char cdata[4][64];
 		struct std::tm tmdata[4];
 
 		switch (lines) {
@@ -133,6 +132,16 @@ int TKDATA::ParseHDR()
 					channel_number_to_trace_number[CHData[trace_number_offset + i].ch_number]
 					= trace_number_offset + i;
 			}
+			break;
+
+			//BlockSize
+		case 16:
+		case 36:
+		case 56:
+		case 76:
+			readHDRLine(buf, trace_number, key_name, idata);
+			for (int i = 0; i < trace_number; i++)
+				CHData[trace_number_offset + i].block_size = idata[i];
 			break;
 
 			//HResolution

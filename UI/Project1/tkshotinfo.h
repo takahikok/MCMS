@@ -31,6 +31,7 @@ private:
 		float v_offset;
 		float h_resolution;
 		float h_offset;
+		int block_size;
 		struct std::tm time;
 	};
 	std::vector<TKDATA::CHDATA> CHData;
@@ -69,9 +70,13 @@ public:
 	{
 		return data_file_name;
 	}
-	float GetHResolution()
+		float GetHResolution()
 	{
 		return CHData[0].h_resolution;
+	}
+	int GetBlockSize()
+	{
+		return CHData[0].block_size;
 	}
 	float GetHOffset()
 	{
@@ -179,6 +184,10 @@ public:
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetHResolution();
 	}
+	int GetBlockSize(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetBlockSize();
+	}
 	float GetHOffset(TKADCINFO::ADCID adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetHOffset();
@@ -259,6 +268,7 @@ public:
 				of << "set out \"" << plot_file_name << ".png\"" << std::endl;
 				//	of << "plot using " << std::endl;
 				of << "set datafile separator \',\'" << std::endl;
+				of << "set grid xtics ytics" << std::endl;
 				of << "set nokey" << std::endl;
 				of << "set multiplot " << std::endl;
 //				of << "set origin 0.15, 0.2" << std::endl;
@@ -284,6 +294,12 @@ public:
 				of << "set format y \"%1.1tE%+-T\"" << std::endl;
 				of << "set label 10 center at graph 0.5, -0.3 \"Time [s]\"" << std::endl;
 				of << "set label 11 center at graph -0.23, 0.5 rotate \"Voltage [V]\"" << std::endl;
+				of << "set xrange ["
+					<< TKShot->GetHOffset(TKShot->GetADCID(data_index))
+					<< ":"
+					<< (TKShot->GetHOffset(TKShot->GetADCID(data_index)) + TKShot->GetHResolution(TKShot->GetADCID(data_index)) * TKShot->GetBlockSize(TKShot->GetADCID(data_index)))
+					<< "]"
+					<< std::endl;
 				of << "plot \"" << TKShot->GetDataFileName(TKShot->GetADCID(data_index)) << ".CSV\""
 					<< " every 10"
 					<< " using (" << TKShot->GetHOffset(TKShot->GetADCID(data_index)) << " + (column(0)) * 10 * " << TKShot->GetHResolution(TKShot->GetADCID(data_index)) << ")"

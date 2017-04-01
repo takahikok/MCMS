@@ -15,5 +15,5 @@ set yrange [*<0:0<*]
 set format y "%1.1tE%+-T"
 set label 10 center at graph 0.5, -0.3 "Time [s]"
 set label 11 center at graph -0.23, 0.5 rotate "Voltage [V]"
-plot "D7T00008.CSV" every 10 using (-0.5 + (column(0)) * 10 * 2e-05):6 with line
+plot "ECR00039.CSV" every 10 using (-0.01 + (column(0)) * 10 * 5e-07):3 with line
 

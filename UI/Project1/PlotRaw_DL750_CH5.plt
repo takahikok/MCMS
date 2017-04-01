@@ -1,6 +1,7 @@
 set term png enhanced transparent truecolor font arial 11 size 400, 200
 set out "PlotRaw_DL750_CH5.png"
 set datafile separator ','
+set grid xtics ytics
 set nokey
 set multiplot 
 set origin 0.2, 0.25
@@ -15,5 +16,6 @@ set yrange [*<0:0<*]
 set format y "%1.1tE%+-T"
 set label 10 center at graph 0.5, -0.3 "Time [s]"
 set label 11 center at graph -0.23, 0.5 rotate "Voltage [V]"
+set xrange [-0.5:4.505]
 plot "D7T00011.CSV" every 10 using (-0.5 + (column(0)) * 10 * 2e-05):2 with line
 
