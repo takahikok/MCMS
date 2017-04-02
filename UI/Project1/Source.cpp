@@ -6,6 +6,7 @@
 #include <iostream>
 #include "clx/ini.h"
 #include "tkshotinfo.h"
+#include "tkplot.h"
 
 #define SETTING_FILE_PATH "settings.ini"
 
@@ -21,6 +22,9 @@ int main(array<String^>^ args)
 	DL850 = new TKADC;
 	TKSHOT* thisShot;
 	thisShot = new TKSHOT;
+	TKPLOT* thisPlot;
+	thisPlot = new TKPLOT(thisShot);
+
 	
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
@@ -28,12 +32,13 @@ int main(array<String^>^ args)
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 	// gcnew [1]で付けたプロジェクト名::[2]で付けたForm名()
-	Application::Run(gcnew Project1::MyForm(Setting, thisShot, DL750, DL850));
+	Application::Run(gcnew Project1::MyForm(Setting, thisShot, thisPlot, DL750, DL850));
 
 	Setting->write(SETTING_FILE_PATH);
 	delete DL750;
 	delete DL850;
 	delete thisShot;
+	delete thisPlot;
 	delete Setting;
 	return 0;
 }

@@ -4,6 +4,7 @@
 #include "tkadc.h"
 #include "tkadcinfo.h"
 #include "tkshotinfo.h"
+#include "tkplot.h"
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -43,6 +44,7 @@ namespace Project1 {
 		TKADC* DL750;
 		TKADC* DL850;
 		TKSHOT* thisShot;
+		TKPLOT* thisPlot;
 		int picture_box_total_number = MAX_PLOT_NUMBER;
 
 	private: System::Windows::Forms::ToolStripMenuItem^  計測停止ToolStripMenuItem;
@@ -76,7 +78,14 @@ namespace Project1 {
 	private: System::Windows::Forms::Button^  button2;
 	private:
 		array<System::Windows::Forms::PictureBox^>^ pBPlot = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
-		array<System::Windows::Forms::PictureBox^>^ pBLine = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
+	private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
+	private: System::Windows::Forms::Button^  button5;
+	private: System::Windows::Forms::Button^  button6;
+	private: System::Windows::Forms::Button^  button7;
+	private: System::Windows::Forms::Button^  button8;
+		 array<System::Windows::Forms::PictureBox^>^ pBVLine = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
+		 array<System::Windows::Forms::PictureBox^>^ pBHLine = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
+		 array<System::Windows::Forms::PictureBox^>^ pBHLineText = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
 
 
 	private:
@@ -124,7 +133,7 @@ namespace Project1 {
 		}
 
 	public:
-		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKADC* DL750_, TKADC* DL850_)
+		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADC* DL750_, TKADC* DL850_)
 		{
 			InitializeComponent();
 			for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
@@ -137,23 +146,66 @@ namespace Project1 {
 				pBPlot[i]->TabStop = false;
 				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot[i]))->EndInit();
 
-				//Line
-				pBLine[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBLine[i]))->BeginInit();
-				this->splitContainer1->Panel1->Controls->Add(pBLine[i]);
-				pBLine[i]->Location = System::Drawing::Point(184, 24);
-				pBLine[i]->Margin = System::Windows::Forms::Padding(2);
-				pBLine[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBLine[i]))->EndInit();
-				pBLine[i]->Size = System::Drawing::Size(1, 130);
-				Bitmap^ bmpPicBox = gcnew Bitmap(pBLine[i]->Width, pBLine[i]->Height);
-				pBLine[i]->Image = bmpPicBox;
-				pBLine[i]->BringToFront();
+				//VLine
+				pBVLine[i] = (gcnew System::Windows::Forms::PictureBox());
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->BeginInit();
+				this->splitContainer1->Panel1->Controls->Add(pBVLine[i]);
+				pBVLine[i]->Location = System::Drawing::Point(184, 24);
+				pBVLine[i]->Margin = System::Windows::Forms::Padding(2);
+				pBVLine[i]->TabStop = false;
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->EndInit();
+				pBVLine[i]->Size = System::Drawing::Size(1, 130);
+				Bitmap^ bmpPicBox = gcnew Bitmap(pBVLine[i]->Width, pBVLine[i]->Height);
+				pBVLine[i]->Image = bmpPicBox;
+				pBVLine[i]->BringToFront();
+				pBVLine[i]->Visible = false;
 
-				Graphics^ g = Graphics::FromImage(pBLine[i]->Image);
-				Pen^ myPen = gcnew Pen(Color::Red);
-				myPen->Width = 5;
-				g->DrawLine(myPen, 0, 0, 0, pBLine[i]->Height);
+				Graphics^ gV = Graphics::FromImage(pBVLine[i]->Image);
+				Pen^ myPenV = gcnew Pen(Color::Red);
+				myPenV->Width = 5;
+				gV->DrawLine(myPenV, 0, 0, 0, pBVLine[i]->Height);
+
+				//HLine
+				pBHLine[i] = (gcnew System::Windows::Forms::PictureBox());
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->BeginInit();
+				this->splitContainer1->Panel1->Controls->Add(pBHLine[i]);
+				pBHLine[i]->Location = System::Drawing::Point(184, 24);
+				pBHLine[i]->Margin = System::Windows::Forms::Padding(2);
+				pBHLine[i]->TabStop = false;
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->EndInit();
+				pBHLine[i]->Size = System::Drawing::Size(1000, 1);
+				pBHLine[i]->Image = gcnew Bitmap(pBHLine[i]->Width, pBHLine[i]->Height);
+				pBHLine[i]->BringToFront();
+				pBHLine[i]->Visible = false;
+
+				Graphics^ gH = Graphics::FromImage(pBHLine[i]->Image);
+				Pen^ myPenH = gcnew Pen(Color::Blue);
+				myPenH->Width = 5;
+				gH->DrawLine(myPenH, 0, 0, pBHLine[i]->Width, 0);
+
+				//HLineText
+				pBHLineText[i] = (gcnew System::Windows::Forms::PictureBox());
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->BeginInit();
+				this->splitContainer1->Panel1->Controls->Add(pBHLineText[i]);
+				pBHLineText[i]->Location = System::Drawing::Point(184, 24);
+				pBHLineText[i]->Margin = System::Windows::Forms::Padding(2);
+				pBHLineText[i]->TabStop = false;
+				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->EndInit();
+				pBHLineText[i]->Size = System::Drawing::Size(200, 16);
+				pBHLineText[i]->Image = gcnew Bitmap(pBHLineText[i]->Width, pBHLineText[i]->Height);
+				pBHLineText[i]->BringToFront();
+				pBHLineText[i]->Visible = false;
+
+				Graphics^ gHT = Graphics::FromImage(pBHLineText[i]->Image);
+				String^ drawString = "V value";
+
+				// Create font and brush.
+				System::Drawing::Font^ drawFont = gcnew System::Drawing::Font("Arial", 11);
+				SolidBrush^ drawBrush = gcnew SolidBrush(Color::Black);
+
+				// Create point for upper-left corner of drawing.
+				PointF drawPoint = PointF(150.0F, 150.0F);
+				gHT->DrawString(drawString, drawFont, drawBrush, 0,0);
 			}
 
 			//
@@ -165,7 +217,8 @@ namespace Project1 {
 			Setting = Setting_;
 			DL750 = DL750_;
 			DL850 = DL850_;
-//			thisShot = thisShot_;
+			thisShot = thisShot_;
+			thisPlot = thisPlot_;
 
 			if (Connection(1))
 				MessageBox::Show("Connection failed.");
@@ -268,6 +321,11 @@ namespace Project1 {
 			this->toolStrip3 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripButton6 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButton7 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->button7 = (gcnew System::Windows::Forms::Button());
+			this->button8 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->tabControl1->SuspendLayout();
@@ -281,6 +339,7 @@ namespace Project1 {
 			this->toolStripContainer2->SuspendLayout();
 			this->toolStrip2->SuspendLayout();
 			this->toolStrip3->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -546,13 +605,18 @@ namespace Project1 {
 			// splitContainer1.Panel2
 			// 
 			this->splitContainer1->Panel2->BackColor = System::Drawing::Color::MediumAquamarine;
+			this->splitContainer1->Panel2->Controls->Add(this->numericUpDown2);
+			this->splitContainer1->Panel2->Controls->Add(this->button5);
+			this->splitContainer1->Panel2->Controls->Add(this->button6);
+			this->splitContainer1->Panel2->Controls->Add(this->button7);
+			this->splitContainer1->Panel2->Controls->Add(this->button8);
 			this->splitContainer1->Panel2->Controls->Add(this->numericUpDown1);
 			this->splitContainer1->Panel2->Controls->Add(this->button4);
 			this->splitContainer1->Panel2->Controls->Add(this->button3);
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Size = System::Drawing::Size(725, 323);
-			this->splitContainer1->SplitterDistance = 223;
+			this->splitContainer1->SplitterDistance = 226;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
 			// 
@@ -707,6 +771,50 @@ namespace Project1 {
 			this->toolStripButton7->Text = L"Plot setting";
 			this->toolStripButton7->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton7_Click);
 			// 
+			// numericUpDown2
+			// 
+			this->numericUpDown2->Location = System::Drawing::Point(336, 48);
+			this->numericUpDown2->Name = L"numericUpDown2";
+			this->numericUpDown2->Size = System::Drawing::Size(48, 19);
+			this->numericUpDown2->TabIndex = 9;
+			this->numericUpDown2->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown2_ValueChanged);
+			// 
+			// button5
+			// 
+			this->button5->Location = System::Drawing::Point(416, 48);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(23, 23);
+			this->button5->TabIndex = 8;
+			this->button5->Text = L"≫";
+			this->button5->UseVisualStyleBackColor = true;
+			// 
+			// button6
+			// 
+			this->button6->Location = System::Drawing::Point(392, 48);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(23, 23);
+			this->button6->TabIndex = 7;
+			this->button6->Text = L"<";
+			this->button6->UseVisualStyleBackColor = true;
+			// 
+			// button7
+			// 
+			this->button7->Location = System::Drawing::Point(304, 48);
+			this->button7->Name = L"button7";
+			this->button7->Size = System::Drawing::Size(23, 23);
+			this->button7->TabIndex = 6;
+			this->button7->Text = L"<";
+			this->button7->UseVisualStyleBackColor = true;
+			// 
+			// button8
+			// 
+			this->button8->Location = System::Drawing::Point(280, 48);
+			this->button8->Name = L"button8";
+			this->button8->Size = System::Drawing::Size(23, 23);
+			this->button8->TabIndex = 5;
+			this->button8->Text = L"≪";
+			this->button8->UseVisualStyleBackColor = true;
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
@@ -739,6 +847,7 @@ namespace Project1 {
 			this->toolStrip2->PerformLayout();
 			this->toolStrip3->ResumeLayout(false);
 			this->toolStrip3->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -837,7 +946,7 @@ private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender,
 	int total_plot;
 	TKSHOT ThisShot;
 //	TKSHOT* thisshot = &ThisShot;
-	TKPLOT TKPlot(&ThisShot);
+	//TKPLOT TKPlot(thisShot);
 #if 0
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
 	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, data_file_name2);
@@ -846,8 +955,8 @@ private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender,
 //	std::system(((std::string)"wvfconv.exe " + MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, "") + " > " + MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, "") + ".CSV").c_str());
 //	std::system(((std::string)"WDFCon.exe " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + ".WDF").c_str());
 //	std::system(((std::string)"wvfconv.exe " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + " > " + MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, "") + ".CSV").c_str());
-	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, ""));
-	ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, ""));
+	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, MakeLocalFileName("D7T", DL750->GetLastLocalShotNumber(), 5, ""));
+	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, MakeLocalFileName("D8T", DL850->GetLastLocalShotNumber(), 5, ""));
 #endif
 //	std::system(((std::string)"wvfconv.exe " + data_file_name + " > " + data_file_name + ".CSV").c_str());
 //	ShotSetting = new clx::ini(data_file_name + ".ini");
@@ -857,22 +966,31 @@ private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender,
 		delete pBPlot[i]->Image;
 
 		//Line
-		pBLine[i]->Visible = false;
+		pBVLine[i]->Visible = false;
+		pBHLine[i]->Visible = false;
+		pBHLineText[i]->Visible = false;
 	}
-	std::vector<std::string> plot_file_name;
-	total_plot = TKPlot.PlotRaw(plot_file_name);
+	thisPlot->PlotRaw(TKPLOT::PLOTSIZE::small_size);
+	total_plot = thisPlot->GetPlotInfo().size();
+	std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+	pplot_info = thisPlot->GetPlotInfoPtr();
 	for (int i = 0; i < total_plot; i++) {
 		//Plot
-		pBPlot[i]->Location = System::Drawing::Point(i % 3 * 400, i / 3 * 200);
+		pBPlot[i]->Location = System::Drawing::Point(i % 3 * 450, i / 3 * 220 + 10);
 		pBPlot[i]->Size = System::Drawing::Size(400,200);
-		pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((plot_file_name[i] + ".png").c_str())));
+		pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + ".png").c_str())));
 		pBPlot[i]->Visible = true;
 
-		//Line
-		pBLine[i]->Location = System::Drawing::Point((pBPlot[i]->Location).X + 80 + (int)(numericUpDown1->Value), (pBPlot[i]->Location).Y + 20);
-		pBLine[i]->Visible = true;
+		//VLine
+		numericUpDown1_ValueChanged(sender, e);
+		pBVLine[i]->Visible = true;
+
+		//HLine
+		numericUpDown2_ValueChanged(sender, e);
+		pBHLine[i]->Visible = true;
+		pBHLineText[i]->Visible = true;
 	}
-//	pBLine[24]->Location = System::Drawing::Point(184, 24);
+//	pBVLine[24]->Location = System::Drawing::Point(184, 24);
 }
 private: System::Void toolStripButton6_Click(System::Object^  sender, System::EventArgs^  e) {
 	グラフ描画ToolStripMenuItem_Click(sender, e);
@@ -881,16 +999,63 @@ private: System::Void toolStripButton7_Click(System::Object^  sender, System::Ev
 	グラフ設定ToolStripMenuItem_Click(sender, e);
 }
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-//	pBLine[24]->Location = System::Drawing::Point(20, 24);
+//	pBVLine[24]->Location = System::Drawing::Point(20, 24);
 }
 private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-//	pBLine[24]->Location = System::Drawing::Point(40, 24);
+//	pBVLine[24]->Location = System::Drawing::Point(40, 24);
 }
 private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+	pplot_info = thisPlot->GetPlotInfoPtr();
 	numericUpDown1->Maximum = 300;
 	numericUpDown1->Minimum = 0;
-	for (int i = 0; i < 24; i++) {
-		pBLine[i]->Location = System::Drawing::Point(pBPlot[i]->Location.X + 80 + (int)(numericUpDown1->Value), pBPlot[i]->Location.Y + 20);
+	for (int i = 0; i < thisPlot->GetPlotInfo().size(); i++) {
+		pBVLine[i]->Location = System::Drawing::Point(pBPlot[i]->Location.X + pplot_info[i].drawing_origin.x
+			+ (int)(numericUpDown1->Value),
+			pBPlot[i]->Location.Y
+			+ pplot_info[i].terminal_size.h- (pplot_info[i].drawing_size.h + pplot_info[i].drawing_origin.y));
+	}
+}
+private: System::Void numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
+	std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+	pplot_info = thisPlot->GetPlotInfoPtr();
+	numericUpDown2->Maximum = pplot_info[0].drawing_size.h - 1;
+	numericUpDown2->Minimum = 0;
+	for (int i = 0; i < thisPlot->GetPlotInfo().size(); i++) {
+		pBHLine[i]->Location = System::Drawing::Point(pBPlot[i]->Location.X + pplot_info[i].drawing_origin.x,
+			pBPlot[i]->Location.Y
+			+ pplot_info[i].terminal_size.h - (pplot_info[i].drawing_origin.y + (int)(numericUpDown2->Value))
+			- 1);
+
+		pBHLineText[i]->Image = gcnew Bitmap(pBHLineText[i]->Width, pBHLineText[i]->Height);
+//		pBHLineText[i]->BringToFront();
+//		pBHLineText[i]->Visible = false;
+
+		Graphics^ gHT = Graphics::FromImage(pBHLineText[i]->Image);
+		double vertical_position;
+		float vertical_value;
+		vertical_position = (double)(numericUpDown2->Value) / (pplot_info[i].drawing_size.h - 1);
+		vertical_value = (double)(pplot_info[i].yrange.max - pplot_info[i].yrange.min) * vertical_position
+			+ pplot_info[i].yrange.min;
+		char ctext[12]; 
+		std::sprintf(ctext, "%1.2E", vertical_value);
+		String^ drawString = gcnew String(ctext);
+
+		// Create font and brush.
+		System::Drawing::Font^ drawFont = gcnew System::Drawing::Font("Arial", 11);
+		SolidBrush^ drawBrush = gcnew SolidBrush(Color::Black);
+
+		// Create point for upper-left corner of drawing.
+		PointF drawPoint = PointF(150.0F, 150.0F);
+		gHT->DrawString(drawString, drawFont, drawBrush, 0, 0);
+
+		pBHLineText[i]->Location = System::Drawing::Point(pBPlot[i]->Location.X
+			+ pplot_info[i].drawing_origin.x + pplot_info[i].drawing_size.w,
+			pBPlot[i]->Location.Y
+			+ pplot_info[i].terminal_size.h - (pplot_info[i].drawing_origin.y + (int)(numericUpDown2->Value))
+			- (int)(gHT->MeasureString(drawString, drawFont).Height));
+		pBHLineText[i]->Size = System::Drawing::Size((int)(gHT->MeasureString(drawString, drawFont).Width), (int)(gHT->MeasureString(drawString, drawFont).Height));
+		pBHLine[i]->Size = System::Drawing::Size(pplot_info[i].drawing_size.w + (int)(gHT->MeasureString(drawString, drawFont).Width), (int)(1));
 	}
 }
 };

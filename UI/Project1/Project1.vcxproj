@@ -192,6 +192,7 @@
     </ClInclude>
     <ClInclude Include="tkadc.h" />
     <ClInclude Include="tkadcinfo.h" />
+    <ClInclude Include="tkplot.h" />
     <ClInclude Include="tkshotinfo.h" />
     <ClInclude Include="tkshotno.h" />
     <ClInclude Include="tmctl.h" />
