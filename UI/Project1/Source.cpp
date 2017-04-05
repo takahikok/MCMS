@@ -31,7 +31,6 @@ int main(array<String^>^ args)
 
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	// gcnew [1]で付けたプロジェクト名::[2]で付けたForm名()
 	Application::Run(gcnew Project1::MyForm(Setting, thisShot, thisPlot, DL750, DL850));
 
 	Setting->write(SETTING_FILE_PATH);

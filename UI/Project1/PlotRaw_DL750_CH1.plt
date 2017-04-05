@@ -14,7 +14,7 @@ set format y "%1.1tE%+-T"
 set label 3 center at graph 0.500000, -0.300000 "Time [s]"
 set label 4 center at graph -0.230000, 0.500000 rotate "Voltage [V]"
 set xrange [-0.500000:4.505000]
-plot "D7T00011.CSV" every 10 using (-0.5 + (column(0)) * 10 * 2e-05):1 with line
+plot "D7T00016.CSV" every 10 using (-0.5 + (column(0)) * 10 * 2e-05):1 with line
 set print "PlotRaw_DL750_CH1.tmp"
 print GPVAL_Y_MIN
 print GPVAL_Y_MAX

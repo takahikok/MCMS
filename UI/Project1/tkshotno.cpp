@@ -1,28 +1,38 @@
 #include "tkshotno.h"
 
-static char shot_num_file_path[256];
+static unsigned int next_shot_number;
+static unsigned int next_shot_number_max;
 
-int TKSNIncrementShotNo(void)
+unsigned int TKSHOTNO::GetLastShotNumber()
 {
-	return 0;
+	return next_shot_number - 1;
 }
 
-int TKSNGetShotNo(void)
+unsigned int TKSHOTNO::GetNextShotNumber()
 {
-	return 0;
+	return next_shot_number;
 }
 
-int TKSNSetShotNo(void)
+unsigned int TKSHOTNO::SetLastShotNumber(unsigned int new_local_shot_number)
 {
-	return 0;
+	return next_shot_number = new_local_shot_number + 1;
 }
 
-int TKSNGetShotNoFilePath(char* file_path)
+unsigned int TKSHOTNO::IncrementShotNumber()
 {
-	return strcpy_s(shot_num_file_path, file_path);
+	next_shot_number++;
+	if (next_shot_number > next_shot_number_max)
+		next_shot_number = 1;
+	return next_shot_number;
 }
 
-int TKSNSetShotNoFilePath(char* file_path)
+unsigned int TKSHOTNO::SetShotNumberMax(unsigned int new_local_shot_number_max)
 {
-	return strcpy_s(shot_num_file_path, file_path);
+	return next_shot_number_max = new_local_shot_number_max;
 }
+
+unsigned int TKSHOTNO::GetShotNumberMax()
+{
+	return next_shot_number_max;
+}
+

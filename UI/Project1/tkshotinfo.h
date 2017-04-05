@@ -161,24 +161,31 @@ public:
 		shot_number = ishot_number;
 		return 0;
 	}
+	int Clear()
+	{
+		adc_num = 0;
+		TKData.clear();
+		return 0;
+	}
 	int AppendDataFile(TKADCINFO::ADCID adc_id, std::string data_file_name)
 	{
-		
+
 		TKDATA *this_data;
 		adc_num++;
-	TKData.push_back(TKDATA());
+		TKData.push_back(TKDATA());
 		this_data = &(TKData[adc_num - 1]);
 		this_data->SetADCID(adc_id);
 		this_data->SetDataFileName(data_file_name);
 		this_data->ParseHDR();
 		return 0;
+		/*
 		adc_num++;
 		TKData.push_back(TKDATA::TKDATA());
-//		TKData.resize(16);
 		TKData[adc_num - 1].SetADCID(adc_id);
 		TKData[adc_num - 1].SetDataFileName(data_file_name);
 		TKData[adc_num - 1].ParseHDR();
 		return 0;
+		*/
 	}
 	float GetHResolution(TKADCINFO::ADCID adc_id)
 	{

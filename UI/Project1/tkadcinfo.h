@@ -7,12 +7,15 @@
 
 namespace TKADCINFO
 {
-	enum class ADCID
+	enum class ADCID : int
 	{
 		ADCNameDL750,
 		ADCNameDL850
 	};
-	TKADC::ADCType ADCIDToADCType(TKADCINFO::ADCID adcid);
-	std::string ADCIDToADCName(TKADCINFO::ADCID adcid);
+//	extern TKADC* tkadc_ptr[(int)sizeof(ADCID)];
+	TKADC*& ADCIDToTKADCPtr(ADCID adcid);
+//	TKADC::ADCType ADCIDToADCType(TKADCINFO::ADCID adcid);
+//	std::string ADCIDToADCName(TKADCINFO::ADCID adcid);
+	std::string ADCIDToSectionName(TKADCINFO::ADCID adcid);
 };
 #endif

@@ -176,10 +176,10 @@ public:
 					plot_info.drawing_origin.y = 50;
 					plot_info.drawing_size.w = 300;
 					plot_info.drawing_size.h = 130;
-					plot_info.label_position.push_back(POSITION<float>(0.0, 1.06));
-					plot_info.label_position.push_back(POSITION<float>(1.0, 1.06));
-					plot_info.label_position.push_back(POSITION<float>(0.5, -0.3));
-					plot_info.label_position.push_back(POSITION<float>(-0.23, 0.5));
+					plot_info.label_position.push_back(POSITION<float>(0.0f, 1.06f));
+					plot_info.label_position.push_back(POSITION<float>(1.0f, 1.06f));
+					plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
+					plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
 					break;
 				case PLOTSIZE::medium_size:
 					plot_info.terminal_size.w = 600;
@@ -188,17 +188,17 @@ public:
 					plot_info.drawing_origin.y = 60;
 					plot_info.drawing_size.w = 420;
 					plot_info.drawing_size.h = 210;
-					plot_info.label_position.push_back(POSITION<float>(0.0, 1.05));
-					plot_info.label_position.push_back(POSITION<float>(1.0, 1.05));
-					plot_info.label_position.push_back(POSITION<float>(0.5, -0.3));
-					plot_info.label_position.push_back(POSITION<float>(-0.23, 0.5));
+					plot_info.label_position.push_back(POSITION<float>(0.0f, 1.05f));
+					plot_info.label_position.push_back(POSITION<float>(1.0f, 1.05f));
+					plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
+					plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
 					break;
 				}
 				plotInfo.push_back(plot_info);
 			}
 		}
 
-		for (int i = 0; i < plotInfo.size(); i++) {
+		for (size_t i = 0; i < plotInfo.size(); i++) {
 			std::ofstream of;
 			of.open(plotInfo[i].plot_file_name + ".plt", std::ios::trunc);
 			of << "set term png enhanced transparent truecolor font arial 11 size "
@@ -243,7 +243,7 @@ public:
 
 		}
 			
-		for (int i = 0; i < plotInfo.size(); i++) {
+		for (size_t i = 0; i < plotInfo.size(); i++) {
 			std::ifstream ifs(plotInfo[i].plot_file_name + ".tmp");
 			std::string buf;
 			for (int lines = 1; std::getline(ifs, buf); lines++) {
