@@ -95,11 +95,11 @@ namespace Project1 {
 			int error_no;
 			if (!(on_startup ^ (bool)((*Setting)["DL750"]["ConnectOnStartup"] == "Enable")))
 				if ((bool)((*Setting)["DL750"]["Control"] == "Enable"))
-					if (error_no = DL750->Open(TM_CTL_ETHER, ((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
+					if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Open(TM_CTL_ETHER, ((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
 						goto error;
 			if (!(on_startup ^ (bool)((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")))
 				if ((bool)((*Setting)["DL850"]["Control"] == "Enable"))
-					if (error_no = DL850->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
+					if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
 						goto error;
 			return 0;
 		error:
@@ -148,23 +148,27 @@ namespace Project1 {
 			return makeLocalFileName((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"],
 				TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber(), 5, "");
 		}
-		void plotRaw()
+		void plotRaw(unsigned int shot_number)
 		{
 			static size_t total_plot;
+			if (shot_number) {
+
+			} else {
+				//Conv
+#if 1
+				std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750)
+					+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
+				std::system(((std::string)"WDFCon.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
+				std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850)
+					+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
+#endif
+				thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
+				thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
+			}
 #if 0
 			ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
 			ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, data_file_name2);
 #else
-			//Conv
-#if 1
-			std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750)
-				+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
-			std::system(((std::string)"WDFCon.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
-			std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850)
-				+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
-#endif
-			thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
-			thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
 #endif
 			for (int i = 0; i < picture_box_total_number; i++) {
 				//Plot
@@ -340,7 +344,7 @@ namespace Project1 {
 			//
 //			TKADC* DL850;
 //			DL850 = new TKADC;
-//			DL850->Close();
+//			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Close();
 			Setting = Setting_;
 			DL750 = DL750_;
 			DL850 = DL850_;
@@ -352,10 +356,10 @@ namespace Project1 {
 			if (Connection(1))
 				MessageBox::Show("Connection failed.");
 
-			DL750->SetLastLocalShotNumber(std::stoi((*Setting)["DL750"]["LastLocalShotNumber"]));
-			DL750->SetLocalShotNumberMax(std::stoi((*Setting)["DL750"]["LocalShotNumberMax"]));
-			DL850->SetLastLocalShotNumber(std::stoi((*Setting)["DL850"]["LastLocalShotNumber"]));
-			DL850->SetLocalShotNumberMax(std::stoi((*Setting)["DL850"]["LocalShotNumberMax"]));
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->SetLastLocalShotNumber(std::stoi((*Setting)["DL750"]["LastLocalShotNumber"]));
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->SetLocalShotNumberMax(std::stoi((*Setting)["DL750"]["LocalShotNumberMax"]));
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->SetLastLocalShotNumber(std::stoi((*Setting)["DL850"]["LastLocalShotNumber"]));
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->SetLocalShotNumberMax(std::stoi((*Setting)["DL850"]["LocalShotNumberMax"]));
 			TKSHOTNO::SetLastShotNumber((unsigned int)std::stoi((*Setting)["ShotNumber"]["LastShotNumber"]));
 			TKSHOTNO::SetShotNumberMax((unsigned int)std::stoi((*Setting)["ShotNumber"]["ShotNumberMax"]));
 
@@ -372,8 +376,8 @@ namespace Project1 {
 			{
 				delete components;
 			}
-			DL750->Close();
-			DL850->Close();
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Close();
+			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Close();
 		}
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	protected:
@@ -1001,11 +1005,11 @@ private: System::Void さようならToolStripMenuItem_Click(System::Object^  sender,
 	Close();
 }
 private: System::Void toolStripMenuItem2_Click(System::Object^  sender, System::EventArgs^  e) {
-	if (!DL750->Close())
+	if (!TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Close())
 		MessageBox::Show("Disconnected!");
 	else
 		MessageBox::Show("Disconnection failed.");
-	if (!DL850->Close())
+	if (!TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Close())
 		MessageBox::Show("Disconnected!");
 	else
 		MessageBox::Show("Disconnection failed.");
@@ -1020,32 +1024,28 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 	MessageBox::Show("huge");
 }
 private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-//	DL750->SetLastLocalShotNumber(0);
-//	DL750->SetLocalShotNumberMax(99999);
-//	DL850->SetLastLocalShotNumber(0);
-//	DL850->SetLocalShotNumberMax(99999);
 	thisShot->Clear();
-	DL750->Start();
-	DL850->Start();
-	DL750->WaitADC();
-	DL850->WaitADC();
-	//	DL850->Stop();
-	DL750->SaveShot(makeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ""));
-	DL850->SaveShot(makeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ""));
-	DL750->WaitADC();
-	DL850->WaitADC();
-	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ".WVF"));
-	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", DL750->GetNextLocalShotNumber(), 5, ".HDR"));
-	downloadFromADC(TKADCINFO_ADC_ID_DL850, makeLocalFileName("D8T", DL850->GetNextLocalShotNumber(), 5, ".WDF"));
-	DL750->IncrementLocalShotNumber();
-	DL850->IncrementLocalShotNumber();
-	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(DL750->GetLastLocalShotNumber());
-	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(DL850->GetLastLocalShotNumber());
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Start();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Start();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->WaitADC();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->WaitADC();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->SaveShot(makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ""));
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->SaveShot(makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ""));
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->WaitADC();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->WaitADC();
+	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".WVF"));
+	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".HDR"));
+	downloadFromADC(TKADCINFO_ADC_ID_DL850, makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ".WDF"));
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
+	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
+	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());
 	Setting->write(SETTING_FILE_PATH);
+	plotRaw(0);
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	DL750->Stop();
-	DL850->Stop();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Stop();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Stop();
 }
 private: System::Void menuStrip1_ItemClicked(System::Object^  sender, System::Windows::Forms::ToolStripItemClickedEventArgs^  e) {
 }
@@ -1087,7 +1087,7 @@ private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender,
 	f->Show(); 
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	plotRaw();
+	plotRaw(0);
 }
 private: System::Void toolStripButton6_Click(System::Object^  sender, System::EventArgs^  e) {
 	グラフ描画ToolStripMenuItem_Click(sender, e);

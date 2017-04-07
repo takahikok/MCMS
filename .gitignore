@@ -243,6 +243,9 @@ ModelManifest.xml
 
 #
 *.CSV
+*.WDF
+*.WVF
+*.HDR
 *.plt
 *.png
 

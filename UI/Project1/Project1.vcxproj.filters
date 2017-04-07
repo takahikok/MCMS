@@ -57,6 +57,7 @@
     <None Include="YKMUSB64.dll" />
     <None Include="ClassDiagram1.cd" />
     <None Include="settings.ini" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="tmctl.lib" />

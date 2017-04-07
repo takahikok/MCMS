@@ -149,6 +149,8 @@ public:
 
 	int PlotRaw(TKPLOT::PLOTSIZE plot_size)
 	{
+		TKPLOT::PLOTINFO a;
+		plotInfo.push_back(a);
 		plotInfo.clear();
 		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++) {
 			for (int trace_index = 0; trace_index < thisShot->GetTraceTotalNumber(thisShot->GetADCID(data_index));
