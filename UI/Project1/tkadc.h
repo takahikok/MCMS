@@ -9,14 +9,23 @@
 #define __TKADC__
 
 //#define DEVICE_MAX 2
-#define TKADC_ADC_TYPE_DL750 TKADC::ADCType::ADCTypeDL750
-#define TKADC_ADC_TYPE_DL850 TKADC::ADCType::ADCTypeDL850
+#define TKADC_ADC_MODEL_DL750 TKADC::ADCModel::ADCTypeDL750
+#define TKADC_ADC_MODEL_DL850 TKADC::ADCModel::ADCTypeDL850
 #define TKADC_ADC_CHANNEL_MAX 18
 class TKADC
 {
 public:
-	TKADC();
+	enum class ADCModel
+	{
+		ADCTypeDL750,
+		ADCTypeDL850
+	};
+
+
+public:
+	TKADC(ADCModel adcmodel);
 	~TKADC();
+	ADCModel Model();
 	int Open(int wire_type_, const char* adress_);
 	int Close();
 	int SendMessage(const char* message);
@@ -42,14 +51,9 @@ public:
 	int SetLocalShotNumberMax(int new_local_shot_number_max);
 	int GetLocalShotNumberMax();
 
-	enum class ADCType
-	{
-		ADCTypeDL750,
-		ADCTypeDL850
-	};
-
 
 private:
+	ADCModel adc_model;
 	int device_id;
 	int wire_type;
 	char adress[256];

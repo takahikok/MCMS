@@ -3,12 +3,18 @@
 //#include <Windows.h>
 
 
-TKADC::TKADC()
+TKADC::TKADC(ADCModel adcmodel)
 {
+	adc_model = adcmodel;
 }
 
 TKADC::~TKADC()
 {
+}
+
+TKADC::ADCModel TKADC::Model()
+{
+	return adc_model;
 }
 
 int TKADC::Open(int wire_type_, const char* adress_)

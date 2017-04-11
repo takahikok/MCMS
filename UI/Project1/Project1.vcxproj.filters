@@ -58,6 +58,7 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="settings.ini" />
     <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="tmctl.lib" />
@@ -104,6 +105,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="tkplot.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="tkanalyze.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="tkphysics.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

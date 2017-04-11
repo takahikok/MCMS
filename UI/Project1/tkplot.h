@@ -147,7 +147,7 @@ public:
 		return 0;
 	}
 
-	int PlotRaw(TKPLOT::PLOTSIZE plot_size)
+	size_t PlotRaw(TKPLOT::PLOTSIZE plot_size)
 	{
 		TKPLOT::PLOTINFO a;
 		plotInfo.push_back(a);

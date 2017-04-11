@@ -2,13 +2,13 @@
 #include "tkadcinfo.h"
 namespace TKADCINFO
 {
-/*	TKADC::ADCType ADCIDToADCType(TKADCINFO::ADCID adcid)
+/*	TKADC::ADCModel ADCIDToADCType(TKADCINFO::ADCID adcid)
 	{
 		switch (adcid) {
 		case TKADCINFO_ADC_ID_DL750:
-			return TKADC_ADC_TYPE_DL750;
+			return TKADC_ADC_MODEL_DL750;
 		case TKADCINFO_ADC_ID_DL850:
-			return TKADC_ADC_TYPE_DL850;
+			return TKADC_ADC_MODEL_DL850;
 		}
 	}
 	std::string ADCIDToADCName(TKADCINFO::ADCID adcid)
@@ -22,7 +22,7 @@ namespace TKADCINFO
 	}*/
 	TKADC*& ADCIDToTKADCPtr(ADCID adcid)
 	{
-		static TKADC* tkadc_ptr[(int)sizeof(ADCID)];//or global
+		static TKADC* tkadc_ptr[(int)sizeof(ADCID)];
 		return tkadc_ptr[(int)adcid];
 	}
 	std::string ADCIDToSectionName(TKADCINFO::ADCID adcid)
