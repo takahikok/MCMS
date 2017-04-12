@@ -147,10 +147,8 @@ public:
 		return 0;
 	}
 
-	size_t PlotRaw(TKPLOT::PLOTSIZE plot_size)
+	size_t PlotRaw(TKPLOT::PLOTSIZE plot_size, int shot_number)
 	{
-		TKPLOT::PLOTINFO a;
-		plotInfo.push_back(a);
 		plotInfo.clear();
 		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++) {
 			for (int trace_index = 0; trace_index < thisShot->GetTraceTotalNumber(thisShot->GetADCID(data_index));
@@ -166,9 +164,11 @@ public:
 					+ thisShot->GetHResolution(thisShot->GetADCID(data_index))
 					* thisShot->GetBlockSize(thisShot->GetADCID(data_index)));
 				plot_info.h_resolution = thisShot->GetHResolution(thisShot->GetADCID(data_index));
-				plot_info.every = 10;
 				plot_info.trace_index = trace_index;
 				plot_info.data_file_name = thisShot->GetDataFileName(thisShot->GetADCID(data_index));
+
+				plot_info.yrange.min = static_cast<float>(static_cast<double>(thisShot->GetVMinData(thisShot->GetADCID(data_index))) * thisShot->GetVResolution(thisShot->GetADCID(data_index)));
+				plot_info.yrange.max = static_cast<float>(static_cast<double>(thisShot->GetVMaxData(thisShot->GetADCID(data_index))) * thisShot->GetVResolution(thisShot->GetADCID(data_index)));
 
 				switch (plot_size) {
 				case PLOTSIZE::small_size:
@@ -196,6 +196,9 @@ public:
 					plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
 					break;
 				}
+
+				plot_info.every = thisShot->GetBlockSize(thisShot->GetADCID(data_index)) / 10 / plot_info.drawing_size.w;
+
 				plotInfo.push_back(plot_info);
 			}
 		}
@@ -217,10 +220,11 @@ public:
 				<< "CH" << plotInfo[i].channel_number
 				<< " - " << plotInfo[i].model_name << "\"" << std::endl;
 			of << "set label 2 right at graph " << plotInfo[i].label_position[1].str() << " \""
-				<< "#" << std::to_string(0)
+				<< (shot_number ? "#" + TKUTIL::ZeroFill(shot_number, 8) : plotInfo[i].data_file_name)
 				<< "\"" << std::endl;
-			of << "set yrange [*<0:0<*]" << std::endl;
-			of << "set format y \"%1.1tE%+-T\"" << std::endl;
+//			of << "set yrange [*<0:0<*]" << std::endl;
+			of << "set yrange " << plotInfo[i].yrange.str() << std::endl;
+//			of << "set format y \"%1.1tE%+-T\"" << std::endl;
 			of << "set label 3 center at graph " << plotInfo[i].label_position[2].str()
 				<< " \"Time [s]\"" << std::endl;
 			of << "set label 4 center at graph " << plotInfo[i].label_position[3].str()

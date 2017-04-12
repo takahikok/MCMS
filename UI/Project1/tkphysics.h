@@ -15,11 +15,11 @@ namespace TKPhysicalConstant
 	const double elementary_charge = 1.6021766208E-19;			//e [C]
 
 #ifdef _USE_TKPHYSICALCONSTANT_SHORT_NAME
-	const double &c = speed_of_light_in_vacuum;
-	const double &mu_0 = permeability_of_free_space;
-	const double &eps_0 = permittivity_of_free_space;
-	const double &k_B = boltzman_constant;
-	const double &e = elementary_charge;
+	double const &c = speed_of_light_in_vacuum;
+	double const &mu_0 = permeability_of_free_space;
+	double const &eps_0 = permittivity_of_free_space;
+	double const &k_B = boltzman_constant;
+	double const &e = elementary_charge;
 #endif
 }
 
@@ -40,9 +40,12 @@ public:
 class TKPlasma
 {
 public:
+private:
 	TKParticlePalameter neutral, electron, ion;
-	double n_e = electron.density;
-
+public:
+	double const &n_e = electron.density;
+	double const &n_n = neutral.density;
+	double const a;
 };
 
 #endif

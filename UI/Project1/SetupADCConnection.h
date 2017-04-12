@@ -3,7 +3,7 @@
 #include <iostream>
 #include "clx/ini.h"
 #include "clx/base64.h"
-#include "kbtnutil.h"
+#include "tkutil.h"
 
 
 namespace Project1 {
@@ -29,18 +29,18 @@ namespace Project1 {
 			Setting->insert("DL750");
 			(*Setting)["DL750"]["Control"] = checkBox4->Checked ? "Enable" : "Disable";
 			(*Setting)["DL750"]["ConnectOnStartup"] = checkBox3->Checked ? "Enable" : "Disable";
-			(*Setting)["DL750"]["IPAddress"] = kbtn::SystemStringToString(textBox8->Text).c_str();
-			(*Setting)["DL750"]["StragePath"] = kbtn::SystemStringToString(textBox7->Text).c_str();
-			(*Setting)["DL750"]["UserName"] = kbtn::SystemStringToString(textBox5->Text).c_str();
-			(*Setting)["DL750"]["Password"] = clx::base64::encode(kbtn::SystemStringToString(textBox6->Text).c_str());
+			(*Setting)["DL750"]["IPAddress"] = TKUTIL::SystemStringToString(textBox8->Text).c_str();
+			(*Setting)["DL750"]["StragePath"] = TKUTIL::SystemStringToString(textBox7->Text).c_str();
+			(*Setting)["DL750"]["UserName"] = TKUTIL::SystemStringToString(textBox5->Text).c_str();
+			(*Setting)["DL750"]["Password"] = clx::base64::encode(TKUTIL::SystemStringToString(textBox6->Text).c_str());
 			(*Setting)["DL750"]["GPIBAdress"] = 4;
 			Setting->insert("DL850");
 			(*Setting)["DL850"]["Control"] = checkBox1->Checked ? "Enable" : "Disable";
 			(*Setting)["DL850"]["ConnectOnStartup"] = checkBox2->Checked ? "Enable" : "Disable";
-			(*Setting)["DL850"]["IPAddress"] = kbtn::SystemStringToString(textBox1->Text).c_str();
-			(*Setting)["DL850"]["StragePath"] = kbtn::SystemStringToString(textBox2->Text).c_str();
-			(*Setting)["DL850"]["UserName"] = kbtn::SystemStringToString(textBox3->Text).c_str();
-			(*Setting)["DL850"]["Password"] = clx::base64::encode(kbtn::SystemStringToString(textBox4->Text).c_str());
+			(*Setting)["DL850"]["IPAddress"] = TKUTIL::SystemStringToString(textBox1->Text).c_str();
+			(*Setting)["DL850"]["StragePath"] = TKUTIL::SystemStringToString(textBox2->Text).c_str();
+			(*Setting)["DL850"]["UserName"] = TKUTIL::SystemStringToString(textBox3->Text).c_str();
+			(*Setting)["DL850"]["Password"] = clx::base64::encode(TKUTIL::SystemStringToString(textBox4->Text).c_str());
 			(*Setting)["DL850"]["GPIBAdress"] = 4;
 			return 0;
 		}

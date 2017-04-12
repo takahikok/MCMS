@@ -144,6 +144,46 @@ int TKDATA::ParseHDR()
 				CHData[trace_number_offset + i].block_size = idata[i];
 			break;
 
+			//VResolution
+		case 17:
+		case 37:
+		case 57:
+		case 77:
+			readHDRLine(buf, trace_number, key_name, fdata);
+			for (int i = 0; i < trace_number; i++)
+				CHData[trace_number_offset + i].v_resolution = fdata[i];
+			break;
+
+			//VOffset
+		case 18:
+		case 38:
+		case 58:
+		case 78:
+			readHDRLine(buf, trace_number, key_name, fdata);
+			for (int i = 0; i < trace_number; i++)
+				CHData[trace_number_offset + i].v_offset = fdata[i];
+			break;
+
+			//VMaxData
+		case 24:
+		case 44:
+		case 64:
+		case 84:
+			readHDRLine(buf, trace_number, key_name, idata);
+			for (int i = 0; i < trace_number; i++)
+				CHData[trace_number_offset + i].v_max_data = idata[i];
+			break;
+
+			//VMinData
+		case 25:
+		case 45:
+		case 65:
+		case 85:
+			readHDRLine(buf, trace_number, key_name, idata);
+			for (int i = 0; i < trace_number; i++)
+				CHData[trace_number_offset + i].v_min_data = idata[i];
+			break;
+
 			//HResolution
 		case 26:
 		case 46:

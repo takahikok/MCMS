@@ -29,6 +29,8 @@ private:
 		std::string trace_name;
 		float v_resolution;
 		float v_offset;
+		int v_max_data;
+		int v_min_data;
 		float h_resolution;
 		float h_offset;
 		int block_size;
@@ -70,9 +72,25 @@ public:
 	{
 		return data_file_name;
 	}
-		float GetHResolution()
+	float GetHResolution()
 	{
 		return CHData[0].h_resolution;
+	}
+	float GetVOffset()
+	{
+		return CHData[0].v_offset;
+	}
+	float GetVResolution()
+	{
+		return CHData[0].v_resolution;
+	}
+	int GetVMaxData()
+	{
+		return CHData[0].v_max_data;
+	}
+	int GetVMinData()
+	{
+		return CHData[0].v_min_data;
 	}
 	int GetBlockSize()
 	{
@@ -194,6 +212,22 @@ public:
 	int GetBlockSize(TKADCINFO::ADCID adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetBlockSize();
+	}
+	float GetVOffset(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVOffset();
+	}
+	float GetVResolution(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVResolution();
+	}
+	int GetVMaxData(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVMaxData();
+	}
+	int GetVMinData(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVMinData();
 	}
 	float GetHOffset(TKADCINFO::ADCID adc_id)
 	{

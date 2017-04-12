@@ -9,12 +9,14 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "clx/base64.h"
 #include "clx/ini.h"
 #include "clx/ftp.h"
 #include <iomanip>
 #include <fstream>
 #include <vector>
-
+#include "clx/thread.h"
+#include "tkthread.h"
 #pragma once
 #define SETTING_FILE_PATH "settings.ini"
 
@@ -23,7 +25,6 @@
 #define data_file_name2 (std::string)"DTB00200"
 
 #define MAX_PLOT_NUMBER 30
-
 
 namespace Project1 {
 
@@ -34,6 +35,7 @@ namespace Project1 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+
 	/// <summary>
 	/// MyForm の概要
 	/// </summary>
@@ -43,8 +45,8 @@ namespace Project1 {
 		clx::ini* Setting;
 		clx::ini* ShotSetting;
 
-		TKADC* DL750;
-		TKADC* DL850;
+		TKADC_DL750* DL750;
+		TKADC_DL850* DL850;
 		TKSHOT* thisShot;
 		TKPLOT* thisPlot;
 		int picture_box_total_number = MAX_PLOT_NUMBER;
@@ -87,10 +89,16 @@ namespace Project1 {
 	private: System::Windows::Forms::Button^  button8;
 		 array<System::Windows::Forms::PictureBox^>^ pBVLine = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
 		 array<System::Windows::Forms::PictureBox^>^ pBHLine = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
+	private: System::Windows::Forms::ToolStripTextBox^  toolStripTextBox1;
+	private: System::Windows::Forms::ToolStripMenuItem^  toolStripMenuItem2;
+	private: System::Windows::Forms::ToolStripMenuItem^  toolStripMenuItem3;
+	private: System::Windows::Forms::ToolStripMenuItem^  toolStripMenuItem4;
+
 		 array<System::Windows::Forms::PictureBox^>^ pBHLineText = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
 
 
 	private:
+		void startMeasurement();
 		int Connection(bool on_startup)
 		{
 			int error_no;
@@ -102,19 +110,24 @@ namespace Project1 {
 				if ((bool)((*Setting)["DL850"]["Control"] == "Enable"))
 					if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
 						goto error;
+			flushADCState("Ready");
 			return 0;
 		error:
 			return error_no;
 		}
 
-		int downloadFromADC(TKADCINFO::ADCID adcid, std::string filename)
+		inline int downloadFromADC(TKADCINFO::ADCID adcid, std::string filename)
 		{
 			clx::ftp session((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["IPAddress"]), 21);
-			session.login((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["UserName"].c_str()), 
+			session.login((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["UserName"].c_str()),
 				(std::string)(clx::base64::decode((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["Password"].c_str())));
 			session.cd((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["StragePath"]));
 			session.retrieve(filename, filename, clx::ftp::binary);
 			session.finish();
+			return 0;
+		}
+		int deleteOnADC(TKADCINFO::ADCID adcid, std::string filename)
+		{
 			return 0;
 		}
 		int uploadToStrage(std::string source, std::string destination)
@@ -127,50 +140,49 @@ namespace Project1 {
 			session.finish();
 			return 0;
 		}
-		std::string zeroFill(int number, int length)
-		{
-			std::ostringstream fname;
-			fname << std::setfill('0') << std::setw(length) << std::right << (number);
-			return (std::string)fname.str();
-		}
+
 		std::string makeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
 		{
 			std::ostringstream fname;
 			fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (local_shot_number) << suffix;
 			return (std::string)fname.str();
 		}
-		std::string getLastLocalFileName(TKADCINFO::ADCID adcid)
+		inline std::string getLastLocalFileName(TKADCINFO::ADCID adcid)
 		{
 			return makeLocalFileName((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"],
 				TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber(), 5, "");
 		}
-		std::string getNextLocalFileName(TKADCINFO::ADCID adcid)
+		inline std::string getNextLocalFileName(TKADCINFO::ADCID adcid)
 		{
 			return makeLocalFileName((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"],
-				TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber(), 5, "");
+				TKADCINFO::ADCIDToTKADCPtr(adcid)->GetNextLocalShotNumber(), 5, "");
+		}
+		void flushADCState(std::string state, System::Drawing::Color color)
+		{
+			this->toolStripMenuItem2->ForeColor = color;
+			this->toolStripMenuItem2->Text = gcnew System::String(state.c_str());
+			System::Windows::Forms::Application::DoEvents();
+		}
+		void flushADCState(std::string state)
+		{
+			this->toolStripMenuItem2->ForeColor = System::Drawing::Color::Black;
+			this->toolStripMenuItem2->Text = gcnew System::String(state.c_str());
+			System::Windows::Forms::Application::DoEvents();
+		}
+		void flushShotNumber(int shot_number)
+		{
+			toolStripTextBox1->Text = gcnew System::String(("#" + TKUTIL::ZeroFill(shot_number, 8)).c_str());
+		}
+		void flushShotNumber()
+		{
+			toolStripTextBox1->Text = gcnew System::String(("#" + TKUTIL::ZeroFill(TKSHOTNO::GetLastShotNumber(), 8)).c_str());
 		}
 		void plotRaw(unsigned int shot_number)
 		{
 			static int total_plot;
-			if (shot_number) {
-
-			} else {
-				//Conv
-#if 1
-				std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750)
-					+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
-				std::system(((std::string)"WDFCon.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
-				std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850)
-					+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
-#endif
-				thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
-				thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
-			}
-#if 0
-			ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL750, data_file_name);
-			ThisShot.AppendDataFile(TKADCINFO_ADC_ID_DL850, data_file_name2);
-#else
-#endif
+			thisShot->Clear();
+			thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
+			thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
 			for (int i = 0; i < picture_box_total_number; i++) {
 				//Plot
 				pBPlot[i]->Visible = false;
@@ -181,7 +193,7 @@ namespace Project1 {
 				pBHLine[i]->Visible = false;
 				pBHLineText[i]->Visible = false;
 			}
-			thisPlot->PlotRaw(TKPLOT::PLOTSIZE::small_size);
+			thisPlot->PlotRaw(TKPLOT::PLOTSIZE::small_size, shot_number);
 			total_plot = static_cast<int>(thisPlot->GetPlotInfo().size());
 			std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
 			pplot_info = thisPlot->GetPlotInfoPtr();
@@ -203,6 +215,8 @@ namespace Project1 {
 				pBHLine[i]->Visible = true;
 				pBHLineText[i]->Visible = true;
 			}
+
+			flushShotNumber();
 		}
 		void refreshVLine()
 		{
@@ -265,7 +279,7 @@ namespace Project1 {
 		}
 
 	public:
-		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADC* DL750_, TKADC* DL850_)
+		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADC_DL750* DL750_, TKADC_DL850* DL850_)
 		{
 			InitializeComponent();
 			for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
@@ -367,6 +381,8 @@ namespace Project1 {
 				->SetLocalShotNumberMax(std::stoi((*Setting)["DL850"]["LocalShotNumberMax"]));
 			TKSHOTNO::SetLastShotNumber((unsigned int)std::stoi((*Setting)["ShotNumber"]["LastShotNumber"]));
 			TKSHOTNO::SetShotNumberMax((unsigned int)std::stoi((*Setting)["ShotNumber"]["ShotNumberMax"]));
+			flushADCState("N/A", System::Drawing::Color::OrangeRed);
+			flushShotNumber();
 
 		}
 
@@ -439,6 +455,7 @@ namespace Project1 {
 			this->グラフ描画ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->グラフ設定ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->さようならToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripTextBox1 = (gcnew System::Windows::Forms::ToolStripTextBox());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButton2 = (gcnew System::Windows::Forms::ToolStripButton());
@@ -466,6 +483,9 @@ namespace Project1 {
 			this->toolStrip3 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripButton6 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButton7 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripMenuItem2 = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripMenuItem3 = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripMenuItem4 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			this->toolStrip1->SuspendLayout();
 			this->tabControl1->SuspendLayout();
@@ -484,18 +504,17 @@ namespace Project1 {
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
 			this->menuStrip1->Dock = System::Windows::Forms::DockStyle::None;
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {
 				this->faToolStripMenuItem,
-					this->toolStripMenuItem1, this->ハードウェアToolStripMenuItem, this->グラフToolStripMenuItem, this->さようならToolStripMenuItem
+					this->toolStripMenuItem1, this->ハードウェアToolStripMenuItem, this->グラフToolStripMenuItem, this->さようならToolStripMenuItem, this->toolStripTextBox1,
+					this->toolStripMenuItem2
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Padding = System::Windows::Forms::Padding(4, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(259, 26);
+			this->menuStrip1->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
+			this->menuStrip1->Size = System::Drawing::Size(983, 34);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::menuStrip1_ItemClicked);
@@ -508,50 +527,50 @@ namespace Project1 {
 					this->終了ToolStripMenuItem
 			});
 			this->faToolStripMenuItem->Name = L"faToolStripMenuItem";
-			this->faToolStripMenuItem->Size = System::Drawing::Size(68, 22);
+			this->faToolStripMenuItem->Size = System::Drawing::Size(82, 30);
 			this->faToolStripMenuItem->Text = L"ファイル";
 			this->faToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::faToolStripMenuItem_Click);
 			// 
 			// 開くToolStripMenuItem
 			// 
 			this->開くToolStripMenuItem->Name = L"開くToolStripMenuItem";
-			this->開くToolStripMenuItem->Size = System::Drawing::Size(172, 22);
+			this->開くToolStripMenuItem->Size = System::Drawing::Size(206, 28);
 			this->開くToolStripMenuItem->Text = L"開く";
 			// 
 			// toolStripSeparator1
 			// 
 			this->toolStripSeparator1->Name = L"toolStripSeparator1";
-			this->toolStripSeparator1->Size = System::Drawing::Size(169, 6);
+			this->toolStripSeparator1->Size = System::Drawing::Size(203, 6);
 			// 
 			// 保存ToolStripMenuItem
 			// 
 			this->保存ToolStripMenuItem->Name = L"保存ToolStripMenuItem";
-			this->保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
+			this->保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
 			this->保存ToolStripMenuItem->Text = L"保存";
 			this->保存ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::保存ToolStripMenuItem_Click);
 			// 
 			// 名前を付けて保存ToolStripMenuItem
 			// 
 			this->名前を付けて保存ToolStripMenuItem->Name = L"名前を付けて保存ToolStripMenuItem";
-			this->名前を付けて保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
+			this->名前を付けて保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
 			this->名前を付けて保存ToolStripMenuItem->Text = L"名前を付けて保存";
 			// 
 			// すべて保存ToolStripMenuItem
 			// 
 			this->すべて保存ToolStripMenuItem->Name = L"すべて保存ToolStripMenuItem";
-			this->すべて保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
+			this->すべて保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
 			this->すべて保存ToolStripMenuItem->Text = L"すべて保存";
 			this->すべて保存ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::すべて保存ToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
 			this->toolStripSeparator2->Name = L"toolStripSeparator2";
-			this->toolStripSeparator2->Size = System::Drawing::Size(169, 6);
+			this->toolStripSeparator2->Size = System::Drawing::Size(203, 6);
 			// 
 			// 終了ToolStripMenuItem
 			// 
 			this->終了ToolStripMenuItem->Name = L"終了ToolStripMenuItem";
-			this->終了ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
+			this->終了ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
 			this->終了ToolStripMenuItem->Text = L"終了";
 			this->終了ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::終了ToolStripMenuItem_Click);
 			// 
@@ -563,28 +582,28 @@ namespace Project1 {
 			});
 			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
 			this->toolStripMenuItem1->ShortcutKeyDisplayString = L"";
-			this->toolStripMenuItem1->Size = System::Drawing::Size(44, 22);
+			this->toolStripMenuItem1->Size = System::Drawing::Size(52, 30);
 			this->toolStripMenuItem1->Text = L"計測";
 			this->toolStripMenuItem1->Click += gcnew System::EventHandler(this, &MyForm::toolStripMenuItem1_Click);
 			// 
 			// 計測開始ToolStripMenuItem
 			// 
 			this->計測開始ToolStripMenuItem->Name = L"計測開始ToolStripMenuItem";
-			this->計測開始ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->計測開始ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
 			this->計測開始ToolStripMenuItem->Text = L"計測開始";
 			this->計測開始ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測開始ToolStripMenuItem_Click);
 			// 
 			// 計測停止ToolStripMenuItem
 			// 
 			this->計測停止ToolStripMenuItem->Name = L"計測停止ToolStripMenuItem";
-			this->計測停止ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->計測停止ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
 			this->計測停止ToolStripMenuItem->Text = L"計測停止";
 			this->計測停止ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測停止ToolStripMenuItem_Click);
 			// 
 			// 計測設定ToolStripMenuItem
 			// 
 			this->計測設定ToolStripMenuItem->Name = L"計測設定ToolStripMenuItem";
-			this->計測設定ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->計測設定ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
 			this->計測設定ToolStripMenuItem->Text = L"計測設定";
 			// 
 			// ハードウェアToolStripMenuItem
@@ -594,27 +613,28 @@ namespace Project1 {
 					this->計測器切断, this->計測器接続設定ToolStripMenuItem
 			});
 			this->ハードウェアToolStripMenuItem->Name = L"ハードウェアToolStripMenuItem";
-			this->ハードウェアToolStripMenuItem->Size = System::Drawing::Size(44, 22);
+			this->ハードウェアToolStripMenuItem->ShowShortcutKeys = false;
+			this->ハードウェアToolStripMenuItem->Size = System::Drawing::Size(52, 30);
 			this->ハードウェアToolStripMenuItem->Text = L"通信";
 			// 
 			// 計測器接続ToolStripMenuItem
 			// 
 			this->計測器接続ToolStripMenuItem->Name = L"計測器接続ToolStripMenuItem";
-			this->計測器接続ToolStripMenuItem->Size = System::Drawing::Size(160, 22);
+			this->計測器接続ToolStripMenuItem->Size = System::Drawing::Size(191, 28);
 			this->計測器接続ToolStripMenuItem->Text = L"計測器接続";
 			this->計測器接続ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測器接続ToolStripMenuItem_Click);
 			// 
 			// 計測器切断
 			// 
 			this->計測器切断->Name = L"計測器切断";
-			this->計測器切断->Size = System::Drawing::Size(160, 22);
+			this->計測器切断->Size = System::Drawing::Size(191, 28);
 			this->計測器切断->Text = L"計測器切断";
 			this->計測器切断->Click += gcnew System::EventHandler(this, &MyForm::toolStripMenuItem2_Click);
 			// 
 			// 計測器接続設定ToolStripMenuItem
 			// 
 			this->計測器接続設定ToolStripMenuItem->Name = L"計測器接続設定ToolStripMenuItem";
-			this->計測器接続設定ToolStripMenuItem->Size = System::Drawing::Size(160, 22);
+			this->計測器接続設定ToolStripMenuItem->Size = System::Drawing::Size(191, 28);
 			this->計測器接続設定ToolStripMenuItem->Text = L"計測器接続設定";
 			this->計測器接続設定ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測器接続設定ToolStripMenuItem_Click);
 			// 
@@ -625,29 +645,39 @@ namespace Project1 {
 					this->グラフ設定ToolStripMenuItem
 			});
 			this->グラフToolStripMenuItem->Name = L"グラフToolStripMenuItem";
-			this->グラフToolStripMenuItem->Size = System::Drawing::Size(56, 22);
+			this->グラフToolStripMenuItem->Size = System::Drawing::Size(67, 30);
 			this->グラフToolStripMenuItem->Text = L"グラフ";
 			// 
 			// グラフ描画ToolStripMenuItem
 			// 
 			this->グラフ描画ToolStripMenuItem->Name = L"グラフ描画ToolStripMenuItem";
-			this->グラフ描画ToolStripMenuItem->Size = System::Drawing::Size(136, 22);
+			this->グラフ描画ToolStripMenuItem->Size = System::Drawing::Size(161, 28);
 			this->グラフ描画ToolStripMenuItem->Text = L"グラフ描画";
 			this->グラフ描画ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::グラフ描画ToolStripMenuItem_Click);
 			// 
 			// グラフ設定ToolStripMenuItem
 			// 
 			this->グラフ設定ToolStripMenuItem->Name = L"グラフ設定ToolStripMenuItem";
-			this->グラフ設定ToolStripMenuItem->Size = System::Drawing::Size(136, 22);
+			this->グラフ設定ToolStripMenuItem->Size = System::Drawing::Size(161, 28);
 			this->グラフ設定ToolStripMenuItem->Text = L"グラフ設定";
 			this->グラフ設定ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::グラフ設定ToolStripMenuItem_Click);
 			// 
 			// さようならToolStripMenuItem
 			// 
 			this->さようならToolStripMenuItem->Name = L"さようならToolStripMenuItem";
-			this->さようならToolStripMenuItem->Size = System::Drawing::Size(41, 22);
+			this->さようならToolStripMenuItem->Size = System::Drawing::Size(48, 30);
 			this->さようならToolStripMenuItem->Text = L"bye";
 			this->さようならToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::さようならToolStripMenuItem_Click);
+			// 
+			// toolStripTextBox1
+			// 
+			this->toolStripTextBox1->Alignment = System::Windows::Forms::ToolStripItemAlignment::Right;
+			this->toolStripTextBox1->ForeColor = System::Drawing::SystemColors::ControlText;
+			this->toolStripTextBox1->Name = L"toolStripTextBox1";
+			this->toolStripTextBox1->ReadOnly = true;
+			this->toolStripTextBox1->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
+			this->toolStripTextBox1->Size = System::Drawing::Size(100, 30);
+			this->toolStripTextBox1->Text = L"#00000000";
 			// 
 			// toolStrip1
 			// 
@@ -657,9 +687,9 @@ namespace Project1 {
 				this->toolStripButton1,
 					this->toolStripButton2, this->toolStripButton3
 			});
-			this->toolStrip1->Location = System::Drawing::Point(8, 0);
+			this->toolStrip1->Location = System::Drawing::Point(3, 34);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(170, 25);
+			this->toolStrip1->Size = System::Drawing::Size(206, 30);
 			this->toolStrip1->TabIndex = 1;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
@@ -669,7 +699,7 @@ namespace Project1 {
 			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
 			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton1->Name = L"toolStripButton1";
-			this->toolStripButton1->Size = System::Drawing::Size(54, 22);
+			this->toolStripButton1->Size = System::Drawing::Size(66, 27);
 			this->toolStripButton1->Text = L"＞Start";
 			this->toolStripButton1->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton1_Click);
 			// 
@@ -679,7 +709,7 @@ namespace Project1 {
 			this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton2.Image")));
 			this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton2->Name = L"toolStripButton2";
-			this->toolStripButton2->Size = System::Drawing::Size(51, 22);
+			this->toolStripButton2->Size = System::Drawing::Size(63, 27);
 			this->toolStripButton2->Text = L"□Stop";
 			this->toolStripButton2->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton2_Click);
 			// 
@@ -689,17 +719,17 @@ namespace Project1 {
 			this->toolStripButton3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton3.Image")));
 			this->toolStripButton3->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton3->Name = L"toolStripButton3";
-			this->toolStripButton3->Size = System::Drawing::Size(53, 22);
+			this->toolStripButton3->Size = System::Drawing::Size(65, 27);
 			this->toolStripButton3->Text = L"↓Save";
 			this->toolStripButton3->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton3_Click);
 			// 
 			// statusStrip1
 			// 
 			this->statusStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->statusStrip1->Location = System::Drawing::Point(0, 448);
+			this->statusStrip1->Location = System::Drawing::Point(0, 566);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 10, 0);
-			this->statusStrip1->Size = System::Drawing::Size(737, 22);
+			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 13, 0);
+			this->statusStrip1->Size = System::Drawing::Size(983, 22);
 			this->statusStrip1->TabIndex = 2;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -711,19 +741,19 @@ namespace Project1 {
 			this->tabControl1->Controls->Add(this->tabPage1);
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Location = System::Drawing::Point(0, 0);
-			this->tabControl1->Margin = System::Windows::Forms::Padding(2);
+			this->tabControl1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(733, 399);
+			this->tabControl1->Size = System::Drawing::Size(983, 443);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
 			// 
 			this->tabPage1->Controls->Add(this->splitContainer1);
-			this->tabPage1->Location = System::Drawing::Point(4, 22);
+			this->tabPage1->Location = System::Drawing::Point(4, 25);
 			this->tabPage1->Margin = System::Windows::Forms::Padding(0);
 			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Size = System::Drawing::Size(725, 373);
+			this->tabPage1->Size = System::Drawing::Size(975, 414);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"tabPage1";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -755,77 +785,85 @@ namespace Project1 {
 			this->splitContainer1->Panel2->Controls->Add(this->button3);
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
-			this->splitContainer1->Size = System::Drawing::Size(725, 373);
-			this->splitContainer1->SplitterDistance = 279;
+			this->splitContainer1->Size = System::Drawing::Size(975, 414);
+			this->splitContainer1->SplitterDistance = 326;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
 			// 
 			// numericUpDown2
 			// 
-			this->numericUpDown2->Location = System::Drawing::Point(336, 48);
+			this->numericUpDown2->Location = System::Drawing::Point(448, 60);
+			this->numericUpDown2->Margin = System::Windows::Forms::Padding(4);
 			this->numericUpDown2->Name = L"numericUpDown2";
-			this->numericUpDown2->Size = System::Drawing::Size(48, 19);
+			this->numericUpDown2->Size = System::Drawing::Size(64, 22);
 			this->numericUpDown2->TabIndex = 9;
 			this->numericUpDown2->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown2_ValueChanged);
 			// 
 			// button5
 			// 
-			this->button5->Location = System::Drawing::Point(416, 48);
+			this->button5->Location = System::Drawing::Point(555, 60);
+			this->button5->Margin = System::Windows::Forms::Padding(4);
 			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(23, 23);
+			this->button5->Size = System::Drawing::Size(31, 29);
 			this->button5->TabIndex = 8;
 			this->button5->Text = L"≫";
 			this->button5->UseVisualStyleBackColor = true;
 			// 
 			// button6
 			// 
-			this->button6->Location = System::Drawing::Point(392, 48);
+			this->button6->Location = System::Drawing::Point(523, 60);
+			this->button6->Margin = System::Windows::Forms::Padding(4);
 			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(23, 23);
+			this->button6->Size = System::Drawing::Size(31, 29);
 			this->button6->TabIndex = 7;
 			this->button6->Text = L"<";
 			this->button6->UseVisualStyleBackColor = true;
 			// 
 			// button7
 			// 
-			this->button7->Location = System::Drawing::Point(304, 48);
+			this->button7->Location = System::Drawing::Point(405, 60);
+			this->button7->Margin = System::Windows::Forms::Padding(4);
 			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(23, 23);
+			this->button7->Size = System::Drawing::Size(31, 29);
 			this->button7->TabIndex = 6;
 			this->button7->Text = L"<";
 			this->button7->UseVisualStyleBackColor = true;
 			// 
 			// button8
 			// 
-			this->button8->Location = System::Drawing::Point(280, 48);
+			this->button8->Location = System::Drawing::Point(373, 60);
+			this->button8->Margin = System::Windows::Forms::Padding(4);
 			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(23, 23);
+			this->button8->Size = System::Drawing::Size(31, 29);
 			this->button8->TabIndex = 5;
 			this->button8->Text = L"≪";
 			this->button8->UseVisualStyleBackColor = true;
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(152, 48);
+			this->numericUpDown1->Location = System::Drawing::Point(203, 60);
+			this->numericUpDown1->Margin = System::Windows::Forms::Padding(4);
 			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(48, 19);
+			this->numericUpDown1->Size = System::Drawing::Size(64, 22);
 			this->numericUpDown1->TabIndex = 4;
 			this->numericUpDown1->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown1_ValueChanged);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(232, 48);
+			this->button4->Location = System::Drawing::Point(309, 60);
+			this->button4->Margin = System::Windows::Forms::Padding(4);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(23, 23);
+			this->button4->Size = System::Drawing::Size(31, 29);
 			this->button4->TabIndex = 3;
 			this->button4->Text = L"≫";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(208, 48);
+			this->button3->Location = System::Drawing::Point(277, 60);
+			this->button3->Margin = System::Windows::Forms::Padding(4);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(23, 23);
+			this->button3->Size = System::Drawing::Size(31, 29);
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"<";
 			this->button3->UseVisualStyleBackColor = true;
@@ -833,9 +871,10 @@ namespace Project1 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(120, 48);
+			this->button2->Location = System::Drawing::Point(160, 60);
+			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(23, 23);
+			this->button2->Size = System::Drawing::Size(31, 29);
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"<";
 			this->button2->UseVisualStyleBackColor = true;
@@ -843,29 +882,27 @@ namespace Project1 {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(96, 48);
+			this->button1->Location = System::Drawing::Point(128, 60);
+			this->button1->Margin = System::Windows::Forms::Padding(4);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(23, 23);
+			this->button1->Size = System::Drawing::Size(31, 29);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"≪";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// tabPage2
 			// 
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Margin = System::Windows::Forms::Padding(2);
+			this->tabPage2->Location = System::Drawing::Point(4, 25);
+			this->tabPage2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(2);
-			this->tabPage2->Size = System::Drawing::Size(725, 323);
+			this->tabPage2->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->tabPage2->Size = System::Drawing::Size(975, 414);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"tabPage2";
 			this->tabPage2->UseVisualStyleBackColor = true;
 			// 
 			// toolStripContainer2
 			// 
-			this->toolStripContainer2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
-				| System::Windows::Forms::AnchorStyles::Right));
 			// 
 			// toolStripContainer2.BottomToolStripPanel
 			// 
@@ -874,19 +911,22 @@ namespace Project1 {
 			// toolStripContainer2.ContentPanel
 			// 
 			this->toolStripContainer2->ContentPanel->Controls->Add(this->tabControl1);
-			this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(2);
-			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(733, 398);
-			this->toolStripContainer2->Location = System::Drawing::Point(0, 26);
-			this->toolStripContainer2->Margin = System::Windows::Forms::Padding(2);
+			this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(983, 442);
+			this->toolStripContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->toolStripContainer2->Location = System::Drawing::Point(0, 0);
+			this->toolStripContainer2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->toolStripContainer2->Name = L"toolStripContainer2";
-			this->toolStripContainer2->Size = System::Drawing::Size(733, 423);
+			this->toolStripContainer2->Size = System::Drawing::Size(983, 566);
 			this->toolStripContainer2->TabIndex = 6;
 			this->toolStripContainer2->Text = L"toolStripContainer2";
 			// 
 			// toolStripContainer2.TopToolStripPanel
 			// 
+			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->menuStrip1);
 			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip1);
 			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip3);
+			this->toolStripContainer2->TopToolStripPanel->Controls->Add(this->toolStrip2);
 			// 
 			// toolStrip2
 			// 
@@ -896,9 +936,9 @@ namespace Project1 {
 				this->toolStripButton4,
 					this->toolStripButton5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(440, 26);
+			this->toolStrip2->Location = System::Drawing::Point(3, 94);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(191, 25);
+			this->toolStrip2->Size = System::Drawing::Size(237, 30);
 			this->toolStrip2->TabIndex = 2;
 			// 
 			// toolStripButton4
@@ -907,7 +947,7 @@ namespace Project1 {
 			this->toolStripButton4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton4.Image")));
 			this->toolStripButton4->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton4->Name = L"toolStripButton4";
-			this->toolStripButton4->Size = System::Drawing::Size(59, 22);
+			this->toolStripButton4->Size = System::Drawing::Size(74, 27);
 			this->toolStripButton4->Text = L"Connect";
 			this->toolStripButton4->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton4_Click);
 			// 
@@ -917,7 +957,7 @@ namespace Project1 {
 			this->toolStripButton5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton5.Image")));
 			this->toolStripButton5->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton5->Name = L"toolStripButton5";
-			this->toolStripButton5->Size = System::Drawing::Size(120, 22);
+			this->toolStripButton5->Size = System::Drawing::Size(151, 27);
 			this->toolStripButton5->Text = L"Connection setting";
 			this->toolStripButton5->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton5_Click);
 			// 
@@ -929,9 +969,9 @@ namespace Project1 {
 				this->toolStripButton6,
 					this->toolStripButton7
 			});
-			this->toolStrip3->Location = System::Drawing::Point(200, 0);
+			this->toolStrip3->Location = System::Drawing::Point(3, 64);
 			this->toolStrip3->Name = L"toolStrip3";
-			this->toolStrip3->Size = System::Drawing::Size(124, 25);
+			this->toolStrip3->Size = System::Drawing::Size(151, 30);
 			this->toolStrip3->TabIndex = 3;
 			// 
 			// toolStripButton6
@@ -940,7 +980,7 @@ namespace Project1 {
 			this->toolStripButton6->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton6.Image")));
 			this->toolStripButton6->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton6->Name = L"toolStripButton6";
-			this->toolStripButton6->Size = System::Drawing::Size(34, 22);
+			this->toolStripButton6->Size = System::Drawing::Size(42, 27);
 			this->toolStripButton6->Text = L"Plot";
 			this->toolStripButton6->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton6_Click);
 			// 
@@ -950,21 +990,43 @@ namespace Project1 {
 			this->toolStripButton7->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton7.Image")));
 			this->toolStripButton7->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton7->Name = L"toolStripButton7";
-			this->toolStripButton7->Size = System::Drawing::Size(78, 22);
+			this->toolStripButton7->Size = System::Drawing::Size(97, 27);
 			this->toolStripButton7->Text = L"Plot setting";
 			this->toolStripButton7->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton7_Click);
 			// 
+			// toolStripMenuItem2
+			// 
+			this->toolStripMenuItem2->Alignment = System::Windows::Forms::ToolStripItemAlignment::Right;
+			this->toolStripMenuItem2->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->toolStripMenuItem3,
+					this->toolStripMenuItem4
+			});
+			this->toolStripMenuItem2->ForeColor = System::Drawing::Color::OrangeRed;
+			this->toolStripMenuItem2->Name = L"toolStripMenuItem2";
+			this->toolStripMenuItem2->Size = System::Drawing::Size(67, 30);
+			this->toolStripMenuItem2->Text = L"Ready";
+			// 
+			// toolStripMenuItem3
+			// 
+			this->toolStripMenuItem3->Name = L"toolStripMenuItem3";
+			this->toolStripMenuItem3->Size = System::Drawing::Size(181, 28);
+			this->toolStripMenuItem3->Text = L"DL750 - ";
+			// 
+			// toolStripMenuItem4
+			// 
+			this->toolStripMenuItem4->Name = L"toolStripMenuItem4";
+			this->toolStripMenuItem4->Size = System::Drawing::Size(181, 28);
+			this->toolStripMenuItem4->Text = L"DL850 - ";
+			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
+			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(737, 470);
-			this->Controls->Add(this->toolStrip2);
+			this->ClientSize = System::Drawing::Size(983, 588);
 			this->Controls->Add(this->toolStripContainer2);
 			this->Controls->Add(this->statusStrip1);
-			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->Margin = System::Windows::Forms::Padding(2);
+			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->Name = L"MyForm";
 			this->Text = L"DT-ALPHA MCMS";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
@@ -1035,10 +1097,14 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 		{
 			TKADCINFO::ADCIDToTKADCPtr(adcid)->Start();
 		}
-		void threadADCWaitandDownload(TKADCINFO::ADCID adcid)
+		void threadADCWait(TKADCINFO::ADCID adcid)
 		{
 			TKADCINFO::ADCIDToTKADCPtr(adcid)->WaitADC();
+		}
+		void threadADCWaitandDownload(TKADCINFO::ADCID adcid)
+		{
 			TKADCINFO::ADCIDToTKADCPtr(adcid)->SaveShot(getNextLocalFileName(adcid));
+			TKADCINFO::ADCIDToTKADCPtr(adcid)->WaitADC();
 			switch (TKADCINFO::ADCIDToTKADCPtr(adcid)->Model()) {
 			case TKADC_ADC_MODEL_DL750:
 				downloadFromADC(adcid, getNextLocalFileName(adcid) + ".WVF");
@@ -1057,141 +1123,14 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 		{
 			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Start();
 		}
-		void threadADCWaitandDownload(Object^ adcid)
+		static void threadADCWait(System::Object^ adcid)
 		{
 			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-				->SaveShot(getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid));
-			switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
-			case TKADC_ADC_MODEL_DL750:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WVF");
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".HDR");
-				break;
-			case TKADC_ADC_MODEL_DL850:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WDF");
-				break;
-			}
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
-			(*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
-				= std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-					->GetLastLocalShotNumber());
 		}
-		void threadADCWaitandDownload750()
-		{
-			TKADCINFO::ADCID adcid = TKADCINFO_ADC_ID_DL750;
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-				->SaveShot(getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid));
-			switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
-			case TKADC_ADC_MODEL_DL750:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WVF");
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".HDR");
-				break;
-			case TKADC_ADC_MODEL_DL850:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WDF");
-				break;
-			}
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
-			(*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
-				= std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-					->GetLastLocalShotNumber());
-		}
-		void threadADCWaitandDownload850()
-		{
-			TKADCINFO::ADCID adcid = TKADCINFO_ADC_ID_DL750;
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-				->SaveShot(getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid));
-			switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
-			case TKADC_ADC_MODEL_DL750:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WVF");
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".HDR");
-				break;
-			case TKADC_ADC_MODEL_DL850:
-				downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
-					getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WDF");
-				break;
-			}
-			TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
-			(*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
-				= std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
-					->GetLastLocalShotNumber());
-		}
+
 #endif
-private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-#ifndef _MULTI_THREAD_
-#if 0
-	thisShot->Clear();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Start();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Start();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->WaitADC();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->WaitADC();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)
-		->SaveShot(makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ""));
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)
-		->SaveShot(makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ""));
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->WaitADC();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->WaitADC();
-	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".WVF"));
-	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".HDR"));
-	downloadFromADC(TKADCINFO_ADC_ID_DL850, makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ".WDF"));
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
-	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
-	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
-	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());
-	Setting->write(SETTING_FILE_PATH);
-	plotRaw(0);
-#else
-	thisShot->Clear();
-	threadADCStart(TKADCINFO_ADC_ID_DL750);
-	threadADCStart(TKADCINFO_ADC_ID_DL850);
-	threadADCWaitandDownload(TKADCINFO_ADC_ID_DL750);
-	threadADCWaitandDownload(TKADCINFO_ADC_ID_DL850);
-	Setting->write(SETTING_FILE_PATH);
-	plotRaw(0);
-#endif
-#else
-	thisShot->Clear();
-
-	{
-		System::Threading::Thread^ thread750 = gcnew System::Threading::Thread(
-			gcnew System::Threading::ParameterizedThreadStart(threadADCStart));
-		System::Threading::Thread^ thread850 = gcnew System::Threading::Thread(
-			gcnew System::Threading::ParameterizedThreadStart(threadADCStart));
-
-		thread750->Start((Int32)TKADCINFO_ADC_ID_DL750);
-		thread850->Start((Int32)TKADCINFO_ADC_ID_DL850);
-
-		thread750->Join();
-		thread850->Join();
-	}
-//	Work^ someWork = gcnew Work;
-//	newThread = gcnew Thread(gcnew ParameterizedThreadStart(someWork,&Work::DoMoreWork));
-	{
-		System::Threading::Thread^ thread750 = gcnew System::Threading::Thread(
-			gcnew System::Threading::ThreadStart(this, &MyForm::threadADCWaitandDownload750));
-//		gcnew System::Threading::ParameterizedThreadStart(this, &MyForm::threadADCWaitandDownload));
-		System::Threading::Thread^ thread850 = gcnew System::Threading::Thread(
-			gcnew System::Threading::ThreadStart(this, &MyForm::threadADCWaitandDownload850));
-
-		thread750->Start();
-		thread850->Start();
-
-		thread750->Join();
-		thread850->Join();
-	}
-
-	Setting->write(SETTING_FILE_PATH);
-	plotRaw(0);
-#endif
+private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e){
+	startMeasurement();
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Stop();
@@ -1213,17 +1152,21 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 }
 private: System::Void 保存ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".WVF",
-		"#" + zeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
 		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".WVF");
 	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".HDR",
-		"#" + zeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
 		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".HDR");
 	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF",
-		"#" + zeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
 		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL850) + ".WDF");
+
 	TKSHOTNO::IncrementShotNumber();
+	
 	(*Setting)["ShotNumber"]["LastShotNumber"] = std::to_string(TKSHOTNO::GetLastShotNumber());
 	Setting->write(SETTING_FILE_PATH);
+	
+	plotRaw(TKSHOTNO::GetLastShotNumber());
 }
 private: System::Void toolStripButton3_Click(System::Object^  sender, System::EventArgs^  e) {
 	保存ToolStripMenuItem_Click(sender, e);
@@ -1257,5 +1200,93 @@ private: System::Void numericUpDown1_ValueChanged(System::Object^  sender, Syste
 private: System::Void numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e) {
 	refreshHLine();
 }
+
 };
 }
+#if 1
+class exadcstart {
+private:
+	TKADCINFO::ADCID adcid;
+	TKADC::ConditionFlag flag;
+public:
+	exadcstart(TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	{
+		adcid = adcid_;
+		flag = flag_;
+	}
+
+	virtual ~exadcstart() {};
+	void operator()()
+	{
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->Start();
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->GetStatusCondition(flag);
+	}
+};
+
+class exfunctor {
+private:
+	TKADCINFO::ADCID adcid;
+	clx::ini* Setting;
+	std::string makeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
+	{
+		std::ostringstream fname;
+		fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (local_shot_number) << suffix;
+		return (std::string)fname.str();
+	}
+
+	inline std::string getLastLocalFileName(TKADCINFO::ADCID adcid)
+	{
+		return makeLocalFileName((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"],
+			TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber(), 5, "");
+	}
+
+	inline std::string getNextLocalFileName(TKADCINFO::ADCID adcid)
+	{
+		return makeLocalFileName((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"],
+			TKADCINFO::ADCIDToTKADCPtr(adcid)->GetNextLocalShotNumber(), 5, "");
+	}
+
+	inline int downloadFromADC(TKADCINFO::ADCID adcid, std::string filename)
+	{
+		clx::ftp session((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["IPAddress"]), 21);
+		session.login((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["UserName"].c_str()),
+			(std::string)(clx::base64::decode((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["Password"].c_str())));
+		session.cd((std::string)((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["StragePath"]));
+		session.retrieve(filename, filename, clx::ftp::binary);
+		session.finish();
+		return 0;
+	}
+
+public:
+	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	{
+		adcid = adcid_;
+		Setting = Setting_;
+	}
+
+	virtual ~exfunctor() {};
+	void operator()()
+	{
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->WaitADC();
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->SaveShot(getNextLocalFileName(adcid));
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->WaitADC();
+		switch (TKADCINFO::ADCIDToTKADCPtr(adcid)->Model()) {
+		case TKADC_ADC_MODEL_DL750:
+			downloadFromADC(adcid, getNextLocalFileName(adcid) + ".WVF");
+			downloadFromADC(adcid, getNextLocalFileName(adcid) + ".HDR");
+			std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750)
+				+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
+			break;
+		case TKADC_ADC_MODEL_DL850:
+			downloadFromADC(adcid, getNextLocalFileName(adcid) + ".WDF");
+			std::system(((std::string)"WDFCon.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
+			std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850)
+				+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
+			break;
+		}
+		TKADCINFO::ADCIDToTKADCPtr(adcid)->IncrementLocalShotNumber();
+		(*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LastLocalShotNumber"]
+			= std::to_string(TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber());
+	}
+};
+#endif

@@ -4,7 +4,8 @@
 #include <iomanip>
 #pragma once
 
-namespace kbtn {
-	extern std::string SystemStringToString(System::String ^ s);
+namespace TKUTIL {
+	std::string SystemStringToString(System::String ^ s);
 	//note: (to String) : gcnew System::String(char*);
+	std::string ZeroFill(int number, int length);
 }

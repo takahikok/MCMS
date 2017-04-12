@@ -1,6 +1,5 @@
 #include "tkadc.h"
 #include <string>  
-//#include <Windows.h>
 
 
 TKADC::TKADC(ADCModel adcmodel)
@@ -62,7 +61,7 @@ int TKADC::WaitADC()
 
 	for (;;) {
 		int condition;
-		
+
 		if (TmcSend(device_id, ":status:condition?"))
 			goto error;
 		if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
@@ -70,8 +69,34 @@ int TKADC::WaitADC()
 		condition = std::stol((std::string)rcv_msg);
 		if (!condition)
 			break;
+#ifdef _MANAGED
 		Sleep(1);
 		System::Windows::Forms::Application::DoEvents();
+#endif
+	}
+	return 0;
+error:
+	return TmcGetLastError(device_id);
+}
+int TKADC::WaitADC(TKADC::ConditionFlag flag)
+{
+	char rcv_msg[1024];
+	int rcv_length;
+
+	for (;;) {
+		int condition;
+
+		if (TmcSend(device_id, ":status:condition?"))
+			goto error;
+		if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
+			goto error;
+		condition = static_cast<int>(std::stol((std::string)rcv_msg)) & static_cast<int>(flag);
+		if (!condition)
+			break;
+#ifdef _MANAGED
+		Sleep(1);
+		System::Windows::Forms::Application::DoEvents();
+#endif
 	}
 	return 0;
 error:
@@ -94,6 +119,25 @@ int TKADC::SaveShot(std:: string file_name)
 	return 0;
 error:
 	return TmcGetLastError(device_id);
+}
+
+int TKADC::GetStatusCondition(TKADC::ConditionFlag flag)
+{
+	char rcv_msg[1024];
+	int rcv_length;
+
+	if (TmcSend(device_id, ":status:condition?"))
+		goto error;
+	if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
+		goto error;
+	return static_cast<int>(std::stol((std::string)rcv_msg)) & static_cast<int>(flag);
+error:
+	return TmcGetLastError(device_id);
+}
+
+int TKADC::Delete(std::string file_name)
+{
+	return 0;
 }
 
 int TKADC::GetLastLocalShotNumber()
@@ -129,3 +173,69 @@ int TKADC::GetLocalShotNumberMax()
 	return local_shot_number_max;
 }
 
+
+
+
+TKADC_DL750::TKADC_DL750() : TKADC(TKADC_ADC_MODEL_DL750)
+{
+}
+TKADC_DL850::TKADC_DL850() : TKADC(TKADC_ADC_MODEL_DL850)
+{
+}
+int TKADC_DL750::GetStatusCondition(TKADC_DL750::ConditionFlag flag)
+{
+	char rcv_msg[1024];
+	int rcv_length;
+
+	int device_id = GetDeviceID();
+
+	if (TmcSend(device_id, ":status:condition?"))
+		goto error;
+	if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
+		goto error;
+	return static_cast<int>(std::stol((std::string)rcv_msg)) & static_cast<int>(flag);
+error:
+	return TmcGetLastError(device_id);
+}
+int TKADC_DL750::Delete(std::string file_name)
+{
+	int device_id = GetDeviceID();
+	std::string send_msg = (std::string)":file:delete:binary \"" + file_name + "\"";
+
+	if (TmcSend(device_id, (char*)send_msg.c_str()))
+		goto error;
+	if (TmcSend(device_id, ":file:save:binary"))
+		goto error;
+	return 0;
+error:
+	return TmcGetLastError(device_id);
+}
+
+int TKADC_DL850::GetStatusCondition(TKADC_DL850::ConditionFlag flag)
+{
+	char rcv_msg[1024];
+	int rcv_length;
+
+	int device_id = GetDeviceID();
+
+	if (TmcSend(device_id, ":status:condition?"))
+		goto error;
+	if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
+		goto error;
+	return static_cast<int>(std::stol((std::string)rcv_msg)) & static_cast<int>(flag);
+error:
+	return TmcGetLastError(device_id);
+}
+int TKADC_DL850::Delete(std::string file_name)
+{
+	int device_id = GetDeviceID();
+	std::string send_msg = (std::string)":file:delete \"" + file_name + ".WDF\"";
+
+	if (TmcSend(device_id, (char*)send_msg.c_str()))
+		goto error;
+	if (TmcSend(device_id, ":file:save:binary"))
+		goto error;
+	return 0;
+error:
+	return TmcGetLastError(device_id);
+}

@@ -3,7 +3,7 @@
 #include <iostream>
 #include "clx/ini.h"
 #include "clx/base64.h"
-#include "kbtnutil.h"
+#include "tkutil.h"
 
 namespace Project1 {
 
@@ -26,7 +26,7 @@ namespace Project1 {
 			ShotSetting->insert("CH1.Plot");
 			(*ShotSetting)["CH1.Plot"]["Plot"] = checkBoxEnCH1->Checked ? "Enable" : "Disable";
 			(*ShotSetting)["CH1.Plot"]["TargetFigure"] = std::to_string(comboBoxFig1->SelectedIndex);
-			(*ShotSetting)["CH1.Plot"]["LabelName"] = kbtn::SystemStringToString(textBoxLN1->Text).c_str();
+			(*ShotSetting)["CH1.Plot"]["LabelName"] = TKUTIL::SystemStringToString(textBoxLN1->Text).c_str();
 
 			ShotSetting->write(((*ShotSetting)["This"]["FileName"] + ".ini").c_str());
 			return 0;

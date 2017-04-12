@@ -146,7 +146,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kbtnutil.cpp" />
+    <ClCompile Include="tkutil.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyForm1.cpp" />
     <ClCompile Include="SetupADCConnection.cpp" />
@@ -157,6 +157,7 @@
     <ClCompile Include="tkadcinfo.cpp" />
     <ClCompile Include="tkshotinfo.cpp" />
     <ClCompile Include="tkshotno.cpp" />
+    <ClCompile Include="tkthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -174,7 +175,7 @@
     <Library Include="tmctl64.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="kbtnutil.h" />
+    <ClInclude Include="tkutil.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -199,6 +200,7 @@
     <ClInclude Include="tkplot.h" />
     <ClInclude Include="tkshotinfo.h" />
     <ClInclude Include="tkshotno.h" />
+    <ClInclude Include="tkthread.h" />
     <ClInclude Include="tmctl.h" />
   </ItemGroup>
   <ItemGroup>

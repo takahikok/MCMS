@@ -16,10 +16,10 @@ using namespace System::Windows::Forms;
 [STAThreadAttribute]
 int main(array<String^>^ args) 
 {
-	TKADC* DL750;
-	TKADC* DL850;
-	DL750 = new TKADC(TKADC_ADC_MODEL_DL750);
-	DL850 = new TKADC(TKADC_ADC_MODEL_DL850);
+	TKADC_DL750* DL750;
+	TKADC_DL850* DL850;
+	DL750 = new TKADC_DL750();
+	DL850 = new TKADC_DL850();
 	TKSHOT* thisShot;
 	thisShot = new TKSHOT;
 	TKPLOT* thisPlot;
