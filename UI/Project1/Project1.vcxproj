@@ -146,6 +146,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SetupAnalyzeSP.cpp" />
+    <ClCompile Include="tkanalyzesp.cpp" />
     <ClCompile Include="tkutil.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="MyForm1.cpp" />
@@ -175,6 +177,10 @@
     <Library Include="tmctl64.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SetupAnalyzeSP.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="tkanalyzesp.h" />
     <ClInclude Include="tkutil.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
@@ -212,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetupADCMeasurement.resx">
       <DependentUpon>SetupADCMeasurement.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupAnalyzeSP.resx">
+      <DependentUpon>SetupAnalyzeSP.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupPlot.resx">
       <DependentUpon>SetupPlot.h</DependentUpon>

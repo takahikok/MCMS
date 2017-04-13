@@ -76,21 +76,21 @@ public:
 	{
 		return CHData[0].h_resolution;
 	}
-	float GetVOffset()
+	float GetVOffset(int trace_index)
 	{
-		return CHData[0].v_offset;
+		return CHData[trace_index].v_offset;
 	}
-	float GetVResolution()
+	float GetVResolution(int trace_index)
 	{
-		return CHData[0].v_resolution;
+		return CHData[trace_index].v_resolution;
 	}
-	int GetVMaxData()
+	int GetVMaxData(int trace_index)
 	{
-		return CHData[0].v_max_data;
+		return CHData[trace_index].v_max_data;
 	}
-	int GetVMinData()
+	int GetVMinData(int trace_index)
 	{
-		return CHData[0].v_min_data;
+		return CHData[trace_index].v_min_data;
 	}
 	int GetBlockSize()
 	{
@@ -158,7 +158,7 @@ public:
 
 		}
 		*/
-
+		this->Clear();
 	}
 	~TKSHOT()
 	{
@@ -213,21 +213,21 @@ public:
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetBlockSize();
 	}
-	float GetVOffset(TKADCINFO::ADCID adc_id)
+	float GetVOffset(TKADCINFO::ADCID adc_id, int trace_index)
 	{
-		return TKData[getADCDataIndexByADCID(adc_id)].GetVOffset();
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVOffset(trace_index);
 	}
-	float GetVResolution(TKADCINFO::ADCID adc_id)
+	float GetVResolution(TKADCINFO::ADCID adc_id, int trace_index)
 	{
-		return TKData[getADCDataIndexByADCID(adc_id)].GetVResolution();
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVResolution(trace_index);
 	}
-	int GetVMaxData(TKADCINFO::ADCID adc_id)
+	int GetVMaxData(TKADCINFO::ADCID adc_id, int trace_index)
 	{
-		return TKData[getADCDataIndexByADCID(adc_id)].GetVMaxData();
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVMaxData(trace_index);
 	}
-	int GetVMinData(TKADCINFO::ADCID adc_id)
+	int GetVMinData(TKADCINFO::ADCID adc_id, int trace_index)
 	{
-		return TKData[getADCDataIndexByADCID(adc_id)].GetVMinData();
+		return TKData[getADCDataIndexByADCID(adc_id)].GetVMinData(trace_index);
 	}
 	float GetHOffset(TKADCINFO::ADCID adc_id)
 	{
