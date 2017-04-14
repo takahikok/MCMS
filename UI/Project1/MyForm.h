@@ -129,7 +129,7 @@ namespace Project1 {
 
 
 	private:
-		void startMeasurement();
+		void startMeasurement(Project1::MyForm^ parent);
 		int Connection(bool on_startup)
 		{
 			int error_no;
@@ -328,16 +328,6 @@ namespace Project1 {
 				pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
 					+ ".png").c_str())));
 				pBPlot2[i]->Visible = true;
-			}
-			refreshVLine();
-			refreshHLine();
-			for (int i = 0; i < 3; i++) {
-				//VLine
-				pBVLine[i]->Visible = true;
-
-				//HLine
-				pBHLine[i]->Visible = true;
-				pBHLineText[i]->Visible = true;
 			}
 
 			flushShotNumber();
@@ -1401,7 +1391,7 @@ private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender,
 
 #endif
 private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e){
-	startMeasurement();
+	startMeasurement(this);
 }
 private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Stop();
@@ -1422,15 +1412,21 @@ private: System::Void toolStripButton2_Click(System::Object^  sender, System::Ev
 	計測停止ToolStripMenuItem_Click(sender, e);
 }
 private: System::Void 保存ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".WVF",
-		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
-		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".WVF");
-	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".HDR",
-		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
-		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".HDR");
-	uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF",
-		"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
-		+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL850) + ".WDF");
+		uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".WVF",
+			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+			+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".WVF");
+		uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".HDR",
+			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+			+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".HDR");
+		uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV",
+			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+			+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL750) + ".CSV");
+		uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF",
+			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+			+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL850) + ".WDF");
+		uploadToStrage(getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV",
+			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
+			+ "_" + TKADCINFO::ADCIDToSectionName(TKADCINFO_ADC_ID_DL850) + ".CSV");
 
 	TKSHOTNO::IncrementShotNumber();
 	
@@ -1454,7 +1450,7 @@ private: System::Void グラフ設定ToolStripMenuItem_Click(System::Object^  sender,
 	f->Show(); 
 }
 private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
-	plotRaw(0);
+	this->plotRaw(0);
 }
 private: System::Void toolStripButton6_Click(System::Object^  sender, System::EventArgs^  e) {
 	グラフ描画ToolStripMenuItem_Click(sender, e);

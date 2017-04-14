@@ -131,7 +131,7 @@ public:
 				of << "set xrange [-50:50]" << std::endl;
 				break;
 			}
-			of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".CSV\""
+			of << "plot \"" << clx::replace_all_copy(plotInfo[std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"])].data_file_name, "\\", "\\\\") << ".CSV\""
 				<< " every " << plotInfo[i].every
 				<< " using "
 				<< "($" << std::to_string(plotInfo[std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"])].trace_index + 1)
