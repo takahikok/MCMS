@@ -126,7 +126,7 @@ int TKDATA::ParseHDR()
 			readHDRLine(buf, trace_number, key_name, sdata);
 			for (int i = 0; i < trace_number; i++) {
 				CHData[trace_number_offset + i].trace_name = sdata[i];
-				//TraceName‚©‚çADCƒ`ƒƒƒ“ƒlƒ‹‚ð„‘ª(HDRƒp[ƒX‚É‚Í•s—v)
+				//TraceNameã‹ã‚‰ADCãƒãƒ£ãƒ³ãƒãƒ«ã‚’æŽ¨æ¸¬(HDRãƒ‘ãƒ¼ã‚¹ã«ã¯ä¸è¦)
 				CHData[trace_number_offset + i].ch_number = traceNameToCHNumber(sdata[i]);
 				if (CHData[trace_number_offset + i].ch_number != -1)
 					channel_number_to_trace_number[CHData[trace_number_offset + i].ch_number]

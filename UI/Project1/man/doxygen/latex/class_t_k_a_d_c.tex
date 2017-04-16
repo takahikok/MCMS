@@ -1,0 +1,86 @@
+\hypertarget{class_t_k_a_d_c}{}\section{T\+K\+A\+DC クラス}
+\label{class_t_k_a_d_c}\index{T\+K\+A\+DC@{T\+K\+A\+DC}}
+T\+K\+A\+DC の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_t_k_a_d_c}
+\end{center}
+\end{figure}
+\subsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a0d4ad86996884e94810d3de388fb7b35}\label{class_t_k_a_d_c_a0d4ad86996884e94810d3de388fb7b35}} 
+enum {\bfseries A\+D\+C\+Model} \{ {\bfseries A\+D\+C\+Type\+D\+L750}, 
+{\bfseries A\+D\+C\+Type\+D\+L850}
+ \}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_ac27c023a4beb7d736056653dd395744a}\label{class_t_k_a_d_c_ac27c023a4beb7d736056653dd395744a}} 
+enum {\bfseries Condition\+Flag} \{ {\bfseries A\+LL} = 0xffff
+ \}
+\end{DoxyCompactItemize}
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a1c0a93b410e2803b620b58a68602ddb8}\label{class_t_k_a_d_c_a1c0a93b410e2803b620b58a68602ddb8}} 
+{\bfseries T\+K\+A\+DC} (A\+D\+C\+Model adcmodel)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_ae9f969478ee09be58f48b2acaca6b18e}\label{class_t_k_a_d_c_ae9f969478ee09be58f48b2acaca6b18e}} 
+A\+D\+C\+Model {\bfseries Model} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a325adb86439b5b155b5d39fe6bbccdd3}\label{class_t_k_a_d_c_a325adb86439b5b155b5d39fe6bbccdd3}} 
+int {\bfseries Open} (int wire\+\_\+type\+\_\+, const char $\ast$adress\+\_\+)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a35b9419768e76a1e2ae038490276fd54}\label{class_t_k_a_d_c_a35b9419768e76a1e2ae038490276fd54}} 
+int {\bfseries Close} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a263c827670741ec9346bab57dd2014b5}\label{class_t_k_a_d_c_a263c827670741ec9346bab57dd2014b5}} 
+int {\bfseries Send\+Message} (const char $\ast$message)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a3a72fc4842cf2d631a2125bc0a44e8b8}\label{class_t_k_a_d_c_a3a72fc4842cf2d631a2125bc0a44e8b8}} 
+int {\bfseries Start} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a15e1a4d09c33442b8493c55d4bdcb46e}\label{class_t_k_a_d_c_a15e1a4d09c33442b8493c55d4bdcb46e}} 
+int {\bfseries Stop} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a756ea455d92a0ff748471319f00802f7}\label{class_t_k_a_d_c_a756ea455d92a0ff748471319f00802f7}} 
+int {\bfseries Wait\+A\+DC} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a4fcfd8a9e1a211a45146b06b4fe5e62f}\label{class_t_k_a_d_c_a4fcfd8a9e1a211a45146b06b4fe5e62f}} 
+int {\bfseries Wait\+A\+DC} (T\+K\+A\+D\+C\+::\+Condition\+Flag flag)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a203501518ba49a7595572c5295d754ed}\label{class_t_k_a_d_c_a203501518ba49a7595572c5295d754ed}} 
+int {\bfseries Save\+Shot} (std\+::string file\+\_\+name)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a36ba7240885559c96262c0e85dcd5731}\label{class_t_k_a_d_c_a36ba7240885559c96262c0e85dcd5731}} 
+int {\bfseries Get\+Device\+ID} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_af97c5fe3c01c209e154362e9dff27516}\label{class_t_k_a_d_c_af97c5fe3c01c209e154362e9dff27516}} 
+virtual int {\bfseries Get\+Status\+Condition} (T\+K\+A\+D\+C\+::\+Condition\+Flag flag=Condition\+Flag\+::\+A\+LL)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a341d18580fbda1d2e2fc9a701c16d9bf}\label{class_t_k_a_d_c_a341d18580fbda1d2e2fc9a701c16d9bf}} 
+virtual int {\bfseries Delete} (std\+::string file\+\_\+name)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a05193b85e821bec540ed791bfe82e44e}\label{class_t_k_a_d_c_a05193b85e821bec540ed791bfe82e44e}} 
+int {\bfseries Get\+Last\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_a7b9b8489b91d83c871b668ea64270c94}\label{class_t_k_a_d_c_a7b9b8489b91d83c871b668ea64270c94}} 
+int {\bfseries Get\+Next\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_ae851f7ca77f99481728881fb93576ae0}\label{class_t_k_a_d_c_ae851f7ca77f99481728881fb93576ae0}} 
+int {\bfseries Set\+Last\+Local\+Shot\+Number} (int new\+\_\+local\+\_\+shot\+\_\+number)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_af3a90b165c7007a26d3ea8869970745a}\label{class_t_k_a_d_c_af3a90b165c7007a26d3ea8869970745a}} 
+int {\bfseries Increment\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_aa4145e024d074942bfd85777a0419cec}\label{class_t_k_a_d_c_aa4145e024d074942bfd85777a0419cec}} 
+int {\bfseries Set\+Local\+Shot\+Number\+Max} (int new\+\_\+local\+\_\+shot\+\_\+number\+\_\+max)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_aa238169ef582140e6c19f84003915d87}\label{class_t_k_a_d_c_aa238169ef582140e6c19f84003915d87}} 
+int {\bfseries Get\+Local\+Shot\+Number\+Max} ()
+\end{DoxyCompactItemize}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+tkadc.\+h\item 
+tkadc.\+cpp\end{DoxyCompactItemize}

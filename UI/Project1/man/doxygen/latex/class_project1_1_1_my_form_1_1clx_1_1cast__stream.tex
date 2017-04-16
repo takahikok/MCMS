@@ -1,0 +1,40 @@
+\hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream}{}\section{Project1\+:\+:My\+Form\+:\+:clx\+:\+:cast\+\_\+stream$<$ Type, Source $>$ クラステンプレート}
+\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream}\index{Project1\+::\+My\+Form\+::clx\+::cast\+\_\+stream$<$ Type, Source $>$@{Project1\+::\+My\+Form\+::clx\+::cast\+\_\+stream$<$ Type, Source $>$}}
+\subsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af0a537f7df0557254490387977c545ba}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af0a537f7df0557254490387977c545ba}} 
+typedef Source {\bfseries src\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af58084766d001872f4b3f64ee7c0c300}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af58084766d001872f4b3f64ee7c0c300}} 
+typedef Type {\bfseries dest\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a0bbc71a4347cbdc9cd20b2428ba4e236}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a0bbc71a4347cbdc9cd20b2428ba4e236}} 
+typedef \hyperlink{struct_project1_1_1_my_form_1_1clx_1_1detail_1_1widest__char}{detail\+::widest\+\_\+char}$<$ typename \hyperlink{struct_project1_1_1_my_form_1_1clx_1_1detail_1_1stream__char}{detail\+::stream\+\_\+char}$<$ Type $>$\+::type, typename \hyperlink{struct_project1_1_1_my_form_1_1clx_1_1detail_1_1stream__char}{detail\+::stream\+\_\+char}$<$ Source $>$\+::type $>$\+::type {\bfseries char\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_aac4589e719ad0437cfc7951ed6939057}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_aac4589e719ad0437cfc7951ed6939057}} 
+typedef std\+::basic\+\_\+string$<$ char\+\_\+type $>$ {\bfseries string\+\_\+type}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a6dccdd3ed78cd25dbd6dfef270ab9cf7}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a6dccdd3ed78cd25dbd6dfef270ab9cf7}} 
+typedef std\+::basic\+\_\+stringstream$<$ char\+\_\+type $>$ {\bfseries internal\+\_\+stream}
+\end{DoxyCompactItemize}
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a387f08a56ab764c21704f1ee8c21ae86}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a387f08a56ab764c21704f1ee8c21ae86}} 
+{\bfseries cast\+\_\+stream} (std\+::ios\+::fmtflags base=std\+::ios\+::dec)
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a0c73a6a819948c22efb053af7a7cf54d}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_a0c73a6a819948c22efb053af7a7cf54d}} 
+bool {\bfseries operator$<$$<$} (const src\+\_\+type \&src)
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af016c1601747a5a98aaf73cab36e40e5}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_af016c1601747a5a98aaf73cab36e40e5}} 
+{\footnotesize template$<$class ValueT $>$ }\\bool {\bfseries operator$>$$>$} (ValueT \&dest)
+\item 
+\mbox{\Hypertarget{class_project1_1_1_my_form_1_1clx_1_1cast__stream_aaeaf3ceeb2ad1c037fc5f2a8c24f23d3}\label{class_project1_1_1_my_form_1_1clx_1_1cast__stream_aaeaf3ceeb2ad1c037fc5f2a8c24f23d3}} 
+bool {\bfseries operator$>$$>$} (string\+\_\+type \&dest)
+\end{DoxyCompactItemize}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+My\+Form.\+h\end{DoxyCompactItemize}

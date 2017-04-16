@@ -24,6 +24,14 @@ public:
 	public:
 		T min;
 		T max;
+		RANGE(T min_, T max_)
+		{
+			min = min_;
+			max = max_;
+		}
+		RANGE()
+		{
+		}
 		std::string str()
 		{
 			return "[" + std::to_string(min) + ":" + std::to_string(max) + "]";

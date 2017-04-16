@@ -1,4 +1,4 @@
-#include "MyForm.h" // [2]‚Å•t‚¯‚½Form–¼.h
+#include "MyForm.h" // [2]ã§ä»˜ã‘ãŸFormå.h
 #include "SetupADCConnection.h"
 #include "SetupADCMeasurement.h"
 #include "SetupPlot.h"

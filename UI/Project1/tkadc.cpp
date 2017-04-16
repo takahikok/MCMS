@@ -49,10 +49,7 @@ int TKADC::Stop()
 	return this->SendMessage(":stop");
 }
 
-int TKADC::WaitADC2()
-{
-	return 0;
-}
+
 
 int TKADC::WaitADC()
 {

@@ -149,11 +149,11 @@ public:
 		adc_num = 0;
 		shot_number = ishot_num;
 		if (ishot_num == -1) {
-			//�V���b�g�ԍ��Ȃ��J�����g�V���b�g
+			//ショット番号なしカレントショット
 			is_current_shot = true;
 		}
 		else {
-			//�V���b�g�ԍ��L�ۑ��ς݃V���b�g
+			//ショット番号有保存済みショット
 			is_current_shot = false;
 
 		}

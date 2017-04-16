@@ -1,8 +1,12 @@
-
+#ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
+#endif
 #include <cmath>
 #ifndef __TKPHYSICS__
 #define __TKPHYSICS__
+#ifndef M_PI
+#define M_PI       3.14159265358979323846   // pi
+#endif
 
 namespace TKPhysicalConstant
 {
@@ -22,6 +26,13 @@ namespace TKPhysicalConstant
 	double const &e = elementary_charge;
 #endif
 }
+
+enum class TKChargedParticleType
+{
+	neutral,
+	electron,
+	ion
+};
 
 class TKParticlePalameter
 {

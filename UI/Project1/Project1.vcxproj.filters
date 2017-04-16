@@ -30,9 +30,6 @@
     <ClCompile Include="tkshotno.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MyForm1.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SetupADCMeasurement.cpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
@@ -92,9 +89,6 @@
     <ClInclude Include="resource1.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MyForm1.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SetupADCConnection.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -143,6 +137,9 @@
       <Filter>リソース ファイル</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="SetupPlot.resx">
+      <Filter>リソース ファイル</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetupAnalyzeSP.resx">
       <Filter>リソース ファイル</Filter>
     </EmbeddedResource>
   </ItemGroup>

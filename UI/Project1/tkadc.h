@@ -33,18 +33,11 @@ public:
 	int Stop();
 	int WaitADC();
 	int WaitADC(TKADC::ConditionFlag flag);
-	int WaitADC2();
 	int SaveShot(std::string file_name);
 
-/*	void BeginThread();
-	void TermThread();
-	bool m_run;
-	HANDLE m_hThread;
-	DWORD m_dwThrdAddr;
-	*/
 	int GetDeviceID();
 
-	virtual int GetStatusCondition(TKADC::ConditionFlag flag);
+	virtual int GetStatusCondition(TKADC::ConditionFlag flag = ConditionFlag::ALL);
 	virtual int Delete(std::string file_name);
 
 public:
@@ -80,7 +73,8 @@ struct DEVICE {
 	char file_path[32];
 };
 
-class TKADC_DL750 : public TKADC {
+class TKADC_DL750 : public TKADC
+{
 public:
 
 	//The condition flag is depending on the ADC model.
@@ -108,11 +102,12 @@ public:
 
 public:
 	TKADC_DL750();
-	int TKADC_DL750::GetStatusCondition(TKADC_DL750::ConditionFlag flag);
+	int TKADC_DL750::GetStatusCondition(TKADC_DL750::ConditionFlag flag = ConditionFlag::ALL);
 	int Delete(std::string file_name);
 };
 
-class TKADC_DL850 : public TKADC {
+class TKADC_DL850 : public TKADC
+{
 public:
 
 	//The condition flag is depending on the ADC model.
@@ -141,7 +136,7 @@ public:
 
 public:
 	TKADC_DL850();
-	int TKADC_DL850::GetStatusCondition(TKADC_DL850::ConditionFlag flag);
+	int TKADC_DL850::GetStatusCondition(TKADC_DL850::ConditionFlag flag = ConditionFlag::ALL);
 	int Delete(std::string file_name);
 };
 

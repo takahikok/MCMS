@@ -150,7 +150,6 @@
     <ClCompile Include="tkanalyzesp.cpp" />
     <ClCompile Include="tkutil.cpp" />
     <ClCompile Include="MyForm.cpp" />
-    <ClCompile Include="MyForm1.cpp" />
     <ClCompile Include="SetupADCConnection.cpp" />
     <ClCompile Include="SetupADCMeasurement.cpp" />
     <ClCompile Include="SetupPlot.cpp" />
@@ -183,9 +182,6 @@
     <ClInclude Include="tkanalyzesp.h" />
     <ClInclude Include="tkutil.h" />
     <ClInclude Include="MyForm.h">
-      <FileType>CppForm</FileType>
-    </ClInclude>
-    <ClInclude Include="MyForm1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -229,4 +225,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_StartDate="2000/1/1" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
