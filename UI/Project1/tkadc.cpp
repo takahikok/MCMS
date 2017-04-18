@@ -2,21 +2,21 @@
 #include <string>  
 
 
-TKADC::TKADC(ADCModel adcmodel)
+TKADCCONTROL::TKADCCONTROL(ADCMODEL adcmodel)
 {
 	adc_model = adcmodel;
 }
 
-TKADC::~TKADC()
+TKADCCONTROL::~TKADCCONTROL()
 {
 }
 
-TKADC::ADCModel TKADC::Model()
+TKADCCONTROL::ADCMODEL TKADCCONTROL::Model()
 {
 	return adc_model;
 }
 
-int TKADC::Open(int wire_type_, const char* adress_)
+int TKADCCONTROL::Open(int wire_type_, const char* adress_)
 {
 	wire_type = wire_type_;
 	strcpy(adress, adress_);
@@ -25,14 +25,14 @@ int TKADC::Open(int wire_type_, const char* adress_)
 	return 0;
 }
 
-int TKADC::Close()
+int TKADCCONTROL::Close()
 {
 	if (TmcFinish(device_id))
 		return TmcGetLastError(device_id);
 	return 0;
 }
 
-int TKADC::SendMessage(const char* message)
+int TKADCCONTROL::SendMessage(const char* message)
 {
 	if (TmcSend(device_id, (char*)message))
 		return TmcGetLastError(device_id);
@@ -40,42 +40,18 @@ int TKADC::SendMessage(const char* message)
 		return 0;
 }
 
-int TKADC::Start()
+int TKADCCONTROL::Start()
 {
 	return this->SendMessage(":start");
 }
-int TKADC::Stop()
+int TKADCCONTROL::Stop()
 {
 	return this->SendMessage(":stop");
 }
 
 
 
-int TKADC::WaitADC()
-{
-	char rcv_msg[1024];
-	int rcv_length;
-
-	for (;;) {
-		int condition;
-
-		if (TmcSend(device_id, ":status:condition?"))
-			goto error;
-		if (TmcReceive(device_id, rcv_msg, sizeof(rcv_msg), &rcv_length))
-			goto error;
-		condition = std::stol((std::string)rcv_msg);
-		if (!condition)
-			break;
-#ifdef _MANAGED
-		Sleep(1);
-		System::Windows::Forms::Application::DoEvents();
-#endif
-	}
-	return 0;
-error:
-	return TmcGetLastError(device_id);
-}
-int TKADC::WaitADC(TKADC::ConditionFlag flag)
+int TKADCCONTROL::WaitADC(TKADCCONTROL::CONDITIONFLAG flag)
 {
 	char rcv_msg[1024];
 	int rcv_length;
@@ -99,12 +75,12 @@ int TKADC::WaitADC(TKADC::ConditionFlag flag)
 error:
 	return TmcGetLastError(device_id);
 }
-int TKADC::GetDeviceID(void)
+int TKADCCONTROL::GetDeviceID(void)
 {
 	return this->device_id;
 }
 
-int TKADC::SaveShot(std:: string file_name)
+int TKADCCONTROL::SaveShot(std:: string file_name)
 {
 	std::string send_msg;
 
@@ -118,7 +94,7 @@ error:
 	return TmcGetLastError(device_id);
 }
 
-int TKADC::GetStatusCondition(TKADC::ConditionFlag flag)
+int TKADCCONTROL::GetStatusCondition(TKADCCONTROL::CONDITIONFLAG flag)
 {
 	char rcv_msg[1024];
 	int rcv_length;
@@ -132,27 +108,27 @@ error:
 	return TmcGetLastError(device_id);
 }
 
-int TKADC::Delete(std::string file_name)
+int TKADCCONTROL::Delete(std::string file_name)
 {
 	return 0;
 }
 
-int TKADC::GetLastLocalShotNumber()
+int TKADCCONTROL::GetLastLocalShotNumber()
 {
 	return next_local_shot_number - 1;
 }
 
-int TKADC::GetNextLocalShotNumber()
+int TKADCCONTROL::GetNextLocalShotNumber()
 {
 	return next_local_shot_number;
 }
 
-int TKADC::SetLastLocalShotNumber(int new_local_shot_number)
+int TKADCCONTROL::SetLastLocalShotNumber(int new_local_shot_number)
 {
 	return next_local_shot_number = new_local_shot_number + 1;
 }
 
-int TKADC::IncrementLocalShotNumber()
+int TKADCCONTROL::IncrementLocalShotNumber()
 {
 	next_local_shot_number++;
 	if (next_local_shot_number > local_shot_number_max)
@@ -160,12 +136,12 @@ int TKADC::IncrementLocalShotNumber()
 	return next_local_shot_number;
 }
 
-int TKADC::SetLocalShotNumberMax(int new_local_shot_number_max)
+int TKADCCONTROL::SetLocalShotNumberMax(int new_local_shot_number_max)
 {
 	return local_shot_number_max = new_local_shot_number_max;
 }
 
-int TKADC::GetLocalShotNumberMax()
+int TKADCCONTROL::GetLocalShotNumberMax()
 {
 	return local_shot_number_max;
 }
@@ -173,13 +149,13 @@ int TKADC::GetLocalShotNumberMax()
 
 
 
-TKADC_DL750::TKADC_DL750() : TKADC(TKADC_ADC_MODEL_DL750)
+TKADCCONTROL_DL750::TKADCCONTROL_DL750() : TKADCCONTROL(TKADC_ADC_MODEL_DL750)
 {
 }
-TKADC_DL850::TKADC_DL850() : TKADC(TKADC_ADC_MODEL_DL850)
+TKADCCONTROL_DL850::TKADCCONTROL_DL850() : TKADCCONTROL(TKADC_ADC_MODEL_DL850)
 {
 }
-int TKADC_DL750::GetStatusCondition(TKADC_DL750::ConditionFlag flag)
+int TKADCCONTROL_DL750::GetStatusCondition(TKADCCONTROL_DL750::CONDITIONFLAG flag)
 {
 	char rcv_msg[1024];
 	int rcv_length;
@@ -194,7 +170,7 @@ int TKADC_DL750::GetStatusCondition(TKADC_DL750::ConditionFlag flag)
 error:
 	return TmcGetLastError(device_id);
 }
-int TKADC_DL750::Delete(std::string file_name)
+int TKADCCONTROL_DL750::Delete(std::string file_name)
 {
 	int device_id = GetDeviceID();
 	std::string send_msg = (std::string)":file:delete:binary \"" + file_name + "\"";
@@ -208,7 +184,7 @@ error:
 	return TmcGetLastError(device_id);
 }
 
-int TKADC_DL850::GetStatusCondition(TKADC_DL850::ConditionFlag flag)
+int TKADCCONTROL_DL850::GetStatusCondition(TKADCCONTROL_DL850::CONDITIONFLAG flag)
 {
 	char rcv_msg[1024];
 	int rcv_length;
@@ -223,7 +199,7 @@ int TKADC_DL850::GetStatusCondition(TKADC_DL850::ConditionFlag flag)
 error:
 	return TmcGetLastError(device_id);
 }
-int TKADC_DL850::Delete(std::string file_name)
+int TKADCCONTROL_DL850::Delete(std::string file_name)
 {
 	int device_id = GetDeviceID();
 	std::string send_msg = (std::string)":file:delete \"" + file_name + ".WDF\"";

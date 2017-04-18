@@ -78,7 +78,7 @@ TKADC_DL850 の継承関係図</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:a25f41a7cd5213cd9814195b3d6ba11c0"><td class="memItemLeft" align="right" valign="top"><a id="a25f41a7cd5213cd9814195b3d6ba11c0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ConditionFlag</b> { <br />
+<tr class="memitem:a6260037afeb5b77c760856eecbe7e88f"><td class="memItemLeft" align="right" valign="top"><a id="a6260037afeb5b77c760856eecbe7e88f"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>CONDITIONFLAG</b> { <br />
 &#160;&#160;<b>ALL</b> = 0xffff, 
 <b>CAP</b> = 1 &lt;&lt; 0, 
 <b>REC</b> = 1 &lt;&lt; 1, 
@@ -102,31 +102,31 @@ TKADC_DL850 の継承関係図</div>
 &#160;&#160;<b>AN</b> = 1 &lt;&lt; 14
 <br />
  }</td></tr>
-<tr class="separator:a25f41a7cd5213cd9814195b3d6ba11c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a6260037afeb5b77c760856eecbe7e88f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_class_t_k_a_d_c"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_t_k_a_d_c')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_t_k_a_d_c.html">TKADC</a> に属する継承公開型</td></tr>
-<tr class="memitem:a0d4ad86996884e94810d3de388fb7b35 inherit pub_types_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a0d4ad86996884e94810d3de388fb7b35"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ADCModel</b> { <b>ADCTypeDL750</b>, 
-<b>ADCTypeDL850</b>
+<tr class="memitem:a84a713d08919a193dda3da79594c0ee6 inherit pub_types_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a> { <b>DL750</b>, 
+<b>DL850</b>
  }</td></tr>
-<tr class="separator:a0d4ad86996884e94810d3de388fb7b35 inherit pub_types_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac27c023a4beb7d736056653dd395744a inherit pub_types_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="ac27c023a4beb7d736056653dd395744a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ConditionFlag</b> { <b>ALL</b> = 0xffff
+<tr class="separator:a84a713d08919a193dda3da79594c0ee6 inherit pub_types_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20800986f1f566ded2e94cb555e4137 inherit pub_types_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">CONDITIONFLAG</a> { <b>ALL</b> = 0xffff
  }</td></tr>
-<tr class="separator:ac27c023a4beb7d736056653dd395744a inherit pub_types_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa20800986f1f566ded2e94cb555e4137 inherit pub_types_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a1eedebd8024beb6739c598e4970e6675"><td class="memItemLeft" align="right" valign="top"><a id="a1eedebd8024beb6739c598e4970e6675"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (TKADC_DL850::ConditionFlag flag=ConditionFlag::ALL)</td></tr>
-<tr class="separator:a1eedebd8024beb6739c598e4970e6675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6bbb9462ca1957db050cc9b08505ebe"><td class="memItemLeft" align="right" valign="top"><a id="ae6bbb9462ca1957db050cc9b08505ebe"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (TKADC_DL850::CONDITIONFLAG flag=CONDITIONFLAG::ALL)</td></tr>
+<tr class="separator:ae6bbb9462ca1957db050cc9b08505ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a209a0e5f4c6e61a7eb3ea21a15204a7c"><td class="memItemLeft" align="right" valign="top"><a id="a209a0e5f4c6e61a7eb3ea21a15204a7c"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> (std::string file_name)</td></tr>
 <tr class="separator:a209a0e5f4c6e61a7eb3ea21a15204a7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_t_k_a_d_c"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_t_k_a_d_c')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_t_k_a_d_c.html">TKADC</a> に属する継承公開メンバ関数</td></tr>
-<tr class="memitem:a1c0a93b410e2803b620b58a68602ddb8 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a1c0a93b410e2803b620b58a68602ddb8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TKADC</b> (ADCModel adcmodel)</td></tr>
-<tr class="separator:a1c0a93b410e2803b620b58a68602ddb8 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9f969478ee09be58f48b2acaca6b18e inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="ae9f969478ee09be58f48b2acaca6b18e"></a>
-ADCModel&#160;</td><td class="memItemRight" valign="bottom"><b>Model</b> ()</td></tr>
-<tr class="separator:ae9f969478ee09be58f48b2acaca6b18e inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab61b32385e0926af2d9c4233ada8ddc9 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="ab61b32385e0926af2d9c4233ada8ddc9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TKADC</b> (<a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a> adcmodel)</td></tr>
+<tr class="separator:ab61b32385e0926af2d9c4233ada8ddc9 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30067280ead5fdc07f4f546a0f4e467 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="af30067280ead5fdc07f4f546a0f4e467"></a>
+<a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Model</b> ()</td></tr>
+<tr class="separator:af30067280ead5fdc07f4f546a0f4e467 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a325adb86439b5b155b5d39fe6bbccdd3 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a325adb86439b5b155b5d39fe6bbccdd3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (int wire_type_, const char *adress_)</td></tr>
 <tr class="separator:a325adb86439b5b155b5d39fe6bbccdd3 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -145,18 +145,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Stop</b> ()</td></tr>
 <tr class="memitem:a756ea455d92a0ff748471319f00802f7 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a756ea455d92a0ff748471319f00802f7"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> ()</td></tr>
 <tr class="separator:a756ea455d92a0ff748471319f00802f7 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fcfd8a9e1a211a45146b06b4fe5e62f inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a4fcfd8a9e1a211a45146b06b4fe5e62f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> (TKADC::ConditionFlag flag)</td></tr>
-<tr class="separator:a4fcfd8a9e1a211a45146b06b4fe5e62f inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9023f5dc35491dd3a4334b4de23f6ef5 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a9023f5dc35491dd3a4334b4de23f6ef5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> (<a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">TKADC::CONDITIONFLAG</a> flag)</td></tr>
+<tr class="separator:a9023f5dc35491dd3a4334b4de23f6ef5 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203501518ba49a7595572c5295d754ed inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a203501518ba49a7595572c5295d754ed"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>SaveShot</b> (std::string file_name)</td></tr>
 <tr class="separator:a203501518ba49a7595572c5295d754ed inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36ba7240885559c96262c0e85dcd5731 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a36ba7240885559c96262c0e85dcd5731"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetDeviceID</b> ()</td></tr>
 <tr class="separator:a36ba7240885559c96262c0e85dcd5731 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af97c5fe3c01c209e154362e9dff27516 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="af97c5fe3c01c209e154362e9dff27516"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (TKADC::ConditionFlag flag=ConditionFlag::ALL)</td></tr>
-<tr class="separator:af97c5fe3c01c209e154362e9dff27516 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ccacf084a00a4661a6eab74e899f054 inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a4ccacf084a00a4661a6eab74e899f054"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (<a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">TKADC::CONDITIONFLAG</a> flag=CONDITIONFLAG::ALL)</td></tr>
+<tr class="separator:a4ccacf084a00a4661a6eab74e899f054 inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a05193b85e821bec540ed791bfe82e44e inherit pub_methods_class_t_k_a_d_c"><td class="memItemLeft" align="right" valign="top"><a id="a05193b85e821bec540ed791bfe82e44e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetLastLocalShotNumber</b> ()</td></tr>
 <tr class="separator:a05193b85e821bec540ed791bfe82e44e inherit pub_methods_class_t_k_a_d_c"><td class="memSeparator" colspan="2">&#160;</td></tr>

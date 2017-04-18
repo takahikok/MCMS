@@ -262,7 +262,7 @@ namespace clx {
 			char buf[32768];
 			do {
 				fs.read(&buf[0], sizeof(buf));
-				sock.send(buf, fs.gcount());
+				sock.send(buf, static_cast<int>(fs.gcount()));// modified by T.Kobayashi
 			} while (fs.gcount() > 0);
 			sock.close();
 			fs.close();

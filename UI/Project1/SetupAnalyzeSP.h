@@ -77,8 +77,9 @@ private:
 			else
 				return std::stod((*Setting)["AnalyzeSP"]["IonCurrentCollectionSurfaceArea"]);
 			break;
+		default:
+			return 1.0;
 		}
-
 	}
 
 	int SaveSettings(void)

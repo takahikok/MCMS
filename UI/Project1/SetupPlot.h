@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <iostream>
 #include "clx/ini.h"
@@ -15,7 +15,7 @@ namespace Project1 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// SetupPlot ‚ÌŠT—v
+	/// SetupPlot ã®æ¦‚è¦
 	/// </summary>
 	public ref class SetupPlot : public System::Windows::Forms::Form
 	{
@@ -43,7 +43,7 @@ namespace Project1 {
 		{
 			InitializeComponent();
 			//
-			//TODO: ‚±‚±‚ÉƒRƒ“ƒXƒgƒ‰ƒNƒ^[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·
+			//TODO: ã“ã“ã«ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™
 			//
 			ShotSetting = ShotSetting_;
 			//this->SaveSettings();
@@ -52,7 +52,7 @@ namespace Project1 {
 
 	protected:
 		/// <summary>
-		/// g—p’†‚ÌƒŠƒ\[ƒX‚ğ‚·‚×‚ÄƒNƒŠ[ƒ“ƒAƒbƒv‚µ‚Ü‚·B
+		/// ä½¿ç”¨ä¸­ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’ã™ã¹ã¦ã‚¯ãƒªãƒ¼ãƒ³ã‚¢ãƒƒãƒ—ã—ã¾ã™ã€‚
 		/// </summary>
 		~SetupPlot()
 		{
@@ -517,14 +517,14 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 
 	private:
 		/// <summary>
-		/// •K—v‚ÈƒfƒUƒCƒi[•Ï”‚Å‚·B
+		/// å¿…è¦ãªãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼å¤‰æ•°ã§ã™ã€‚
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ƒfƒUƒCƒi[ ƒTƒ|[ƒg‚É•K—v‚Èƒƒ\ƒbƒh‚Å‚·B‚±‚Ìƒƒ\ƒbƒh‚Ì“à—e‚ğ
-		/// ƒR[ƒh ƒGƒfƒBƒ^[‚Å•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+		/// ãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼ ã‚µãƒãƒ¼ãƒˆã«å¿…è¦ãªãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã®å†…å®¹ã‚’
+		/// ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ã§å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -1420,7 +1420,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button17->Name = L"button17";
 			this->button17->Size = System::Drawing::Size(32, 29);
 			this->button17->TabIndex = 242;
-			this->button17->Text = L"¡";
+			this->button17->Text = L"â– ";
 			this->button17->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig11
@@ -1440,7 +1440,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button18->Name = L"button18";
 			this->button18->Size = System::Drawing::Size(32, 29);
 			this->button18->TabIndex = 240;
-			this->button18->Text = L"¡";
+			this->button18->Text = L"â– ";
 			this->button18->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig10
@@ -1460,7 +1460,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button19->Name = L"button19";
 			this->button19->Size = System::Drawing::Size(32, 29);
 			this->button19->TabIndex = 238;
-			this->button19->Text = L"¡";
+			this->button19->Text = L"â– ";
 			this->button19->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig9
@@ -1480,7 +1480,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button20->Name = L"button20";
 			this->button20->Size = System::Drawing::Size(32, 29);
 			this->button20->TabIndex = 236;
-			this->button20->Text = L"¡";
+			this->button20->Text = L"â– ";
 			this->button20->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig24
@@ -1500,7 +1500,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button21->Name = L"button21";
 			this->button21->Size = System::Drawing::Size(32, 29);
 			this->button21->TabIndex = 234;
-			this->button21->Text = L"¡";
+			this->button21->Text = L"â– ";
 			this->button21->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig23
@@ -1520,7 +1520,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button22->Name = L"button22";
 			this->button22->Size = System::Drawing::Size(32, 29);
 			this->button22->TabIndex = 232;
-			this->button22->Text = L"¡";
+			this->button22->Text = L"â– ";
 			this->button22->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig22
@@ -1540,7 +1540,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button23->Name = L"button23";
 			this->button23->Size = System::Drawing::Size(32, 29);
 			this->button23->TabIndex = 230;
-			this->button23->Text = L"¡";
+			this->button23->Text = L"â– ";
 			this->button23->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig21
@@ -1560,7 +1560,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button24->Name = L"button24";
 			this->button24->Size = System::Drawing::Size(32, 29);
 			this->button24->TabIndex = 228;
-			this->button24->Text = L"¡";
+			this->button24->Text = L"â– ";
 			this->button24->UseVisualStyleBackColor = true;
 			// 
 			// textBox50
@@ -2020,7 +2020,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(32, 29);
 			this->button1->TabIndex = 178;
-			this->button1->Text = L"¡";
+			this->button1->Text = L"â– ";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig7
@@ -2040,7 +2040,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(32, 29);
 			this->button2->TabIndex = 176;
-			this->button2->Text = L"¡";
+			this->button2->Text = L"â– ";
 			this->button2->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig6
@@ -2060,7 +2060,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(32, 29);
 			this->button3->TabIndex = 174;
-			this->button3->Text = L"¡";
+			this->button3->Text = L"â– ";
 			this->button3->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig5
@@ -2080,7 +2080,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(32, 29);
 			this->button4->TabIndex = 172;
-			this->button4->Text = L"¡";
+			this->button4->Text = L"â– ";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig4
@@ -2100,7 +2100,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button5->Name = L"button5";
 			this->button5->Size = System::Drawing::Size(32, 29);
 			this->button5->TabIndex = 170;
-			this->button5->Text = L"¡";
+			this->button5->Text = L"â– ";
 			this->button5->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig3
@@ -2120,7 +2120,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button6->Name = L"button6";
 			this->button6->Size = System::Drawing::Size(32, 29);
 			this->button6->TabIndex = 168;
-			this->button6->Text = L"¡";
+			this->button6->Text = L"â– ";
 			this->button6->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig2
@@ -2140,7 +2140,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button7->Name = L"button7";
 			this->button7->Size = System::Drawing::Size(32, 29);
 			this->button7->TabIndex = 166;
-			this->button7->Text = L"¡";
+			this->button7->Text = L"â– ";
 			this->button7->UseVisualStyleBackColor = true;
 			// 
 			// label8
@@ -2184,7 +2184,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->buttonCol1->Name = L"buttonCol1";
 			this->buttonCol1->Size = System::Drawing::Size(32, 29);
 			this->buttonCol1->TabIndex = 162;
-			this->buttonCol1->Text = L"¡";
+			this->buttonCol1->Text = L"â– ";
 			this->buttonCol1->UseVisualStyleBackColor = true;
 			this->buttonCol1->Click += gcnew System::EventHandler(this, &SetupPlot::buttonCol1_Click);
 			// 
@@ -2205,7 +2205,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button9->Name = L"button9";
 			this->button9->Size = System::Drawing::Size(32, 29);
 			this->button9->TabIndex = 160;
-			this->button9->Text = L"¡";
+			this->button9->Text = L"â– ";
 			this->button9->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig19
@@ -2225,7 +2225,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button10->Name = L"button10";
 			this->button10->Size = System::Drawing::Size(32, 29);
 			this->button10->TabIndex = 158;
-			this->button10->Text = L"¡";
+			this->button10->Text = L"â– ";
 			this->button10->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig18
@@ -2245,7 +2245,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button11->Name = L"button11";
 			this->button11->Size = System::Drawing::Size(32, 29);
 			this->button11->TabIndex = 156;
-			this->button11->Text = L"¡";
+			this->button11->Text = L"â– ";
 			this->button11->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig17
@@ -2265,7 +2265,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button12->Name = L"button12";
 			this->button12->Size = System::Drawing::Size(32, 29);
 			this->button12->TabIndex = 154;
-			this->button12->Text = L"¡";
+			this->button12->Text = L"â– ";
 			this->button12->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig16
@@ -2285,7 +2285,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button13->Name = L"button13";
 			this->button13->Size = System::Drawing::Size(32, 29);
 			this->button13->TabIndex = 152;
-			this->button13->Text = L"¡";
+			this->button13->Text = L"â– ";
 			this->button13->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig15
@@ -2305,7 +2305,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button14->Name = L"button14";
 			this->button14->Size = System::Drawing::Size(32, 29);
 			this->button14->TabIndex = 150;
-			this->button14->Text = L"¡";
+			this->button14->Text = L"â– ";
 			this->button14->UseVisualStyleBackColor = true;
 			// 
 			// comboBoxFig14
@@ -2325,7 +2325,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button15->Name = L"button15";
 			this->button15->Size = System::Drawing::Size(32, 29);
 			this->button15->TabIndex = 148;
-			this->button15->Text = L"¡";
+			this->button15->Text = L"â– ";
 			this->button15->UseVisualStyleBackColor = true;
 			// 
 			// label39
@@ -2365,7 +2365,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->button16->Name = L"button16";
 			this->button16->Size = System::Drawing::Size(32, 29);
 			this->button16->TabIndex = 144;
-			this->button16->Text = L"¡";
+			this->button16->Text = L"â– ";
 			this->button16->UseVisualStyleBackColor = true;
 			// 
 			// textBox26
@@ -3326,7 +3326,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->buttonApply->Name = L"buttonApply";
 			this->buttonApply->Size = System::Drawing::Size(100, 29);
 			this->buttonApply->TabIndex = 318;
-			this->buttonApply->Text = L"“K—p";
+			this->buttonApply->Text = L"é©ç”¨";
 			this->buttonApply->UseVisualStyleBackColor = true;
 			this->buttonApply->Click += gcnew System::EventHandler(this, &SetupPlot::button26_Click);
 			// 
@@ -3338,7 +3338,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->buttonCancel->Name = L"buttonCancel";
 			this->buttonCancel->Size = System::Drawing::Size(100, 29);
 			this->buttonCancel->TabIndex = 317;
-			this->buttonCancel->Text = L"ƒLƒƒƒ“ƒZƒ‹";
+			this->buttonCancel->Text = L"ã‚­ãƒ£ãƒ³ã‚»ãƒ«";
 			this->buttonCancel->UseVisualStyleBackColor = true;
 			this->buttonCancel->Click += gcnew System::EventHandler(this, &SetupPlot::button27_Click);
 			// 
@@ -3349,7 +3349,7 @@ private: System::Windows::Forms::TextBox^  textBoxYmin1b;
 			this->buttonLoad->Name = L"buttonLoad";
 			this->buttonLoad->Size = System::Drawing::Size(100, 29);
 			this->buttonLoad->TabIndex = 320;
-			this->buttonLoad->Text = L"“Ç";
+			this->buttonLoad->Text = L"èª­è¾¼";
 			this->buttonLoad->UseVisualStyleBackColor = true;
 			// 
 			// label63

@@ -44,8 +44,8 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 
 	flushADCState("Calibration", System::Drawing::Color::OrangeRed);
 	{
-		clx::thread t1(exadcstart(TKADCINFO_ADC_ID_DL750, static_cast<TKADC::ConditionFlag>(TKADC_DL750::ConditionFlag::TRGINV)));
-		clx::thread t2(exadcstart(TKADCINFO_ADC_ID_DL850, static_cast<TKADC::ConditionFlag>(TKADC_DL850::ConditionFlag::TRGINV)));
+		clx::thread t1(exadcstart(TKADCINFO_ADC_ID_DL750, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::TRGINV)));
+		clx::thread t2(exadcstart(TKADCINFO_ADC_ID_DL850, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL850::CONDITIONFLAG::TRGINV)));
 
 		t1.join();
 		t2.join();
@@ -58,10 +58,10 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 
 	for (;;) {
 		if (!TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetStatusCondition(
-			static_cast<TKADC::ConditionFlag>(TKADC_DL750::ConditionFlag::ALL)))
+			static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::ALL)))
 			break;
 		if (!TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetStatusCondition(
-			static_cast<TKADC::ConditionFlag>(TKADC_DL850::ConditionFlag::ALL)))
+			static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL850::CONDITIONFLAG::ALL)))
 			break;
 		System::Windows::Forms::Application::DoEvents();
 	}
@@ -69,8 +69,8 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	flushADCState("Getting file...");
 #if 0
 	{
-		clx::thread t1(exfunctor(Setting, TKADCINFO_ADC_ID_DL750, static_cast<TKADC::ConditionFlag>(TKADC_DL750::ConditionFlag::ALL)));
-		clx::thread t2(exfunctor(Setting, TKADCINFO_ADC_ID_DL850, static_cast<TKADC::ConditionFlag>(TKADC_DL750::ConditionFlag::ALL)));
+		clx::thread t1(exfunctor(Setting, TKADCINFO_ADC_ID_DL750, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::ALL)));
+		clx::thread t2(exfunctor(Setting, TKADCINFO_ADC_ID_DL850, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::ALL)));
 
 		t1.join();
 		t2.join();

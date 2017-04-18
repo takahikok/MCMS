@@ -2,7 +2,7 @@
 #include "tkadcinfo.h"
 namespace TKADCINFO
 {
-/*	TKADC::ADCModel ADCIDToADCType(TKADCINFO::ADCID adcid)
+/*	TKADCCONTROL::ADCModel ADCIDToADCType(TKADCINFO::ADCID adcid)
 	{
 		switch (adcid) {
 		case TKADCINFO_ADC_ID_DL750:
@@ -20,9 +20,9 @@ namespace TKADCINFO
 			return "DL850";
 		}
 	}*/
-	TKADC*& ADCIDToTKADCPtr(ADCID adcid)
+	TKADCCONTROL*& ADCIDToTKADCPtr(ADCID adcid)
 	{
-		static TKADC* tkadc_ptr[(int)sizeof(ADCID)];
+		static TKADCCONTROL* tkadc_ptr[(int)sizeof(ADCID)];
 		return tkadc_ptr[(int)adcid];
 	}
 	std::string ADCIDToSectionName(TKADCINFO::ADCID adcid)

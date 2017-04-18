@@ -1,4 +1,4 @@
-#include "tkshotinfo.h"
+﻿#include "tkshotinfo.h"
 #define _CRT_NONSTDC_NO_WARNINGS
 
 inline void TKDATA::readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata)
@@ -57,16 +57,14 @@ template<> int TKDATA::readHDRLine(std::string buf, int trace_number, char* key_
 			(data + i)->tm_mon = std::stoi(ibuf) - 1;
 			std::getline(ss, ibuf, '/');
 			(data + i)->tm_mday = std::stoi(ibuf);
-		}
-		else if ((std::string)key_name == "Time") {
+		} else if ((std::string)key_name == "Time") {
 			std::getline(ss, ibuf, ':');
 			(data + i)->tm_hour = std::stoi(ibuf);
 			std::getline(ss, ibuf, ':');
 			(data + i)->tm_min = std::stoi(ibuf);
 			std::getline(ss, ibuf, ':');
 			(data + i)->tm_sec = (int)std::stof(ibuf);
-		}
-		else {
+		} else {
 			return -1;
 		}
 	}
@@ -77,7 +75,7 @@ int TKDATA::ParseHDR()
 {
 	std::ifstream ifs(data_file_name + ".HDR");
 	std::string buf;
-	for (int lines = 1, trace_number_offset = 0, force_break = 0; 
+	for (int lines = 1, trace_number_offset = 0, force_break = 0;
 		!force_break && std::getline(ifs, buf); lines++) {
 		int group_number;
 		int trace_number;
@@ -95,6 +93,52 @@ int TKDATA::ParseHDR()
 			model_name = sdata[0];
 			break;
 
+			//Endian
+		case 6:
+			readHDRLine(buf, 1, key_name, sdata);
+			switch (sdata[0].c_str()[0]) {
+
+				// big endian 680xx
+			case 'b':
+			case 'B':
+				byte_order = TKDATA::BYTEORDER::BIG_ENDIAN;
+				break;
+
+				// little endian 80x86
+			case 'l':
+			case 'L':
+				byte_order = TKDATA::BYTEORDER::LITTLE_ENDIAN;
+				break;
+
+			default:
+				byte_order = TKDATA::BYTEORDER::BIG_ENDIAN;
+				break;
+			}
+			break;
+
+			//DataFormat
+		case 7:
+			readHDRLine(buf, 1, key_name, sdata);
+			switch (sdata[0].c_str()[0]) {
+
+				// trace
+			case 't':
+			case 'T':
+				data_format = TKDATA::DATAFORMAT::TRACE;
+				break;
+
+				// bloack
+			case 'b':
+			case 'B':
+				data_format = TKDATA::DATAFORMAT::BLOCK;
+				break;
+
+			default:
+				data_format = TKDATA::DATAFORMAT::BLOCK;
+				break;
+			}
+			break;
+
 			//GroupNumber
 		case 8:
 			readHDRLine(buf, 1, key_name, idata);
@@ -106,6 +150,12 @@ int TKDATA::ParseHDR()
 			readHDRLine(buf, 1, key_name, idata);
 			trace_total_number = idata[0];
 			CHData.resize(trace_total_number);
+			break;
+
+			//DataOffset
+		case 10:
+			readHDRLine(buf, 1, key_name, idata);
+			data_offset = idata[0];
 			break;
 
 			//TraceNumber
@@ -226,7 +276,7 @@ int TKDATA::ParseHDR()
 		case 91:
 			if (trace_number_offset + trace_number >= trace_total_number)
 				force_break = 1;
-				break;
+			break;
 		}
 	}
 	return 0;
@@ -234,7 +284,7 @@ int TKDATA::ParseHDR()
 int TKDATA::traceNameToCHNumber(std::string trace_name)
 {
 	for (int i = 0; i < 100; i++)
-	if (trace_name == ("CH" + std::to_string(i)))
-		return i;
+		if (trace_name == ("CH" + std::to_string(i)))
+			return i;
 	return -1;
 }

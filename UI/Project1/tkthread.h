@@ -13,9 +13,9 @@
 class exadcstart {
 private:
 	TKADCINFO::ADCID adcid;
-	TKADC::ConditionFlag flag;
+	TKADCCONTROL::CONDITIONFLAG flag;
 public:
-	exadcstart(TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_);
+	exadcstart(TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_);
 	virtual ~exadcstart();
 	void operator()();
 };
@@ -29,7 +29,7 @@ private:
 	inline std::string getNextLocalFileName(TKADCINFO::ADCID adcid);
 	inline int downloadFromADC(TKADCINFO::ADCID adcid, std::string filename);
 public:
-	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_);
+	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_);
 	virtual ~exfunctor();
 	void operator()();
 };
@@ -37,9 +37,9 @@ public:
 class exadcstart {
 private:
 	TKADCINFO::ADCID adcid;
-	TKADC::ConditionFlag flag;
+	TKADCCONTROL::CONDITIONFLAG flag;
 public:
-	exadcstart(TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	exadcstart(TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 	{
 		adcid = adcid_;
 		flag = flag_;
@@ -88,7 +88,7 @@ private:
 	}
 
 public:
-	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 	{
 		adcid = adcid_;
 		Setting = Setting_;

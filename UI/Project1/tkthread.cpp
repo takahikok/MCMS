@@ -1,6 +1,6 @@
 #include "tkthread.h"
 #if 0
-exadcstart::exadcstart(TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+exadcstart::exadcstart(TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 {
 	adcid = adcid_;
 	flag = flag_;
@@ -40,7 +40,7 @@ inline int exfunctor::downloadFromADC(TKADCINFO::ADCID adcid, std::string filena
 	return 0;
 }
 
-exfunctor::exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+exfunctor::exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 {
 	adcid = adcid_;
 	Setting = Setting_;

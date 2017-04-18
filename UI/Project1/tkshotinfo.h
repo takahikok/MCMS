@@ -1,4 +1,4 @@
-#include "tkadc.h"
+﻿#include "tkadc.h"
 #include "tkadcinfo.h"
 #include <vector>
 #include <string>
@@ -13,9 +13,24 @@
 #ifndef __TKSHOTINFO__
 #define __TKSHOTINFO__
 
+#define NATIVE_ENDIAN TKDATA::BYTEORDER::LITTLE_ENDIAN
+
+
 //#define TKSI_ADC_MAX 
 class TKDATA
 {
+public:
+	const enum class BYTEORDER
+	{
+		BIG_ENDIAN,// 680xx
+		LITTLE_ENDIAN// 80x86
+	};
+	const enum class DATAFORMAT
+	{
+		TRACE,
+		BLOCK
+	};
+
 private:
 	TKADCINFO::ADCID adc_id;
 
@@ -24,7 +39,12 @@ private:
 	int trace_total_number;
 
 	std::string model_name;
-	struct CHDATA {
+	BYTEORDER byte_order;
+	DATAFORMAT data_format;
+	int data_offset;
+
+	struct CHDATA
+	{
 		int ch_number;
 		std::string trace_name;
 		float v_resolution;
@@ -37,7 +57,7 @@ private:
 		struct std::tm time;
 	};
 	std::vector<TKDATA::CHDATA> CHData;
-//	TKDATA::CHDATA CHData[TKADC_ADC_CHANNEL_MAX];
+	//	TKDATA::CHDATA CHData[TKADC_ADC_CHANNEL_MAX];
 	int channel_number_to_trace_number[TKADC_ADC_CHANNEL_MAX];
 
 	inline void readHDRLineString(std::string buf, int trace_number, char* key_name, std::string* odata);
@@ -76,19 +96,19 @@ public:
 	{
 		return CHData[0].h_resolution;
 	}
-	float GetVOffset(int trace_index)
+	float GetVOffset(int const trace_index)
 	{
 		return CHData[trace_index].v_offset;
 	}
-	float GetVResolution(int trace_index)
+	float GetVResolution(int const trace_index)
 	{
 		return CHData[trace_index].v_resolution;
 	}
-	int GetVMaxData(int trace_index)
+	int GetVMaxData(int const trace_index)
 	{
 		return CHData[trace_index].v_max_data;
 	}
-	int GetVMinData(int trace_index)
+	int GetVMinData(int const trace_index)
 	{
 		return CHData[trace_index].v_min_data;
 	}
@@ -104,18 +124,31 @@ public:
 	{
 		return model_name;
 	}
+	TKDATA::BYTEORDER GetByteOrder()
+	{
+		return byte_order;
+	}
+	TKDATA::DATAFORMAT GetDataFormat()
+	{
+		return data_format;
+	}
+	int GetDataOffset()
+	{
+		return data_offset;
+	}
 	int GetTraceTotalNumber()
 	{
 		return trace_total_number;
 	}
-	int ChannnelNumberToTraceNumber(int channel_number)
+	int ChannnelNumberToTraceNumber(int const channel_number)
 	{
 		return channel_number_to_trace_number[channel_number];
 	}
-	int GetChannelNumber(int trace_index)
+	int GetChannelNumber(int const trace_index)
 	{
 		return CHData[trace_index].ch_number;
 	}
+
 
 
 };
@@ -128,10 +161,10 @@ private:
 
 	int adc_num = 0;
 	std::vector<TKDATA> TKData;
-//	TKDATA TKData[2];
+	//	TKDATA TKData[2];
 
 	int plot_num;
-//	std::vector<TKPLOT> TKPlot;
+	//	std::vector<TKPLOT> TKPlot;
 
 
 	int getADCDataIndexByADCID(TKADCINFO::ADCID adc_id)
@@ -236,6 +269,18 @@ public:
 	std::string GetModelName(TKADCINFO::ADCID adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetModelName();
+	}
+	TKDATA::BYTEORDER GetByteOrder(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetByteOrder();
+	}
+	TKDATA::DATAFORMAT GetDataFormat(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetDataFormat();
+	}
+	int GetDataOffset(TKADCINFO::ADCID adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetDataOffset();
 	}
 	int GetTraceTotalNumber(TKADCINFO::ADCID adc_id)
 	{

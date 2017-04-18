@@ -60,6 +60,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">クラス</a> &#124;
+<a href="#pub-types">公開型</a> &#124;
 <a href="#pub-methods">公開メンバ関数</a> &#124;
 <a href="class_t_k_d_a_t_a-members.html">全メンバ一覧</a>  </div>
   <div class="headertitle">
@@ -67,6 +68,17 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+公開型</h2></td></tr>
+<tr class="memitem:ab55f2c2d1c76bbeb3c1820ad2e749f38"><td class="memItemLeft" align="right" valign="top"><a id="ab55f2c2d1c76bbeb3c1820ad2e749f38"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>BYTEORDER</b> { <b>BIG_ENDIAN</b>, 
+<b>LITTLE_ENDIAN</b>
+ }</td></tr>
+<tr class="separator:ab55f2c2d1c76bbeb3c1820ad2e749f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add3f58dbf65c97f4c9998e3a8b3f79fd"><td class="memItemLeft" align="right" valign="top"><a id="add3f58dbf65c97f4c9998e3a8b3f79fd"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DATAFORMAT</b> { <b>TRACE</b>, 
+<b>BLOCK</b>
+ }</td></tr>
+<tr class="separator:add3f58dbf65c97f4c9998e3a8b3f79fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
 <tr class="memitem:ad142911ef868b94bd2607ab4ca69f84d"><td class="memItemLeft" align="right" valign="top"><a id="ad142911ef868b94bd2607ab4ca69f84d"></a>
@@ -87,18 +99,18 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataFileNam
 <tr class="memitem:a0f0c38948586490c1bfe1f820418c5ef"><td class="memItemLeft" align="right" valign="top"><a id="a0f0c38948586490c1bfe1f820418c5ef"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetHResolution</b> ()</td></tr>
 <tr class="separator:a0f0c38948586490c1bfe1f820418c5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92cc4a576e976b454212f2f1dea7c3db"><td class="memItemLeft" align="right" valign="top"><a id="a92cc4a576e976b454212f2f1dea7c3db"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>GetVOffset</b> (int trace_index)</td></tr>
-<tr class="separator:a92cc4a576e976b454212f2f1dea7c3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e63d262b65c7e35fbc80a9a93e92cf8"><td class="memItemLeft" align="right" valign="top"><a id="a7e63d262b65c7e35fbc80a9a93e92cf8"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>GetVResolution</b> (int trace_index)</td></tr>
-<tr class="separator:a7e63d262b65c7e35fbc80a9a93e92cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9220ac722f2f717fcbbca0df45621b6"><td class="memItemLeft" align="right" valign="top"><a id="ad9220ac722f2f717fcbbca0df45621b6"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetVMaxData</b> (int trace_index)</td></tr>
-<tr class="separator:ad9220ac722f2f717fcbbca0df45621b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedb6a7a034ce32a02bf60b4f268febce"><td class="memItemLeft" align="right" valign="top"><a id="aedb6a7a034ce32a02bf60b4f268febce"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetVMinData</b> (int trace_index)</td></tr>
-<tr class="separator:aedb6a7a034ce32a02bf60b4f268febce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c83babefbef168db08ca1c00cfe560d"><td class="memItemLeft" align="right" valign="top"><a id="a6c83babefbef168db08ca1c00cfe560d"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>GetVOffset</b> (int const trace_index)</td></tr>
+<tr class="separator:a6c83babefbef168db08ca1c00cfe560d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78fccdabf4c7326ecb9dbe30ebe765e4"><td class="memItemLeft" align="right" valign="top"><a id="a78fccdabf4c7326ecb9dbe30ebe765e4"></a>
+float&#160;</td><td class="memItemRight" valign="bottom"><b>GetVResolution</b> (int const trace_index)</td></tr>
+<tr class="separator:a78fccdabf4c7326ecb9dbe30ebe765e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa91499a0c86542c6d240f07b2c7a5a6"><td class="memItemLeft" align="right" valign="top"><a id="aaa91499a0c86542c6d240f07b2c7a5a6"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetVMaxData</b> (int const trace_index)</td></tr>
+<tr class="separator:aaa91499a0c86542c6d240f07b2c7a5a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed38093c0f7a086ab190c89770567531"><td class="memItemLeft" align="right" valign="top"><a id="aed38093c0f7a086ab190c89770567531"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetVMinData</b> (int const trace_index)</td></tr>
+<tr class="separator:aed38093c0f7a086ab190c89770567531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5fe237cba051e352845786e13c0cd54f"><td class="memItemLeft" align="right" valign="top"><a id="a5fe237cba051e352845786e13c0cd54f"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetBlockSize</b> ()</td></tr>
 <tr class="separator:a5fe237cba051e352845786e13c0cd54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,15 +120,24 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>GetHOffset</b> ()</t
 <tr class="memitem:af0a676448ec4d492290517a7e60a2de3"><td class="memItemLeft" align="right" valign="top"><a id="af0a676448ec4d492290517a7e60a2de3"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetModelName</b> ()</td></tr>
 <tr class="separator:af0a676448ec4d492290517a7e60a2de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63437cd1b2448b0b54ee6ec56da1321e"><td class="memItemLeft" align="right" valign="top"><a id="a63437cd1b2448b0b54ee6ec56da1321e"></a>
+TKDATA::BYTEORDER&#160;</td><td class="memItemRight" valign="bottom"><b>GetByteOrder</b> ()</td></tr>
+<tr class="separator:a63437cd1b2448b0b54ee6ec56da1321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86117b4edecbf2e3013973fb016877e2"><td class="memItemLeft" align="right" valign="top"><a id="a86117b4edecbf2e3013973fb016877e2"></a>
+TKDATA::DATAFORMAT&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataFormat</b> ()</td></tr>
+<tr class="separator:a86117b4edecbf2e3013973fb016877e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11fad512e15a5b8dd7be2ff786d5fd8e"><td class="memItemLeft" align="right" valign="top"><a id="a11fad512e15a5b8dd7be2ff786d5fd8e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataOffset</b> ()</td></tr>
+<tr class="separator:a11fad512e15a5b8dd7be2ff786d5fd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e9270376ed47917048fdd38f2f4a81d"><td class="memItemLeft" align="right" valign="top"><a id="a0e9270376ed47917048fdd38f2f4a81d"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetTraceTotalNumber</b> ()</td></tr>
 <tr class="separator:a0e9270376ed47917048fdd38f2f4a81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a006dda4bebdcaad0a5863dae2a0ef535"><td class="memItemLeft" align="right" valign="top"><a id="a006dda4bebdcaad0a5863dae2a0ef535"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ChannnelNumberToTraceNumber</b> (int channel_number)</td></tr>
-<tr class="separator:a006dda4bebdcaad0a5863dae2a0ef535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae797a1a3f5f0ec39105b22b980c3ec69"><td class="memItemLeft" align="right" valign="top"><a id="ae797a1a3f5f0ec39105b22b980c3ec69"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannelNumber</b> (int trace_index)</td></tr>
-<tr class="separator:ae797a1a3f5f0ec39105b22b980c3ec69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad70108b9612759566d7cc90e60f293c5"><td class="memItemLeft" align="right" valign="top"><a id="ad70108b9612759566d7cc90e60f293c5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>ChannnelNumberToTraceNumber</b> (int const channel_number)</td></tr>
+<tr class="separator:ad70108b9612759566d7cc90e60f293c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8282e57fcee3618dfe533b6771adce96"><td class="memItemLeft" align="right" valign="top"><a id="a8282e57fcee3618dfe533b6771adce96"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannelNumber</b> (int const trace_index)</td></tr>
+<tr class="separator:a8282e57fcee3618dfe533b6771adce96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
 <li><a class="el" href="tkshotinfo_8h_source.html">tkshotinfo.h</a></li>

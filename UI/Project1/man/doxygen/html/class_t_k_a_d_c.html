@@ -79,22 +79,22 @@ TKADC の継承関係図</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:a0d4ad86996884e94810d3de388fb7b35"><td class="memItemLeft" align="right" valign="top"><a id="a0d4ad86996884e94810d3de388fb7b35"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ADCModel</b> { <b>ADCTypeDL750</b>, 
-<b>ADCTypeDL850</b>
+<tr class="memitem:a84a713d08919a193dda3da79594c0ee6"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a> { <b>DL750</b>, 
+<b>DL850</b>
  }</td></tr>
-<tr class="separator:a0d4ad86996884e94810d3de388fb7b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac27c023a4beb7d736056653dd395744a"><td class="memItemLeft" align="right" valign="top"><a id="ac27c023a4beb7d736056653dd395744a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>ConditionFlag</b> { <b>ALL</b> = 0xffff
+<tr class="separator:a84a713d08919a193dda3da79594c0ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20800986f1f566ded2e94cb555e4137"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">CONDITIONFLAG</a> { <b>ALL</b> = 0xffff
  }</td></tr>
-<tr class="separator:ac27c023a4beb7d736056653dd395744a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:aa20800986f1f566ded2e94cb555e4137"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a1c0a93b410e2803b620b58a68602ddb8"><td class="memItemLeft" align="right" valign="top"><a id="a1c0a93b410e2803b620b58a68602ddb8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TKADC</b> (ADCModel adcmodel)</td></tr>
-<tr class="separator:a1c0a93b410e2803b620b58a68602ddb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9f969478ee09be58f48b2acaca6b18e"><td class="memItemLeft" align="right" valign="top"><a id="ae9f969478ee09be58f48b2acaca6b18e"></a>
-ADCModel&#160;</td><td class="memItemRight" valign="bottom"><b>Model</b> ()</td></tr>
-<tr class="separator:ae9f969478ee09be58f48b2acaca6b18e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab61b32385e0926af2d9c4233ada8ddc9"><td class="memItemLeft" align="right" valign="top"><a id="ab61b32385e0926af2d9c4233ada8ddc9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>TKADC</b> (<a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a> adcmodel)</td></tr>
+<tr class="separator:ab61b32385e0926af2d9c4233ada8ddc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30067280ead5fdc07f4f546a0f4e467"><td class="memItemLeft" align="right" valign="top"><a id="af30067280ead5fdc07f4f546a0f4e467"></a>
+<a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">ADCMODEL</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Model</b> ()</td></tr>
+<tr class="separator:af30067280ead5fdc07f4f546a0f4e467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a325adb86439b5b155b5d39fe6bbccdd3"><td class="memItemLeft" align="right" valign="top"><a id="a325adb86439b5b155b5d39fe6bbccdd3"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (int wire_type_, const char *adress_)</td></tr>
 <tr class="separator:a325adb86439b5b155b5d39fe6bbccdd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,18 +113,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>Stop</b> ()</td></tr>
 <tr class="memitem:a756ea455d92a0ff748471319f00802f7"><td class="memItemLeft" align="right" valign="top"><a id="a756ea455d92a0ff748471319f00802f7"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> ()</td></tr>
 <tr class="separator:a756ea455d92a0ff748471319f00802f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fcfd8a9e1a211a45146b06b4fe5e62f"><td class="memItemLeft" align="right" valign="top"><a id="a4fcfd8a9e1a211a45146b06b4fe5e62f"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> (TKADC::ConditionFlag flag)</td></tr>
-<tr class="separator:a4fcfd8a9e1a211a45146b06b4fe5e62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9023f5dc35491dd3a4334b4de23f6ef5"><td class="memItemLeft" align="right" valign="top"><a id="a9023f5dc35491dd3a4334b4de23f6ef5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>WaitADC</b> (<a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">TKADC::CONDITIONFLAG</a> flag)</td></tr>
+<tr class="separator:a9023f5dc35491dd3a4334b4de23f6ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203501518ba49a7595572c5295d754ed"><td class="memItemLeft" align="right" valign="top"><a id="a203501518ba49a7595572c5295d754ed"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>SaveShot</b> (std::string file_name)</td></tr>
 <tr class="separator:a203501518ba49a7595572c5295d754ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36ba7240885559c96262c0e85dcd5731"><td class="memItemLeft" align="right" valign="top"><a id="a36ba7240885559c96262c0e85dcd5731"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetDeviceID</b> ()</td></tr>
 <tr class="separator:a36ba7240885559c96262c0e85dcd5731"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af97c5fe3c01c209e154362e9dff27516"><td class="memItemLeft" align="right" valign="top"><a id="af97c5fe3c01c209e154362e9dff27516"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (TKADC::ConditionFlag flag=ConditionFlag::ALL)</td></tr>
-<tr class="separator:af97c5fe3c01c209e154362e9dff27516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ccacf084a00a4661a6eab74e899f054"><td class="memItemLeft" align="right" valign="top"><a id="a4ccacf084a00a4661a6eab74e899f054"></a>
+virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStatusCondition</b> (<a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">TKADC::CONDITIONFLAG</a> flag=CONDITIONFLAG::ALL)</td></tr>
+<tr class="separator:a4ccacf084a00a4661a6eab74e899f054"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a341d18580fbda1d2e2fc9a701c16d9bf"><td class="memItemLeft" align="right" valign="top"><a id="a341d18580fbda1d2e2fc9a701c16d9bf"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> (std::string file_name)</td></tr>
 <tr class="separator:a341d18580fbda1d2e2fc9a701c16d9bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,6 +147,57 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>SetLocalShotNumberMax<
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetLocalShotNumberMax</b> ()</td></tr>
 <tr class="separator:aa238169ef582140e6c19f84003915d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">列挙型メンバ詳解</h2>
+<a id="a84a713d08919a193dda3da79594c0ee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84a713d08919a193dda3da79594c0ee6">&#9670;&nbsp;</a></span>ADCMODEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_t_k_a_d_c.html#a84a713d08919a193dda3da79594c0ee6">TKADC::ADCMODEL</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ADCモデル列挙型</p>
+<p>ADCモデル名はADCの型番を指します(多くの場合は商品名と呼べるかもしれません)。<br />
+ ADCモデルはあるADCについての固有な名前を意味しません。従って複数の同じADCがシステムに組み込まれている場合は、 それら複数のADCが同じADCモデル名を持ちます。<br />
+ ADCモデル名という呼称は横河電機の流儀に従ったものです。 </p>
+
+</div>
+</div>
+<a id="aa20800986f1f566ded2e94cb555e4137"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa20800986f1f566ded2e94cb555e4137">&#9670;&nbsp;</a></span>CONDITIONFLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_t_k_a_d_c.html#aa20800986f1f566ded2e94cb555e4137">TKADC::CONDITIONFLAG</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>コンディションビットマスク列挙型</p>
+<p>ビットマスクはモデルによって異なるため、実際にビットマスクとして使用する為には継承されたクラスで再定義する必要があります。 </p>
+
+</div>
+</div>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
 <li><a class="el" href="tkadc_8h_source.html">tkadc.h</a></li>
 <li>tkadc.cpp</li>

@@ -12,9 +12,9 @@ namespace TKADCINFO
 		ADCNameDL750,
 		ADCNameDL850
 	};
-//	extern TKADC* tkadc_ptr[(int)sizeof(ADCID)];
-	TKADC*& ADCIDToTKADCPtr(ADCID adcid);
-//	TKADC::ADCModel ADCIDToADCType(TKADCINFO::ADCID adcid);
+//	extern TKADCCONTROL* tkadc_ptr[(int)sizeof(ADCID)];
+	TKADCCONTROL*& ADCIDToTKADCPtr(ADCID adcid);
+//	TKADCCONTROL::ADCModel ADCIDToADCType(TKADCINFO::ADCID adcid);
 //	std::string ADCIDToADCName(TKADCINFO::ADCID adcid);
 	std::string ADCIDToSectionName(TKADCINFO::ADCID adcid);
 };

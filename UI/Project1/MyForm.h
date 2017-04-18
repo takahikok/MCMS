@@ -47,8 +47,8 @@ private:
 	clx::ini* Setting;
 	clx::ini* ShotSetting;
 
-	TKADC_DL750* DL750;
-	TKADC_DL850* DL850;
+	TKADCCONTROL_DL750* DL750;
+	TKADCCONTROL_DL850* DL850;
 	TKSHOT* thisShot;
 	TKPLOT* thisPlot;
 	TKANALYZESP* thisAnalyzeSP;
@@ -351,7 +351,7 @@ private:
 	}
 
 public:
-	MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADC_DL750* DL750_, TKADC_DL850* DL850_)
+	MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADCCONTROL_DL750* DL750_, TKADCCONTROL_DL850* DL850_)
 	{
 		InitializeComponent();
 		for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
@@ -438,8 +438,8 @@ public:
 		//
 		//TODO: ここにコンストラクター コードを追加します
 		//
-//			TKADC* DL850;
-//			DL850 = new TKADC;
+//			TKADCCONTROL* DL850;
+//			DL850 = new TKADCCONTROL;
 //			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Close();
 		Setting = Setting_;
 		DL750 = DL750_;
@@ -1605,11 +1605,11 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 		}
 
 		thisShot->AppendDataFile(adcid, tok[0]);
+	plotRaw(0);
 	}
 #else
 	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, "D8T00088");
 #endif
-	plotRaw(0);
 }
 
 private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e)
@@ -1630,9 +1630,9 @@ class exadcstart
 {
 private:
 	TKADCINFO::ADCID adcid;
-	TKADC::ConditionFlag flag;
+	TKADCCONTROL::CONDITIONFLAG flag;
 public:
-	exadcstart(TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	exadcstart(TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 	{
 		adcid = adcid_;
 		flag = flag_;
@@ -1683,7 +1683,7 @@ private:
 	}
 
 public:
-	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADC::ConditionFlag flag_)
+	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
 	{
 		adcid = adcid_;
 		Setting = Setting_;

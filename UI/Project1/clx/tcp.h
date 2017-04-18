@@ -198,7 +198,7 @@ namespace clx {
 			
 			basic_acceptor& start() {
 				if (static_cast<int>(super::open()) < 0) throw socket_error("socket");
-				if (::bind(this->socket(), (struct sockaddr*)addr_.data(), addr_.size()) == -1) {
+				if (::bind(this->socket(), (struct sockaddr*)addr_.data(), static_cast<int>(addr_.size())) == -1) {// modified by T.Kobayashi
 					throw socket_error("bind");
 				}
 				if (::listen(this->socket(), nlisten_) == -1) throw socket_error("listen");

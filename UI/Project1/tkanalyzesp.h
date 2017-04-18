@@ -72,8 +72,9 @@ private:
 			else
 				return std::stod((*Setting)["AnalyzeSP"]["IonCurrentCollectionSurfaceArea"]);
 			break;
+		default:
+			return 1.0;
 		}
-
 	}
 
 public:
@@ -92,6 +93,8 @@ public:
 				TKPLOT::PLOTINFO plot_info;
 
 				plot_info.model_name = thisShot->GetModelName(thisShot->GetADCID(data_index));
+				plot_info.byte_order = thisShot->GetByteOrder(thisShot->GetADCID(data_index));
+				plot_info.data_format = thisShot->GetDataFormat(thisShot->GetADCID(data_index));
 				plot_info.channel_number = thisShot->GetChannelNumber(thisShot->GetADCID(data_index), trace_index);
 				plot_info.plot_file_name = "analyzeSP";
 				plot_info.xrange.min = thisShot->GetHOffset(thisShot->GetADCID(data_index));

@@ -1,4 +1,4 @@
-#include "MyForm.h" // [2]で付けたForm名.h
+﻿#include "MyForm.h" // [2]で付けたForm名.h
 #include "SetupADCConnection.h"
 #include "SetupADCMeasurement.h"
 #include "SetupPlot.h"
@@ -16,10 +16,10 @@ using namespace System::Windows::Forms;
 [STAThreadAttribute]
 int main(array<String^>^ args) 
 {
-	TKADC_DL750* DL750;
-	TKADC_DL850* DL850;
-	DL750 = new TKADC_DL750();
-	DL850 = new TKADC_DL850();
+	TKADCCONTROL_DL750* DL750;
+	TKADCCONTROL_DL850* DL850;
+	DL750 = new TKADCCONTROL_DL750();
+	DL850 = new TKADCCONTROL_DL850();
 	TKSHOT* thisShot;
 	thisShot = new TKSHOT;
 	TKPLOT* thisPlot;

@@ -20,7 +20,8 @@
 class TKPLOT
 {
 public:
-	template<typename T> class RANGE {
+	template<typename T> class RANGE
+	{
 	public:
 		T min;
 		T max;
@@ -37,7 +38,8 @@ public:
 			return "[" + std::to_string(min) + ":" + std::to_string(max) + "]";
 		}
 	};
-	template<typename T> class POSITION {
+	template<typename T> class POSITION
+	{
 	public:
 		T x;
 		T y;
@@ -56,7 +58,8 @@ public:
 			return std::to_string(x) + ", " + std::to_string(y);
 		}
 	};
-	template<typename T> class SIZE {
+	template<typename T> class SIZE
+	{
 	public:
 		T w;
 		T h;
@@ -67,7 +70,8 @@ public:
 			return std::to_string(w) + ", " + std::to_string(h);
 		}
 	};
-	struct PLOTINFO {
+	struct PLOTINFO
+	{
 		std::string plot_file_name;
 		std::string data_file_name;
 		int trace_index;
@@ -75,8 +79,15 @@ public:
 		TKPLOT::RANGE<float> yrange;
 		int every;
 		std::string model_name;
+		TKDATA::BYTEORDER byte_order;
+		TKDATA::DATAFORMAT data_format;
+		int block_size;
+		int data_offset;
 		int channel_number;
 		float h_resolution;
+		float h_offset;
+		float v_resolution;
+		float v_offset;
 		SIZE<int> terminal_size;
 		SIZE<int> drawing_size;
 		POSITION<int> drawing_origin;
@@ -166,6 +177,9 @@ public:
 				TKPLOT::PLOTINFO plot_info;
 
 				plot_info.model_name = thisShot->GetModelName(thisShot->GetADCID(data_index));
+				plot_info.byte_order = thisShot->GetByteOrder(thisShot->GetADCID(data_index));
+				plot_info.data_format = thisShot->GetDataFormat(thisShot->GetADCID(data_index));
+				plot_info.data_offset = thisShot->GetDataOffset(thisShot->GetADCID(data_index));
 				plot_info.channel_number = thisShot->GetChannelNumber(thisShot->GetADCID(data_index), trace_index);
 				plot_info.plot_file_name = "PlotRaw_" + plot_info.model_name
 					+ "_CH" + std::to_string(plot_info.channel_number);
@@ -174,6 +188,9 @@ public:
 					+ thisShot->GetHResolution(thisShot->GetADCID(data_index))
 					* thisShot->GetBlockSize(thisShot->GetADCID(data_index)));
 				plot_info.h_resolution = thisShot->GetHResolution(thisShot->GetADCID(data_index));
+				plot_info.h_offset = thisShot->GetHOffset(thisShot->GetADCID(data_index));
+				plot_info.v_resolution = thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index);
+				plot_info.v_offset = thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
 				plot_info.trace_index = trace_index;
 				plot_info.data_file_name = thisShot->GetDataFileName(thisShot->GetADCID(data_index));
 
@@ -208,6 +225,7 @@ public:
 				}
 
 				plot_info.every = thisShot->GetBlockSize(thisShot->GetADCID(data_index)) / 10 / plot_info.drawing_size.w;
+				plot_info.block_size = thisShot->GetBlockSize(thisShot->GetADCID(data_index));
 
 				plotInfo.push_back(plot_info);
 			}
@@ -236,19 +254,33 @@ public:
 				<< (shot_number ? "#" + TKUTIL::ZeroFill(shot_number, 8) : tok[tok.size() - 1])
 				<< "\"" << std::endl;
 
-//			of << "set yrange [*<0:0<*]" << std::endl;
+			//			of << "set yrange [*<0:0<*]" << std::endl;
 			of << "set yrange " << plotInfo[i].yrange.str() << std::endl;
-//			of << "set format y \"%1.1tE%+-T\"" << std::endl;
+			//			of << "set format y \"%1.1tE%+-T\"" << std::endl;
 			of << "set label 3 center at graph " << plotInfo[i].label_position[2].str()
 				<< " \"Time [s]\"" << std::endl;
 			of << "set label 4 center at graph " << plotInfo[i].label_position[3].str()
 				<< " rotate \"Voltage [V]\"" << std::endl;
 			of << "set xrange " << plotInfo[i].xrange.str() << std::endl;
-			of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".CSV\""
+			if (1)
+				//UNIXŒn‚Å‚ÍŠg’£Žq‚Ì‘å•¶Žš¬•¶Žš‚Ìˆá‚¢‚É’ˆÓ
+				of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".WVF\""
+				<< " binary format=\"%int16\" array=" << plotInfo[i].block_size
+				<< " dx=" << plotInfo[i].h_resolution
+				<< " skip=" << std::to_string(plotInfo[i].block_size * 2 * plotInfo[i].trace_index + plotInfo[i].data_offset)
+				<< " origin=(" << plotInfo[i].h_offset << "," << plotInfo[i].v_offset << ")"
+				<< " endian=" << (plotInfo[i].byte_order == TKDATA::BYTEORDER::LITTLE_ENDIAN ? "little" : "big")
+				<< " every " << plotInfo[i].every
+				//<< " index " << std::to_string(plotInfo[i].trace_index)
+				<< " using ($1)*" << plotInfo[i].v_resolution
+				<< " with line"
+				<< std::endl;
+			else
+				of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".CSV\""
 				<< " every " << plotInfo[i].every
 				<< " using (" << plotInfo[i].xrange.min
 				<< " + (column(0)) * " << plotInfo[i].every
-				<< " * " << plotInfo[i].h_resolution << ")"
+				<< " * " << plotInfo[i].h_resolution << "+" << plotInfo[i].h_offset << ")"
 				<< ":" << std::to_string(plotInfo[i].trace_index + 1)
 				<< " with line"
 				<< std::endl;
@@ -262,7 +294,7 @@ public:
 			std::system(((std::string)"gnuplot " + plotInfo[i].plot_file_name + ".plt").c_str());
 
 		}
-			
+
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
 			std::ifstream ifs(plotInfo[i].plot_file_name + ".tmp");
 			std::string buf;
