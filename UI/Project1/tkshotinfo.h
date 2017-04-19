@@ -32,7 +32,7 @@ public:
 	};
 
 private:
-	TKADCINFO::ADCID adc_id;
+	int adc_id;
 
 	std::string data_file_name;
 
@@ -74,12 +74,12 @@ public:
 			channel_number_to_trace_number[i] = -1;
 	}
 	int ParseHDR();
-	int SetADCID(TKADCINFO::ADCID iadc_id)
+	int SetADCID(int iadc_id)
 	{
 		adc_id = iadc_id;
 		return 0;
 	}
-	TKADCINFO::ADCID GetADCID()
+	int GetADCID()
 	{
 		return adc_id;
 	}
@@ -167,7 +167,7 @@ private:
 	//	std::vector<TKPLOT> TKPlot;
 
 
-	int getADCDataIndexByADCID(TKADCINFO::ADCID adc_id)
+	int getADCDataIndexByADCID(int adc_id)
 	{
 		for (int i = 0; i < adc_num; i++)
 			if (TKData[i].GetADCID() == adc_id)
@@ -202,7 +202,7 @@ public:
 	{
 		return adc_num;
 	}
-	std::string GetDataFileName(TKADCINFO::ADCID adc_id)
+	std::string GetDataFileName(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetDataFileName();
 	}
@@ -218,17 +218,17 @@ public:
 		TKData.clear();
 		return 0;
 	}
-	int AppendDataFile(TKADCINFO::ADCID adc_id, std::string data_file_name)
+	int AppendDataFile(std::string data_file_name)
 	{
 
 		TKDATA *this_data;
 		adc_num++;
 		TKData.push_back(TKDATA());
 		this_data = &(TKData[adc_num - 1]);
-		this_data->SetADCID(adc_id);
+		this_data->SetADCID(adc_num-1);
 		this_data->SetDataFileName(data_file_name);
 		this_data->ParseHDR();
-		return 0;
+		return adc_num-1;
 		/*
 		adc_num++;
 		TKData.push_back(TKDATA::TKDATA());
@@ -238,63 +238,63 @@ public:
 		return 0;
 		*/
 	}
-	float GetHResolution(TKADCINFO::ADCID adc_id)
+	float GetHResolution(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetHResolution();
 	}
-	int GetBlockSize(TKADCINFO::ADCID adc_id)
+	int GetBlockSize(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetBlockSize();
 	}
-	float GetVOffset(TKADCINFO::ADCID adc_id, int trace_index)
+	float GetVOffset(int adc_id, int trace_index)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetVOffset(trace_index);
 	}
-	float GetVResolution(TKADCINFO::ADCID adc_id, int trace_index)
+	float GetVResolution(int adc_id, int trace_index)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetVResolution(trace_index);
 	}
-	int GetVMaxData(TKADCINFO::ADCID adc_id, int trace_index)
+	int GetVMaxData(int adc_id, int trace_index)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetVMaxData(trace_index);
 	}
-	int GetVMinData(TKADCINFO::ADCID adc_id, int trace_index)
+	int GetVMinData(int adc_id, int trace_index)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetVMinData(trace_index);
 	}
-	float GetHOffset(TKADCINFO::ADCID adc_id)
+	float GetHOffset(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetHOffset();
 	}
-	std::string GetModelName(TKADCINFO::ADCID adc_id)
+	std::string GetModelName(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetModelName();
 	}
-	TKDATA::BYTEORDER GetByteOrder(TKADCINFO::ADCID adc_id)
+	TKDATA::BYTEORDER GetByteOrder(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetByteOrder();
 	}
-	TKDATA::DATAFORMAT GetDataFormat(TKADCINFO::ADCID adc_id)
+	TKDATA::DATAFORMAT GetDataFormat(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetDataFormat();
 	}
-	int GetDataOffset(TKADCINFO::ADCID adc_id)
+	int GetDataOffset(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetDataOffset();
 	}
-	int GetTraceTotalNumber(TKADCINFO::ADCID adc_id)
+	int GetTraceTotalNumber(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetTraceTotalNumber();
 	}
-	int ADCIDToADCDataIndex(TKADCINFO::ADCID adc_id)
+	int ADCIDToADCDataIndex(int adc_id)
 	{
 		return getADCDataIndexByADCID(adc_id);
 	}
-	TKADCINFO::ADCID GetADCID(int adc_index)
+	int GetADCID(int adc_index)
 	{
 		return TKData[adc_index].GetADCID();
 	}
-	int GetChannelNumber(TKADCINFO::ADCID adc_id, int trace_index)
+	int GetChannelNumber(int adc_id, int trace_index)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetChannelNumber(trace_index);
 	}

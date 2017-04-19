@@ -1,11 +1,12 @@
 var indexSectionsWithContent =
 {
-  0: "_abcdefgmoprstw~",
-  1: "_bcdefmprstw",
+  0: "_abcdefghmoprstvw~",
+  1: "_bcefmprstw",
   2: "t",
   3: "cdgosw~",
-  4: "ac",
-  5: "t"
+  4: "bcdhmv",
+  5: "ac",
+  6: "t"
 };
 
 var indexSectionNames =
@@ -14,8 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "enums",
-  5: "pages"
+  4: "variables",
+  5: "enums",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -24,7 +26,8 @@ var indexSectionLabels =
   1: "クラス",
   2: "ファイル",
   3: "関数",
-  4: "列挙型",
-  5: "ページ"
+  4: "変数",
+  5: "列挙型",
+  6: "ページ"
 };
 

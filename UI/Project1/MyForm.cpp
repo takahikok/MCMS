@@ -105,8 +105,8 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	flushADCState("Ready");
 
 	thisShot->Clear();
-	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
-	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
+	thisShot->AppendDataFile(getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
+	thisShot->AppendDataFile(getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
 	parent->plotRaw(0);
 #endif
 

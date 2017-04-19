@@ -19,7 +19,7 @@
 #ifndef __TKANALYZESP__
 #define __TKANALYZESP__
 
-class TKANALYZESP
+class TKANALYZESP : public TKPLOT
 {
 public:
 	class FITRANGE
@@ -78,7 +78,7 @@ private:
 	}
 
 public:
-	TKANALYZESP(TKSHOT* TKShot_, clx::ini* Setting_)
+	TKANALYZESP(TKSHOT* TKShot_, clx::ini* Setting_) : TKPLOT(TKShot_)
 	{
 		thisShot = TKShot_;
 		Setting = Setting_;
@@ -86,6 +86,7 @@ public:
 
 	int PlotAnalyzeSP(TKPLOT::PLOTSIZE plot_size, int shot_number)
 	{
+
 		plotInfo.clear();
 		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++) {
 			for (int trace_index = 0; trace_index < thisShot->GetTraceTotalNumber(thisShot->GetADCID(data_index));

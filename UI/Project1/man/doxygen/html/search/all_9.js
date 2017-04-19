@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['open',['Open',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a307cc5bd3358c89db6ec7798d47b2840',1,'TKADCCONTROL']]]
+  ['model_5fname',['model_name',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ae98bf84fdf14074b4f7804f0617aa902',1,'TKPLOT::PLOTINFO']]],
+  ['myform',['MyForm',['../class_project1_1_1_my_form.html',1,'Project1']]]
 ];

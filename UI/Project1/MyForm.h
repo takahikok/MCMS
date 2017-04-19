@@ -1427,11 +1427,11 @@ private:
 		case TKADC_ADC_MODEL_DL850:
 			downloadFromADC(adcid, getNextLocalFileName(adcid) + ".WDF");
 			break;
-}
+		}
 		TKADCINFO::ADCIDToTKADCPtr(adcid)->IncrementLocalShotNumber();
 		(*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LastLocalShotNumber"]
 			= std::to_string(TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber());
-}
+	}
 #else
 	static void threadADCStart(System::Object^ adcid)
 	{
@@ -1495,8 +1495,8 @@ private: System::Void 保存ToolStripMenuItem_Click(System::Object^  sender, Sys
 	Setting->write(SETTING_FILE_PATH);
 
 	thisShot->Clear();
-	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL750, getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
-	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
+	thisShot->AppendDataFile(getLastLocalFileName(TKADCINFO_ADC_ID_DL750));
+	thisShot->AppendDataFile(getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
 	plotRaw(TKSHOTNO::GetLastShotNumber());
 }
 private: System::Void toolStripButton3_Click(System::Object^  sender, System::EventArgs^  e)
@@ -1549,7 +1549,6 @@ private: System::Void 新規ToolStripMenuItem_Click(System::Object^  sender, Sys
 
 private: System::Void 生データを追加ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 {
-# if 1
 	// Displays an OpenFileDialog so the user can select a Cursor.
 	OpenFileDialog ^ openFileDialog1 = gcnew OpenFileDialog();
 	openFileDialog1->Filter = "YOKOGAWA Binary (*.WVF, *.WDF)|*.WVF;*.WDF|DL750 Binary (*.WVF)|*.WVF|DL850 Binary (*.WDF)|*.WDF";
@@ -1560,7 +1559,7 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 	// If the user clicked OK in the dialog and
 	// a .CUR file was selected, open it.
 	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-		TKADCINFO::ADCID adcid;
+		//TKADCINFO::ADCID adcid;
 		std::vector<std::string> tok;
 
 		clx::split_if(TKUTIL::SystemStringToString(openFileDialog1->FileNames[0]), tok, clx::is_any_of("."));
@@ -1569,13 +1568,7 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 
 		// 
 
-		if (clx::upcase_copy(tok[1]) == "WDF")
-			adcid = TKADCINFO_ADC_ID_DL850;
-		if (clx::upcase_copy(tok[1]) == "WVF")
-			adcid = TKADCINFO_ADC_ID_DL750;
-
-
-		//
+		/*
 
 		for (int i = 0; i < static_cast<int>(thisShot->GetADCNumber()); i++) {
 			if (thisShot->GetADCID(i) == adcid) {
@@ -1583,16 +1576,15 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 				return;
 			}
 		}
+		*/
 
-
-		switch (TKADCINFO::ADCIDToTKADCPtr(adcid)->Model()) {
-		case TKADC_ADC_MODEL_DL750:
+		if (clx::upcase_copy(tok[1]) == "WVF") {
 			fInfo = gcnew System::IO::FileInfo(gcnew System::String((tok[0] + ".CSV").c_str()));
 			if (!fInfo->Exists)
 				std::system(((std::string)"wvfconv.exe " + tok[0] + " > " + tok[0] + ".CSV").c_str());
 			delete fInfo;
-			break;
-		case TKADC_ADC_MODEL_DL850:
+		}
+		if (clx::upcase_copy(tok[1]) == "WDF") {
 			fInfo = gcnew System::IO::FileInfo(gcnew System::String((tok[0] + ".WDF").c_str()));
 			if (!fInfo->Exists)
 				std::system(((std::string)"WDFCon.exe " + tok[0] + ".WDF").c_str());
@@ -1601,15 +1593,12 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 			if (!fInfo->Exists)
 				std::system(((std::string)"wvfconv.exe " + tok[0] + " > " + tok[0] + ".CSV").c_str());
 			delete fInfo;
-			break;
 		}
 
-		thisShot->AppendDataFile(adcid, tok[0]);
-	plotRaw(0);
+
+		thisShot->AppendDataFile(tok[0]);
+		plotRaw(0);
 	}
-#else
-	thisShot->AppendDataFile(TKADCINFO_ADC_ID_DL850, "D8T00088");
-#endif
 }
 
 private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e)

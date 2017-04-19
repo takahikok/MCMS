@@ -1,4 +1,4 @@
-#include "tkadc.h"
+﻿#include "tkadc.h"
 #include "tkadcinfo.h"
 #include "tkshotinfo.h"
 #include <vector>
@@ -70,29 +70,101 @@ public:
 			return std::to_string(w) + ", " + std::to_string(h);
 		}
 	};
-	struct PLOTINFO
+
+
+
+	/**
+	* @class PLOTINFO
+	* @blief プロット情報クラス
+	*
+	*	プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。<br>
+	*	<br>
+	* @par このクラスが作られた背景
+	*	ADCモデルによっては機能が制限されることがあります。例えばDL750はVXI11に対応していません。DL1740のコントロールにはEthernetを用いることができません。<br>
+	*	また、DL750とDL850のステータスビットの違いのように、ADCモデルによっては同じ機能でも実装が異なることがあります。<br>
+	*	このような実装の違いもメソッドをオーバーロードさせることで同様に扱うことができます。<br>
+	* @note
+	*	もし新たな計測器を追加するようなことがあれば、可能な限りADCコントロールクラスを派生させて多態性を持たせてください。
+	*/
+	/**
+	* @todo
+	*	ショット情報に関するPLOTINFOインスタンスは廃止し、TKSHOTを直接参照する
+	*/
+	class PLOTINFO
 	{
+	public:
+		/**
+		* @todo
+		*	このインスタンスは廃止し、メソッドにする
+		*/
 		std::string plot_file_name;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		std::string data_file_name;
 		int trace_index;
 		TKPLOT::RANGE<float> xrange;
 		TKPLOT::RANGE<float> yrange;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、メソッドにする
+		*/
 		int every;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		std::string model_name;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		TKDATA::BYTEORDER byte_order;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		TKDATA::DATAFORMAT data_format;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		int block_size;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		int data_offset;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		int channel_number;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		float h_resolution;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		float h_offset;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		float v_resolution;
+		/**
+		* @todo
+		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		*/
 		float v_offset;
 		SIZE<int> terminal_size;
 		SIZE<int> drawing_size;
 		POSITION<int> drawing_origin;
 		std::vector<POSITION<float>> label_position;
-
 	};
 	enum class PLOTSIZE
 	{
@@ -135,38 +207,7 @@ public:
 	{
 		thisShot = TKShot_;
 	}
-	int Plot()
-	{
-		std::ofstream of;
-		of.open("plot.plt", std::ios::trunc);
-		of << "set term png enhanced transparent truecolor font arial 11 size 640, 480" << std::endl;
-		of << "set out \"graph1.png\"" << std::endl;
-		//	of << "plot using " << std::endl;
-		of << "set datafile separator \',\'" << std::endl;
-		of << "set multiplot " << std::endl;
-		of << "set origin 0.0, 0.46" << std::endl;
-		of << "set size 1.0, 0.5" << std::endl;
-		of << "set lmargin 7.5" << std::endl;
-		of << "set rmargin 2" << std::endl;
-		of << "set tmargin 0" << std::endl;
-		of << "set bmargin 0" << std::endl;
-		of << "set label 2 left at graph 0.05,0.9 \"{/Arial (a)} {/Arial:Italic n}_{/Arial e}\"" << std::endl;
-		of << "set yrange [*<0:0<*]" << std::endl;
-		of << "plot \"" << thisShot->GetDataFileName(TKADCINFO_ADC_ID_DL750) << ".CSV\""
-			<< " every 10"
-			<< " using (" << thisShot->GetHOffset(TKADCINFO_ADC_ID_DL750)
-			<< " + (column(0)) * 10 * " << thisShot->GetHResolution(TKADCINFO_ADC_ID_DL750)
-			<< "):7"
-			<< " with line"
-			<< std::endl;
-		of << "" << std::endl;
-		of << "" << std::endl;
-		of << "" << std::endl;
-		of << "" << std::endl;
-		of << "" << std::endl;
-		std::system("gnuplot plot.plt");
-		return 0;
-	}
+
 
 	int PlotRaw(TKPLOT::PLOTSIZE plot_size, int shot_number)
 	{
@@ -263,7 +304,7 @@ public:
 				<< " rotate \"Voltage [V]\"" << std::endl;
 			of << "set xrange " << plotInfo[i].xrange.str() << std::endl;
 			if (1)
-				//UNIX�n�ł͊g���q�̑啶���������̈Ⴂ�ɒ���
+				//UNIX系では拡張子の大文字小文字の違いに注意
 				of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".WVF\""
 				<< " binary format=\"%int16\" array=" << plotInfo[i].block_size
 				<< " dx=" << plotInfo[i].h_resolution
