@@ -221,7 +221,7 @@ private:
 			pBHLine[i]->Visible = false;
 			pBHLineText[i]->Visible = false;
 		}
-		thisPlot->PlotRaw(TKPLOT::PLOTSIZE::small_size, shot_number);
+		thisPlot->PlotRaw(TKPLOT::PLOTSIZE::SMALL_SIZE, shot_number);
 		total_plot = static_cast<int>(thisPlot->GetPlotInfo().size());
 		std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
 		pplot_info = thisPlot->GetPlotInfoPtr();
@@ -328,6 +328,8 @@ private:
 		(*Setting)[group]["FitRangeIesMin"] = std::to_string(static_cast<int>(numericUpDown8->Value));
 		(*Setting)[group]["FitRangeIesMax"] = std::to_string(static_cast<int>(numericUpDown7->Value));
 
+		thisAnalyzeSP->SetMASampleNumber(21);
+
 		thisAnalyzeSP->SetRange() = TKANALYZESP::FITRANGE(
 			TKPLOT::RANGE<double>(static_cast<double>(numericUpDown4->Value),
 			static_cast<double>(numericUpDown3->Value)),
@@ -335,7 +337,8 @@ private:
 			static_cast<double>(numericUpDown5->Value)),
 			TKPLOT::RANGE<double>(static_cast<double>(numericUpDown8->Value),
 			static_cast<double>(numericUpDown7->Value)));
-		thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::medium_size, shot_number);
+		
+		thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
 		std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
 		pplot_info = thisAnalyzeSP->GetPlotInfoPtr();
 		for (int i = 0; i < 2; i++) {

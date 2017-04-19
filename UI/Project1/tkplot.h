@@ -71,6 +71,17 @@ public:
 		}
 	};
 
+public:
+	enum class PLOTSIZE
+	{
+		SMALL_SIZE,
+		MEDIUM_SIZE
+	};
+	enum class DATASOURCE
+	{
+		BINARY,
+		ASCII
+	};
 
 
 	/**
@@ -90,27 +101,25 @@ public:
 	* @todo
 	*	ショット情報に関するPLOTINFOインスタンスは廃止し、TKSHOTを直接参照する
 	*/
+public:
 	class PLOTINFO
 	{
+
 	public:
-		/**
-		* @todo
-		*	このインスタンスは廃止し、メソッドにする
-		*/
 		std::string plot_file_name;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
 		std::string data_file_name;
+		int data_index;
 		int trace_index;
+		int data_source_point_number;
+		int point_number;
+		DATASOURCE data_source;
 		TKPLOT::RANGE<float> xrange;
 		TKPLOT::RANGE<float> yrange;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、メソッドにする
-		*/
-		int every;
+		unsigned int every = 0;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
@@ -132,7 +141,6 @@ public:
 		*/
 		int block_size;
 		/**
-		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
 		int data_offset;
@@ -165,10 +173,20 @@ public:
 		SIZE<int> drawing_size;
 		POSITION<int> drawing_origin;
 		std::vector<POSITION<float>> label_position;
-	};
-	enum class PLOTSIZE
-	{
-		small_size, medium_size
+
+	public:
+		std::string GeneratePlotFileName(const std::string prefix)
+		{
+			plot_file_name = prefix + "_" + model_name + "_CH" + std::to_string(channel_number);
+			return plot_file_name;
+		}
+		unsigned int CalcEveryValue(const unsigned int point_per_pixel)
+		{
+			every = data_source_point_number / point_per_pixel / drawing_size.w;
+			if (every < 0)
+				every = 0;
+			return every;
+		}
 	};
 
 private:
@@ -176,30 +194,59 @@ private:
 	std::vector<TKPLOT::PLOTINFO> plotInfo;
 
 private:
-	//makeGPCommandPlot;
-	/*
-	template<typename T> POSITION<float> atGraph(POSITION<T> const &argument, PLOTINFO const &plot_info)
-	{
-		POSITION<float> at_graph;
-		at_graph.x = (float)argument.x / plot_info.terminal_size.w;
-		at_graph.y = (float)argument.y / plot_info.terminal_size.h;
-		return at_graph;
-	}
-
-	template<typename T> SIZE<float> atGraph(SIZE<T> const &argument, PLOTINFO const &plot_info)
-	{
-		SIZE<float> at_graph;
-		at_graph.w = (float)argument.w / plot_info.terminal_size.w;
-		at_graph.h = (float)argument.h / plot_info.terminal_size.h;
-		return at_graph;
-	}
-	*/
 	template<typename T, template<class> class C> C<float> atGraph(C<T> const &argument, PLOTINFO const &plot_info)
 	{
 		C<float> at_graph;
 		at_graph.u = (float)argument.u / plot_info.terminal_size.u;
 		at_graph.v = (float)argument.v / plot_info.terminal_size.v;
 		return at_graph;
+	}
+
+protected:
+	PLOTINFO& loadPlotInfoInstance(const int data_index, const int trace_index, const PLOTSIZE plot_size = PLOTSIZE::SMALL_SIZE)
+	{
+		static PLOTINFO plot_info;
+		plot_info.data_index = data_index;
+		plot_info.trace_index = trace_index;
+		plot_info.channel_number = thisShot->GetChannelNumber(thisShot->GetADCID(data_index), trace_index);
+		plot_info.data_source = DATASOURCE::BINARY;
+		plot_info.data_source_point_number = thisShot->GetBlockSize(thisShot->GetADCID(data_index));
+		plot_info.xrange.min = thisShot->GetHOffset(thisShot->GetADCID(data_index));
+		plot_info.xrange.max = (thisShot->GetHOffset(thisShot->GetADCID(data_index))
+			+ thisShot->GetHResolution(thisShot->GetADCID(data_index))
+			* thisShot->GetBlockSize(thisShot->GetADCID(data_index)));
+
+		plot_info.yrange.min = thisShot->GetVMinData(thisShot->GetADCID(data_index), trace_index) * thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index) + thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
+		plot_info.yrange.max = thisShot->GetVMaxData(thisShot->GetADCID(data_index), trace_index) * thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index) + thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
+
+		switch (plot_size) {
+		case PLOTSIZE::SMALL_SIZE:
+			plot_info.terminal_size.w = 400;
+			plot_info.terminal_size.h = 200;
+			plot_info.drawing_origin.x = 80;
+			plot_info.drawing_origin.y = 50;
+			plot_info.drawing_size.w = 300;
+			plot_info.drawing_size.h = 130;
+			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.06f));
+			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.06f));
+			plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
+			plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
+			break;
+		case PLOTSIZE::MEDIUM_SIZE:
+			plot_info.terminal_size.w = 600;
+			plot_info.terminal_size.h = 300;
+			plot_info.drawing_origin.x = 90;
+			plot_info.drawing_origin.y = 60;
+			plot_info.drawing_size.w = 420;
+			plot_info.drawing_size.h = 210;
+			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.05f));
+			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.05f));
+			plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
+			plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
+			break;
+		}
+
+		return plot_info;
 	}
 
 public:
@@ -209,72 +256,17 @@ public:
 	}
 
 
-	int PlotRaw(TKPLOT::PLOTSIZE plot_size, int shot_number)
+	int PlotRaw(const TKPLOT::PLOTSIZE plot_size, const int shot_number)
 	{
 		plotInfo.clear();
-		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++) {
+		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++)
 			for (int trace_index = 0; trace_index < thisShot->GetTraceTotalNumber(thisShot->GetADCID(data_index));
-				trace_index++) {
-				TKPLOT::PLOTINFO plot_info;
-
-				plot_info.model_name = thisShot->GetModelName(thisShot->GetADCID(data_index));
-				plot_info.byte_order = thisShot->GetByteOrder(thisShot->GetADCID(data_index));
-				plot_info.data_format = thisShot->GetDataFormat(thisShot->GetADCID(data_index));
-				plot_info.data_offset = thisShot->GetDataOffset(thisShot->GetADCID(data_index));
-				plot_info.channel_number = thisShot->GetChannelNumber(thisShot->GetADCID(data_index), trace_index);
-				plot_info.plot_file_name = "PlotRaw_" + plot_info.model_name
-					+ "_CH" + std::to_string(plot_info.channel_number);
-				plot_info.xrange.min = thisShot->GetHOffset(thisShot->GetADCID(data_index));
-				plot_info.xrange.max = (thisShot->GetHOffset(thisShot->GetADCID(data_index))
-					+ thisShot->GetHResolution(thisShot->GetADCID(data_index))
-					* thisShot->GetBlockSize(thisShot->GetADCID(data_index)));
-				plot_info.h_resolution = thisShot->GetHResolution(thisShot->GetADCID(data_index));
-				plot_info.h_offset = thisShot->GetHOffset(thisShot->GetADCID(data_index));
-				plot_info.v_resolution = thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index);
-				plot_info.v_offset = thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
-				plot_info.trace_index = trace_index;
-				plot_info.data_file_name = thisShot->GetDataFileName(thisShot->GetADCID(data_index));
-
-				plot_info.yrange.min = thisShot->GetVMinData(thisShot->GetADCID(data_index), trace_index) * thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index) + thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
-				plot_info.yrange.max = thisShot->GetVMaxData(thisShot->GetADCID(data_index), trace_index) * thisShot->GetVResolution(thisShot->GetADCID(data_index), trace_index) + thisShot->GetVOffset(thisShot->GetADCID(data_index), trace_index);
-
-				switch (plot_size) {
-				case PLOTSIZE::small_size:
-					plot_info.terminal_size.w = 400;
-					plot_info.terminal_size.h = 200;
-					plot_info.drawing_origin.x = 80;
-					plot_info.drawing_origin.y = 50;
-					plot_info.drawing_size.w = 300;
-					plot_info.drawing_size.h = 130;
-					plot_info.label_position.push_back(POSITION<float>(0.0f, 1.06f));
-					plot_info.label_position.push_back(POSITION<float>(1.0f, 1.06f));
-					plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
-					plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
-					break;
-				case PLOTSIZE::medium_size:
-					plot_info.terminal_size.w = 600;
-					plot_info.terminal_size.h = 300;
-					plot_info.drawing_origin.x = 90;
-					plot_info.drawing_origin.y = 60;
-					plot_info.drawing_size.w = 420;
-					plot_info.drawing_size.h = 210;
-					plot_info.label_position.push_back(POSITION<float>(0.0f, 1.05f));
-					plot_info.label_position.push_back(POSITION<float>(1.0f, 1.05f));
-					plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
-					plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
-					break;
-				}
-
-				plot_info.every = thisShot->GetBlockSize(thisShot->GetADCID(data_index)) / 10 / plot_info.drawing_size.w;
-				plot_info.block_size = thisShot->GetBlockSize(thisShot->GetADCID(data_index));
-
-				plotInfo.push_back(plot_info);
-			}
-		}
+			trace_index++)
+				plotInfo.push_back(loadPlotInfoInstance(data_index, trace_index, plot_size));
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
 			std::ofstream of;
-			of.open(plotInfo[i].plot_file_name + ".plt", std::ios::trunc);
+			of.open(plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
 			of << "set term png enhanced transparent truecolor font arial 11 size "
 				<< plotInfo[i].terminal_size.str() << std::endl;
 			of << "set out \"" << plotInfo[i].plot_file_name << ".png\"" << std::endl;
@@ -285,12 +277,13 @@ public:
 			of << "set origin " << atGraph(plotInfo[i].drawing_origin, plotInfo[i]).str() << std::endl;
 			of << "set size " << atGraph(plotInfo[i].drawing_size, plotInfo[i]).str() << std::endl;
 			of << "set margin 0, 0, 0, 0" << std::endl;
+			of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 			of << "set label 1 left at graph " << plotInfo[i].label_position[0].str() << " \""
-				<< "CH" << plotInfo[i].channel_number
-				<< " - " << plotInfo[i].model_name << "\"" << std::endl;
+				<< "CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[i].data_index), plotInfo[i].trace_index)
+				<< " - " << thisShot->GetModelName(thisShot->GetADCID(plotInfo[i].data_index)) << "\"" << std::endl;
 
 			std::vector<std::string> tok;
-			clx::split_if(plotInfo[i].data_file_name, tok, clx::is_any_of("\\"));
+			clx::split_if(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i].data_index)), tok, clx::is_any_of("\\"));
 			of << "set label 2 right at graph " << plotInfo[i].label_position[1].str() << " \""
 				<< (shot_number ? "#" + TKUTIL::ZeroFill(shot_number, 8) : tok[tok.size() - 1])
 				<< "\"" << std::endl;
@@ -303,28 +296,33 @@ public:
 			of << "set label 4 center at graph " << plotInfo[i].label_position[3].str()
 				<< " rotate \"Voltage [V]\"" << std::endl;
 			of << "set xrange " << plotInfo[i].xrange.str() << std::endl;
-			if (1)
+			switch (plotInfo[i].data_source) {
+			case DATASOURCE::BINARY:
 				//UNIX系では拡張子の大文字小文字の違いに注意
-				of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".WVF\""
-				<< " binary format=\"%int16\" array=" << plotInfo[i].block_size
-				<< " dx=" << plotInfo[i].h_resolution
-				<< " skip=" << std::to_string(plotInfo[i].block_size * 2 * plotInfo[i].trace_index + plotInfo[i].data_offset)
-				<< " origin=(" << plotInfo[i].h_offset << "," << plotInfo[i].v_offset << ")"
-				<< " endian=" << (plotInfo[i].byte_order == TKDATA::BYTEORDER::LITTLE_ENDIAN ? "little" : "big")
-				<< " every " << plotInfo[i].every
-				//<< " index " << std::to_string(plotInfo[i].trace_index)
-				<< " using ($1)*" << plotInfo[i].v_resolution
-				<< " with line"
-				<< std::endl;
-			else
-				of << "plot \"" << clx::replace_all_copy(plotInfo[i].data_file_name, "\\", "\\\\") << ".CSV\""
-				<< " every " << plotInfo[i].every
-				<< " using (" << plotInfo[i].xrange.min
-				<< " + (column(0)) * " << plotInfo[i].every
-				<< " * " << plotInfo[i].h_resolution << "+" << plotInfo[i].h_offset << ")"
-				<< ":" << std::to_string(plotInfo[i].trace_index + 1)
-				<< " with line"
-				<< std::endl;
+				of << "plot \"" << clx::replace_all_copy(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i].data_index)), "\\", "\\\\") << ".WVF\""
+					<< " binary format=\"%int16\" array=" << thisShot->GetBlockSize(thisShot->GetADCID(plotInfo[i].data_index))
+					<< " dx=" << thisShot->GetHResolution(thisShot->GetADCID(plotInfo[i].data_index))
+					<< " skip=" << std::to_string(thisShot->GetBlockSize(thisShot->GetADCID(plotInfo[i].data_index)) * 2 * plotInfo[i].trace_index + thisShot->GetDataOffset(thisShot->GetADCID(plotInfo[i].data_index)))
+					<< " origin=(" << thisShot->GetHOffset(thisShot->GetADCID(plotInfo[i].data_index)) << "," << thisShot->GetVOffset(thisShot->GetADCID(plotInfo[i].data_index), plotInfo[i].trace_index) << ")"
+					<< " endian=" << (thisShot->GetByteOrder(thisShot->GetADCID(plotInfo[i].data_index)) == TKDATA::BYTEORDER::LITTLE_ENDIAN ? "little" : "big")
+					<< " every " << plotInfo[i].CalcEveryValue(10)
+					//<< " index " << std::to_string(plotInfo[i].trace_index)
+					<< " using ($1)*" << thisShot->GetVResolution(thisShot->GetADCID(plotInfo[i].data_index), plotInfo[i].trace_index)
+					<< " \\"
+					<< std::endl;
+				break;
+			case DATASOURCE::ASCII:
+				of << "plot \"" << clx::replace_all_copy(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i].data_index)), "\\", "\\\\") << ".CSV\""
+					<< " every " << plotInfo[i].CalcEveryValue(10)
+					<< " using (" << plotInfo[i].xrange.min
+					<< " + (column(0)) * " << plotInfo[i].every
+					<< " * " << thisShot->GetHResolution(thisShot->GetADCID(plotInfo[i].data_index)) << "+" << thisShot->GetHOffset(thisShot->GetADCID(plotInfo[i].data_index)) << ")"
+					<< ":" << std::to_string(plotInfo[i].trace_index + 1)
+					<< " \\"
+					<< std::endl;
+				break;
+			}
+			of << " with line lc rgb \"red\"" << std::endl;
 			of << "set print \"" << plotInfo[i].plot_file_name << ".tmp\"" << std::endl;
 			of << "print GPVAL_Y_MIN" << std::endl;
 			of << "print GPVAL_Y_MAX" << std::endl;
@@ -333,7 +331,6 @@ public:
 			of.close();
 
 			std::system(((std::string)"gnuplot " + plotInfo[i].plot_file_name + ".plt").c_str());
-
 		}
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
