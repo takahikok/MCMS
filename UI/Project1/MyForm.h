@@ -644,8 +644,7 @@ private:
 		// 
 		this->menuStrip1->Dock = System::Windows::Forms::DockStyle::None;
 		this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7)
-		{
+		this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {
 			this->faToolStripMenuItem,
 				this->toolStripMenuItem1, this->ハードウェアToolStripMenuItem, this->グラフToolStripMenuItem, this->さようならToolStripMenuItem, this->toolStripTextBox1,
 				this->toolStripMenuItem2
@@ -660,8 +659,7 @@ private:
 		// 
 		// faToolStripMenuItem
 		// 
-		this->faToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9)
-		{
+		this->faToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {
 			this->新規ToolStripMenuItem,
 				this->開くToolStripMenuItem, this->生データを追加ToolStripMenuItem, this->toolStripSeparator1, this->保存ToolStripMenuItem, this->名前を付けて保存ToolStripMenuItem,
 				this->すべて保存ToolStripMenuItem, this->toolStripSeparator2, this->終了ToolStripMenuItem
@@ -730,8 +728,7 @@ private:
 		// 
 		// toolStripMenuItem1
 		// 
-		this->toolStripMenuItem1->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
-		{
+		this->toolStripMenuItem1->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 			this->計測開始ToolStripMenuItem,
 				this->計測停止ToolStripMenuItem, this->計測設定ToolStripMenuItem
 		});
@@ -763,8 +760,7 @@ private:
 		// 
 		// ハードウェアToolStripMenuItem
 		// 
-		this->ハードウェアToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
-		{
+		this->ハードウェアToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 			this->計測器接続ToolStripMenuItem,
 				this->計測器切断, this->計測器接続設定ToolStripMenuItem
 		});
@@ -796,8 +792,7 @@ private:
 		// 
 		// グラフToolStripMenuItem
 		// 
-		this->グラフToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
-		{
+		this->グラフToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 			this->グラフ描画ToolStripMenuItem,
 				this->グラフ設定ToolStripMenuItem
 		});
@@ -839,8 +834,7 @@ private:
 		// toolStripMenuItem2
 		// 
 		this->toolStripMenuItem2->Alignment = System::Windows::Forms::ToolStripItemAlignment::Right;
-		this->toolStripMenuItem2->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
-		{
+		this->toolStripMenuItem2->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 			this->toolStripMenuItem3,
 				this->toolStripMenuItem4
 		});
@@ -865,8 +859,7 @@ private:
 		// 
 		this->toolStrip1->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
-		{
+		this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 			this->toolStripButton1,
 				this->toolStripButton2, this->toolStripButton3
 		});
@@ -924,7 +917,7 @@ private:
 		this->tabControl1->Controls->Add(this->tabPage1);
 		this->tabControl1->Controls->Add(this->tabPage2);
 		this->tabControl1->Location = System::Drawing::Point(0, 0);
-		this->tabControl1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->tabControl1->Margin = System::Windows::Forms::Padding(2);
 		this->tabControl1->Name = L"tabControl1";
 		this->tabControl1->SelectedIndex = 0;
 		this->tabControl1->Size = System::Drawing::Size(737, 344);
@@ -938,7 +931,7 @@ private:
 		this->tabPage1->Name = L"tabPage1";
 		this->tabPage1->Size = System::Drawing::Size(729, 318);
 		this->tabPage1->TabIndex = 0;
-		this->tabPage1->Text = L"tabPage1";
+		this->tabPage1->Text = L"Plot YT";
 		this->tabPage1->UseVisualStyleBackColor = true;
 		// 
 		// splitContainer1
@@ -969,7 +962,7 @@ private:
 		this->splitContainer1->Panel2->Controls->Add(this->button2);
 		this->splitContainer1->Panel2->Controls->Add(this->button1);
 		this->splitContainer1->Size = System::Drawing::Size(729, 318);
-		this->splitContainer1->SplitterDistance = 270;
+		this->splitContainer1->SplitterDistance = 273;
 		this->splitContainer1->SplitterWidth = 1;
 		this->splitContainer1->TabIndex = 27;
 		// 
@@ -1071,7 +1064,7 @@ private:
 		this->tabPage2->Name = L"tabPage2";
 		this->tabPage2->Size = System::Drawing::Size(729, 318);
 		this->tabPage2->TabIndex = 1;
-		this->tabPage2->Text = L"tabPage2";
+		this->tabPage2->Text = L"Analyze SP";
 		this->tabPage2->UseVisualStyleBackColor = true;
 		// 
 		// splitContainer2
@@ -1098,14 +1091,14 @@ private:
 		this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 		this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
 		this->splitContainer2->Size = System::Drawing::Size(729, 318);
-		this->splitContainer2->SplitterDistance = 260;
+		this->splitContainer2->SplitterDistance = 263;
 		this->splitContainer2->SplitterWidth = 1;
 		this->splitContainer2->TabIndex = 28;
 		// 
 		// button11
 		// 
 		this->button11->Location = System::Drawing::Point(558, 19);
-		this->button11->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->button11->Margin = System::Windows::Forms::Padding(2);
 		this->button11->Name = L"button11";
 		this->button11->Size = System::Drawing::Size(56, 18);
 		this->button11->TabIndex = 23;
@@ -1116,7 +1109,7 @@ private:
 		// button10
 		// 
 		this->button10->Location = System::Drawing::Point(486, 19);
-		this->button10->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->button10->Margin = System::Windows::Forms::Padding(2);
 		this->button10->Name = L"button10";
 		this->button10->Size = System::Drawing::Size(56, 18);
 		this->button10->TabIndex = 22;
@@ -1126,7 +1119,7 @@ private:
 		// button9
 		// 
 		this->button9->Location = System::Drawing::Point(426, 19);
-		this->button9->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->button9->Margin = System::Windows::Forms::Padding(2);
 		this->button9->Name = L"button9";
 		this->button9->Size = System::Drawing::Size(56, 18);
 		this->button9->TabIndex = 21;
@@ -1140,9 +1133,9 @@ private:
 		this->groupBox3->Controls->Add(this->numericUpDown7);
 		this->groupBox3->Controls->Add(this->numericUpDown8);
 		this->groupBox3->Location = System::Drawing::Point(288, 6);
-		this->groupBox3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox3->Margin = System::Windows::Forms::Padding(2);
 		this->groupBox3->Name = L"groupBox3";
-		this->groupBox3->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox3->Padding = System::Windows::Forms::Padding(2);
 		this->groupBox3->Size = System::Drawing::Size(126, 38);
 		this->groupBox3->TabIndex = 20;
 		this->groupBox3->TabStop = false;
@@ -1168,9 +1161,9 @@ private:
 		this->groupBox2->Controls->Add(this->numericUpDown5);
 		this->groupBox2->Controls->Add(this->numericUpDown6);
 		this->groupBox2->Location = System::Drawing::Point(150, 6);
-		this->groupBox2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox2->Margin = System::Windows::Forms::Padding(2);
 		this->groupBox2->Name = L"groupBox2";
-		this->groupBox2->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox2->Padding = System::Windows::Forms::Padding(2);
 		this->groupBox2->Size = System::Drawing::Size(126, 38);
 		this->groupBox2->TabIndex = 20;
 		this->groupBox2->TabStop = false;
@@ -1196,9 +1189,9 @@ private:
 		this->groupBox1->Controls->Add(this->numericUpDown3);
 		this->groupBox1->Controls->Add(this->numericUpDown4);
 		this->groupBox1->Location = System::Drawing::Point(12, 6);
-		this->groupBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox1->Margin = System::Windows::Forms::Padding(2);
 		this->groupBox1->Name = L"groupBox1";
-		this->groupBox1->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->groupBox1->Padding = System::Windows::Forms::Padding(2);
 		this->groupBox1->Size = System::Drawing::Size(126, 38);
 		this->groupBox1->TabIndex = 19;
 		this->groupBox1->TabStop = false;
@@ -1228,11 +1221,11 @@ private:
 		// toolStripContainer2.ContentPanel
 		// 
 		this->toolStripContainer2->ContentPanel->Controls->Add(this->tabControl1);
-		this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(2);
 		this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(737, 344);
 		this->toolStripContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
 		this->toolStripContainer2->Location = System::Drawing::Point(0, 0);
-		this->toolStripContainer2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->toolStripContainer2->Margin = System::Windows::Forms::Padding(2);
 		this->toolStripContainer2->Name = L"toolStripContainer2";
 		this->toolStripContainer2->Size = System::Drawing::Size(737, 448);
 		this->toolStripContainer2->TabIndex = 6;
@@ -1249,8 +1242,7 @@ private:
 		// 
 		this->toolStrip3->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip3->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip3->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
-		{
+		this->toolStrip3->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 			this->toolStripButton6,
 				this->toolStripButton7
 		});
@@ -1283,8 +1275,7 @@ private:
 		// 
 		this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
-		{
+		this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 			this->toolStripButton4,
 				this->toolStripButton5
 		});
@@ -1321,7 +1312,7 @@ private:
 		this->Controls->Add(this->toolStripContainer2);
 		this->Controls->Add(this->statusStrip1);
 		this->MainMenuStrip = this->menuStrip1;
-		this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+		this->Margin = System::Windows::Forms::Padding(2);
 		this->Name = L"MyForm";
 		this->Text = L"DT-ALPHA MCMS";
 		this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);

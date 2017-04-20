@@ -121,8 +121,8 @@ private:
 
 		(*Setting)[group]["ProbeTip"] = radioButton16->Checked ? "Preset" : "Manual";
 		(*Setting)[group]["ProbeTipIndex"] = std::to_string(comboBox3->SelectedIndex);
-		(*Setting)[group]["ProbeTipRadius"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox9->Text).c_str())*1e3);
-		(*Setting)[group]["ProbeTipLength"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox8->Text).c_str())*1e3);
+		(*Setting)[group]["ProbeTipRadius"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox9->Text).c_str())*1e-3);
+		(*Setting)[group]["ProbeTipLength"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox8->Text).c_str())*1e-3);
 
 
 
@@ -157,7 +157,7 @@ private:
 		// save function
 
 		(*Setting)[group]["TimeRegion"] = radioButton15->Checked ? "Auto" : "Manual";
-		(*Setting)[group]["FunctionDelayTime"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox4->Text).c_str())*1e3);
+		(*Setting)[group]["FunctionDelayTime"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox4->Text).c_str()));
 		(*Setting)[group]["FunctionFrequency"] = TKUTIL::SystemStringToString(textBox5->Text).c_str();
 		(*Setting)[group]["FunctionDelayCycle"] = TKUTIL::SystemStringToString(textBox6->Text).c_str();
 		(*Setting)[group]["FunctionSweepCycle"] = TKUTIL::SystemStringToString(textBox7->Text).c_str();
@@ -280,8 +280,8 @@ private:
 		comboBox3->SelectedIndex = std::stoi((*Setting)[group]["ProbeTipIndex"]);
 		comboBox3->SelectedIndex = -1;
 
-		textBox9->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["ProbeTipRadius"]).c_str())*1e-3)).c_str());
-		textBox8->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["ProbeTipLength"]).c_str())*1e-3)).c_str());
+		textBox9->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["ProbeTipRadius"]).c_str())*1e3)).c_str());
+		textBox8->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["ProbeTipLength"]).c_str())*1e3)).c_str());
 
 
 
@@ -351,7 +351,7 @@ private:
 			textBox13->Enabled = true;
 		}
 		textBox4->Text = gcnew System::String((std::to_string(std::stod(
-			((*Setting)[group]["FunctionDelayTime"]).c_str())*1e-3)).c_str());
+			((*Setting)[group]["FunctionDelayTime"]).c_str()))).c_str());
 		textBox5->Text = gcnew System::String((std::to_string(std::stod(
 			((*Setting)[group]["FunctionFrequency"]).c_str()))).c_str());
 		textBox6->Text = gcnew System::String((std::to_string(std::stod(

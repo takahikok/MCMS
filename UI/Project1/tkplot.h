@@ -129,21 +129,21 @@ public:
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		TKDATA::BYTEORDER byte_order;
+//		TKDATA::BYTEORDER byte_order;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		TKDATA::DATAFORMAT data_format;
+//		TKDATA::DATAFORMAT data_format;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		int block_size;
+//		int block_size;
 		/**
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		int data_offset;
+//		int data_offset;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
@@ -153,22 +153,22 @@ public:
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		float h_resolution;
+//		float h_resolution;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		float h_offset;
+//		float h_offset;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		float v_resolution;
+//		float v_resolution;
 		/**
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
-		float v_offset;
+//		float v_offset;
 		SIZE<int> terminal_size;
 		SIZE<int> drawing_size;
 		POSITION<int> drawing_origin;
@@ -209,6 +209,7 @@ protected:
 		plot_info.data_index = data_index;
 		plot_info.trace_index = trace_index;
 		plot_info.channel_number = thisShot->GetChannelNumber(thisShot->GetADCID(data_index), trace_index);
+		plot_info.model_name = thisShot->GetModelName(thisShot->GetADCID(data_index));
 		plot_info.data_source = DATASOURCE::BINARY;
 		plot_info.data_source_point_number = thisShot->GetBlockSize(thisShot->GetADCID(data_index));
 		plot_info.xrange.min = thisShot->GetHOffset(thisShot->GetADCID(data_index));

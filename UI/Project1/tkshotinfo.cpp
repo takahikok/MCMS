@@ -90,7 +90,13 @@ int TKDATA::ParseHDR()
 			//Model
 		case 5:
 			readHDRLine(buf, 1, key_name, sdata);
-			model_name = sdata[0];
+			model_name = [](std::string m) -> std::string
+			{
+				if (m == "Xviewer")
+					return "DL850";
+				else
+					return m;
+			}(sdata[0]);
 			break;
 
 			//Endian
