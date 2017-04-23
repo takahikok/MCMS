@@ -1,59 +1,14 @@
-﻿#include "tkadc.h"
-#include "tkadcinfo.h"
-#include "tkshotinfo.h"
-#include <vector>
-#include <string>
-#include <iostream>
-#include <sstream>
-#include "clx/ini.h"
-//#include "clx/ftp.h"
-#include <iomanip>
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
-#include <istream>
-#include "clx/salgorithm.h"
-#include "tkplot.h"
-#include "tkutil.h"
-#include "tkphysics.h"
+﻿#include "tkanalyze.h"
 #ifndef __TKANALYZESP__
 #define __TKANALYZESP__
 
-class TKANALYZESP : public TKPLOT
+class TKANALYZESP : public TKANALYZE
 {
-public:
-	class FITRANGE
-	{
-	public:
-		TKPLOT::RANGE<double> Iis;
-		TKPLOT::RANGE<double> Ie;
-		TKPLOT::RANGE<double> Ies;
-	public:
-		FITRANGE(TKPLOT::RANGE<double> Iis_, TKPLOT::RANGE<double> Ie_, TKPLOT::RANGE<double> Ies_)
-		{
-			Iis = Iis_;
-			Ie = Ie_;
-			Ies = Ies_;
-		}
-		FITRANGE()
-		{
-		}
-	};
-	FITRANGE fitrange;
-
-
-private:
-	TKSHOT* thisShot;
-	clx::ini* Setting;
-	std::vector<PLOTINFO> plotInfo;
-
-	int ma_sample_number;
-
 private:
 	double calcSurfaceArea(TKChargedParticleType particle_type)
 	{
-		double r = std::stod((*Setting)["AnalyzeSP"]["ProbeTipRadius"]);
-		double l = std::stod((*Setting)["AnalyzeSP"]["ProbeTipLength"]);
+		double r = std::stod((*Setting)[group]["ProbeTipRadius"]);
+		double l = std::stod((*Setting)[group]["ProbeTipLength"]);
 
 		std::string prefix;
 		switch (particle_type) {
@@ -64,21 +19,19 @@ private:
 			prefix = "Ion";
 			break;
 		}
-		if ((*Setting)["AnalyzeSP"][prefix + "CurrentCollectionSurfaceArea"] == "2rl")
+		if ((*Setting)[group][prefix + "CurrentCollectionSurfaceArea"] == "2rl")
 			return 2 * r * l;
-		else if ((*Setting)["AnalyzeSP"][prefix + "CurrentCollectionSurfaceArea"] == "4rl")
+		else if ((*Setting)[group][prefix + "CurrentCollectionSurfaceArea"] == "4rl")
 			return 4 * r * l;
-		else if ((*Setting)["AnalyzeSP"][prefix + "CurrentCollectionSurfaceArea"] == "Cylinder")
+		else if ((*Setting)[group][prefix + "CurrentCollectionSurfaceArea"] == "Cylinder")
 			return 4 * M_PI * r * l + M_PI * r * r;
 		else
-			return std::stod((*Setting)["AnalyzeSP"][prefix + "CurrentCollectionSurfaceArea"]);
+			return std::stod((*Setting)[group][prefix + "CurrentCollectionSurfaceArea"]);
 	}
 
 public:
-	TKANALYZESP(TKSHOT* TKShot_, clx::ini* Setting_) : TKPLOT(TKShot_)
+	TKANALYZESP(TKSHOT* TKShot_, clx::ini* Setting_, std::string group_) : TKANALYZE(TKShot_, Setting_, group_)
 	{
-		thisShot = TKShot_;
-		Setting = Setting_;
 	}
 
 	void SetMASampleNumber(int sample_number)
@@ -94,21 +47,63 @@ public:
 				trace_index++)
 				plotInfo.push_back(loadPlotInfoInstance(data_index, trace_index, plot_size));
 
-		int v_channel_plot_info_index = std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"]);
-		int i_channel_plot_info_index = std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"]);
+		int v_channel_plot_info_index = std::stoi((*Setting)[group]["VChannelIndex"]);
+		int i_channel_plot_info_index = std::stoi((*Setting)[group]["IChannelIndex"]);
 
-		std::string ma_file_name = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
-			+ (std::string)"_SMA_" + std::to_string(ma_sample_number);
-		std::cerr << (std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-			+ std::to_string(ma_sample_number)
-			+ " > " + ma_file_name + ".CSV" << std::endl;
-		if (!TKUTIL::IsExistFile(ma_file_name + ".CSV"))
-			std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-				+ std::to_string(ma_sample_number)
-				+ " > " + ma_file_name + ".CSV").c_str());
+		std::string ma_file_name = [&]() -> std::string
+		{
+			std::string out_file;
+
+
+			if ((*Setting)[group]["PreDataProcessing"] == "Raw")
+				pre_data_process = PREDATAPROCESSS::Raw;
+			if ((*Setting)[group]["PreDataProcessing"] == "SMA")
+				pre_data_process = PREDATAPROCESSS::SMA;
+			if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis")
+				pre_data_process = PREDATAPROCESSS::SMA_KH;
+			if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis+SMA")
+				pre_data_process = PREDATAPROCESSS::SMA_KH_SMA;
+
+			int ma_sample[2];
+			for (int i = 0; i < 2; i++)
+				ma_sample[i] = std::stoi((*Setting)[group]["PreDataProcessingSMA" + std::to_string(i + 1) + "Sample"]);
+
+			switch (pre_data_process) {
+			case PREDATAPROCESSS::SMA:
+				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
+					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
+				std::cerr << (std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
+					+ std::to_string(ma_sample[0])
+					+ " > " + out_file + ".CSV" << std::endl;
+				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
+						+ std::to_string(ma_sample[0])
+						+ " > " + out_file + ".CSV").c_str());
+				break;
+			case PREDATAPROCESSS::SMA_KH:
+				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
+					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
+				std::cerr << (std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
+					+ std::to_string(ma_sample[0])
+					+ " > " + out_file + ".CSV" << std::endl;
+				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
+						+ std::to_string(ma_sample[0])
+						+ " > " + out_file + ".CSV").c_str());
+
+				break;
+			case PREDATAPROCESSS::Raw:
+				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index));
+				break;
+			default:
+				break;
+			}
+			return out_file;
+
+		}();
 
 		std::ofstream of;
-		of.open((std::string)"analyzeSP" + ".plt", std::ios::trunc);
+		of.open(group + ".plt", std::ios::trunc);
 
 
 		of << "set term png enhanced transparent truecolor font arial 11 size "
@@ -149,21 +144,37 @@ public:
 		of << "set fit quiet" << std::endl;
 		of << "" << std::endl;
 
+		auto polarity = [&]()
+		{
+			return (((*Setting)[group]["ProbeCurrentPolarity"] == "IonCurrent")
+				^ ((*Setting)[group]["AnalyzeCurrentPolarity"] == "IonCurrent") ? -1 : 1);
+		};
+
 		auto svp = [&]()
 		{
 			return "($" + std::to_string(plotInfo[v_channel_plot_info_index].trace_index + 1)
-				+ "*(" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["VGain"]))) + ")"
+				+ "*(" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["VGain"]))
+					*((*Setting)[group]["VMonitorGain"] == "1/100" ? 100 : 1)) + ")"
 				+ [&]()
 			{
-				if ((*Setting)["AnalyzeSP"]["ProbeVoltageShift"] == "Consider")
+				if ((*Setting)[group]["ProbeVoltageShift"] == "Consider")
 					return (std::string)" - " + "($" + std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-					+ " * (" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-						* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1)) + ")";
+					+ " * (" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["IGain"]))
+						* polarity()) + ")";
 				else
 					return (std::string)"";
 			}()
 				+ "))";
 		};
+
+		auto sip = [&]()
+		{
+			return "($" + std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
+				+ "*(" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["IR"]))
+					/ std::stod(static_cast<std::string>((*Setting)[group]["IGain"]))
+					* polarity()) + "))";
+		};
+
 		of << "fit " << fitrange.Iis.str() << " "
 			<< "F_Iis(x) "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
@@ -171,26 +182,22 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "($" << std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IR"]))
-			/ std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-			* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1)) << ")"
-			<< ") "
+			<< sip()
 			<< "via a_Iis, b_Iis"
 			<< std::endl;
 		of << "" << std::endl;
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"analyzeSP0.png\"" << std::endl;
+		of << "set out \""+group+"0.png\"" << std::endl;
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		auto graph_top_info = [&]()
 		{
 			of << "set label 1 left at graph " << plotInfo[i_channel_plot_info_index].label_position[0].str() << " \""
-			<< "CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[v_channel_plot_info_index].data_index), plotInfo[v_channel_plot_info_index].trace_index)
-			<< " : CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index), plotInfo[i_channel_plot_info_index].trace_index)
-			<< " - " << thisShot->GetModelName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) << "\"" << std::endl;
+				<< "CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[v_channel_plot_info_index].data_index), plotInfo[v_channel_plot_info_index].trace_index)
+				<< " : CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index), plotInfo[i_channel_plot_info_index].trace_index)
+				<< " - " << thisShot->GetModelName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) << "\"" << std::endl;
 			std::vector<std::string> tok;
 			clx::split_if(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)), tok, clx::is_any_of("\\"));
 			of << "set label 2 right at graph " << plotInfo[i_channel_plot_info_index].label_position[1].str() << " \""
@@ -201,18 +208,15 @@ public:
 		graph_top_info();
 		of << "set xtics 50" << std::endl;
 		of << "set mxtics 5" << std::endl;
-		of << "set xlabel \"probe voltage[V]\"" << std::endl;
-		of << "set ylabel \"probe current[mA]\"" << std::endl;
-		of << "plot \"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+		of << "set xlabel \"probe voltage [V]\"" << std::endl;
+		of << "set ylabel \"probe current [mA]\"" << std::endl;
+		of << "plot "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
 			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "($" << std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IR"]))
-			/ std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-			* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1) * 1e3) << ")"
-			<< ")"
+			<< "(" << sip() << "*1e3)"
 			<< " pt 0 lc rgb \"red\", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
 			<< std::endl;
 		of << "" << std::endl;
@@ -234,15 +238,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "($" << std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IR"]))
-			/ std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-			* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1)) << ")"
-			<< "-F_Iis("
-			<< "($" << std::to_string(plotInfo[v_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["VGain"]))) << "))"
-			<< ")"
-			<< ") "
+			<< "(" << sip() << "-F_Iis(" << svp() << "))"
 			<< "via a_Ie, b_Ie"
 			<< std::endl;
 		of << "" << std::endl;
@@ -254,15 +250,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "($" << std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IR"]))
-			/ std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-			* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1)) << ")"
-			<< "-F_Iis("
-			<< "($" << std::to_string(plotInfo[v_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["VGain"]))) << "))"
-			<< ")"
-			<< ") "
+			<< "(" << sip() << "-F_Iis(" << svp() << "))"
 			<< "via a_Ies, b_Ies"
 			<< std::endl;
 		of << "" << std::endl;
@@ -282,7 +270,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"analyzeSP1.png\"" << std::endl;
+		of << "set out \""+group+"1.png\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		of << "set object 3 rect from first " << fitrange.Ies.min << ", graph 0 to first " << fitrange.Ies.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -299,20 +287,14 @@ public:
 		of << "set label 121 sprintf(\"@{{/Arial:Italic T}_e}&{n_e} = %1.2f eV\", Te_) at graph 0.05, 0.77 left" << std::endl;
 		of << "set label 122 sprintf(\"@{{/Arial:Italic V}_s}&{n_e} = %1.2f eV\", Vs_) at graph 0.05, 0.69 left" << std::endl;
 
-		of << "plot \"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+
+		of << "plot "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
 			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "($" << std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IR"]))
-			/ std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["IGain"]))
-			* ((*Setting)["AnalyzeSP"]["ProbeCurrentPolarity"] == "IonCurrent" ? -1 : 1)) << ")"
-			<< "-F_Iis("
-			<< "($" << std::to_string(plotInfo[v_channel_plot_info_index].trace_index + 1)
-			<< "*(" << std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)["AnalyzeSP"]["VGain"]))) << "))"
-			<< ")"
-			<< ") "
+			<< "(" << sip() << "-F_Iis(" << svp() << "))"
 			<< " pt 0 lc rgb \"red\", "
 
 
@@ -323,31 +305,20 @@ public:
 			<< std::endl;
 		of << "" << std::endl;
 		of << "#---OUT---" << std::endl;
-		of << "set print \"analyzeSP.tmp\"" << std::endl;
+		of << "set print \""+group+".tmp\"" << std::endl;
 		of << "print Vs_" << std::endl;
 		of << "print ne_" << std::endl;
 		of << "print Te_" << std::endl;
 		of << "" << std::endl;
 
 		of.close();
-		std::system(((std::string)"gnuplot " + (std::string)"analyzeSP" + ".plt").c_str());
+		std::system(((std::string)"gnuplot " + group + ".plt").c_str());
 
-		plotInfo[0].plot_file_name = (std::string)"analyzeSP";
-		plotInfo[1].plot_file_name = (std::string)"analyzeSP";
+		plotInfo[0].plot_file_name = group;
+		plotInfo[1].plot_file_name = group;
 
 		return static_cast<int>(plotInfo.size());
 	}
-	std::vector<PLOTINFO> GetPlotInfo()
-	{
-		return plotInfo;
-	}
-	std::vector<TKPLOT::PLOTINFO>::pointer GetPlotInfoPtr()
-	{
-		return plotInfo.data();
-	}
-	FITRANGE &SetRange()
-	{
-		return fitrange;
-	}
+
 };
 #endif

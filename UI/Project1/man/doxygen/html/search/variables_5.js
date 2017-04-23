@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['v_5foffset',['v_offset',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#afa66b8bf507c009813fdefaa96c67749',1,'TKPLOT::PLOTINFO']]],
-  ['v_5fresolution',['v_resolution',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ac4063b09e95fa9bf4e9c0a1088c37329',1,'TKPLOT::PLOTINFO']]]
+  ['plot_5ffile_5fname',['plot_file_name',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ac1dae6b6cd429f4276f5a4491af8c24d',1,'TKPLOT::PLOTINFO']]],
+  ['point_5fnumber',['point_number',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#acd0e9a0e12d7679f93004dcb6bbaa489',1,'TKPLOT::PLOTINFO']]]
 ];

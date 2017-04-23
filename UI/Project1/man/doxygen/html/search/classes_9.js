@@ -3,6 +3,8 @@ var searchData=
   ['tkadccontrol',['TKADCCONTROL',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html',1,'']]],
   ['tkadccontrol_5fdl750',['TKADCCONTROL_DL750',['../class_t_k_a_d_c_c_o_n_t_r_o_l___d_l750.html',1,'']]],
   ['tkadccontrol_5fdl850',['TKADCCONTROL_DL850',['../class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850.html',1,'']]],
+  ['tkanalyze',['TKANALYZE',['../class_t_k_a_n_a_l_y_z_e.html',1,'']]],
+  ['tkanalyzeisp',['TKANALYZEISP',['../class_t_k_a_n_a_l_y_z_e_i_s_p.html',1,'']]],
   ['tkanalyzesp',['TKANALYZESP',['../class_t_k_a_n_a_l_y_z_e_s_p.html',1,'']]],
   ['tkdata',['TKDATA',['../class_t_k_d_a_t_a.html',1,'']]],
   ['tkparticlepalameter',['TKParticlePalameter',['../class_t_k_particle_palameter.html',1,'']]],

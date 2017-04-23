@@ -17,6 +17,10 @@
 #ifndef __TKPLOT__
 #define __TKPLOT__
 
+/**
+* @blief
+*	グラフ描画に関するクラスです。
+*/
 class TKPLOT
 {
 public:
@@ -72,14 +76,33 @@ public:
 	};
 
 public:
+	/**
+	* @blief
+	*	グラフサイズ型
+	*/
 	enum class PLOTSIZE
 	{
 		SMALL_SIZE,
 		MEDIUM_SIZE
 	};
+
+	/**
+	* @blief 
+	*	データファイル形式型
+	*/
 	enum class DATASOURCE
 	{
+		/**
+		* @blief
+		*	バイナリファイル<br>
+		*	非常に高速に処理できますが、柔軟性にかけるため使用できないことがあります。
+		*/
 		BINARY,
+		/**
+		* @blief
+		*	ASCIIファイル<br>
+		*	データ変換のイニシャルタイムが必要であり、データ読み込みもハイコストなため、処理は遅くなりますが、全ての機能を利用できます。
+		*/
 		ASCII
 	};
 
@@ -88,14 +111,7 @@ public:
 	* @class PLOTINFO
 	* @blief プロット情報クラス
 	*
-	*	プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。<br>
-	*	<br>
-	* @par このクラスが作られた背景
-	*	ADCモデルによっては機能が制限されることがあります。例えばDL750はVXI11に対応していません。DL1740のコントロールにはEthernetを用いることができません。<br>
-	*	また、DL750とDL850のステータスビットの違いのように、ADCモデルによっては同じ機能でも実装が異なることがあります。<br>
-	*	このような実装の違いもメソッドをオーバーロードさせることで同様に扱うことができます。<br>
-	* @note
-	*	もし新たな計測器を追加するようなことがあれば、可能な限りADCコントロールクラスを派生させて多態性を持たせてください。
+	*	プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。
 	*/
 	/**
 	* @todo
@@ -106,80 +122,153 @@ public:
 	{
 
 	public:
-		std::string plot_file_name;
 		/**
+		* @brief
+		*	gnuplotのコマンドファイルの、拡張子を除いたファイルパスです。出力されるグラフのファイルパスも同じパスとなります。<br>
+		*	データファイルの拡張子は.pltとなります。<br>
+		*	GeneratePlotFileName()によって自動的に初期化されます。
+		*/
+		std::string plot_file_name;
+
+		/**
+		* @brief
+		*	プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。<br>
+		*	データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。
+		* @note
+		*	データファイルがASCIIの場合、最終的に参照されるのは
+		*	plot_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では
+		*	plot_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない
+		*	（例えばWindowsのような）環境ではどちらか存在する方のファイルが参照される事になります。
+		* @note
+		*	データファイルの拡張子が大文字なのは、横河電機のADCの仕様に沿うためです。
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
 		std::string data_file_name;
-		int data_index;
-		int trace_index;
-		int data_source_point_number;
-		int point_number;
-		DATASOURCE data_source;
-		TKPLOT::RANGE<float> xrange;
-		TKPLOT::RANGE<float> yrange;
-		unsigned int every = 0;
+
 		/**
+		* @brief
+		*	TKSHOTに格納された全ADC、全トレースのデータを順番に並べたときのトレースの番号です。
+		*	data_indexは一意なトレースを指します。
+		*/
+		int data_index;
+
+		/**
+		* @brief
+		*	そのトレースが含まれるADCの、全トレースのデータを順番に並べたときのトレースの番号です。
+		*	trace_indexはそのADCにおいて一意なトレースを指します。
+		* @note
+		*	例えばあるADCで CH2, CH5, CH8 を用いて計測が行われていたとき、CH5の
+		*	trace_indexは 1 になります。
+		* @note
+		*	計測器を1台しか用いないショットではdata_indexと
+		*	trace_indexの値は等しくなります。
+		*/
+		int trace_index;
+
+		/**
+		* @brief
+		*	データファイルの1列あたりのデータ点数です。
+		*/
+		int data_source_point_number;
+
+		/**
+		* @brief
+		*	最終的に描画される1列あたりのデータ点数です。
+		*/
+		int point_number;
+
+		/**
+		* @brief
+		*	ファイルデータのデータ形式を指定します。指定できるデータ形式は
+		*	DATASOURCEを参照してくださいｓ。
+		*/
+		DATASOURCE data_source;
+
+		/**
+		* @brief
+		*	描画される、あるいは描画された、グラフのx軸の領域です。
+		*/
+		TKPLOT::RANGE<float> xrange;
+
+		/**
+		* @brief
+		*	描画される、あるいは描画された、グラフのy軸の領域です。
+		*/
+		TKPLOT::RANGE<float> yrange;
+		/**
+		* @brief
+		*	データの間引き量です。データファイルのevery点に対して1点の描画を行います。
+		*/
+		unsigned int every = 0;
+
+		/**
+		* @brief
+		*	ADCのモデル名です。
+		*	TKSHOTのインスタンスと同じです。
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
 		std::string model_name;
+
 		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		TKDATA::BYTEORDER byte_order;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		TKDATA::DATAFORMAT data_format;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		int block_size;
-		/**
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		int data_offset;
-		/**
+		* @brief
+		*	チャンネル番号です。
+		*	TKSHOTのインスタンスと同じです。
 		* @todo
 		*	このインスタンスは廃止し、TKSHOTを直接参照する
 		*/
 		int channel_number;
+
 		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
+		* @brief
+		*	描画されるグラフの、余白を含めた1枚の大きさです。
 		*/
-//		float h_resolution;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		float h_offset;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		float v_resolution;
-		/**
-		* @todo
-		*	このインスタンスは廃止し、TKSHOTを直接参照する
-		*/
-//		float v_offset;
 		SIZE<int> terminal_size;
+
+		/**
+		* @brief
+		*	描画されるグラフの、グラフが描画される部分の大きさです。
+		*/
 		SIZE<int> drawing_size;
+
+		/**
+		* @brief
+		*	描画されるグラフの、グラフが描画される部分の基点座標です。
+		*/
 		POSITION<int> drawing_origin;
+
+		/**
+		* @brief
+		*	描画されるグラフの、ラベル描画の基点座標です。
+		*/
 		std::vector<POSITION<float>> label_position;
 
 	public:
+		/**
+		* @brief
+		*	gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも同じパスとなります。<br>同時に
+		*	plot_file_nameを初期化します。
+		* @param[in] prefix
+		*	ファイル先頭に付けるプレフィックスを指定します。
+		* @return plot_file_name
+		*	生成されたファイルパスを返します。
+		*/
 		std::string GeneratePlotFileName(const std::string prefix)
 		{
 			plot_file_name = prefix + "_" + model_name + "_CH" + std::to_string(channel_number);
 			return plot_file_name;
 		}
+
+		/**
+		* @brief
+		*	グラフ情報を元にファイルデータの間引き量を計算します。<br>同時に
+		*	everyを初期化します。
+		* @param[in] point_per_pixel
+		*	1ピクセルあたりの描画点数を指定します。
+		* @return every
+		*	間引き量を返します。
+		*/
 		unsigned int CalcEveryValue(const unsigned int point_per_pixel)
 		{
 			every = data_source_point_number / point_per_pixel / drawing_size.w;
@@ -240,8 +329,8 @@ protected:
 			plot_info.drawing_origin.y = 60;
 			plot_info.drawing_size.w = 420;
 			plot_info.drawing_size.h = 210;
-			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.05f));
-			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.05f));
+			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.03f));
+			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.03f));
 			plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
 			plot_info.label_position.push_back(POSITION<float>(-0.23f, 0.5f));
 			break;

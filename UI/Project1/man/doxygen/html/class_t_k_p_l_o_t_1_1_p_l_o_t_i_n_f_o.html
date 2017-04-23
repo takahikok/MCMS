@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
 <a href="#pub-attribs">公開変数類</a> &#124;
 <a href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o-members.html">全メンバ一覧</a>  </div>
   <div class="headertitle">
@@ -72,99 +73,161 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="tkplot_8h_source.html">tkplot.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:aa5593f16a8756e42b0ba5e82f79ffd11"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aa5593f16a8756e42b0ba5e82f79ffd11">GeneratePlotFileName</a> (const std::string prefix)</td></tr>
+<tr class="memdesc:aa5593f16a8756e42b0ba5e82f79ffd11"><td class="mdescLeft">&#160;</td><td class="mdescRight">gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも同じパスとなります。<br />
+同時に plot_file_nameを初期化します。  <a href="#aa5593f16a8756e42b0ba5e82f79ffd11">[詳解]</a><br /></td></tr>
+<tr class="separator:aa5593f16a8756e42b0ba5e82f79ffd11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba014d5ce5807ab0e1c1a2bfb2aca7dd"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aba014d5ce5807ab0e1c1a2bfb2aca7dd">CalcEveryValue</a> (const unsigned int point_per_pixel)</td></tr>
+<tr class="memdesc:aba014d5ce5807ab0e1c1a2bfb2aca7dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">グラフ情報を元にファイルデータの間引き量を計算します。<br />
+同時に everyを初期化します。  <a href="#aba014d5ce5807ab0e1c1a2bfb2aca7dd">[詳解]</a><br /></td></tr>
+<tr class="separator:aba014d5ce5807ab0e1c1a2bfb2aca7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 公開変数類</h2></td></tr>
 <tr class="memitem:ac1dae6b6cd429f4276f5a4491af8c24d"><td class="memItemLeft" align="right" valign="top"><a id="ac1dae6b6cd429f4276f5a4491af8c24d"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>plot_file_name</b></td></tr>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ac1dae6b6cd429f4276f5a4491af8c24d">plot_file_name</a></td></tr>
+<tr class="memdesc:ac1dae6b6cd429f4276f5a4491af8c24d"><td class="mdescLeft">&#160;</td><td class="mdescRight">gnuplotのコマンドファイルの、拡張子を除いたファイルパスです。出力されるグラフのファイルパスも同じパスとなります。<br />
+ データファイルの拡張子は.pltとなります。<br />
+ <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aa5593f16a8756e42b0ba5e82f79ffd11" title="gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも...">GeneratePlotFileName()</a>によって自動的に初期化されます。 <br /></td></tr>
 <tr class="separator:ac1dae6b6cd429f4276f5a4491af8c24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a67313f8bb54564f35f6e6eddef899"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a18a67313f8bb54564f35f6e6eddef899">data_file_name</a></td></tr>
+<tr class="memdesc:a18a67313f8bb54564f35f6e6eddef899"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。<br />
+ データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。  <a href="#a18a67313f8bb54564f35f6e6eddef899">[詳解]</a><br /></td></tr>
 <tr class="separator:a18a67313f8bb54564f35f6e6eddef899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48ef8281322bf15a1e48cca923d34eeb"><td class="memItemLeft" align="right" valign="top"><a id="a48ef8281322bf15a1e48cca923d34eeb"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>trace_index</b></td></tr>
+<tr class="memitem:a027ef6fcbaf4b3356926d853e2223e64"><td class="memItemLeft" align="right" valign="top"><a id="a027ef6fcbaf4b3356926d853e2223e64"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a027ef6fcbaf4b3356926d853e2223e64">data_index</a></td></tr>
+<tr class="memdesc:a027ef6fcbaf4b3356926d853e2223e64"><td class="mdescLeft">&#160;</td><td class="mdescRight">TKSHOTに格納された全ADC、全トレースのデータを順番に並べたときのトレースの番号です。 data_indexは一意なトレースを指します。 <br /></td></tr>
+<tr class="separator:a027ef6fcbaf4b3356926d853e2223e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ef8281322bf15a1e48cca923d34eeb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a48ef8281322bf15a1e48cca923d34eeb">trace_index</a></td></tr>
+<tr class="memdesc:a48ef8281322bf15a1e48cca923d34eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">そのトレースが含まれるADCの、全トレースのデータを順番に並べたときのトレースの番号です。 trace_indexはそのADCにおいて一意なトレースを指します。  <a href="#a48ef8281322bf15a1e48cca923d34eeb">[詳解]</a><br /></td></tr>
 <tr class="separator:a48ef8281322bf15a1e48cca923d34eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54f1fba1318e3fdb099900839253777e"><td class="memItemLeft" align="right" valign="top"><a id="a54f1fba1318e3fdb099900839253777e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a54f1fba1318e3fdb099900839253777e">data_source_point_number</a></td></tr>
+<tr class="memdesc:a54f1fba1318e3fdb099900839253777e"><td class="mdescLeft">&#160;</td><td class="mdescRight">データファイルの1列あたりのデータ点数です。 <br /></td></tr>
+<tr class="separator:a54f1fba1318e3fdb099900839253777e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd0e9a0e12d7679f93004dcb6bbaa489"><td class="memItemLeft" align="right" valign="top"><a id="acd0e9a0e12d7679f93004dcb6bbaa489"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#acd0e9a0e12d7679f93004dcb6bbaa489">point_number</a></td></tr>
+<tr class="memdesc:acd0e9a0e12d7679f93004dcb6bbaa489"><td class="mdescLeft">&#160;</td><td class="mdescRight">最終的に描画される1列あたりのデータ点数です。 <br /></td></tr>
+<tr class="separator:acd0e9a0e12d7679f93004dcb6bbaa489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f7e0649b327f69db18c9bac7315a4e7"><td class="memItemLeft" align="right" valign="top"><a id="a8f7e0649b327f69db18c9bac7315a4e7"></a>
+<a class="el" href="class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfa">DATASOURCE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a8f7e0649b327f69db18c9bac7315a4e7">data_source</a></td></tr>
+<tr class="memdesc:a8f7e0649b327f69db18c9bac7315a4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">ファイルデータのデータ形式を指定します。指定できるデータ形式は DATASOURCEを参照してくださいｓ。 <br /></td></tr>
+<tr class="separator:a8f7e0649b327f69db18c9bac7315a4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13b0235f3544b9d875af92ce3ac247ab"><td class="memItemLeft" align="right" valign="top"><a id="a13b0235f3544b9d875af92ce3ac247ab"></a>
-<a class="el" href="class_t_k_p_l_o_t_1_1_r_a_n_g_e.html">TKPLOT::RANGE</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>xrange</b></td></tr>
+<a class="el" href="class_t_k_p_l_o_t_1_1_r_a_n_g_e.html">TKPLOT::RANGE</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a13b0235f3544b9d875af92ce3ac247ab">xrange</a></td></tr>
+<tr class="memdesc:a13b0235f3544b9d875af92ce3ac247ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画される、あるいは描画された、グラフのx軸の領域です。 <br /></td></tr>
 <tr class="separator:a13b0235f3544b9d875af92ce3ac247ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ce7809252eb582e3fae0a554bcdb65d"><td class="memItemLeft" align="right" valign="top"><a id="a5ce7809252eb582e3fae0a554bcdb65d"></a>
-<a class="el" href="class_t_k_p_l_o_t_1_1_r_a_n_g_e.html">TKPLOT::RANGE</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>yrange</b></td></tr>
+<a class="el" href="class_t_k_p_l_o_t_1_1_r_a_n_g_e.html">TKPLOT::RANGE</a>&lt; float &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a5ce7809252eb582e3fae0a554bcdb65d">yrange</a></td></tr>
+<tr class="memdesc:a5ce7809252eb582e3fae0a554bcdb65d"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画される、あるいは描画された、グラフのy軸の領域です。 <br /></td></tr>
 <tr class="separator:a5ce7809252eb582e3fae0a554bcdb65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab210e72c1f8d1e3d930b003f47568d3e"><td class="memItemLeft" align="right" valign="top"><a id="ab210e72c1f8d1e3d930b003f47568d3e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>every</b></td></tr>
-<tr class="separator:ab210e72c1f8d1e3d930b003f47568d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b6c85908a1a6d8ab8371ea75aec8902"><td class="memItemLeft" align="right" valign="top"><a id="a9b6c85908a1a6d8ab8371ea75aec8902"></a>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a9b6c85908a1a6d8ab8371ea75aec8902">every</a> = 0</td></tr>
+<tr class="memdesc:a9b6c85908a1a6d8ab8371ea75aec8902"><td class="mdescLeft">&#160;</td><td class="mdescRight">データの間引き量です。データファイルのevery点に対して1点の描画を行います。 <br /></td></tr>
+<tr class="separator:a9b6c85908a1a6d8ab8371ea75aec8902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae98bf84fdf14074b4f7804f0617aa902"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ae98bf84fdf14074b4f7804f0617aa902">model_name</a></td></tr>
+<tr class="memdesc:ae98bf84fdf14074b4f7804f0617aa902"><td class="mdescLeft">&#160;</td><td class="mdescRight">ADCのモデル名です。 TKSHOTのインスタンスと同じです。  <a href="#ae98bf84fdf14074b4f7804f0617aa902">[詳解]</a><br /></td></tr>
 <tr class="separator:ae98bf84fdf14074b4f7804f0617aa902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5be97fa948af11374a14c97f989dee08"><td class="memItemLeft" align="right" valign="top">TKDATA::BYTEORDER&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a5be97fa948af11374a14c97f989dee08">byte_order</a></td></tr>
-<tr class="separator:a5be97fa948af11374a14c97f989dee08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24c9ba6f4f8f7618dbaff68e54b29d3a"><td class="memItemLeft" align="right" valign="top">TKDATA::DATAFORMAT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a24c9ba6f4f8f7618dbaff68e54b29d3a">data_format</a></td></tr>
-<tr class="separator:a24c9ba6f4f8f7618dbaff68e54b29d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37c4d409282e9e1394f9c84f65ac1ef4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a37c4d409282e9e1394f9c84f65ac1ef4">block_size</a></td></tr>
-<tr class="separator:a37c4d409282e9e1394f9c84f65ac1ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54673527030e45b71a15812749df22a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aa54673527030e45b71a15812749df22a">data_offset</a></td></tr>
-<tr class="separator:aa54673527030e45b71a15812749df22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a801d16eb357241d4f4eeef8c6393bbc4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a801d16eb357241d4f4eeef8c6393bbc4">channel_number</a></td></tr>
+<tr class="memdesc:a801d16eb357241d4f4eeef8c6393bbc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">チャンネル番号です。 TKSHOTのインスタンスと同じです。  <a href="#a801d16eb357241d4f4eeef8c6393bbc4">[詳解]</a><br /></td></tr>
 <tr class="separator:a801d16eb357241d4f4eeef8c6393bbc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6f18f0fb90610f38ca893614565c58"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a8e6f18f0fb90610f38ca893614565c58">h_resolution</a></td></tr>
-<tr class="separator:a8e6f18f0fb90610f38ca893614565c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91fa6dd614789f28b54c34fcc3cab59b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a91fa6dd614789f28b54c34fcc3cab59b">h_offset</a></td></tr>
-<tr class="separator:a91fa6dd614789f28b54c34fcc3cab59b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4063b09e95fa9bf4e9c0a1088c37329"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ac4063b09e95fa9bf4e9c0a1088c37329">v_resolution</a></td></tr>
-<tr class="separator:ac4063b09e95fa9bf4e9c0a1088c37329"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa66b8bf507c009813fdefaa96c67749"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#afa66b8bf507c009813fdefaa96c67749">v_offset</a></td></tr>
-<tr class="separator:afa66b8bf507c009813fdefaa96c67749"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe6df040b952e6ab1e234d17de6023d0"><td class="memItemLeft" align="right" valign="top"><a id="afe6df040b952e6ab1e234d17de6023d0"></a>
-<a class="el" href="class_t_k_p_l_o_t_1_1_s_i_z_e.html">SIZE</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>terminal_size</b></td></tr>
+<a class="el" href="class_t_k_p_l_o_t_1_1_s_i_z_e.html">SIZE</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#afe6df040b952e6ab1e234d17de6023d0">terminal_size</a></td></tr>
+<tr class="memdesc:afe6df040b952e6ab1e234d17de6023d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画されるグラフの、余白を含めた1枚の大きさです。 <br /></td></tr>
 <tr class="separator:afe6df040b952e6ab1e234d17de6023d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27451bd9ddcd548bff9f91cdda6ed812"><td class="memItemLeft" align="right" valign="top"><a id="a27451bd9ddcd548bff9f91cdda6ed812"></a>
-<a class="el" href="class_t_k_p_l_o_t_1_1_s_i_z_e.html">SIZE</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>drawing_size</b></td></tr>
+<a class="el" href="class_t_k_p_l_o_t_1_1_s_i_z_e.html">SIZE</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a27451bd9ddcd548bff9f91cdda6ed812">drawing_size</a></td></tr>
+<tr class="memdesc:a27451bd9ddcd548bff9f91cdda6ed812"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画されるグラフの、グラフが描画される部分の大きさです。 <br /></td></tr>
 <tr class="separator:a27451bd9ddcd548bff9f91cdda6ed812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5e1f688a044784cf24846d04fd48116"><td class="memItemLeft" align="right" valign="top"><a id="ad5e1f688a044784cf24846d04fd48116"></a>
-<a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">POSITION</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>drawing_origin</b></td></tr>
+<a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">POSITION</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ad5e1f688a044784cf24846d04fd48116">drawing_origin</a></td></tr>
+<tr class="memdesc:ad5e1f688a044784cf24846d04fd48116"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画されるグラフの、グラフが描画される部分の基点座標です。 <br /></td></tr>
 <tr class="separator:ad5e1f688a044784cf24846d04fd48116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4266fd64b26c45e727843dc017ba2a3d"><td class="memItemLeft" align="right" valign="top"><a id="a4266fd64b26c45e727843dc017ba2a3d"></a>
-std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">POSITION</a>&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>label_position</b></td></tr>
+std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">POSITION</a>&lt; float &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a4266fd64b26c45e727843dc017ba2a3d">label_position</a></td></tr>
+<tr class="memdesc:a4266fd64b26c45e727843dc017ba2a3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">描画されるグラフの、ラベル描画の基点座標です。 <br /></td></tr>
 <tr class="separator:a4266fd64b26c45e727843dc017ba2a3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
 <div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">todo:</a></b></dt><dd>ショット情報に関するPLOTINFOインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
 <p>プロット情報クラス</p>
-<p>プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。<br />
- <br />
- </p><dl class="section user"><dt>このクラスが作られた背景</dt><dd>ADCモデルによっては機能が制限されることがあります。例えばDL750はVXI11に対応していません。DL1740のコントロールにはEthernetを用いることができません。<br />
- また、DL750とDL850のステータスビットの違いのように、ADCモデルによっては同じ機能でも実装が異なることがあります。<br />
- このような実装の違いもメソッドをオーバーロードさせることで同様に扱うことができます。<br />
- </dd></dl>
-<dl class="section note"><dt>覚え書き</dt><dd>もし新たな計測器を追加するようなことがあれば、可能な限りADCコントロールクラスを派生させて多態性を持たせてください。 </dd></dl>
-</div><h2 class="groupheader">メンバ詳解</h2>
-<a id="a37c4d409282e9e1394f9c84f65ac1ef4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37c4d409282e9e1394f9c84f65ac1ef4">&#9670;&nbsp;</a></span>block_size</h2>
+<p>プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。 </p>
+</div><h2 class="groupheader">関数詳解</h2>
+<a id="aba014d5ce5807ab0e1c1a2bfb2aca7dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba014d5ce5807ab0e1c1a2bfb2aca7dd">&#9670;&nbsp;</a></span>CalcEveryValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int TKPLOT::PLOTINFO::block_size</td>
+          <td class="memname">unsigned int TKPLOT::PLOTINFO::CalcEveryValue </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned int&#160;</td>
+          <td class="paramname"><em>point_per_pixel</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
+
+<p>グラフ情報を元にファイルデータの間引き量を計算します。<br />
+同時に everyを初期化します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">point_per_pixel</td><td>1ピクセルあたりの描画点数を指定します。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>every 間引き量を返します。 </dd></dl>
 
 </div>
 </div>
-<a id="a5be97fa948af11374a14c97f989dee08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5be97fa948af11374a14c97f989dee08">&#9670;&nbsp;</a></span>byte_order</h2>
+<a id="aa5593f16a8756e42b0ba5e82f79ffd11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5593f16a8756e42b0ba5e82f79ffd11">&#9670;&nbsp;</a></span>GeneratePlotFileName()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">TKDATA::BYTEORDER TKPLOT::PLOTINFO::byte_order</td>
+          <td class="memname">std::string TKPLOT::PLOTINFO::GeneratePlotFileName </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>prefix</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
+
+<p>gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも同じパスとなります。<br />
+同時に plot_file_nameを初期化します。 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">prefix</td><td>ファイル先頭に付けるプレフィックスを指定します。 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>plot_file_name 生成されたファイルパスを返します。 </dd></dl>
 
 </div>
 </div>
+<h2 class="groupheader">メンバ詳解</h2>
 <a id="a801d16eb357241d4f4eeef8c6393bbc4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a801d16eb357241d4f4eeef8c6393bbc4">&#9670;&nbsp;</a></span>channel_number</h2>
 
@@ -176,7 +239,9 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
+
+<p>チャンネル番号です。 TKSHOTのインスタンスと同じです。 </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
 
 </div>
 </div>
@@ -191,67 +256,13 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。<br />
+ データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。 </p>
+<dl class="section note"><dt>覚え書き</dt><dd>データファイルがASCIIの場合、最終的に参照されるのは plot_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では plot_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない （例えばWindowsのような）環境ではどちらか存在する方のファイルが参照される事になります。 </dd>
+<dd>
+データファイルの拡張子が大文字なのは、横河電機のADCの仕様に沿うためです。 </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
-
-</div>
-</div>
-<a id="a24c9ba6f4f8f7618dbaff68e54b29d3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24c9ba6f4f8f7618dbaff68e54b29d3a">&#9670;&nbsp;</a></span>data_format</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TKDATA::DATAFORMAT TKPLOT::PLOTINFO::data_format</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
-
-</div>
-</div>
-<a id="aa54673527030e45b71a15812749df22a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa54673527030e45b71a15812749df22a">&#9670;&nbsp;</a></span>data_offset</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int TKPLOT::PLOTINFO::data_offset</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
-
-</div>
-</div>
-<a id="a91fa6dd614789f28b54c34fcc3cab59b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91fa6dd614789f28b54c34fcc3cab59b">&#9670;&nbsp;</a></span>h_offset</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float TKPLOT::PLOTINFO::h_offset</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000013">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
-
-</div>
-</div>
-<a id="a8e6f18f0fb90610f38ca893614565c58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6f18f0fb90610f38ca893614565c58">&#9670;&nbsp;</a></span>h_resolution</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float TKPLOT::PLOTINFO::h_resolution</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
 
 </div>
 </div>
@@ -266,37 +277,28 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>ADCのモデル名です。 TKSHOTのインスタンスと同じです。 </p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
 
 </div>
 </div>
-<a id="afa66b8bf507c009813fdefaa96c67749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa66b8bf507c009813fdefaa96c67749">&#9670;&nbsp;</a></span>v_offset</h2>
+<a id="a48ef8281322bf15a1e48cca923d34eeb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ef8281322bf15a1e48cca923d34eeb">&#9670;&nbsp;</a></span>trace_index</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float TKPLOT::PLOTINFO::v_offset</td>
+          <td class="memname">int TKPLOT::PLOTINFO::trace_index</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
 
-</div>
-</div>
-<a id="ac4063b09e95fa9bf4e9c0a1088c37329"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4063b09e95fa9bf4e9c0a1088c37329">&#9670;&nbsp;</a></span>v_resolution</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float TKPLOT::PLOTINFO::v_resolution</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
+<p>そのトレースが含まれるADCの、全トレースのデータを順番に並べたときのトレースの番号です。 trace_indexはそのADCにおいて一意なトレースを指します。 </p>
+<dl class="section note"><dt>覚え書き</dt><dd>例えばあるADCで CH2, CH5, CH8 を用いて計測が行われていたとき、CH5の trace_indexは 1 になります。 </dd>
+<dd>
+計測器を1台しか用いないショットではdata_indexと trace_indexの値は等しくなります。 </dd></dl>
 
 </div>
 </div>

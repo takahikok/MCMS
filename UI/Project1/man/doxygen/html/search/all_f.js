@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['v_5foffset',['v_offset',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#afa66b8bf507c009813fdefaa96c67749',1,'TKPLOT::PLOTINFO']]],
-  ['v_5fresolution',['v_resolution',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ac4063b09e95fa9bf4e9c0a1088c37329',1,'TKPLOT::PLOTINFO']]]
+  ['waitadc',['WaitADC',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a7d6629217b6f034b9b546f88603d7f58',1,'TKADCCONTROL']]],
+  ['widest_5fchar',['widest_char',['../struct_project1_1_1_my_form_1_1clx_1_1detail_1_1widest__char.html',1,'Project1::MyForm::clx::detail']]]
 ];

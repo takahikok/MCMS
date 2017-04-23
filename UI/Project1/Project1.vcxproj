@@ -179,6 +179,7 @@
     <ClInclude Include="SetupAnalyzeSP.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="tkanalyzeisp.h" />
     <ClInclude Include="tkanalyzesp.h" />
     <ClInclude Include="tkutil.h" />
     <ClInclude Include="MyForm.h">

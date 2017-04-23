@@ -19,6 +19,7 @@
 #include "clx/thread.h"
 #include "tkthread.h"
 #include "tkanalyzesp.h"
+#include "tkanalyzeisp.h"
 #pragma once
 #define SETTING_FILE_PATH "settings.ini"
 
@@ -52,6 +53,7 @@ private:
 	TKSHOT* thisShot;
 	TKPLOT* thisPlot;
 	TKANALYZESP* thisAnalyzeSP;
+	TKANALYZEISP* thisAnalyzeISP;
 	int picture_box_total_number = MAX_PLOT_NUMBER;
 
 private: System::Windows::Forms::ToolStripMenuItem^  計測停止ToolStripMenuItem;
@@ -86,6 +88,7 @@ private: System::Windows::Forms::Button^  button2;
 private:
 	array<System::Windows::Forms::PictureBox^>^ pBPlot = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
 	array<System::Windows::Forms::PictureBox^>^ pBPlot2 = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
+	array<System::Windows::Forms::PictureBox^>^ pBPlot3 = gcnew array<System::Windows::Forms::PictureBox^>(MAX_PLOT_NUMBER);
 private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
 private: System::Windows::Forms::Button^  button5;
 private: System::Windows::Forms::Button^  button6;
@@ -112,6 +115,20 @@ private: System::Windows::Forms::NumericUpDown^  numericUpDown4;
 private: System::Windows::Forms::Button^  button11;
 private: System::Windows::Forms::Button^  button10;
 private: System::Windows::Forms::Button^  button9;
+private: System::Windows::Forms::TabPage^  tabPage3;
+private: System::Windows::Forms::SplitContainer^  splitContainer3;
+private: System::Windows::Forms::Button^  button12;
+private: System::Windows::Forms::Button^  button13;
+private: System::Windows::Forms::Button^  button14;
+private: System::Windows::Forms::GroupBox^  groupBox4;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown9;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown10;
+private: System::Windows::Forms::GroupBox^  groupBox5;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown11;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown12;
+private: System::Windows::Forms::GroupBox^  groupBox6;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown13;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown14;
 
 
 
@@ -312,11 +329,6 @@ private:
 			//Plot
 			pBPlot2[i]->Visible = false;
 			delete pBPlot2[i]->Image;
-
-			//Line
-			pBVLine[i]->Visible = false;
-			pBHLine[i]->Visible = false;
-			pBHLineText[i]->Visible = false;
 		}
 
 		const char group[] = "AnalyzeSP";
@@ -328,26 +340,68 @@ private:
 		(*Setting)[group]["FitRangeIesMin"] = std::to_string(static_cast<int>(numericUpDown8->Value));
 		(*Setting)[group]["FitRangeIesMax"] = std::to_string(static_cast<int>(numericUpDown7->Value));
 
-		thisAnalyzeSP->SetMASampleNumber(21);
+//		thisAnalyzeSP->SetMASampleNumber(21);
 
 		thisAnalyzeSP->SetRange() = TKANALYZESP::FITRANGE(
-			TKPLOT::RANGE<double>(static_cast<double>(numericUpDown4->Value),
-			static_cast<double>(numericUpDown3->Value)),
-			TKPLOT::RANGE<double>(static_cast<double>(numericUpDown6->Value),
-			static_cast<double>(numericUpDown5->Value)),
-			TKPLOT::RANGE<double>(static_cast<double>(numericUpDown8->Value),
-			static_cast<double>(numericUpDown7->Value)));
-		
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIisMin"]),
+				std::stod((*Setting)[group]["FitRangeIisMax"])),
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIeMin"]),
+				std::stod((*Setting)[group]["FitRangeIeMax"])),
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIesMin"]),
+				std::stod((*Setting)[group]["FitRangeIesMax"])));
+
 		thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
 		std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
 		pplot_info = thisAnalyzeSP->GetPlotInfoPtr();
 		for (int i = 0; i < 2; i++) {
 			//Plot
-			pBPlot2[i]->Location = System::Drawing::Point(0, i * 400 + 10);
-			pBPlot2[i]->Size = System::Drawing::Size(600, 300);
+			pBPlot2[i]->Location = System::Drawing::Point(0, pplot_info[i].terminal_size.h*i);
+			pBPlot2[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
 			pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
 				+ ".png").c_str())));
 			pBPlot2[i]->Visible = true;
+		}
+
+		flushShotNumber();
+	}
+	void plotISP(unsigned int shot_number)
+	{
+		static int total_plot;
+		for (int i = 0; i < picture_box_total_number; i++) {
+			//Plot
+			pBPlot3[i]->Visible = false;
+			delete pBPlot3[i]->Image;
+		}
+
+		const char group[] = "AnalyzeISP";
+
+		(*Setting)[group]["FitRangeIisMin"] = std::to_string(static_cast<int>(numericUpDown14->Value));
+		(*Setting)[group]["FitRangeIisMax"] = std::to_string(static_cast<int>(numericUpDown13->Value));
+		(*Setting)[group]["FitRangeIeMin"] = std::to_string(static_cast<int>(numericUpDown12->Value));
+		(*Setting)[group]["FitRangeIeMax"] = std::to_string(static_cast<int>(numericUpDown11->Value));
+		(*Setting)[group]["FitRangeIesMin"] = std::to_string(static_cast<int>(numericUpDown10->Value));
+		(*Setting)[group]["FitRangeIesMax"] = std::to_string(static_cast<int>(numericUpDown9->Value));
+
+//		thisAnalyzeISP->SetMASampleNumber(21);
+
+		thisAnalyzeISP->SetRange() = TKANALYZESP::FITRANGE(
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIisMin"]),
+				std::stod((*Setting)[group]["FitRangeIisMax"])),
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIeMin"]),
+				std::stod((*Setting)[group]["FitRangeIeMax"])),
+			TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIesMin"]),
+				std::stod((*Setting)[group]["FitRangeIesMax"])));
+
+		thisAnalyzeISP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
+		std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+		pplot_info = thisAnalyzeISP->GetPlotInfoPtr();
+		for (int i = 0; i < 4; i++) {
+			//Plot
+			pBPlot3[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i%2), pplot_info[i].terminal_size.h*(i/2));
+			pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+			pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
+				+ ".png").c_str())));
+			pBPlot3[i]->Visible = true;
 		}
 
 		flushShotNumber();
@@ -436,6 +490,14 @@ public:
 			pBPlot2[i]->Margin = System::Windows::Forms::Padding(2);
 			pBPlot2[i]->TabStop = false;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot2[i]))->EndInit();
+			//Plot3
+			pBPlot3[i] = (gcnew System::Windows::Forms::PictureBox());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->BeginInit();
+			this->splitContainer3->Panel1->Controls->Add(pBPlot3[i]);
+			pBPlot3[i]->Location = System::Drawing::Point(184, 24);
+			pBPlot3[i]->Margin = System::Windows::Forms::Padding(2);
+			pBPlot3[i]->TabStop = false;
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->EndInit();
 		}
 
 		//
@@ -451,7 +513,8 @@ public:
 		TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850) = DL850_;
 		thisShot = thisShot_;
 		thisPlot = thisPlot_;
-		thisAnalyzeSP = new TKANALYZESP(thisShot, Setting);
+		thisAnalyzeSP = new TKANALYZESP(thisShot, Setting, "AnalyzeSP");
+		thisAnalyzeISP = new TKANALYZEISP(thisShot, Setting, "AnalyzeISP");
 
 		if (Connection(1))
 			MessageBox::Show("Connection failed.");
@@ -471,30 +534,54 @@ public:
 		flushADCState("N/A", System::Drawing::Color::OrangeRed);
 		flushShotNumber();
 
+		{
+			char group[] = "AnalyzeSP";
 
-		const char group[] = "AnalyzeSP";
+			numericUpDown3->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown4->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown5->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown6->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown7->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown8->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
 
-		numericUpDown3->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
-		numericUpDown4->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
-		numericUpDown5->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
-		numericUpDown6->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
-		numericUpDown7->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
-		numericUpDown8->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown3->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown4->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown5->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown6->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown7->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown8->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
 
-		numericUpDown3->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
-		numericUpDown4->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
-		numericUpDown5->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
-		numericUpDown6->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
-		numericUpDown7->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
-		numericUpDown8->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown4->Value = std::stoi((*Setting)[group]["FitRangeIisMin"]);
+			numericUpDown3->Value = std::stoi((*Setting)[group]["FitRangeIisMax"]);
+			numericUpDown6->Value = std::stoi((*Setting)[group]["FitRangeIeMin"]);
+			numericUpDown5->Value = std::stoi((*Setting)[group]["FitRangeIeMax"]);
+			numericUpDown8->Value = std::stoi((*Setting)[group]["FitRangeIesMin"]);
+			numericUpDown7->Value = std::stoi((*Setting)[group]["FitRangeIesMax"]);
+		}
+		{
+			char group[] = "AnalyzeISP";
 
-		numericUpDown4->Value = std::stoi((*Setting)[group]["FitRangeIisMin"]);
-		numericUpDown3->Value = std::stoi((*Setting)[group]["FitRangeIisMax"]);
-		numericUpDown6->Value = std::stoi((*Setting)[group]["FitRangeIeMin"]);
-		numericUpDown5->Value = std::stoi((*Setting)[group]["FitRangeIeMax"]);
-		numericUpDown8->Value = std::stoi((*Setting)[group]["FitRangeIesMin"]);
-		numericUpDown7->Value = std::stoi((*Setting)[group]["FitRangeIesMax"]);
+			numericUpDown14->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown13->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown12->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown11->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown10->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
+			numericUpDown9->Minimum = std::stoi((*Setting)[group]["FitRangeMin"]);
 
+			numericUpDown14->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown13->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown12->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown11->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown10->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+			numericUpDown9->Maximum = std::stoi((*Setting)[group]["FitRangeMax"]);
+
+			numericUpDown14->Value = std::stoi((*Setting)[group]["FitRangeIisMin"]);
+			numericUpDown13->Value = std::stoi((*Setting)[group]["FitRangeIisMax"]);
+			numericUpDown12->Value = std::stoi((*Setting)[group]["FitRangeIeMin"]);
+			numericUpDown11->Value = std::stoi((*Setting)[group]["FitRangeIeMax"]);
+			numericUpDown10->Value = std::stoi((*Setting)[group]["FitRangeIesMin"]);
+			numericUpDown9->Value = std::stoi((*Setting)[group]["FitRangeIesMax"]);
+		}
 	}
 
 
@@ -603,6 +690,20 @@ private:
 		this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 		this->numericUpDown3 = (gcnew System::Windows::Forms::NumericUpDown());
 		this->numericUpDown4 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+		this->splitContainer3 = (gcnew System::Windows::Forms::SplitContainer());
+		this->button12 = (gcnew System::Windows::Forms::Button());
+		this->button13 = (gcnew System::Windows::Forms::Button());
+		this->button14 = (gcnew System::Windows::Forms::Button());
+		this->groupBox4 = (gcnew System::Windows::Forms::GroupBox());
+		this->numericUpDown9 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->numericUpDown10 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->groupBox5 = (gcnew System::Windows::Forms::GroupBox());
+		this->numericUpDown11 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->numericUpDown12 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->groupBox6 = (gcnew System::Windows::Forms::GroupBox());
+		this->numericUpDown13 = (gcnew System::Windows::Forms::NumericUpDown());
+		this->numericUpDown14 = (gcnew System::Windows::Forms::NumericUpDown());
 		this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 		this->toolStripContainer2 = (gcnew System::Windows::Forms::ToolStripContainer());
 		this->toolStrip3 = (gcnew System::Windows::Forms::ToolStrip());
@@ -633,6 +734,19 @@ private:
 		this->groupBox1->SuspendLayout();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->BeginInit();
+		this->tabPage3->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
+		this->splitContainer3->Panel2->SuspendLayout();
+		this->splitContainer3->SuspendLayout();
+		this->groupBox4->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown9))->BeginInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown10))->BeginInit();
+		this->groupBox5->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown11))->BeginInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown12))->BeginInit();
+		this->groupBox6->SuspendLayout();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown13))->BeginInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown14))->BeginInit();
 		this->toolStripContainer2->ContentPanel->SuspendLayout();
 		this->toolStripContainer2->TopToolStripPanel->SuspendLayout();
 		this->toolStripContainer2->SuspendLayout();
@@ -644,7 +758,8 @@ private:
 		// 
 		this->menuStrip1->Dock = System::Windows::Forms::DockStyle::None;
 		this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7) {
+		this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(7)
+		{
 			this->faToolStripMenuItem,
 				this->toolStripMenuItem1, this->ハードウェアToolStripMenuItem, this->グラフToolStripMenuItem, this->さようならToolStripMenuItem, this->toolStripTextBox1,
 				this->toolStripMenuItem2
@@ -659,7 +774,8 @@ private:
 		// 
 		// faToolStripMenuItem
 		// 
-		this->faToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {
+		this->faToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9)
+		{
 			this->新規ToolStripMenuItem,
 				this->開くToolStripMenuItem, this->生データを追加ToolStripMenuItem, this->toolStripSeparator1, this->保存ToolStripMenuItem, this->名前を付けて保存ToolStripMenuItem,
 				this->すべて保存ToolStripMenuItem, this->toolStripSeparator2, this->終了ToolStripMenuItem
@@ -728,7 +844,8 @@ private:
 		// 
 		// toolStripMenuItem1
 		// 
-		this->toolStripMenuItem1->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+		this->toolStripMenuItem1->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
+		{
 			this->計測開始ToolStripMenuItem,
 				this->計測停止ToolStripMenuItem, this->計測設定ToolStripMenuItem
 		});
@@ -760,7 +877,8 @@ private:
 		// 
 		// ハードウェアToolStripMenuItem
 		// 
-		this->ハードウェアToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+		this->ハードウェアToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
+		{
 			this->計測器接続ToolStripMenuItem,
 				this->計測器切断, this->計測器接続設定ToolStripMenuItem
 		});
@@ -792,7 +910,8 @@ private:
 		// 
 		// グラフToolStripMenuItem
 		// 
-		this->グラフToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+		this->グラフToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
+		{
 			this->グラフ描画ToolStripMenuItem,
 				this->グラフ設定ToolStripMenuItem
 		});
@@ -834,7 +953,8 @@ private:
 		// toolStripMenuItem2
 		// 
 		this->toolStripMenuItem2->Alignment = System::Windows::Forms::ToolStripItemAlignment::Right;
-		this->toolStripMenuItem2->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+		this->toolStripMenuItem2->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
+		{
 			this->toolStripMenuItem3,
 				this->toolStripMenuItem4
 		});
@@ -859,7 +979,8 @@ private:
 		// 
 		this->toolStrip1->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+		this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3)
+		{
 			this->toolStripButton1,
 				this->toolStripButton2, this->toolStripButton3
 		});
@@ -916,6 +1037,7 @@ private:
 			| System::Windows::Forms::AnchorStyles::Right));
 		this->tabControl1->Controls->Add(this->tabPage1);
 		this->tabControl1->Controls->Add(this->tabPage2);
+		this->tabControl1->Controls->Add(this->tabPage3);
 		this->tabControl1->Location = System::Drawing::Point(0, 0);
 		this->tabControl1->Margin = System::Windows::Forms::Padding(2);
 		this->tabControl1->Name = L"tabControl1";
@@ -962,7 +1084,7 @@ private:
 		this->splitContainer1->Panel2->Controls->Add(this->button2);
 		this->splitContainer1->Panel2->Controls->Add(this->button1);
 		this->splitContainer1->Size = System::Drawing::Size(729, 318);
-		this->splitContainer1->SplitterDistance = 273;
+		this->splitContainer1->SplitterDistance = 282;
 		this->splitContainer1->SplitterWidth = 1;
 		this->splitContainer1->TabIndex = 27;
 		// 
@@ -1091,7 +1213,7 @@ private:
 		this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 		this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
 		this->splitContainer2->Size = System::Drawing::Size(729, 318);
-		this->splitContainer2->SplitterDistance = 263;
+		this->splitContainer2->SplitterDistance = 272;
 		this->splitContainer2->SplitterWidth = 1;
 		this->splitContainer2->TabIndex = 28;
 		// 
@@ -1211,6 +1333,165 @@ private:
 		this->numericUpDown4->Size = System::Drawing::Size(48, 19);
 		this->numericUpDown4->TabIndex = 10;
 		// 
+		// tabPage3
+		// 
+		this->tabPage3->Controls->Add(this->splitContainer3);
+		this->tabPage3->Location = System::Drawing::Point(4, 22);
+		this->tabPage3->Margin = System::Windows::Forms::Padding(0);
+		this->tabPage3->Name = L"tabPage3";
+		this->tabPage3->Size = System::Drawing::Size(729, 318);
+		this->tabPage3->TabIndex = 2;
+		this->tabPage3->Text = L"Analyze ISP";
+		this->tabPage3->UseVisualStyleBackColor = true;
+		// 
+		// splitContainer3
+		// 
+		this->splitContainer3->Dock = System::Windows::Forms::DockStyle::Fill;
+		this->splitContainer3->FixedPanel = System::Windows::Forms::FixedPanel::Panel2;
+		this->splitContainer3->IsSplitterFixed = true;
+		this->splitContainer3->Location = System::Drawing::Point(0, 0);
+		this->splitContainer3->Margin = System::Windows::Forms::Padding(0);
+		this->splitContainer3->Name = L"splitContainer3";
+		this->splitContainer3->Orientation = System::Windows::Forms::Orientation::Horizontal;
+		// 
+		// splitContainer3.Panel1
+		// 
+		this->splitContainer3->Panel1->AutoScroll = true;
+		// 
+		// splitContainer3.Panel2
+		// 
+		this->splitContainer3->Panel2->BackColor = System::Drawing::Color::MediumAquamarine;
+		this->splitContainer3->Panel2->Controls->Add(this->button12);
+		this->splitContainer3->Panel2->Controls->Add(this->button13);
+		this->splitContainer3->Panel2->Controls->Add(this->button14);
+		this->splitContainer3->Panel2->Controls->Add(this->groupBox4);
+		this->splitContainer3->Panel2->Controls->Add(this->groupBox5);
+		this->splitContainer3->Panel2->Controls->Add(this->groupBox6);
+		this->splitContainer3->Size = System::Drawing::Size(729, 318);
+		this->splitContainer3->SplitterDistance = 272;
+		this->splitContainer3->SplitterWidth = 1;
+		this->splitContainer3->TabIndex = 29;
+		// 
+		// button12
+		// 
+		this->button12->Location = System::Drawing::Point(558, 19);
+		this->button12->Margin = System::Windows::Forms::Padding(2);
+		this->button12->Name = L"button12";
+		this->button12->Size = System::Drawing::Size(56, 18);
+		this->button12->TabIndex = 23;
+		this->button12->Text = L"設定";
+		this->button12->UseVisualStyleBackColor = true;
+		this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
+		// 
+		// button13
+		// 
+		this->button13->Location = System::Drawing::Point(486, 19);
+		this->button13->Margin = System::Windows::Forms::Padding(2);
+		this->button13->Name = L"button13";
+		this->button13->Size = System::Drawing::Size(56, 18);
+		this->button13->TabIndex = 22;
+		this->button13->Text = L"結果表示";
+		this->button13->UseVisualStyleBackColor = true;
+		// 
+		// button14
+		// 
+		this->button14->Location = System::Drawing::Point(426, 19);
+		this->button14->Margin = System::Windows::Forms::Padding(2);
+		this->button14->Name = L"button14";
+		this->button14->Size = System::Drawing::Size(56, 18);
+		this->button14->TabIndex = 21;
+		this->button14->Text = L"再計算";
+		this->button14->UseVisualStyleBackColor = true;
+		this->button14->Click += gcnew System::EventHandler(this, &MyForm::button14_Click);
+		// 
+		// groupBox4
+		// 
+		this->groupBox4->BackColor = System::Drawing::Color::Transparent;
+		this->groupBox4->Controls->Add(this->numericUpDown9);
+		this->groupBox4->Controls->Add(this->numericUpDown10);
+		this->groupBox4->Location = System::Drawing::Point(288, 6);
+		this->groupBox4->Margin = System::Windows::Forms::Padding(2);
+		this->groupBox4->Name = L"groupBox4";
+		this->groupBox4->Padding = System::Windows::Forms::Padding(2);
+		this->groupBox4->Size = System::Drawing::Size(126, 38);
+		this->groupBox4->TabIndex = 20;
+		this->groupBox4->TabStop = false;
+		this->groupBox4->Text = L"Electron Saturation";
+		// 
+		// numericUpDown9
+		// 
+		this->numericUpDown9->Enabled = false;
+		this->numericUpDown9->Location = System::Drawing::Point(66, 13);
+		this->numericUpDown9->Name = L"numericUpDown9";
+		this->numericUpDown9->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown9->TabIndex = 15;
+		// 
+		// numericUpDown10
+		// 
+		this->numericUpDown10->Enabled = false;
+		this->numericUpDown10->Location = System::Drawing::Point(12, 13);
+		this->numericUpDown10->Name = L"numericUpDown10";
+		this->numericUpDown10->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown10->TabIndex = 14;
+		// 
+		// groupBox5
+		// 
+		this->groupBox5->BackColor = System::Drawing::Color::Transparent;
+		this->groupBox5->Controls->Add(this->numericUpDown11);
+		this->groupBox5->Controls->Add(this->numericUpDown12);
+		this->groupBox5->Location = System::Drawing::Point(150, 6);
+		this->groupBox5->Margin = System::Windows::Forms::Padding(2);
+		this->groupBox5->Name = L"groupBox5";
+		this->groupBox5->Padding = System::Windows::Forms::Padding(2);
+		this->groupBox5->Size = System::Drawing::Size(126, 38);
+		this->groupBox5->TabIndex = 20;
+		this->groupBox5->TabStop = false;
+		this->groupBox5->Text = L"Ion Returding";
+		// 
+		// numericUpDown11
+		// 
+		this->numericUpDown11->Location = System::Drawing::Point(66, 13);
+		this->numericUpDown11->Name = L"numericUpDown11";
+		this->numericUpDown11->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown11->TabIndex = 13;
+		// 
+		// numericUpDown12
+		// 
+		this->numericUpDown12->Location = System::Drawing::Point(12, 13);
+		this->numericUpDown12->Name = L"numericUpDown12";
+		this->numericUpDown12->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown12->TabIndex = 12;
+		// 
+		// groupBox6
+		// 
+		this->groupBox6->BackColor = System::Drawing::Color::Transparent;
+		this->groupBox6->Controls->Add(this->numericUpDown13);
+		this->groupBox6->Controls->Add(this->numericUpDown14);
+		this->groupBox6->Location = System::Drawing::Point(12, 6);
+		this->groupBox6->Margin = System::Windows::Forms::Padding(2);
+		this->groupBox6->Name = L"groupBox6";
+		this->groupBox6->Padding = System::Windows::Forms::Padding(2);
+		this->groupBox6->Size = System::Drawing::Size(126, 38);
+		this->groupBox6->TabIndex = 19;
+		this->groupBox6->TabStop = false;
+		this->groupBox6->Text = L"Ion Saturation";
+		// 
+		// numericUpDown13
+		// 
+		this->numericUpDown13->Enabled = false;
+		this->numericUpDown13->Location = System::Drawing::Point(66, 13);
+		this->numericUpDown13->Name = L"numericUpDown13";
+		this->numericUpDown13->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown13->TabIndex = 11;
+		// 
+		// numericUpDown14
+		// 
+		this->numericUpDown14->Enabled = false;
+		this->numericUpDown14->Location = System::Drawing::Point(12, 13);
+		this->numericUpDown14->Name = L"numericUpDown14";
+		this->numericUpDown14->Size = System::Drawing::Size(48, 19);
+		this->numericUpDown14->TabIndex = 10;
+		// 
 		// toolStripContainer2
 		// 
 		// 
@@ -1242,7 +1523,8 @@ private:
 		// 
 		this->toolStrip3->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip3->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip3->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+		this->toolStrip3->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
+		{
 			this->toolStripButton6,
 				this->toolStripButton7
 		});
@@ -1275,7 +1557,8 @@ private:
 		// 
 		this->toolStrip2->Dock = System::Windows::Forms::DockStyle::None;
 		this->toolStrip2->ImageScalingSize = System::Drawing::Size(20, 20);
-		this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+		this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2)
+		{
 			this->toolStripButton4,
 				this->toolStripButton5
 		});
@@ -1340,6 +1623,19 @@ private:
 		this->groupBox1->ResumeLayout(false);
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
 		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->EndInit();
+		this->tabPage3->ResumeLayout(false);
+		this->splitContainer3->Panel2->ResumeLayout(false);
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
+		this->splitContainer3->ResumeLayout(false);
+		this->groupBox4->ResumeLayout(false);
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown9))->EndInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown10))->EndInit();
+		this->groupBox5->ResumeLayout(false);
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown11))->EndInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown12))->EndInit();
+		this->groupBox6->ResumeLayout(false);
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown13))->EndInit();
+		(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown14))->EndInit();
 		this->toolStripContainer2->ContentPanel->ResumeLayout(false);
 		this->toolStripContainer2->TopToolStripPanel->ResumeLayout(false);
 		this->toolStripContainer2->TopToolStripPanel->PerformLayout();
@@ -1597,7 +1893,7 @@ private: System::Void 生データを追加ToolStripMenuItem_Click(System::Objec
 
 private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e)
 {
-	SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot);
+	SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeSP");
 	f->Show();
 }
 private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e)
@@ -1605,6 +1901,17 @@ private: System::Void button9_Click(System::Object^  sender, System::EventArgs^ 
 	if (std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"]) < 0)
 		MessageBox::Show("電流軸、電圧軸を設定してください");
 	plotSP(0);
+}
+private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeISP");
+	f->Show();
+}
+private: System::Void button14_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	if (std::stoi((*Setting)["AnalyzeISP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeISP"]["IChannelIndex"]) < 0)
+		MessageBox::Show("電流軸、電圧軸を設定してください");
+	plotISP(0);
 }
 };
 }

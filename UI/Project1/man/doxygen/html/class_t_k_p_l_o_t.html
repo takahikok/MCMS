@@ -62,11 +62,25 @@ $(function() {
 <a href="#nested-classes">クラス</a> &#124;
 <a href="#pub-types">公開型</a> &#124;
 <a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="#pro-methods">限定公開メンバ関数</a> &#124;
 <a href="class_t_k_p_l_o_t-members.html">全メンバ一覧</a>  </div>
   <div class="headertitle">
 <div class="title">TKPLOT クラス</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="tkplot_8h_source.html">tkplot.h</a>&gt;</code></p>
+<div class="dynheader">
+TKPLOT の継承関係図</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_t_k_p_l_o_t.png" usemap="#TKPLOT_map" alt=""/>
+  <map id="TKPLOT_map" name="TKPLOT_map">
+<area href="class_t_k_a_n_a_l_y_z_e.html" alt="TKANALYZE" shape="rect" coords="58,56,164,80"/>
+<area href="class_t_k_a_n_a_l_y_z_e_i_s_p.html" alt="TKANALYZEISP" shape="rect" coords="0,112,106,136"/>
+<area href="class_t_k_a_n_a_l_y_z_e_s_p.html" alt="TKANALYZESP" shape="rect" coords="116,112,222,136"/>
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 クラス</h2></td></tr>
@@ -81,29 +95,93 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:a158082ae168750554cf23edde9a27416"><td class="memItemLeft" align="right" valign="top"><a id="a158082ae168750554cf23edde9a27416"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PLOTSIZE</b> { <b>small_size</b>, 
-<b>medium_size</b>
+<tr class="memitem:a158082ae168750554cf23edde9a27416"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">PLOTSIZE</a> { <b>SMALL_SIZE</b>, 
+<b>MEDIUM_SIZE</b>
  }</td></tr>
 <tr class="separator:a158082ae168750554cf23edde9a27416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28dfea1dd78dfc49c1926518da615bfa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfa">DATASOURCE</a> { <a class="el" href="class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452">DATASOURCE::BINARY</a>, 
+<a class="el" href="class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfaad2cd8253361a9c732d21ca1d336599cc">DATASOURCE::ASCII</a>
+ }</td></tr>
+<tr class="separator:a28dfea1dd78dfc49c1926518da615bfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
 <tr class="memitem:aeb9168bcf7e45c45fc38dab63e6b90b3"><td class="memItemLeft" align="right" valign="top"><a id="aeb9168bcf7e45c45fc38dab63e6b90b3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TKPLOT</b> (<a class="el" href="class_t_k_s_h_o_t.html">TKSHOT</a> *TKShot_)</td></tr>
 <tr class="separator:aeb9168bcf7e45c45fc38dab63e6b90b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04c574cd562f4e2c4f0f004a745bba90"><td class="memItemLeft" align="right" valign="top"><a id="a04c574cd562f4e2c4f0f004a745bba90"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>Plot</b> ()</td></tr>
-<tr class="separator:a04c574cd562f4e2c4f0f004a745bba90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abae6994f9c17d0806a9ce802fdcd67a3"><td class="memItemLeft" align="right" valign="top"><a id="abae6994f9c17d0806a9ce802fdcd67a3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>PlotRaw</b> (TKPLOT::PLOTSIZE plot_size, int shot_number)</td></tr>
-<tr class="separator:abae6994f9c17d0806a9ce802fdcd67a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af863044c92051bc4abc66911273d5f3e"><td class="memItemLeft" align="right" valign="top"><a id="af863044c92051bc4abc66911273d5f3e"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>PlotRaw</b> (const <a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">TKPLOT::PLOTSIZE</a> plot_size, const int shot_number)</td></tr>
+<tr class="separator:af863044c92051bc4abc66911273d5f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ddc4ef2a68d8649cfb2aebf507121fd"><td class="memItemLeft" align="right" valign="top"><a id="a5ddc4ef2a68d8649cfb2aebf507121fd"></a>
 std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html">TKPLOT::PLOTINFO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlotInfo</b> ()</td></tr>
 <tr class="separator:a5ddc4ef2a68d8649cfb2aebf507121fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4087cc1a73e760ac8eb32cbdf78a4433"><td class="memItemLeft" align="right" valign="top"><a id="a4087cc1a73e760ac8eb32cbdf78a4433"></a>
 std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html">TKPLOT::PLOTINFO</a> &gt;::pointer&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlotInfoPtr</b> ()</td></tr>
 <tr class="separator:a4087cc1a73e760ac8eb32cbdf78a4433"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+限定公開メンバ関数</h2></td></tr>
+<tr class="memitem:aae92c92917093101c52d08d132aee75b"><td class="memItemLeft" align="right" valign="top"><a id="aae92c92917093101c52d08d132aee75b"></a>
+<a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html">PLOTINFO</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>loadPlotInfoInstance</b> (const int data_index, const int trace_index, const <a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">PLOTSIZE</a> plot_size=PLOTSIZE::SMALL_SIZE)</td></tr>
+<tr class="separator:aae92c92917093101c52d08d132aee75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>グラフ描画に関するクラスです。 </p>
+</div><h2 class="groupheader">列挙型メンバ詳解</h2>
+<a id="a28dfea1dd78dfc49c1926518da615bfa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28dfea1dd78dfc49c1926518da615bfa">&#9670;&nbsp;</a></span>DATASOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfa">TKPLOT::DATASOURCE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>データファイル形式型 </p>
+<table class="fieldtable">
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452"></a>BINARY&#160;</td><td class="fielddoc"><p>バイナリファイル<br />
+ 非常に高速に処理できますが、柔軟性にかけるため使用できないことがあります。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a28dfea1dd78dfc49c1926518da615bfaad2cd8253361a9c732d21ca1d336599cc"></a>ASCII&#160;</td><td class="fielddoc"><p>ASCIIファイル<br />
+ データ変換のイニシャルタイムが必要であり、データ読み込みもハイコストなため、処理は遅くなりますが、全ての機能を利用できます。 </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="a158082ae168750554cf23edde9a27416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a158082ae168750554cf23edde9a27416">&#9670;&nbsp;</a></span>PLOTSIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">TKPLOT::PLOTSIZE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>グラフサイズ型 </p>
+
+</div>
+</div>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
 <li><a class="el" href="tkplot_8h_source.html">tkplot.h</a></li>
 </ul>
