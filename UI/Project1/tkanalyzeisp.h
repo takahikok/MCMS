@@ -81,9 +81,6 @@ public:
 			case PREDATAPROCESSS::SMA_KH:
 				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
 					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
-				std::cerr << (std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-					+ std::to_string(ma_sample[0])
-					+ " > " + out_file + ".CSV" << std::endl;
 				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
 					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
 						+ std::to_string(ma_sample[0])
@@ -94,6 +91,29 @@ public:
 				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
 					std::system(((std::string)"TKKillHysteresis.exe " + source_file + ".CSV "
 						+ "0" + " " + "200200" + " " + "0"
+						+ " > " + out_file + ".CSV").c_str());
+				break;
+			case PREDATAPROCESSS::SMA_KH_SMA:
+				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
+					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
+				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
+						+ std::to_string(ma_sample[0])
+						+ " > " + out_file + ".CSV").c_str());
+
+				source_file = out_file;
+				out_file = source_file + "_KH_" + "0_200200_0";
+				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+					std::system(((std::string)"TKKillHysteresis.exe " + source_file + ".CSV "
+						+ "0" + " " + "200200" + " " + "0"
+						+ " > " + out_file + ".CSV").c_str());
+
+				source_file = out_file;
+				out_file = source_file
+					+ (std::string)"_SMA_" + std::to_string(ma_sample[1]);
+				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+					std::system(((std::string)"MovingAverage.exe " + source_file + ".CSV "
+						+ std::to_string(ma_sample[1])
 						+ " > " + out_file + ".CSV").c_str());
 
 				break;
