@@ -50,6 +50,10 @@ public:
 		int v_channel_plot_info_index = std::stoi((*Setting)[group]["VChannelIndex"]);
 		int i_channel_plot_info_index = std::stoi((*Setting)[group]["IChannelIndex"]);
 
+		std::vector<std::string> tok;
+		clx::split_if(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)), tok, clx::is_any_of("\\"));
+		plotInfo[i_channel_plot_info_index].out_file_name = tok[tok.size() - 1] + "_" + group + "_";
+
 		std::string ma_file_name = [&]() -> std::string
 		{
 			std::string source_file, out_file;
@@ -216,7 +220,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \""+group+"0.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "0.png\"" << std::endl;
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		auto graph_top_info = [&]()
@@ -297,7 +301,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \""+group+"1.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		of << "set object 3 rect from first " << fitrange.Ies.min << ", graph 0 to first " << fitrange.Ies.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -312,7 +316,7 @@ public:
 		of << "set ylabel \"electron current [A]\"" << std::endl;
 		of << "set label 120 sprintf(\"@{{/Arial:Italic n}_e}&{n_e} = %1.2E m^{ -3 }\", ne_) at graph 0.05, 0.85 left" << std::endl;
 		of << "set label 121 sprintf(\"@{{/Arial:Italic T}_e}&{n_e} = %1.2f eV\", Te_) at graph 0.05, 0.77 left" << std::endl;
-		of << "set label 122 sprintf(\"@{{/Arial:Italic V}_s}&{n_e} = %1.2f eV\", Vs_) at graph 0.05, 0.69 left" << std::endl;
+		of << "set label 122 sprintf(\"@{{/Arial:Italic V}_s}&{n_e} = %1.2f V\", Vs_) at graph 0.05, 0.69 left" << std::endl;
 
 
 		of << "plot "
@@ -332,7 +336,7 @@ public:
 			<< std::endl;
 		of << "" << std::endl;
 		of << "#---OUT---" << std::endl;
-		of << "set print \""+group+".tmp\"" << std::endl;
+		of << "set print \"" + group + ".tmp\"" << std::endl;
 		of << "print Vs_" << std::endl;
 		of << "print ne_" << std::endl;
 		of << "print Te_" << std::endl;
@@ -341,8 +345,8 @@ public:
 		of.close();
 		std::system(((std::string)"gnuplot " + group + ".plt").c_str());
 
-		plotInfo[0].plot_file_name = group;
-		plotInfo[1].plot_file_name = group;
+		plotInfo[0].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
+		plotInfo[1].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
 
 		return static_cast<int>(plotInfo.size());
 	}

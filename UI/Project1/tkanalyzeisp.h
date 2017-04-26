@@ -48,6 +48,11 @@ public:
 		int v_channel_plot_info_index = std::stoi((*Setting)[group]["VChannelIndex"]);
 		int i_channel_plot_info_index = std::stoi((*Setting)[group]["IChannelIndex"]);
 
+		std::vector<std::string> tok;
+		clx::split_if(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)), tok, clx::is_any_of("\\"));
+		plotInfo[i_channel_plot_info_index].out_file_name = tok[tok.size() - 1] + "_" + group + "_";
+
+
 		std::string ma_file_name = [&]() -> std::string
 		{
 			std::string source_file, out_file;
@@ -214,7 +219,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" + group + "0.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "0.png\"" << std::endl;
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		//		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -247,7 +252,7 @@ public:
 			//<<", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
 			<< std::endl;
 
-		of << "set out \"" + group + "1.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
 		of << "set xrange [-50:50]" << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
@@ -304,7 +309,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" + group + "2.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "2.png\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		//		of << "set object 3 rect from first " << fitrange.Ies.min << ", graph 0 to first " << fitrange.Ies.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -319,7 +324,7 @@ public:
 		of << "set mxtics 5" << std::endl;
 		of << "set mytics 10" << std::endl;
 		of << "set xlabel \"probe voltage [V]\"" << std::endl;
-		of << "set ylabel \"electron current [A]\"" << std::endl;
+		of << "set ylabel \"probe current [A]\"" << std::endl;
 		//		of << "set label 120 sprintf(\"@{{/Arial:Italic n}_e}&{n_e} = %1.2E m^{ -3 }\", ne_) at graph 0.05, 0.85 left" << std::endl;
 		of << "set label 121 sprintf(\"@{{/Arial:Italic T}_i}&{n_e} = %1.2f eV\", Ti_) at graph 0.05, 0.77 left" << std::endl;
 		//		of << "set label 122 sprintf(\"@{{/Arial:Italic V}_s}&{n_e} = %1.2f eV\", Vs_) at graph 0.05, 0.69 left" << std::endl;
@@ -341,7 +346,7 @@ public:
 			//			<< "[" << fitrange.Ie.min - 20 << ":] F_Ies(x) lw 2 lc rgb \"dark-magenta\""
 			<< std::endl;
 
-		of << "set out \"" + group + "3.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.png\"" << std::endl;
 		of << "set xrange [-50:50]" << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
@@ -359,7 +364,7 @@ public:
 		std::system(((std::string)"gnuplot " + group + ".plt").c_str());
 
 		for (int i = 0; i < 4; i++)
-			plotInfo[i].plot_file_name = group;
+			plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
 
 		return static_cast<int>(plotInfo.size());
 	}

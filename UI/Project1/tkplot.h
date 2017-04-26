@@ -129,6 +129,7 @@ public:
 		*	GeneratePlotFileName()によって自動的に初期化されます。
 		*/
 		std::string plot_file_name;
+		std::string out_file_name;
 
 		/**
 		* @brief
@@ -136,8 +137,8 @@ public:
 		*	データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。
 		* @note
 		*	データファイルがASCIIの場合、最終的に参照されるのは
-		*	plot_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では
-		*	plot_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない
+		*	data_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では
+		*	data_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない
 		*	（例えばWindowsのような）環境ではどちらか存在する方のファイルが参照される事になります。
 		* @note
 		*	データファイルの拡張子が大文字なのは、横河電機のADCの仕様に沿うためです。
@@ -257,6 +258,7 @@ public:
 		std::string GeneratePlotFileName(const std::string prefix)
 		{
 			plot_file_name = prefix + "_" + model_name + "_CH" + std::to_string(channel_number);
+			out_file_name = plot_file_name;
 			return plot_file_name;
 		}
 
@@ -317,6 +319,7 @@ protected:
 			plot_info.drawing_origin.y = 50;
 			plot_info.drawing_size.w = 300;
 			plot_info.drawing_size.h = 130;
+			plot_info.label_position.clear();
 			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.06f));
 			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.06f));
 			plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
@@ -329,6 +332,7 @@ protected:
 			plot_info.drawing_origin.y = 60;
 			plot_info.drawing_size.w = 420;
 			plot_info.drawing_size.h = 210;
+			plot_info.label_position.clear();
 			plot_info.label_position.push_back(POSITION<float>(0.0f, 1.03f));
 			plot_info.label_position.push_back(POSITION<float>(1.0f, 1.03f));
 			plot_info.label_position.push_back(POSITION<float>(0.5f, -0.3f));
@@ -359,7 +363,7 @@ public:
 			of.open(plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
 			of << "set term png enhanced transparent truecolor font arial 11 size "
 				<< plotInfo[i].terminal_size.str() << std::endl;
-			of << "set out \"" << plotInfo[i].plot_file_name << ".png\"" << std::endl;
+			of << "set out \"" << plotInfo[i].out_file_name << ".png\"" << std::endl;
 			of << "set datafile separator \',\'" << std::endl;
 			of << "set grid xtics ytics" << std::endl;
 			of << "set nokey" << std::endl;
