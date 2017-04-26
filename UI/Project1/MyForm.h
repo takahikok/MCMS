@@ -411,9 +411,9 @@ namespace Project1
 				//Plot
 				pBPlot3[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
 				pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
-				pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-					+ ".png").c_str())));
-				pBPlot3[i]->Visible = true;
+					pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
+						+ ".png").c_str())));
+					pBPlot3[i]->Visible = true;
 			}
 
 			flushShotNumber();
