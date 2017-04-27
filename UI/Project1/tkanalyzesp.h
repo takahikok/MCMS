@@ -54,84 +54,7 @@ public:
 		clx::split_if(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)), tok, clx::is_any_of("\\"));
 		plotInfo[i_channel_plot_info_index].out_file_name = tok[tok.size() - 1] + "_" + group + "_";
 
-		std::string ma_file_name = [&]() -> std::string
-		{
-			std::string source_file, out_file;
-
-
-			if ((*Setting)[group]["PreDataProcessing"] == "Raw")
-				pre_data_process = PREDATAPROCESSS::Raw;
-			if ((*Setting)[group]["PreDataProcessing"] == "SMA")
-				pre_data_process = PREDATAPROCESSS::SMA;
-			if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis")
-				pre_data_process = PREDATAPROCESSS::SMA_KH;
-			if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis+SMA")
-				pre_data_process = PREDATAPROCESSS::SMA_KH_SMA;
-
-			int ma_sample[2];
-			for (int i = 0; i < 2; i++)
-				ma_sample[i] = std::stoi((*Setting)[group]["PreDataProcessingSMA" + std::to_string(i + 1) + "Sample"]);
-
-			switch (pre_data_process) {
-			case PREDATAPROCESSS::SMA:
-				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
-					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
-				std::cerr << (std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-					+ std::to_string(ma_sample[0])
-					+ " > " + out_file + ".CSV" << std::endl;
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-						+ std::to_string(ma_sample[0])
-						+ " > " + out_file + ".CSV").c_str());
-				break;
-			case PREDATAPROCESSS::SMA_KH:
-				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
-					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-						+ std::to_string(ma_sample[0])
-						+ " > " + out_file + ".CSV").c_str());
-
-				source_file = out_file;
-				out_file = source_file + "_KH_" + "0_200200_0";
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"TKKillHysteresis.exe " + source_file + ".CSV "
-						+ "0" + " " + "200200" + " " + "0"
-						+ " > " + out_file + ".CSV").c_str());
-				break;
-			case PREDATAPROCESSS::SMA_KH_SMA:
-				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
-					+ (std::string)"_SMA_" + std::to_string(ma_sample[0]);
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"MovingAverage.exe " + thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) + ".CSV "
-						+ std::to_string(ma_sample[0])
-						+ " > " + out_file + ".CSV").c_str());
-
-				source_file = out_file;
-				out_file = source_file + "_KH_" + "0_200200_0";
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"TKKillHysteresis.exe " + source_file + ".CSV "
-						+ "0" + " " + "200200" + " " + "0"
-						+ " > " + out_file + ".CSV").c_str());
-
-				source_file = out_file;
-				out_file = source_file
-					+ (std::string)"_SMA_" + std::to_string(ma_sample[1]);
-				if (!TKUTIL::IsExistFile(out_file + ".CSV"))
-					std::system(((std::string)"MovingAverage.exe " + source_file + ".CSV "
-						+ std::to_string(ma_sample[1])
-						+ " > " + out_file + ".CSV").c_str());
-
-				break;
-			case PREDATAPROCESSS::Raw:
-				out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index));
-				break;
-			default:
-				break;
-			}
-			return out_file;
-
-		}();
+		std::string ma_file_name = ExecPreDataProcess(i_channel_plot_info_index);
 
 		std::ofstream of;
 		of.open(group + ".plt", std::ios::trunc);
@@ -248,10 +171,17 @@ public:
 			<< svp()
 			<< ":"
 			<< "(" << sip() << "*1e3)"
-			<< " pt 0 lc rgb \"red\", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
+			<< " pt 6 ps 0.2 lc rgb \"red\", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
 			<< std::endl;
 		of << "" << std::endl;
 		of << "" << std::endl;
+
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
+		of << "set xrange [-50:50]" << std::endl;
+		of << "set xtics 10" << std::endl;
+		of << "set mxtics 5" << std::endl;
+		of << "replot" << std::endl;
+
 
 		of << "#---FITTING---" << std::endl;
 		def_const();
@@ -301,7 +231,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "2.png\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		of << "set object 3 rect from first " << fitrange.Ies.min << ", graph 0 to first " << fitrange.Ies.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -309,6 +239,7 @@ public:
 		of << "set logscale y" << std::endl;
 		of << "set format y \"10^{%T}\"" << std::endl;
 		of << "set yrange[F_Ie(" << fitrange.Ie.min << ") / 10:F_Ies(" << fitrange.Ies.max << ") * 1.3]" << std::endl;
+		of << "unset xrange" << std::endl;
 		of << "set xtics 50" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "set mytics 10" << std::endl;
@@ -326,7 +257,7 @@ public:
 			<< svp()
 			<< ":"
 			<< "(" << sip() << "-F_Iis(" << svp() << "))"
-			<< " pt 0 lc rgb \"red\", "
+			<< " pt 6 ps 0.2 lc rgb \"red\", "
 
 
 			// plot fitting function
@@ -334,6 +265,13 @@ public:
 			<< "[" << fitrange.Ie.min - 20 << ":] F_Ie(x) lw 2 lc rgb \"blue\", "
 			<< "[" << fitrange.Ie.min - 20 << ":] F_Ies(x) lw 2 lc rgb \"dark-magenta\""
 			<< std::endl;
+
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.png\"" << std::endl;
+		of << "set xrange [-50:50]" << std::endl;
+		of << "set xtics 10" << std::endl;
+		of << "set mxtics 5" << std::endl;
+		of << "replot" << std::endl;
+
 		of << "" << std::endl;
 		of << "#---OUT---" << std::endl;
 		of << "set print \"" + group + ".tmp\"" << std::endl;
@@ -345,8 +283,8 @@ public:
 		of.close();
 		std::system(((std::string)"gnuplot " + group + ".plt").c_str());
 
-		plotInfo[0].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
-		plotInfo[1].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
+		for (int i = 0; i < 4; i++)
+			plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
 
 		return static_cast<int>(plotInfo.size());
 	}

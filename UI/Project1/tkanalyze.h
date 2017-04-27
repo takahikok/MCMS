@@ -49,6 +49,7 @@ public:
 	};
 	PREDATAPROCESSS pre_data_process;
 
+
 protected:
 	TKSHOT* thisShot;
 	clx::ini* Setting;
@@ -108,6 +109,115 @@ public:
 	FITRANGE &SetRange()
 	{
 		return fitrange;
+	}
+
+	double GetStartTime()
+	{
+		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+		return delay_time + 1 / frequency*(delay_cycle);
+	}
+	double GetStopTime()
+	{
+		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+		return delay_time + 1 / frequency*(delay_cycle + sweep_cycle);
+	}
+
+	unsigned int GetStartPoint(int adc_id)
+	{
+		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle)) / thisShot->GetHResolution(adc_id);
+	}
+
+	unsigned int GetStopPoint(int adc_id)
+	{
+		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + sweep_cycle)) / thisShot->GetHResolution(adc_id);
+	}
+
+	unsigned int GetOneCycleStopPoint(int adc_id)
+	{
+		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + 1)) / thisShot->GetHResolution(adc_id);
+	}
+
+	std::string ExecPreDataProcess(int plot_info_index)
+	{
+		std::string source_file, out_file;
+
+		if ((*Setting)[group]["PreDataProcessing"] == "Raw")
+			pre_data_process = PREDATAPROCESSS::Raw;
+		if ((*Setting)[group]["PreDataProcessing"] == "SMA")
+			pre_data_process = PREDATAPROCESSS::SMA;
+		if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis")
+			pre_data_process = PREDATAPROCESSS::SMA_KH;
+		if ((*Setting)[group]["PreDataProcessing"] == "SMA+KillHysteresis+SMA")
+			pre_data_process = PREDATAPROCESSS::SMA_KH_SMA;
+
+		int ma_sample[2];
+		for (int i = 0; i < 2; i++)
+			ma_sample[i] = std::stoi((*Setting)[group]["PreDataProcessingSMA" + std::to_string(i + 1) + "Sample"]);
+
+		auto execSMA = [&](const std::string source_file, const int sample_index)
+		{
+			out_file = source_file + (std::string)"_SMA_" + std::to_string(ma_sample[sample_index]);
+			if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+				std::system(((std::string)"MovingAverage.exe " + source_file + ".CSV "
+					+ std::to_string(ma_sample[sample_index])
+					+ " > " + out_file + ".CSV").c_str());
+			return out_file;
+		};
+
+		auto execKH = [&](const std::string source_file)
+		{
+			out_file = source_file
+				+ "_KH_" + std::to_string(GetStartPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
+				+"_"+ std::to_string(GetOneCycleStopPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
+				+"_"+ (*Setting)[group]["PreDataProcessingPhase"];
+			if (!TKUTIL::IsExistFile(out_file + ".CSV"))
+				std::system(((std::string)"TKKillHysteresis.exe " + source_file + ".CSV"
+					+ " " + std::to_string(GetStartPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
+					+ " " + std::to_string(GetOneCycleStopPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
+					+ " " + (*Setting)[group]["PreDataProcessingPhase"]
+					+ " > " + out_file + ".CSV").c_str());
+			return out_file;
+		};
+
+		switch (pre_data_process) {
+		case PREDATAPROCESSS::SMA:
+			out_file = execSMA(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[plot_info_index].data_index)), 0);
+			break;
+
+		case PREDATAPROCESSS::SMA_KH:
+			out_file = execSMA(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[plot_info_index].data_index)), 0);
+			out_file = execKH(out_file);
+			break;
+
+		case PREDATAPROCESSS::SMA_KH_SMA:
+			out_file = execSMA(thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[plot_info_index].data_index)), 0);
+			out_file = execKH(out_file);
+			out_file = execSMA(out_file, 1);
+			break;
+
+		case PREDATAPROCESSS::Raw:
+		default:
+			out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[plot_info_index].data_index));
+		}
+		return out_file;
 	}
 };
 #endif

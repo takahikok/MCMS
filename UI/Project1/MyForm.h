@@ -256,10 +256,17 @@ namespace Project1
 			pplot_info = thisPlot->GetPlotInfoPtr();
 			for (int i = 0; i < total_plot; i++) {
 				//Plot
-				pBPlot[i]->Location = System::Drawing::Point(i % 3 * 450, i / 3 * 220 + 10);
-				pBPlot[i]->Size = System::Drawing::Size(400, 200);
-				pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
-					+ ".png").c_str())));
+				pBPlot[i]->Location = System::Drawing::Point((pplot_info[i].terminal_size.w + 10)*(i % 3), (pplot_info[i].terminal_size.h + 0)*(i / 3));
+				pBPlot[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+				try {
+					pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
+						+ ".png").c_str())));
+				}
+				catch (...) {
+					pBPlot[i]->Image = gcnew Bitmap(1, 1);
+					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+				}
+
 				pBPlot[i]->Visible = true;
 			}
 			refreshVLine();
@@ -365,12 +372,18 @@ namespace Project1
 			thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
 			std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
 			pplot_info = thisAnalyzeSP->GetPlotInfoPtr();
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 4; i++) {
 				//Plot
-				pBPlot2[i]->Location = System::Drawing::Point(0, pplot_info[i].terminal_size.h*i);
+				pBPlot2[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
 				pBPlot2[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
-				pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-					+ ".png").c_str())));
+				try {
+					pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
+						+ ".png").c_str())));
+				}
+				catch (...) {
+					pBPlot2[i]->Image = gcnew Bitmap(1, 1);
+					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+				}
 				pBPlot2[i]->Visible = true;
 			}
 
@@ -411,9 +424,15 @@ namespace Project1
 				//Plot
 				pBPlot3[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
 				pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+				try {
 					pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
 						+ ".png").c_str())));
-					pBPlot3[i]->Visible = true;
+				}
+				catch (...) {
+					pBPlot3[i]->Image = gcnew Bitmap(1, 1);
+					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+				}
+				pBPlot3[i]->Visible = true;
 			}
 
 			flushShotNumber();
@@ -1097,7 +1116,7 @@ namespace Project1
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Size = System::Drawing::Size(975, 413);
-			this->splitContainer1->SplitterDistance = 383;
+			this->splitContainer1->SplitterDistance = 360;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
 			// 
@@ -1236,7 +1255,7 @@ namespace Project1
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer2->Size = System::Drawing::Size(975, 413);
-			this->splitContainer2->SplitterDistance = 373;
+			this->splitContainer2->SplitterDistance = 360;
 			this->splitContainer2->SplitterWidth = 1;
 			this->splitContainer2->TabIndex = 28;
 			// 
@@ -1397,7 +1416,7 @@ namespace Project1
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox5);
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox6);
 			this->splitContainer3->Size = System::Drawing::Size(975, 413);
-			this->splitContainer3->SplitterDistance = 373;
+			this->splitContainer3->SplitterDistance = 360;
 			this->splitContainer3->SplitterWidth = 1;
 			this->splitContainer3->TabIndex = 29;
 			// 
@@ -1756,7 +1775,7 @@ namespace Project1
 			TKADCINFO::ADCIDToTKADCPtr(adcid)->IncrementLocalShotNumber();
 			(*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LastLocalShotNumber"]
 				= std::to_string(TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber());
-		}
+	}
 #else
 		static void threadADCStart(System::Object^ adcid)
 		{
@@ -1816,9 +1835,9 @@ namespace Project1
 		uploadToStrage(SETTING_FILE_PATH,
 			"#" + TKUTIL::ZeroFill(TKSHOTNO::GetNextShotNumber(), 8)
 			+ "_" + "shotinfo" + ".inf");
-//		SetShotNumberColor(System::Drawing::Color::OrangeRed);
-//		SetShotNumberColor(System::Drawing::Color::Black);
-		
+		//		SetShotNumberColor(System::Drawing::Color::OrangeRed);
+		//		SetShotNumberColor(System::Drawing::Color::Black);
+
 		TKSHOTNO::IncrementShotNumber();
 
 		(*Setting)["ShotNumber"]["LastShotNumber"] = std::to_string(TKSHOTNO::GetLastShotNumber());
@@ -1944,8 +1963,11 @@ namespace Project1
 	}
 	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"]) < 0)
+		if (std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"]) < 0) {
 			MessageBox::Show("電流軸、電圧軸を設定してください");
+			button11_Click(sender, e);
+			return;
+		}
 		plotSP(0);
 	}
 	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e)
@@ -1955,8 +1977,11 @@ namespace Project1
 	}
 	private: System::Void button14_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (std::stoi((*Setting)["AnalyzeISP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeISP"]["IChannelIndex"]) < 0)
+		if (std::stoi((*Setting)["AnalyzeISP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeISP"]["IChannelIndex"]) < 0) {
 			MessageBox::Show("電流軸、電圧軸を設定してください");
+			button12_Click(sender, e);
+			return;
+		}
 		plotISP(0);
 	}
 	};

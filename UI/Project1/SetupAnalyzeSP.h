@@ -183,8 +183,8 @@ namespace Project1
 			(*Setting)[group]["TimeRegion"] = radioButton15->Checked ? "Auto" : "Manual";
 			(*Setting)[group]["FunctionDelayTime"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox4->Text).c_str()));
 			(*Setting)[group]["FunctionFrequency"] = TKUTIL::SystemStringToString(textBox5->Text).c_str();
-			(*Setting)[group]["FunctionDelayCycle"] = TKUTIL::SystemStringToString(textBox6->Text).c_str();
-			(*Setting)[group]["FunctionSweepCycle"] = TKUTIL::SystemStringToString(textBox7->Text).c_str();
+			(*Setting)[group]["FunctionDelayCycle"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox6->Text).c_str()) / 2);
+			(*Setting)[group]["FunctionSweepCycle"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox7->Text).c_str()) / 2);
 			(*Setting)[group]["TimeRegionStart"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox14->Text).c_str())*1e3);
 			(*Setting)[group]["TimeRegionStop"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox13->Text).c_str())*1e3);
 
@@ -364,9 +364,9 @@ namespace Project1
 			textBox5->Text = gcnew System::String((std::to_string(std::stod(
 				((*Setting)[group]["FunctionFrequency"]).c_str()))).c_str());
 			textBox6->Text = gcnew System::String((std::to_string(std::stod(
-				((*Setting)[group]["FunctionDelayCycle"]).c_str()))).c_str());
+				((*Setting)[group]["FunctionDelayCycle"]).c_str()) * 2)).c_str());
 			textBox7->Text = gcnew System::String((std::to_string(std::stod(
-				((*Setting)[group]["FunctionSweepCycle"]).c_str()))).c_str());
+				((*Setting)[group]["FunctionSweepCycle"]).c_str()) * 2)).c_str());
 			textBox14->Text = gcnew System::String((std::to_string(std::stod(
 				((*Setting)[group]["TimeRegionStart"]).c_str())*1e-3)).c_str());
 			textBox13->Text = gcnew System::String((std::to_string(std::stod(
@@ -1645,37 +1645,37 @@ namespace Project1
 	}
 	private: System::Void textBox9_TextChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
-//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
+		//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
+		//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
 	}
 	private: System::Void textBox8_TextChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
-//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
+		//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
+		//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
 	}
 	private: System::Void radioButton4_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
+		//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
 	}
 	private: System::Void radioButton3_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
+		//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
 	}
 	private: System::Void radioButton6_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
+		//		textBox10->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::electron) * 1e-6).c_str());
 	}
 	private: System::Void radioButton10_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
+		//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
 	}
 	private: System::Void radioButton9_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
+		//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
 	}
 	private: System::Void radioButton7_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
+		//		textBox11->Text = gcnew System::String(std::to_string(calcSurfaceArea(TKChargedParticleType::ion) * 1e-6).c_str());
 	}
 	};
 }
