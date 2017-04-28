@@ -1956,6 +1956,7 @@ namespace Project1
 		新規ToolStripMenuItem_Click(sender, e);
 		生データを追加ToolStripMenuItem_Click(sender, e);
 	}
+
 	private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeSP");
@@ -1963,6 +1964,10 @@ namespace Project1
 	}
 	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		if (!thisShot->GetADCNumber()) {
+			MessageBox::Show("データが読み込まれていません");
+			return;
+		}
 		if (std::stoi((*Setting)["AnalyzeSP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeSP"]["IChannelIndex"]) < 0) {
 			MessageBox::Show("電流軸、電圧軸を設定してください");
 			button11_Click(sender, e);
@@ -1970,6 +1975,7 @@ namespace Project1
 		}
 		plotSP(0);
 	}
+
 	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeISP");
@@ -1977,6 +1983,10 @@ namespace Project1
 	}
 	private: System::Void button14_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		if (!thisShot->GetADCNumber()) {
+			MessageBox::Show("データが読み込まれていません");
+			return;
+		}
 		if (std::stoi((*Setting)["AnalyzeISP"]["VChannelIndex"]) < 0 || std::stoi((*Setting)["AnalyzeISP"]["IChannelIndex"]) < 0) {
 			MessageBox::Show("電流軸、電圧軸を設定してください");
 			button12_Click(sender, e);

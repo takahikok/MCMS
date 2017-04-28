@@ -29,6 +29,7 @@ public:
 	public:
 		T min;
 		T max;
+	public:
 		RANGE(T min_, T max_)
 		{
 			min = min_;
@@ -40,6 +41,10 @@ public:
 		std::string str()
 		{
 			return "[" + std::to_string(min) + ":" + std::to_string(max) + "]";
+		}
+		T median()
+		{
+			return (min + max) / 2;
 		}
 	};
 	template<typename T> class POSITION

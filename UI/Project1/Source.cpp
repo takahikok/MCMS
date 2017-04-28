@@ -10,11 +10,11 @@
 
 #define SETTING_FILE_PATH "settings.ini"
 
-using namespace System;                                                                                                      
+using namespace System;
 using namespace System::Windows::Forms;
 
 [STAThreadAttribute]
-int main(array<String^>^ args) 
+int main(array<String^>^ args)
 {
 	TKADCCONTROL_DL750* DL750;
 	TKADCCONTROL_DL850* DL850;
@@ -25,13 +25,18 @@ int main(array<String^>^ args)
 	TKPLOT* thisPlot;
 	thisPlot = new TKPLOT(thisShot);
 
-	
+
 	clx::ini* Setting;
 	Setting = new clx::ini(SETTING_FILE_PATH);
 
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false);
-	Application::Run(gcnew Project1::MyForm(Setting, thisShot, thisPlot, DL750, DL850));
+	try {
+		Application::EnableVisualStyles();
+		Application::SetCompatibleTextRenderingDefault(false);
+		Application::Run(gcnew Project1::MyForm(Setting, thisShot, thisPlot, DL750, DL850));
+	}
+	catch (...) {
+
+	}
 
 	Setting->write(SETTING_FILE_PATH);
 	delete DL750;

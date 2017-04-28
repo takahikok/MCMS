@@ -175,8 +175,14 @@ public:
 			//<<", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
 			<< std::endl;
 
+
+		auto opt_range = [&](auto v_pp)
+		{
+			return TKPLOT::RANGE<double>(fitrange.Ie.median() - v_pp / 2, fitrange.Ie.median() + v_pp / 2);
+		};
+
 		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
-		of << "set xrange [-50:50]" << std::endl;
+		of << "set xrange " + opt_range(100).str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "replot" << std::endl;
@@ -270,7 +276,7 @@ public:
 			<< std::endl;
 
 		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.png\"" << std::endl;
-		of << "set xrange [-50:50]" << std::endl;
+		of << "set xrange " + opt_range(100).str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "replot" << std::endl;

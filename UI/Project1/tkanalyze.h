@@ -134,7 +134,7 @@ public:
 		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
 		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
 		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
-		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle)) / thisShot->GetHResolution(adc_id);
+		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle)) / thisShot->GetHResolution(adc_id));
 	}
 
 	unsigned int GetStopPoint(int adc_id)
@@ -143,7 +143,7 @@ public:
 		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
 		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
 		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
-		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + sweep_cycle)) / thisShot->GetHResolution(adc_id);
+		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + sweep_cycle)) / thisShot->GetHResolution(adc_id));
 	}
 
 	unsigned int GetOneCycleStopPoint(int adc_id)
@@ -152,7 +152,7 @@ public:
 		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
 		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
 		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
-		return (-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + 1)) / thisShot->GetHResolution(adc_id);
+		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + 1)) / thisShot->GetHResolution(adc_id));
 	}
 
 	std::string ExecPreDataProcess(int plot_info_index)

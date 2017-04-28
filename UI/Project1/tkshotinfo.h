@@ -178,19 +178,6 @@ private:
 public:
 	TKSHOT()
 	{
-		/*int ishot_num
-		adc_num = 0;
-		shot_number = ishot_num;
-		if (ishot_num == -1) {
-			//ショット番号なしカレントショット
-			is_current_shot = true;
-		}
-		else {
-			//ショット番号有保存済みショット
-			is_current_shot = false;
-
-		}
-		*/
 		this->Clear();
 	}
 	~TKSHOT()
