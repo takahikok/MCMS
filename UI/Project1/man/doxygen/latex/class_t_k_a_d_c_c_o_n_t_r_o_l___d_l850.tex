@@ -1,0 +1,90 @@
+\hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850}{}\section{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850 クラス}
+\label{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850}\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850}}
+
+
+{\ttfamily \#include $<$tkadc.\+h$>$}
+
+T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850 の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850}
+\end{center}
+\end{figure}
+\subsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_aecf0f8f87a3fd72a24a12d859eefd456}\label{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_aecf0f8f87a3fd72a24a12d859eefd456}} 
+enum {\bfseries C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG} \{ \newline
+{\bfseries A\+LL} = 0xffff, 
+{\bfseries C\+AP} = 1 $<$$<$ 0, 
+{\bfseries R\+EC} = 1 $<$$<$ 1, 
+{\bfseries T\+RG} = 1 $<$$<$ 2, 
+\newline
+{\bfseries T\+R\+G\+I\+NV} = A\+LL -\/ T\+RG, 
+{\bfseries C\+AL} = 1 $<$$<$ 3, 
+{\bfseries T\+ST} = 1 $<$$<$ 4, 
+{\bfseries P\+RN} = 1 $<$$<$ 5, 
+\newline
+{\bfseries A\+CS} = 1 $<$$<$ 6, 
+{\bfseries M\+ES} = 1 $<$$<$ 7, 
+{\bfseries H\+ST} = 1 $<$$<$ 8, 
+{\bfseries C\+NT} = 1 $<$$<$ 9, 
+\newline
+{\bfseries N\+GO} = 1 $<$$<$ 10, 
+{\bfseries S\+CH} = 1 $<$$<$ 11, 
+{\bfseries R\+UN} = 1 $<$$<$ 12, 
+{\bfseries K\+LK} = 1 $<$$<$ 13, 
+\newline
+{\bfseries AN} = 1 $<$$<$ 14
+ \}
+\end{DoxyCompactItemize}
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_aecc88bc7f7ae5b93e578f711ce653e0f}\label{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_aecc88bc7f7ae5b93e578f711ce653e0f}} 
+int {\bfseries Get\+Status\+Condition} (T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG flag=C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+A\+LL)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_acef79a34544e50a51bab03b83652306a}{Delete} (std\+::string file\+\_\+name)
+\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+D\+L850\+A\+D\+Cコントロールクラス
+
+D\+L850をコントロールするためのクラスです。 
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_acef79a34544e50a51bab03b83652306a}\label{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_acef79a34544e50a51bab03b83652306a}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850}!Delete@{Delete}}
+\index{Delete@{Delete}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850}}
+\subsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily int T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850\+::\+Delete (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+A\+D\+Cの内部ストレージから指定したファイル名のバイナリデータを削除します。
+
+存在しないファイル名が指定された場合の挙動は\+A\+D\+Cの仕様によります。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+name} & 削除ファイル名を指定します。拡張子は不要です。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+D\+L750, D\+L850 では存在しないファイル名が指定された場合、\+A\+D\+Cの画面に警告が出るに留まり、コントロールは継続されます。~\newline
+ 削除が実行されるとディスクアクセスが発生するため\+Wait\+A\+D\+C()等で待つ必要があります。 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000002}{todo}]許されないファイル名を拒否する \end{DoxyRefDesc}
+
+
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_afa385509f61162198950676d279f4c3c}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}を再実装しています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\+Project1/\hyperlink{tkadc_8h}{tkadc.\+h}\item 
+U\+I/\+Project1/tkadc.\+cpp\end{DoxyCompactItemize}

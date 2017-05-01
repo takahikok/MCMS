@@ -126,9 +126,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="tkutil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TKMakeMapSetting.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="tkutil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

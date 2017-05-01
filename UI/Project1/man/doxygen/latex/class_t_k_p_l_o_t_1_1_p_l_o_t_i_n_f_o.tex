@@ -1,0 +1,183 @@
+\hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{}\section{T\+K\+P\+L\+OT\+:\+:P\+L\+O\+T\+I\+N\+FO クラス}
+\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+
+
+{\ttfamily \#include $<$tkplot.\+h$>$}
+
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aa5593f16a8756e42b0ba5e82f79ffd11}{Generate\+Plot\+File\+Name} (const std\+::string prefix)
+\begin{DoxyCompactList}\small\item\em gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも同じパスとなります。~\newline
+同時に plot\+\_\+file\+\_\+nameを初期化します。 \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aba014d5ce5807ab0e1c1a2bfb2aca7dd}{Calc\+Every\+Value} (const unsigned int point\+\_\+per\+\_\+pixel)
+\begin{DoxyCompactList}\small\item\em グラフ情報を元にファイルデータの間引き量を計算します。~\newline
+同時に everyを初期化します。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ac1dae6b6cd429f4276f5a4491af8c24d}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ac1dae6b6cd429f4276f5a4491af8c24d}} 
+std\+::string \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ac1dae6b6cd429f4276f5a4491af8c24d}{plot\+\_\+file\+\_\+name}
+\begin{DoxyCompactList}\small\item\em gnuplotのコマンドファイルの、拡張子を除いたファイルパスです。出力されるグラフのファイルパスも同じパスとなります。~\newline
+ データファイルの拡張子は.\+pltとなります。~\newline
+ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aa5593f16a8756e42b0ba5e82f79ffd11}{Generate\+Plot\+File\+Name()}によって自動的に初期化されます。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ad8458a0719e051e6e3ee9166fffbf311}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ad8458a0719e051e6e3ee9166fffbf311}} 
+std\+::string {\bfseries out\+\_\+file\+\_\+name}
+\item 
+std\+::string \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a18a67313f8bb54564f35f6e6eddef899}{data\+\_\+file\+\_\+name}
+\begin{DoxyCompactList}\small\item\em プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。~\newline
+ データファイルの拡張子は、\+A\+S\+C\+I\+Iの場合.\+C\+S\+V、バイナリの場合.\+W\+V\+Fである必要があります。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a027ef6fcbaf4b3356926d853e2223e64}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a027ef6fcbaf4b3356926d853e2223e64}} 
+int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a027ef6fcbaf4b3356926d853e2223e64}{data\+\_\+index}
+\begin{DoxyCompactList}\small\item\em T\+K\+S\+H\+O\+Tに格納された全\+A\+D\+C、全トレースのデータを順番に並べたときのトレースの番号です。 data\+\_\+indexは一意なトレースを指します。 \end{DoxyCompactList}\item 
+int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a48ef8281322bf15a1e48cca923d34eeb}{trace\+\_\+index}
+\begin{DoxyCompactList}\small\item\em そのトレースが含まれる\+A\+D\+Cの、全トレースのデータを順番に並べたときのトレースの番号です。 trace\+\_\+indexはその\+A\+D\+Cにおいて一意なトレースを指します。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a54f1fba1318e3fdb099900839253777e}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a54f1fba1318e3fdb099900839253777e}} 
+int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a54f1fba1318e3fdb099900839253777e}{data\+\_\+source\+\_\+point\+\_\+number}
+\begin{DoxyCompactList}\small\item\em データファイルの1列あたりのデータ点数です。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_acd0e9a0e12d7679f93004dcb6bbaa489}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_acd0e9a0e12d7679f93004dcb6bbaa489}} 
+int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_acd0e9a0e12d7679f93004dcb6bbaa489}{point\+\_\+number}
+\begin{DoxyCompactList}\small\item\em 最終的に描画される1列あたりのデータ点数です。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a8f7e0649b327f69db18c9bac7315a4e7}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a8f7e0649b327f69db18c9bac7315a4e7}} 
+\hyperlink{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfa}{D\+A\+T\+A\+S\+O\+U\+R\+CE} \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a8f7e0649b327f69db18c9bac7315a4e7}{data\+\_\+source}
+\begin{DoxyCompactList}\small\item\em ファイルデータのデータ形式を指定します。指定できるデータ形式は D\+A\+T\+A\+S\+O\+U\+R\+C\+Eを参照してくださいｓ。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a13b0235f3544b9d875af92ce3ac247ab}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a13b0235f3544b9d875af92ce3ac247ab}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_r_a_n_g_e}{T\+K\+P\+L\+O\+T\+::\+R\+A\+N\+GE}$<$ float $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a13b0235f3544b9d875af92ce3ac247ab}{xrange}
+\begin{DoxyCompactList}\small\item\em 描画される、あるいは描画された、グラフのx軸の領域です。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a5ce7809252eb582e3fae0a554bcdb65d}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a5ce7809252eb582e3fae0a554bcdb65d}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_r_a_n_g_e}{T\+K\+P\+L\+O\+T\+::\+R\+A\+N\+GE}$<$ float $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a5ce7809252eb582e3fae0a554bcdb65d}{yrange}
+\begin{DoxyCompactList}\small\item\em 描画される、あるいは描画された、グラフのy軸の領域です。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a9b6c85908a1a6d8ab8371ea75aec8902}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a9b6c85908a1a6d8ab8371ea75aec8902}} 
+unsigned int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a9b6c85908a1a6d8ab8371ea75aec8902}{every} = 0
+\begin{DoxyCompactList}\small\item\em データの間引き量です。データファイルのevery点に対して1点の描画を行います。 \end{DoxyCompactList}\item 
+std\+::string \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ae98bf84fdf14074b4f7804f0617aa902}{model\+\_\+name}
+\begin{DoxyCompactList}\small\item\em A\+D\+Cのモデル名です。 T\+K\+S\+H\+O\+Tのインスタンスと同じです。 \end{DoxyCompactList}\item 
+int \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a801d16eb357241d4f4eeef8c6393bbc4}{channel\+\_\+number}
+\begin{DoxyCompactList}\small\item\em チャンネル番号です。 T\+K\+S\+H\+O\+Tのインスタンスと同じです。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_afe6df040b952e6ab1e234d17de6023d0}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_afe6df040b952e6ab1e234d17de6023d0}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_s_i_z_e}{S\+I\+ZE}$<$ int $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_afe6df040b952e6ab1e234d17de6023d0}{terminal\+\_\+size}
+\begin{DoxyCompactList}\small\item\em 描画されるグラフの、余白を含めた1枚の大きさです。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a27451bd9ddcd548bff9f91cdda6ed812}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a27451bd9ddcd548bff9f91cdda6ed812}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_s_i_z_e}{S\+I\+ZE}$<$ int $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a27451bd9ddcd548bff9f91cdda6ed812}{drawing\+\_\+size}
+\begin{DoxyCompactList}\small\item\em 描画されるグラフの、グラフが描画される部分の大きさです。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ad5e1f688a044784cf24846d04fd48116}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ad5e1f688a044784cf24846d04fd48116}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n}{P\+O\+S\+I\+T\+I\+ON}$<$ int $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ad5e1f688a044784cf24846d04fd48116}{drawing\+\_\+origin}
+\begin{DoxyCompactList}\small\item\em 描画されるグラフの、グラフが描画される部分の基点座標です。 \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a4266fd64b26c45e727843dc017ba2a3d}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a4266fd64b26c45e727843dc017ba2a3d}} 
+std\+::vector$<$ \hyperlink{class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n}{P\+O\+S\+I\+T\+I\+ON}$<$ float $>$ $>$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a4266fd64b26c45e727843dc017ba2a3d}{label\+\_\+position}
+\begin{DoxyCompactList}\small\item\em 描画されるグラフの、ラベル描画の基点座標です。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000004}{todo}]ショット情報に関する\+P\+L\+O\+T\+I\+N\+F\+Oインスタンスは廃止し、\+T\+K\+S\+H\+O\+Tを直接参照する \end{DoxyRefDesc}
+
+
+プロット情報クラス
+
+プロット情報クラスはグラフの描画に必要な情報を集めたクラスです。 
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aba014d5ce5807ab0e1c1a2bfb2aca7dd}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aba014d5ce5807ab0e1c1a2bfb2aca7dd}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!Calc\+Every\+Value@{Calc\+Every\+Value}}
+\index{Calc\+Every\+Value@{Calc\+Every\+Value}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{Calc\+Every\+Value()}{CalcEveryValue()}}
+{\footnotesize\ttfamily unsigned int T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::\+Calc\+Every\+Value (\begin{DoxyParamCaption}\item[{const unsigned int}]{point\+\_\+per\+\_\+pixel }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+グラフ情報を元にファイルデータの間引き量を計算します。~\newline
+同時に everyを初期化します。 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em point\+\_\+per\+\_\+pixel} & 1ピクセルあたりの描画点数を指定します。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+every 間引き量を返します。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aa5593f16a8756e42b0ba5e82f79ffd11}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_aa5593f16a8756e42b0ba5e82f79ffd11}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!Generate\+Plot\+File\+Name@{Generate\+Plot\+File\+Name}}
+\index{Generate\+Plot\+File\+Name@{Generate\+Plot\+File\+Name}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{Generate\+Plot\+File\+Name()}{GeneratePlotFileName()}}
+{\footnotesize\ttfamily std\+::string T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::\+Generate\+Plot\+File\+Name (\begin{DoxyParamCaption}\item[{const std\+::string}]{prefix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも同じパスとなります。~\newline
+同時に plot\+\_\+file\+\_\+nameを初期化します。 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em prefix} & ファイル先頭に付けるプレフィックスを指定します。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+plot\+\_\+file\+\_\+name 生成されたファイルパスを返します。 
+\end{DoxyReturn}
+
+
+\subsection{メンバ詳解}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a801d16eb357241d4f4eeef8c6393bbc4}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a801d16eb357241d4f4eeef8c6393bbc4}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!channel\+\_\+number@{channel\+\_\+number}}
+\index{channel\+\_\+number@{channel\+\_\+number}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{channel\+\_\+number}{channel\_number}}
+{\footnotesize\ttfamily int T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::channel\+\_\+number}
+
+
+
+チャンネル番号です。 T\+K\+S\+H\+O\+Tのインスタンスと同じです。 
+
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000007}{todo}]このインスタンスは廃止し、\+T\+K\+S\+H\+O\+Tを直接参照する \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a18a67313f8bb54564f35f6e6eddef899}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a18a67313f8bb54564f35f6e6eddef899}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!data\+\_\+file\+\_\+name@{data\+\_\+file\+\_\+name}}
+\index{data\+\_\+file\+\_\+name@{data\+\_\+file\+\_\+name}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{data\+\_\+file\+\_\+name}{data\_file\_name}}
+{\footnotesize\ttfamily std\+::string T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::data\+\_\+file\+\_\+name}
+
+
+
+プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。~\newline
+ データファイルの拡張子は、\+A\+S\+C\+I\+Iの場合.\+C\+S\+V、バイナリの場合.\+W\+V\+Fである必要があります。 
+
+\begin{DoxyNote}{覚え書き}
+データファイルが\+A\+S\+C\+I\+Iの場合、最終的に参照されるのは data\+\_\+file\+\_\+nameの末尾に（大文字の）.\+C\+S\+Vを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えば\+Unix系の）環境では data\+\_\+file\+\_\+nameの末尾に（小文字の）.\+csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない （例えば\+Windowsのような）環境ではどちらか存在する方のファイルが参照される事になります。 
+
+データファイルの拡張子が大文字なのは、横河電機の\+A\+D\+Cの仕様に沿うためです。 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000005}{todo}]このインスタンスは廃止し、\+T\+K\+S\+H\+O\+Tを直接参照する \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ae98bf84fdf14074b4f7804f0617aa902}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_ae98bf84fdf14074b4f7804f0617aa902}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!model\+\_\+name@{model\+\_\+name}}
+\index{model\+\_\+name@{model\+\_\+name}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{model\+\_\+name}{model\_name}}
+{\footnotesize\ttfamily std\+::string T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::model\+\_\+name}
+
+
+
+A\+D\+Cのモデル名です。 T\+K\+S\+H\+O\+Tのインスタンスと同じです。 
+
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000006}{todo}]このインスタンスは廃止し、\+T\+K\+S\+H\+O\+Tを直接参照する \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a48ef8281322bf15a1e48cca923d34eeb}\label{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o_a48ef8281322bf15a1e48cca923d34eeb}} 
+\index{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}!trace\+\_\+index@{trace\+\_\+index}}
+\index{trace\+\_\+index@{trace\+\_\+index}!T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO@{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO}}
+\subsubsection{\texorpdfstring{trace\+\_\+index}{trace\_index}}
+{\footnotesize\ttfamily int T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+F\+O\+::trace\+\_\+index}
+
+
+
+そのトレースが含まれる\+A\+D\+Cの、全トレースのデータを順番に並べたときのトレースの番号です。 trace\+\_\+indexはその\+A\+D\+Cにおいて一意なトレースを指します。 
+
+\begin{DoxyNote}{覚え書き}
+例えばある\+A\+D\+Cで C\+H2, C\+H5, C\+H8 を用いて計測が行われていたとき、\+C\+H5の trace\+\_\+indexは 1 になります。 
+
+計測器を1台しか用いないショットではdata\+\_\+indexと trace\+\_\+indexの値は等しくなります。 
+\end{DoxyNote}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\+Project1/tkplot.\+h\end{DoxyCompactItemize}

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['model_5fname',['model_name',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#ae98bf84fdf14074b4f7804f0617aa902',1,'TKPLOT::PLOTINFO']]],
-  ['myform',['MyForm',['../class_project1_1_1_my_form.html',1,'Project1']]]
+  ['label_5fposition',['label_position',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a4266fd64b26c45e727843dc017ba2a3d',1,'TKPLOT::PLOTINFO']]]
 ];

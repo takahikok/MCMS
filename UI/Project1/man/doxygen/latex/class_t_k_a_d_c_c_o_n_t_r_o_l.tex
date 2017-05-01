@@ -1,0 +1,307 @@
+\hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l}{}\section{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL クラス}
+\label{class_t_k_a_d_c_c_o_n_t_r_o_l}\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+
+
+{\ttfamily \#include $<$tkadc.\+h$>$}
+
+T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_t_k_a_d_c_c_o_n_t_r_o_l}
+\end{center}
+\end{figure}
+\subsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}{A\+D\+C\+M\+O\+D\+EL} \{ {\bfseries D\+L750}, 
+{\bfseries D\+L850}
+ \}
+\item 
+enum \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG} \{ {\bfseries A\+LL} = 0xffff
+ \}
+\end{DoxyCompactItemize}
+\subsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a28a8b97f27c62f8bc60f8676f5906320}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a28a8b97f27c62f8bc60f8676f5906320}} 
+{\bfseries T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL} (\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}{A\+D\+C\+M\+O\+D\+EL} adcmodel)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a1f6c755d05a5d9e3625b6777ccb39ccf}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a1f6c755d05a5d9e3625b6777ccb39ccf}} 
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}{A\+D\+C\+M\+O\+D\+EL} {\bfseries Model} ()
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a307cc5bd3358c89db6ec7798d47b2840}{Open} (int wire\+\_\+type\+\_\+, const char $\ast$adress\+\_\+)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a2f8903ef41b5b97ddf2d2f08a5374402}{Close} ()
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a2808f2efde28bcfc670d0ddfe2c6791e}{Send\+Message} (const char $\ast$message)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_afd243c443ca134193acc8a409368aaf3}{Start} ()
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a3fc45766f6e7f770280f0e165827f86a}{Stop} ()
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a7d6629217b6f034b9b546f88603d7f58}{Wait\+A\+DC} (\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG} flag=C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+A\+LL)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a832915af5a7240efeef5c3fa139b99af}{Save\+Shot} (std\+::string file\+\_\+name)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a63b5da1398f6374705bb5b906e7d23b8}{Get\+Device\+ID} ()
+\item 
+virtual int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_ad7009751520eecf10f2fd1aaed28b7df}{Get\+Status\+Condition} (\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG} flag=C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+A\+LL)
+\item 
+virtual int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_afa385509f61162198950676d279f4c3c}{Delete} (std\+::string file\+\_\+name)
+\item 
+int \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_afbeba1999b1d5afeda2d3b755d20b2ce}{Get\+Last\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a14b0bfaadfcc3a9e68000da38b34a9ce}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a14b0bfaadfcc3a9e68000da38b34a9ce}} 
+int {\bfseries Get\+Next\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_af2c1452b8d352d610fae97f3f545124b}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_af2c1452b8d352d610fae97f3f545124b}} 
+int {\bfseries Set\+Last\+Local\+Shot\+Number} (int new\+\_\+local\+\_\+shot\+\_\+number)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a424d3c2c41d077dbdc2af5d27e45f76e}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a424d3c2c41d077dbdc2af5d27e45f76e}} 
+int {\bfseries Increment\+Local\+Shot\+Number} ()
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_ad75a36e7a3ff1555171addad9dfc1c68}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_ad75a36e7a3ff1555171addad9dfc1c68}} 
+int {\bfseries Set\+Local\+Shot\+Number\+Max} (int new\+\_\+local\+\_\+shot\+\_\+number\+\_\+max)
+\item 
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a997ee62e77c15fc48bf9c7f4deee17f1}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a997ee62e77c15fc48bf9c7f4deee17f1}} 
+int {\bfseries Get\+Local\+Shot\+Number\+Max} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+A\+D\+Cコントロールクラス
+
+A\+D\+Cコントロールクラスは\+A\+D\+Cをコントロールするための基底クラスです。~\newline
+ A\+D\+Cとのコネクションは排他的であるため、ある\+A\+D\+Cのコントロールには1対1に対応する\+A\+D\+Cコントロールクラスオブジェクトを作成する必要があります。~\newline
+ \begin{DoxyParagraph}{この基底クラスが作られた背景}
+A\+D\+Cモデルによっては機能が制限されることがあります。例えば\+D\+L750は\+V\+X\+I11に対応していません。\+D\+L1740のコントロールには\+Ethernetを用いることができません。~\newline
+ また、\+D\+L750と\+D\+L850のステータスビットの違いのように、\+A\+D\+Cモデルによっては同じ機能でも実装が異なることがあります。~\newline
+ このような実装の違いもメソッドをオーバーロードさせることで同様に扱うことができます。~\newline
+ 
+\end{DoxyParagraph}
+\begin{DoxyNote}{覚え書き}
+もし新たな計測器を追加するようなことがあれば、可能な限り\+A\+D\+Cコントロールクラスを派生させて多態性を持たせてください。 
+\end{DoxyNote}
+
+
+\subsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!A\+D\+C\+M\+O\+D\+EL@{A\+D\+C\+M\+O\+D\+EL}}
+\index{A\+D\+C\+M\+O\+D\+EL@{A\+D\+C\+M\+O\+D\+EL}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{A\+D\+C\+M\+O\+D\+EL}{ADCMODEL}}
+{\footnotesize\ttfamily enum \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a9a5cfed6c86912f4b9053c8707cf89dd}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+A\+D\+C\+M\+O\+D\+EL}\hspace{0.3cm}{\ttfamily [strong]}}
+
+A\+D\+Cモデル列挙型
+
+A\+D\+Cのモデルを区別するための型です。~\newline
+ A\+D\+Cモデルは多くの場合\+A\+D\+Cの型番を指します(あるいは商品名と呼べるかもしれません)。~\newline
+ A\+D\+Cモデルはある\+A\+D\+Cについての固有な名前を意味しません。従って複数の同じ\+A\+D\+Cがシステムに組み込まれている場合は、 それら複数の\+A\+D\+Cが同じ\+A\+D\+Cモデル名を持ちます。~\newline
+ A\+D\+Cモデルという呼称は横河電機の流儀に従ったものです。 \mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG@{C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}}
+\index{C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG@{C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}{CONDITIONFLAG}}
+{\footnotesize\ttfamily enum \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}\hspace{0.3cm}{\ttfamily [strong]}}
+
+コンディションビットマスク列挙型
+
+ビットマスクはモデルによって異なるため、実際にビットマスクとして使用する為には継承されたクラスで再定義する必要があります。 
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a2f8903ef41b5b97ddf2d2f08a5374402}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a2f8903ef41b5b97ddf2d2f08a5374402}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Close@{Close}}
+\index{Close@{Close}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Close()}{Close()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Close (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A\+D\+Cとの通信を閉じます。
+
+デストラクタから呼ばれます。 \begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a2f8903ef41b5b97ddf2d2f08a5374402}{Close()}に失敗すると次の通信が成立しないので、\+Close()できなかった場合は\+A\+D\+Cを再起動させてください。~\newline
+ 電源の再投入が許されるまでの時間は各\+A\+D\+Cのマニュアルを参照してください。 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_afa385509f61162198950676d279f4c3c}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_afa385509f61162198950676d279f4c3c}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Delete@{Delete}}
+\index{Delete@{Delete}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Delete (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+A\+D\+Cの内部ストレージから指定したファイル名のバイナリデータを削除します。
+
+存在しないファイル名が指定された場合の挙動は\+A\+D\+Cの仕様によります。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+name} & 削除ファイル名を指定します。拡張子は不要です。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+D\+L750, D\+L850 では存在しないファイル名が指定された場合、\+A\+D\+Cの画面に警告が出るに留まり、コントロールは継続されます。~\newline
+ 削除が実行されるとディスクアクセスが発生するため\+Wait\+A\+D\+C()等で待つ必要があります。 
+\end{DoxyNote}
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000002}{todo}]許されないファイル名を拒否する \end{DoxyRefDesc}
+
+
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850_acef79a34544e50a51bab03b83652306a}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L850}, \hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l___d_l750_a27ce5b790800ffee6d2daddeb0bf9e17}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+\_\+\+D\+L750}で再実装されています。
+
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a63b5da1398f6374705bb5b906e7d23b8}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a63b5da1398f6374705bb5b906e7d23b8}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Get\+Device\+ID@{Get\+Device\+ID}}
+\index{Get\+Device\+ID@{Get\+Device\+ID}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Get\+Device\+I\+D()}{GetDeviceID()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Get\+Device\+ID (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+A\+D\+Cとの通信によって生成されるデバイス\+I\+Dを取得します。
+
+通常このデバイス\+I\+Dを知る必要はありません。 \begin{DoxyReturn}{戻り値}
+デバイス\+I\+Dを返します 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_afbeba1999b1d5afeda2d3b755d20b2ce}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_afbeba1999b1d5afeda2d3b755d20b2ce}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Get\+Last\+Local\+Shot\+Number@{Get\+Last\+Local\+Shot\+Number}}
+\index{Get\+Last\+Local\+Shot\+Number@{Get\+Last\+Local\+Shot\+Number}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Get\+Last\+Local\+Shot\+Number()}{GetLastLocalShotNumber()}}
+{\footnotesize\ttfamily int T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Get\+Last\+Local\+Shot\+Number (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000003}{todo}]A\+D\+Cコントロールクラスに存在するのは不適当なので別のクラスに移動させる \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_ad7009751520eecf10f2fd1aaed28b7df}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_ad7009751520eecf10f2fd1aaed28b7df}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Get\+Status\+Condition@{Get\+Status\+Condition}}
+\index{Get\+Status\+Condition@{Get\+Status\+Condition}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Get\+Status\+Condition()}{GetStatusCondition()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Get\+Status\+Condition (\begin{DoxyParamCaption}\item[{\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}}]{flag = {\ttfamily CONDITIONFLAG\+:\+:ALL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+A\+D\+Cのビジー状態を取得します。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em flag} & ビジー要因のビットマスク条件を指定します。省略した場合は\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+A\+L\+Lになります。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 指定したビットマスク条件のうちビジー状態のものはありません。 
+
+0以外\+: 指定したビットマスク条件のうち少なくとも1つはビジー状態です。 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a307cc5bd3358c89db6ec7798d47b2840}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a307cc5bd3358c89db6ec7798d47b2840}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Open@{Open}}
+\index{Open@{Open}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Open()}{Open()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Open (\begin{DoxyParamCaption}\item[{int}]{wire\+\_\+type\+\_\+,  }\item[{const char $\ast$}]{adress\+\_\+ }\end{DoxyParamCaption})}
+
+A\+D\+Cとの通信を開きます。
+
+開いた通信は\+Close()関数によって必ず閉じる必要があります。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em wire\+\_\+type\+\_\+} & 通信プロトコルを選択します。 \\
+\hline
+\mbox{\tt in}  & {\em adress\+\_\+} & アドレスを指定します。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a2f8903ef41b5b97ddf2d2f08a5374402}{Close()}に失敗すると通信が成立しないので、通信が開かない場合は一度\+A\+D\+Cを再起動させてください。 電源の再投入が許されるまでの時間は各\+A\+D\+Cのマニュアルを参照してください。 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a832915af5a7240efeef5c3fa139b99af}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a832915af5a7240efeef5c3fa139b99af}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Save\+Shot@{Save\+Shot}}
+\index{Save\+Shot@{Save\+Shot}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Save\+Shot()}{SaveShot()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Save\+Shot (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+name }\end{DoxyParamCaption})}
+
+A\+D\+Cが取り込んだ波形を指定したファイル名で\+A\+D\+Cの内部ストレージに保存します。
+
+バイナリファイルです。既存のファイル名が指定された場合の挙動は\+A\+D\+Cの仕様によります。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+name} & 保存ファイル名を指定します。拡張子は不要です。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyWarning}{警告}
+D\+L750, D\+L850 ではファイルは上書き保存されず36進数で自動インクリメントされた名前が採用されます。~\newline
+ 指定した名前と異なるファイルに保存される可能性があることに注意してください。 
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{todo}
+\item[\hyperlink{todo__todo000001}{todo}]保存されたファイル名の取得 
+
+許されないファイル名を拒否する \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a2808f2efde28bcfc670d0ddfe2c6791e}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a2808f2efde28bcfc670d0ddfe2c6791e}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Send\+Message@{Send\+Message}}
+\index{Send\+Message@{Send\+Message}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Send\+Message()}{SendMessage()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Send\+Message (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})}
+
+A\+D\+Cにメッセージを送信します。
+
+A\+D\+Cをコントロールする手段としては最も低水準な関数です。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em message} & A\+D\+Cに送信するメッセージを指定します。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_afd243c443ca134193acc8a409368aaf3}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_afd243c443ca134193acc8a409368aaf3}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Start@{Start}}
+\index{Start@{Start}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A\+D\+Cの計測を開始します。 \begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+Singleでの使用を前提としています。 
+
+\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_afd243c443ca134193acc8a409368aaf3}{Start()}が呼ばれた事と\+A\+D\+Cの波形取り込みの準備が整った事（実際に\char`\"{}\+Start\char`\"{}している事）は同義ではありません。~\newline
+ 例えば\+D\+L850は\+Start()が呼ばれた後、高い頻度でキャリブレーションを実行します。この間波形を取り込むことはできません。~\newline
+ 波形が取り込める状態かどうかは\+Get\+Status\+Condition(\+T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+T\+R\+G)等で調べる必要があります。 
+\end{DoxyNote}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a3fc45766f6e7f770280f0e165827f86a}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a3fc45766f6e7f770280f0e165827f86a}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Stop@{Stop}}
+\index{Stop@{Stop}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+A\+D\+Cの計測を終了します。 \begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_t_k_a_d_c_c_o_n_t_r_o_l_a7d6629217b6f034b9b546f88603d7f58}\label{class_t_k_a_d_c_c_o_n_t_r_o_l_a7d6629217b6f034b9b546f88603d7f58}} 
+\index{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}!Wait\+A\+DC@{Wait\+A\+DC}}
+\index{Wait\+A\+DC@{Wait\+A\+DC}!T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL@{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+OL}}
+\subsubsection{\texorpdfstring{Wait\+A\+D\+C()}{WaitADC()}}
+{\footnotesize\ttfamily T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+Wait\+A\+DC (\begin{DoxyParamCaption}\item[{\hyperlink{class_t_k_a_d_c_c_o_n_t_r_o_l_a4ec8bb3e68a489f7a757d08a855ffb61}{T\+K\+A\+D\+C\+C\+O\+N\+T\+R\+O\+L\+::\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+AG}}]{flag = {\ttfamily CONDITIONFLAG\+:\+:ALL} }\end{DoxyParamCaption})}
+
+A\+D\+Cがビジー状態の間待ち続けます。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em flag} & コンディションのビットマスク条件を指定します。省略した場合は\+C\+O\+N\+D\+I\+T\+I\+O\+N\+F\+L\+A\+G\+::\+A\+L\+Lになります。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+
+0以外\+: tmctl.\+hで定義されたエラーコードを返します 
+\end{DoxyReturn}
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+U\+I/\+Project1/\hyperlink{tkadc_8h}{tkadc.\+h}\item 
+U\+I/\+Project1/tkadc.\+cpp\end{DoxyCompactItemize}

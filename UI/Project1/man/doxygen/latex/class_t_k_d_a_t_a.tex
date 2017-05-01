@@ -1,16 +1,29 @@
 \hypertarget{class_t_k_d_a_t_a}{}\section{T\+K\+D\+A\+TA クラス}
 \label{class_t_k_d_a_t_a}\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}
+\subsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}\label{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}} 
+enum {\bfseries B\+Y\+T\+E\+O\+R\+D\+ER} \{ {\bfseries B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}, 
+{\bfseries L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}
+ \}
+\item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_add3f58dbf65c97f4c9998e3a8b3f79fd}\label{class_t_k_d_a_t_a_add3f58dbf65c97f4c9998e3a8b3f79fd}} 
+enum {\bfseries D\+A\+T\+A\+F\+O\+R\+M\+AT} \{ {\bfseries T\+R\+A\+CE}, 
+{\bfseries B\+L\+O\+CK}
+ \}
+\end{DoxyCompactItemize}
 \subsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_ad142911ef868b94bd2607ab4ca69f84d}\label{class_t_k_d_a_t_a_ad142911ef868b94bd2607ab4ca69f84d}} 
 int {\bfseries Parse\+H\+DR} ()
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_a37d4aced7475c5c95058a3ec21fcd0f8}\label{class_t_k_d_a_t_a_a37d4aced7475c5c95058a3ec21fcd0f8}} 
-int {\bfseries Set\+A\+D\+C\+ID} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID iadc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a64f288a761012bf276a5aa7f74dfcb44}\label{class_t_k_d_a_t_a_a64f288a761012bf276a5aa7f74dfcb44}} 
+int {\bfseries Set\+A\+D\+C\+ID} (int iadc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_a55dfd4429439996f4911c7db2a3362fd}\label{class_t_k_d_a_t_a_a55dfd4429439996f4911c7db2a3362fd}} 
-T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID {\bfseries Get\+A\+D\+C\+ID} ()
+\mbox{\Hypertarget{class_t_k_d_a_t_a_ad0a8defdf8de2ef2bbe42d7d8a53e051}\label{class_t_k_d_a_t_a_ad0a8defdf8de2ef2bbe42d7d8a53e051}} 
+int {\bfseries Get\+A\+D\+C\+ID} ()
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_ae63b673fda97ff6fef659f51fe40dbe8}\label{class_t_k_d_a_t_a_ae63b673fda97ff6fef659f51fe40dbe8}} 
 int {\bfseries Set\+Data\+File\+Name} (std\+::string idata\+\_\+file\+\_\+name)
@@ -21,17 +34,17 @@ std\+::string {\bfseries Get\+Data\+File\+Name} ()
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a0f0c38948586490c1bfe1f820418c5ef}\label{class_t_k_d_a_t_a_a0f0c38948586490c1bfe1f820418c5ef}} 
 float {\bfseries Get\+H\+Resolution} ()
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_a92cc4a576e976b454212f2f1dea7c3db}\label{class_t_k_d_a_t_a_a92cc4a576e976b454212f2f1dea7c3db}} 
-float {\bfseries Get\+V\+Offset} (int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a6c83babefbef168db08ca1c00cfe560d}\label{class_t_k_d_a_t_a_a6c83babefbef168db08ca1c00cfe560d}} 
+float {\bfseries Get\+V\+Offset} (int const trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_a7e63d262b65c7e35fbc80a9a93e92cf8}\label{class_t_k_d_a_t_a_a7e63d262b65c7e35fbc80a9a93e92cf8}} 
-float {\bfseries Get\+V\+Resolution} (int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a78fccdabf4c7326ecb9dbe30ebe765e4}\label{class_t_k_d_a_t_a_a78fccdabf4c7326ecb9dbe30ebe765e4}} 
+float {\bfseries Get\+V\+Resolution} (int const trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_ad9220ac722f2f717fcbbca0df45621b6}\label{class_t_k_d_a_t_a_ad9220ac722f2f717fcbbca0df45621b6}} 
-int {\bfseries Get\+V\+Max\+Data} (int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_aaa91499a0c86542c6d240f07b2c7a5a6}\label{class_t_k_d_a_t_a_aaa91499a0c86542c6d240f07b2c7a5a6}} 
+int {\bfseries Get\+V\+Max\+Data} (int const trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_aedb6a7a034ce32a02bf60b4f268febce}\label{class_t_k_d_a_t_a_aedb6a7a034ce32a02bf60b4f268febce}} 
-int {\bfseries Get\+V\+Min\+Data} (int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_aed38093c0f7a086ab190c89770567531}\label{class_t_k_d_a_t_a_aed38093c0f7a086ab190c89770567531}} 
+int {\bfseries Get\+V\+Min\+Data} (int const trace\+\_\+index)
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a5fe237cba051e352845786e13c0cd54f}\label{class_t_k_d_a_t_a_a5fe237cba051e352845786e13c0cd54f}} 
 int {\bfseries Get\+Block\+Size} ()
@@ -42,18 +55,27 @@ float {\bfseries Get\+H\+Offset} ()
 \mbox{\Hypertarget{class_t_k_d_a_t_a_af0a676448ec4d492290517a7e60a2de3}\label{class_t_k_d_a_t_a_af0a676448ec4d492290517a7e60a2de3}} 
 std\+::string {\bfseries Get\+Model\+Name} ()
 \item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a63437cd1b2448b0b54ee6ec56da1321e}\label{class_t_k_d_a_t_a_a63437cd1b2448b0b54ee6ec56da1321e}} 
+T\+K\+D\+A\+T\+A\+::\+B\+Y\+T\+E\+O\+R\+D\+ER {\bfseries Get\+Byte\+Order} ()
+\item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a86117b4edecbf2e3013973fb016877e2}\label{class_t_k_d_a_t_a_a86117b4edecbf2e3013973fb016877e2}} 
+T\+K\+D\+A\+T\+A\+::\+D\+A\+T\+A\+F\+O\+R\+M\+AT {\bfseries Get\+Data\+Format} ()
+\item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a11fad512e15a5b8dd7be2ff786d5fd8e}\label{class_t_k_d_a_t_a_a11fad512e15a5b8dd7be2ff786d5fd8e}} 
+int {\bfseries Get\+Data\+Offset} ()
+\item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a0e9270376ed47917048fdd38f2f4a81d}\label{class_t_k_d_a_t_a_a0e9270376ed47917048fdd38f2f4a81d}} 
 int {\bfseries Get\+Trace\+Total\+Number} ()
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_a006dda4bebdcaad0a5863dae2a0ef535}\label{class_t_k_d_a_t_a_a006dda4bebdcaad0a5863dae2a0ef535}} 
-int {\bfseries Channnel\+Number\+To\+Trace\+Number} (int channel\+\_\+number)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_ad70108b9612759566d7cc90e60f293c5}\label{class_t_k_d_a_t_a_ad70108b9612759566d7cc90e60f293c5}} 
+int {\bfseries Channnel\+Number\+To\+Trace\+Number} (int const channel\+\_\+number)
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_ae797a1a3f5f0ec39105b22b980c3ec69}\label{class_t_k_d_a_t_a_ae797a1a3f5f0ec39105b22b980c3ec69}} 
-int {\bfseries Get\+Channel\+Number} (int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a8282e57fcee3618dfe533b6771adce96}\label{class_t_k_d_a_t_a_a8282e57fcee3618dfe533b6771adce96}} 
+int {\bfseries Get\+Channel\+Number} (int const trace\+\_\+index)
 \end{DoxyCompactItemize}
 
 
 このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
-tkshotinfo.\+h\item 
-tkshotinfo.\+cpp\end{DoxyCompactItemize}
+U\+I/\+Project1/tkshotinfo.\+h\item 
+U\+I/\+Project1/tkshotinfo.\+cpp\end{DoxyCompactItemize}

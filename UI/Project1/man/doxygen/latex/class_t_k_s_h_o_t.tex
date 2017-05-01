@@ -6,8 +6,8 @@
 \mbox{\Hypertarget{class_t_k_s_h_o_t_af116d5e195d9853c78d3e4ddb00e2c57}\label{class_t_k_s_h_o_t_af116d5e195d9853c78d3e4ddb00e2c57}} 
 int {\bfseries Get\+A\+D\+C\+Number} ()
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_ac102eb99258f9950569960d73f9ce946}\label{class_t_k_s_h_o_t_ac102eb99258f9950569960d73f9ce946}} 
-std\+::string {\bfseries Get\+Data\+File\+Name} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a1314067d1c3ec702c29866ad124048eb}\label{class_t_k_s_h_o_t_a1314067d1c3ec702c29866ad124048eb}} 
+std\+::string {\bfseries Get\+Data\+File\+Name} (int adc\+\_\+id)
 \item 
 \mbox{\Hypertarget{class_t_k_s_h_o_t_a8f91dff3640a574152c6fb3c5e542f62}\label{class_t_k_s_h_o_t_a8f91dff3640a574152c6fb3c5e542f62}} 
 int {\bfseries Name\+Shot\+Number} (int ishot\+\_\+number)
@@ -15,47 +15,56 @@ int {\bfseries Name\+Shot\+Number} (int ishot\+\_\+number)
 \mbox{\Hypertarget{class_t_k_s_h_o_t_a8edc2c710c0dd04d619ddb5f105c41fe}\label{class_t_k_s_h_o_t_a8edc2c710c0dd04d619ddb5f105c41fe}} 
 int {\bfseries Clear} ()
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a6337475c0a3915a1c9ecdea289c30258}\label{class_t_k_s_h_o_t_a6337475c0a3915a1c9ecdea289c30258}} 
-int {\bfseries Append\+Data\+File} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, std\+::string data\+\_\+file\+\_\+name)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_ae8f63779c8d19ad6afab9e02ba066487}\label{class_t_k_s_h_o_t_ae8f63779c8d19ad6afab9e02ba066487}} 
+int {\bfseries Append\+Data\+File} (std\+::string data\+\_\+file\+\_\+name)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a1d6b251b7f6606df57fcd727ea062433}\label{class_t_k_s_h_o_t_a1d6b251b7f6606df57fcd727ea062433}} 
-float {\bfseries Get\+H\+Resolution} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a055079afd19a206d3f525b6c2cbd5d75}\label{class_t_k_s_h_o_t_a055079afd19a206d3f525b6c2cbd5d75}} 
+float {\bfseries Get\+H\+Resolution} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a5edbf2e53db13a8577fea4d8e9c7757b}\label{class_t_k_s_h_o_t_a5edbf2e53db13a8577fea4d8e9c7757b}} 
-int {\bfseries Get\+Block\+Size} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_abc9d569e4f7136cd0b3f56b8e0e2e8cd}\label{class_t_k_s_h_o_t_abc9d569e4f7136cd0b3f56b8e0e2e8cd}} 
+int {\bfseries Get\+Block\+Size} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a94ad848c94a6328f12fa77af5be167f9}\label{class_t_k_s_h_o_t_a94ad848c94a6328f12fa77af5be167f9}} 
-float {\bfseries Get\+V\+Offset} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_ab43a63e3fe0f6797ee97eed0091339ba}\label{class_t_k_s_h_o_t_ab43a63e3fe0f6797ee97eed0091339ba}} 
+float {\bfseries Get\+V\+Offset} (int adc\+\_\+id, int trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a46eb57e1564b7f64647c4a7450219780}\label{class_t_k_s_h_o_t_a46eb57e1564b7f64647c4a7450219780}} 
-float {\bfseries Get\+V\+Resolution} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_aafff8aa391415312187f769a4678c82f}\label{class_t_k_s_h_o_t_aafff8aa391415312187f769a4678c82f}} 
+float {\bfseries Get\+V\+Resolution} (int adc\+\_\+id, int trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_ad6d95c6c53f8b406e24fd05daa9a96b0}\label{class_t_k_s_h_o_t_ad6d95c6c53f8b406e24fd05daa9a96b0}} 
-int {\bfseries Get\+V\+Max\+Data} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_aa69c94f494055fd98ff3982681d6795c}\label{class_t_k_s_h_o_t_aa69c94f494055fd98ff3982681d6795c}} 
+int {\bfseries Get\+V\+Max\+Data} (int adc\+\_\+id, int trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a65e951c7890ee7b9bef635beb54070cf}\label{class_t_k_s_h_o_t_a65e951c7890ee7b9bef635beb54070cf}} 
-int {\bfseries Get\+V\+Min\+Data} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_ab02def889d5bf8c6103dbac2a5f89ab6}\label{class_t_k_s_h_o_t_ab02def889d5bf8c6103dbac2a5f89ab6}} 
+int {\bfseries Get\+V\+Min\+Data} (int adc\+\_\+id, int trace\+\_\+index)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_ae502263f7b666c4c7d1e5f044a89924f}\label{class_t_k_s_h_o_t_ae502263f7b666c4c7d1e5f044a89924f}} 
-float {\bfseries Get\+H\+Offset} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_ae9bd114c4904e0f20929988b4307587f}\label{class_t_k_s_h_o_t_ae9bd114c4904e0f20929988b4307587f}} 
+float {\bfseries Get\+H\+Offset} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a11a6d38c2cd9a720e5df9c7b482f479d}\label{class_t_k_s_h_o_t_a11a6d38c2cd9a720e5df9c7b482f479d}} 
-std\+::string {\bfseries Get\+Model\+Name} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_adb4af221e08781c6f742ff681d134163}\label{class_t_k_s_h_o_t_adb4af221e08781c6f742ff681d134163}} 
+std\+::string {\bfseries Get\+Model\+Name} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a283bdf8a375795d36e9a985dd2920bfa}\label{class_t_k_s_h_o_t_a283bdf8a375795d36e9a985dd2920bfa}} 
-int {\bfseries Get\+Trace\+Total\+Number} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_acfcfbf59a93120c97de2eee6acec5104}\label{class_t_k_s_h_o_t_acfcfbf59a93120c97de2eee6acec5104}} 
+T\+K\+D\+A\+T\+A\+::\+B\+Y\+T\+E\+O\+R\+D\+ER {\bfseries Get\+Byte\+Order} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a9bc227a4b7645835e479fcbded5943bd}\label{class_t_k_s_h_o_t_a9bc227a4b7645835e479fcbded5943bd}} 
-int {\bfseries A\+D\+C\+I\+D\+To\+A\+D\+C\+Data\+Index} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a30ef4f11ad37a0e1ab3002d6e7a335d6}\label{class_t_k_s_h_o_t_a30ef4f11ad37a0e1ab3002d6e7a335d6}} 
+T\+K\+D\+A\+T\+A\+::\+D\+A\+T\+A\+F\+O\+R\+M\+AT {\bfseries Get\+Data\+Format} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_a4194894bebb1794a6e5a89817f0deaf0}\label{class_t_k_s_h_o_t_a4194894bebb1794a6e5a89817f0deaf0}} 
-T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID {\bfseries Get\+A\+D\+C\+ID} (int adc\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_ace4770ac6dcdec71ce95823689a58380}\label{class_t_k_s_h_o_t_ace4770ac6dcdec71ce95823689a58380}} 
+int {\bfseries Get\+Data\+Offset} (int adc\+\_\+id)
 \item 
-\mbox{\Hypertarget{class_t_k_s_h_o_t_ac7be926f62c580023119be4cb23fb4d2}\label{class_t_k_s_h_o_t_ac7be926f62c580023119be4cb23fb4d2}} 
-int {\bfseries Get\+Channel\+Number} (T\+K\+A\+D\+C\+I\+N\+F\+O\+::\+A\+D\+C\+ID adc\+\_\+id, int trace\+\_\+index)
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a45a19a71b5d82762601acef738ad504d}\label{class_t_k_s_h_o_t_a45a19a71b5d82762601acef738ad504d}} 
+int {\bfseries Get\+Trace\+Total\+Number} (int adc\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a370000c7133ee68afe584d7c74864411}\label{class_t_k_s_h_o_t_a370000c7133ee68afe584d7c74864411}} 
+int {\bfseries A\+D\+C\+I\+D\+To\+A\+D\+C\+Data\+Index} (int adc\+\_\+id)
+\item 
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a5402cb531f82fe70ba46a4f0d97dfedf}\label{class_t_k_s_h_o_t_a5402cb531f82fe70ba46a4f0d97dfedf}} 
+int {\bfseries Get\+A\+D\+C\+ID} (int adc\+\_\+index)
+\item 
+\mbox{\Hypertarget{class_t_k_s_h_o_t_a71522d246c17a4643838a01bef2943ff}\label{class_t_k_s_h_o_t_a71522d246c17a4643838a01bef2943ff}} 
+int {\bfseries Get\+Channel\+Number} (int adc\+\_\+id, int trace\+\_\+index)
 \end{DoxyCompactItemize}
 
 
 このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
-tkshotinfo.\+h\end{DoxyCompactItemize}
+U\+I/\+Project1/tkshotinfo.\+h\end{DoxyCompactItemize}

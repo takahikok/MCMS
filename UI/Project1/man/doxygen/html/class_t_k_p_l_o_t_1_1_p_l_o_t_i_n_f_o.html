@@ -92,6 +92,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hre
  データファイルの拡張子は.pltとなります。<br />
  <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aa5593f16a8756e42b0ba5e82f79ffd11" title="gnuplotのコマンドファイルの、拡張子を除いたファイルパスを生成します。出力されるグラフのファイルパスも...">GeneratePlotFileName()</a>によって自動的に初期化されます。 <br /></td></tr>
 <tr class="separator:ac1dae6b6cd429f4276f5a4491af8c24d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8458a0719e051e6e3ee9166fffbf311"><td class="memItemLeft" align="right" valign="top"><a id="ad8458a0719e051e6e3ee9166fffbf311"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>out_file_name</b></td></tr>
+<tr class="separator:ad8458a0719e051e6e3ee9166fffbf311"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18a67313f8bb54564f35f6e6eddef899"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a18a67313f8bb54564f35f6e6eddef899">data_file_name</a></td></tr>
 <tr class="memdesc:a18a67313f8bb54564f35f6e6eddef899"><td class="mdescLeft">&#160;</td><td class="mdescRight">プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。<br />
  データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。  <a href="#a18a67313f8bb54564f35f6e6eddef899">[詳解]</a><br /></td></tr>
@@ -259,7 +262,7 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">
 
 <p>プロットすべきデータファイルの、拡張子を除いたファイルパスです。絶対参照、相対参照ともに使えます。<br />
  データファイルの拡張子は、ASCIIの場合.CSV、バイナリの場合.WVFである必要があります。 </p>
-<dl class="section note"><dt>覚え書き</dt><dd>データファイルがASCIIの場合、最終的に参照されるのは plot_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では plot_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない （例えばWindowsのような）環境ではどちらか存在する方のファイルが参照される事になります。 </dd>
+<dl class="section note"><dt>覚え書き</dt><dd>データファイルがASCIIの場合、最終的に参照されるのは data_file_nameの末尾に（大文字の）.CSVを足したファイルになります。この仕様によって、大文字と小文字を区別する（例えばUnix系の）環境では data_file_nameの末尾に（小文字の）.csvを足したファイルをデータファイルとして参照することはできません。大文字と小文字を区別しない （例えばWindowsのような）環境ではどちらか存在する方のファイルが参照される事になります。 </dd>
 <dd>
 データファイルの拡張子が大文字なのは、横河電機のADCの仕様に沿うためです。 </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">todo:</a></b></dt><dd>このインスタンスは廃止し、TKSHOTを直接参照する </dd></dl>
@@ -303,7 +306,7 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html">
 </div>
 </div>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
-<li><a class="el" href="tkplot_8h_source.html">tkplot.h</a></li>
+<li>UI/Project1/<a class="el" href="tkplot_8h_source.html">tkplot.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
