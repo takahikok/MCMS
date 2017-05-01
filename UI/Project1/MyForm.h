@@ -1935,7 +1935,7 @@ namespace Project1
 				delete fInfo;
 			}
 			if (clx::upcase_copy(tok[1]) == "WDF") {
-				fInfo = gcnew System::IO::FileInfo(gcnew System::String((tok[0] + ".WDF").c_str()));
+				fInfo = gcnew System::IO::FileInfo(gcnew System::String((tok[0] + ".WVF").c_str()));
 				if (!fInfo->Exists)
 					std::system(((std::string)"WDFCon.exe " + tok[0] + ".WDF").c_str());
 				delete fInfo;

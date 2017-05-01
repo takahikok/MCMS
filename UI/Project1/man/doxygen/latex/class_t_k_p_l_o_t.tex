@@ -1,9 +1,19 @@
 \hypertarget{class_t_k_p_l_o_t}{}\section{T\+K\+P\+L\+OT クラス}
 \label{class_t_k_p_l_o_t}\index{T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}}
+
+
+{\ttfamily \#include $<$tkplot.\+h$>$}
+
+T\+K\+P\+L\+OT の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_t_k_p_l_o_t}
+\end{center}
+\end{figure}
 \subsection*{クラス}
 \begin{DoxyCompactItemize}
 \item 
-struct \hyperlink{struct_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{P\+L\+O\+T\+I\+N\+FO}
+class \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{P\+L\+O\+T\+I\+N\+FO}
 \item 
 class \hyperlink{class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n}{P\+O\+S\+I\+T\+I\+ON}
 \item 
@@ -14,9 +24,12 @@ class \hyperlink{class_t_k_p_l_o_t_1_1_s_i_z_e}{S\+I\+ZE}
 \subsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}\label{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}} 
-enum {\bfseries P\+L\+O\+T\+S\+I\+ZE} \{ {\bfseries small\+\_\+size}, 
-{\bfseries medium\+\_\+size}
+enum \hyperlink{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}{P\+L\+O\+T\+S\+I\+ZE} \{ {\bfseries S\+M\+A\+L\+L\+\_\+\+S\+I\+ZE}, 
+{\bfseries M\+E\+D\+I\+U\+M\+\_\+\+S\+I\+ZE}
+ \}
+\item 
+enum \hyperlink{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfa}{D\+A\+T\+A\+S\+O\+U\+R\+CE} \{ \hyperlink{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452}{D\+A\+T\+A\+S\+O\+U\+R\+C\+E\+::\+B\+I\+N\+A\+RY}, 
+\hyperlink{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaad2cd8253361a9c732d21ca1d336599cc}{D\+A\+T\+A\+S\+O\+U\+R\+C\+E\+::\+A\+S\+C\+II}
  \}
 \end{DoxyCompactItemize}
 \subsection*{公開メンバ関数}
@@ -25,20 +38,53 @@ enum {\bfseries P\+L\+O\+T\+S\+I\+ZE} \{ {\bfseries small\+\_\+size},
 \mbox{\Hypertarget{class_t_k_p_l_o_t_aeb9168bcf7e45c45fc38dab63e6b90b3}\label{class_t_k_p_l_o_t_aeb9168bcf7e45c45fc38dab63e6b90b3}} 
 {\bfseries T\+K\+P\+L\+OT} (\hyperlink{class_t_k_s_h_o_t}{T\+K\+S\+H\+OT} $\ast$T\+K\+Shot\+\_\+)
 \item 
-\mbox{\Hypertarget{class_t_k_p_l_o_t_a04c574cd562f4e2c4f0f004a745bba90}\label{class_t_k_p_l_o_t_a04c574cd562f4e2c4f0f004a745bba90}} 
-int {\bfseries Plot} ()
-\item 
-\mbox{\Hypertarget{class_t_k_p_l_o_t_abae6994f9c17d0806a9ce802fdcd67a3}\label{class_t_k_p_l_o_t_abae6994f9c17d0806a9ce802fdcd67a3}} 
-int {\bfseries Plot\+Raw} (T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+S\+I\+ZE plot\+\_\+size, int shot\+\_\+number)
+\mbox{\Hypertarget{class_t_k_p_l_o_t_af863044c92051bc4abc66911273d5f3e}\label{class_t_k_p_l_o_t_af863044c92051bc4abc66911273d5f3e}} 
+int {\bfseries Plot\+Raw} (const \hyperlink{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+S\+I\+ZE} plot\+\_\+size, const int shot\+\_\+number)
 \item 
 \mbox{\Hypertarget{class_t_k_p_l_o_t_a5ddc4ef2a68d8649cfb2aebf507121fd}\label{class_t_k_p_l_o_t_a5ddc4ef2a68d8649cfb2aebf507121fd}} 
-std\+::vector$<$ \hyperlink{struct_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO} $>$ {\bfseries Get\+Plot\+Info} ()
+std\+::vector$<$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO} $>$ {\bfseries Get\+Plot\+Info} ()
 \item 
 \mbox{\Hypertarget{class_t_k_p_l_o_t_a4087cc1a73e760ac8eb32cbdf78a4433}\label{class_t_k_p_l_o_t_a4087cc1a73e760ac8eb32cbdf78a4433}} 
-std\+::vector$<$ \hyperlink{struct_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO} $>$\+::pointer {\bfseries Get\+Plot\+Info\+Ptr} ()
+std\+::vector$<$ \hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+I\+N\+FO} $>$\+::pointer {\bfseries Get\+Plot\+Info\+Ptr} ()
+\end{DoxyCompactItemize}
+\subsection*{限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_t_k_p_l_o_t_aae92c92917093101c52d08d132aee75b}\label{class_t_k_p_l_o_t_aae92c92917093101c52d08d132aee75b}} 
+\hyperlink{class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o}{P\+L\+O\+T\+I\+N\+FO} \& {\bfseries load\+Plot\+Info\+Instance} (const int data\+\_\+index, const int trace\+\_\+index, const \hyperlink{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}{P\+L\+O\+T\+S\+I\+ZE} plot\+\_\+size=P\+L\+O\+T\+S\+I\+Z\+E\+::\+S\+M\+A\+L\+L\+\_\+\+S\+I\+ZE)
 \end{DoxyCompactItemize}
 
 
+\subsection{詳解}
+グラフ描画に関するクラスです。 
+
+\subsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfa}\label{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfa}} 
+\index{T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}!D\+A\+T\+A\+S\+O\+U\+R\+CE@{D\+A\+T\+A\+S\+O\+U\+R\+CE}}
+\index{D\+A\+T\+A\+S\+O\+U\+R\+CE@{D\+A\+T\+A\+S\+O\+U\+R\+CE}!T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}}
+\subsubsection{\texorpdfstring{D\+A\+T\+A\+S\+O\+U\+R\+CE}{DATASOURCE}}
+{\footnotesize\ttfamily enum \hyperlink{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfa}{T\+K\+P\+L\+O\+T\+::\+D\+A\+T\+A\+S\+O\+U\+R\+CE}\hspace{0.3cm}{\ttfamily [strong]}}
+
+データファイル形式型 \begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B\+I\+N\+A\+RY@{B\+I\+N\+A\+RY}!T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}}\index{T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}!B\+I\+N\+A\+RY@{B\+I\+N\+A\+RY}}}\mbox{\Hypertarget{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452}\label{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452}} 
+B\+I\+N\+A\+RY&バイナリファイル~\newline
+ 非常に高速に処理できますが、柔軟性にかけるため使用できないことがあります。 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{A\+S\+C\+II@{A\+S\+C\+II}!T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}}\index{T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}!A\+S\+C\+II@{A\+S\+C\+II}}}\mbox{\Hypertarget{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaad2cd8253361a9c732d21ca1d336599cc}\label{class_t_k_p_l_o_t_a28dfea1dd78dfc49c1926518da615bfaad2cd8253361a9c732d21ca1d336599cc}} 
+A\+S\+C\+II&A\+S\+C\+I\+Iファイル~\newline
+ データ変換のイニシャルタイムが必要であり、データ読み込みもハイコストなため、処理は遅くなりますが、全ての機能を利用できます。 \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}\label{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}} 
+\index{T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}!P\+L\+O\+T\+S\+I\+ZE@{P\+L\+O\+T\+S\+I\+ZE}}
+\index{P\+L\+O\+T\+S\+I\+ZE@{P\+L\+O\+T\+S\+I\+ZE}!T\+K\+P\+L\+OT@{T\+K\+P\+L\+OT}}
+\subsubsection{\texorpdfstring{P\+L\+O\+T\+S\+I\+ZE}{PLOTSIZE}}
+{\footnotesize\ttfamily enum \hyperlink{class_t_k_p_l_o_t_a158082ae168750554cf23edde9a27416}{T\+K\+P\+L\+O\+T\+::\+P\+L\+O\+T\+S\+I\+ZE}\hspace{0.3cm}{\ttfamily [strong]}}
+
+グラフサイズ型 
+
 このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
-tkplot.\+h\end{DoxyCompactItemize}
+U\+I/\+Project1/tkplot.\+h\end{DoxyCompactItemize}

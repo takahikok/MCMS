@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['xrange',['xrange',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a13b0235f3544b9d875af92ce3ac247ab',1,'TKPLOT::PLOTINFO']]]
+  ['waitadc',['WaitADC',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a7d6629217b6f034b9b546f88603d7f58',1,'TKADCCONTROL']]],
+  ['widest_5fchar',['widest_char',['../struct_project1_1_1_my_form_1_1clx_1_1detail_1_1widest__char.html',1,'Project1::MyForm::clx::detail']]]
 ];
