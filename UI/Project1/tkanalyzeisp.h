@@ -87,7 +87,8 @@ public:
 		of << "" << std::endl;
 
 		of << "#---FUNCTION---" << std::endl;
-		of << "F_Ies(x)=a_Ies*x+b_Ies" << std::endl;
+		//of << "F_Ies(x)=a_Ies*x+b_Ies" << std::endl;
+		of << "F_Ies(x)=b_Ies" << std::endl;
 		of << "F_Ii(x)=a_Ii*x+b_Ii" << std::endl;
 		of << "F_Ie(x)=exp(a_Ie*x+b_Ie)" << std::endl;
 		//of << "F_Ies(x)=exp(a_Ies*x+b_Ies)" << std::endl;
@@ -138,7 +139,7 @@ public:
 			<< svp()
 			<< ":"
 			<< sip()
-			<< "via a_Ies, b_Ies"
+			<< "via b_Ies"
 			<< std::endl;
 		of << "" << std::endl;
 		of << "" << std::endl;
