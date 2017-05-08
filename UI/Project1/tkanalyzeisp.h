@@ -61,7 +61,9 @@ public:
 
 		of << "set term png enhanced transparent truecolor font arial 11 size "
 			<< plotInfo[0].terminal_size.str() << std::endl;
-		of << "" << std::endl;
+
+		of << "set zero 0.0" << std::endl;
+		
 		of << "set datafile separator \',\'" << std::endl;
 		of << "set grid xtics ytics" << std::endl;
 		of << "set nokey" << std::endl;
@@ -85,10 +87,10 @@ public:
 		of << "" << std::endl;
 
 		of << "#---FUNCTION---" << std::endl;
-		of << "F_Iis(x)=a_Iis*x+b_Iis" << std::endl;
+		of << "F_Ies(x)=a_Ies*x+b_Ies" << std::endl;
 		of << "F_Ii(x)=a_Ii*x+b_Ii" << std::endl;
 		of << "F_Ie(x)=exp(a_Ie*x+b_Ie)" << std::endl;
-		of << "F_Ies(x)=exp(a_Ies*x+b_Ies)" << std::endl;
+		//of << "F_Ies(x)=exp(a_Ies*x+b_Ies)" << std::endl;
 		of << "T_e(x)=x/CONST_k_B" << std::endl;
 		of << "" << std::endl;
 
@@ -128,16 +130,16 @@ public:
 					* polarity()) + "))";
 		};
 
-		//of << "fit " << fitrange.Iis.str() << " "
-		//	<< "F_Iis(x) "
-		//	<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-		//	<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
-		//	<< " using "
-		//	<< svp()
-		//	<< ":"
-		//	<< sip()
-		//	<< "via a_Iis, b_Iis"
-		//	<< std::endl;
+		of << "fit " << fitrange.Ies.str() << " "
+			<< "F_Ies(x) "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
+			<< " using "
+			<< svp()
+			<< ":"
+			<< sip()
+			<< "via a_Ies, b_Ies"
+			<< std::endl;
 		of << "" << std::endl;
 		of << "" << std::endl;
 
@@ -172,7 +174,7 @@ public:
 			<< ":"
 			<< "(" << sip() << "*1e6)"
 			<< " pt 6 ps 0.2 lc rgb \"red\""
-			//<<", F_Iis(x) * 1e3 lw 2 lc rgb \"dark-green\""
+			<<", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
 			<< std::endl;
 
 
@@ -182,8 +184,8 @@ public:
 		};
 
 		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
-		of << "set xrange " + opt_range(100).str() << std::endl;
-		of << "set xtics 10" << std::endl;
+		of << "set xrange " + opt_range(30).str() << std::endl;
+		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "replot" << std::endl;
 
@@ -195,8 +197,8 @@ public:
 		of << "" << std::endl;
 		of << "a_Ie = 0.1" << std::endl;
 		of << "b_Ie = -3" << std::endl;
-		of << "a_Ies = 0.004" << std::endl;
-		of << "b_Ies = -6.3" << std::endl;
+		//of << "a_Ies = 0.004" << std::endl;
+		//of << "b_Ies = -6.3" << std::endl;
 		of << "" << std::endl;
 
 		of << "fit " << fitrange.Ie.str() << " "
@@ -206,7 +208,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< sip()
+			<< "(" << sip() << "-F_Ies(" << svp() << "))"
 			<< "via a_Ie, b_Ie"
 			<< std::endl;
 		of << "" << std::endl;
@@ -265,7 +267,8 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< sip()
+			<< "(" << sip() << "-F_Ies(" << svp() << "))"
+			//<< sip()
 			<< " pt 6 ps 0.2 lc rgb \"red\", "
 
 
@@ -276,8 +279,8 @@ public:
 			<< std::endl;
 
 		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.png\"" << std::endl;
-		of << "set xrange " + opt_range(100).str() << std::endl;
-		of << "set xtics 10" << std::endl;
+		of << "set xrange " + opt_range(30).str() << std::endl;
+		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "replot" << std::endl;
 

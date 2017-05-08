@@ -795,10 +795,10 @@ namespace Project1
 					this->toolStripMenuItem1, this->ハードウェアToolStripMenuItem, this->グラフToolStripMenuItem, this->さようならToolStripMenuItem, this->toolStripTextBox1,
 					this->toolStripMenuItem2
 			});
-			this->menuStrip1->Location = System::Drawing::Point(0, 90);
+			this->menuStrip1->Location = System::Drawing::Point(0, 75);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(983, 34);
+			this->menuStrip1->Size = System::Drawing::Size(737, 29);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			this->menuStrip1->ItemClicked += gcnew System::Windows::Forms::ToolStripItemClickedEventHandler(this, &MyForm::menuStrip1_ItemClicked);
@@ -812,65 +812,65 @@ namespace Project1
 					this->すべて保存ToolStripMenuItem, this->toolStripSeparator2, this->終了ToolStripMenuItem
 			});
 			this->faToolStripMenuItem->Name = L"faToolStripMenuItem";
-			this->faToolStripMenuItem->Size = System::Drawing::Size(82, 30);
+			this->faToolStripMenuItem->Size = System::Drawing::Size(68, 25);
 			this->faToolStripMenuItem->Text = L"ファイル";
 			this->faToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::faToolStripMenuItem_Click);
 			// 
 			// 新規ToolStripMenuItem
 			// 
 			this->新規ToolStripMenuItem->Name = L"新規ToolStripMenuItem";
-			this->新規ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->新規ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->新規ToolStripMenuItem->Text = L"新規";
 			this->新規ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::新規ToolStripMenuItem_Click);
 			// 
 			// 開くToolStripMenuItem
 			// 
 			this->開くToolStripMenuItem->Name = L"開くToolStripMenuItem";
-			this->開くToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->開くToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->開くToolStripMenuItem->Text = L"新しく開く";
 			this->開くToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::開くToolStripMenuItem_Click);
 			// 
 			// 生データを追加ToolStripMenuItem
 			// 
 			this->生データを追加ToolStripMenuItem->Name = L"生データを追加ToolStripMenuItem";
-			this->生データを追加ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->生データを追加ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->生データを追加ToolStripMenuItem->Text = L"追加で開く";
 			this->生データを追加ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::生データを追加ToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this->toolStripSeparator1->Name = L"toolStripSeparator1";
-			this->toolStripSeparator1->Size = System::Drawing::Size(203, 6);
+			this->toolStripSeparator1->Size = System::Drawing::Size(169, 6);
 			// 
 			// 保存ToolStripMenuItem
 			// 
 			this->保存ToolStripMenuItem->Name = L"保存ToolStripMenuItem";
-			this->保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->保存ToolStripMenuItem->Text = L"保存";
 			this->保存ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::保存ToolStripMenuItem_Click);
 			// 
 			// 名前を付けて保存ToolStripMenuItem
 			// 
 			this->名前を付けて保存ToolStripMenuItem->Name = L"名前を付けて保存ToolStripMenuItem";
-			this->名前を付けて保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->名前を付けて保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->名前を付けて保存ToolStripMenuItem->Text = L"名前を付けて保存";
 			// 
 			// すべて保存ToolStripMenuItem
 			// 
 			this->すべて保存ToolStripMenuItem->Name = L"すべて保存ToolStripMenuItem";
-			this->すべて保存ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->すべて保存ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->すべて保存ToolStripMenuItem->Text = L"すべて保存";
 			this->すべて保存ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::すべて保存ToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
 			this->toolStripSeparator2->Name = L"toolStripSeparator2";
-			this->toolStripSeparator2->Size = System::Drawing::Size(203, 6);
+			this->toolStripSeparator2->Size = System::Drawing::Size(169, 6);
 			// 
 			// 終了ToolStripMenuItem
 			// 
 			this->終了ToolStripMenuItem->Name = L"終了ToolStripMenuItem";
-			this->終了ToolStripMenuItem->Size = System::Drawing::Size(206, 28);
+			this->終了ToolStripMenuItem->Size = System::Drawing::Size(172, 22);
 			this->終了ToolStripMenuItem->Text = L"終了";
 			this->終了ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::終了ToolStripMenuItem_Click);
 			// 
@@ -883,28 +883,28 @@ namespace Project1
 			});
 			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
 			this->toolStripMenuItem1->ShortcutKeyDisplayString = L"";
-			this->toolStripMenuItem1->Size = System::Drawing::Size(52, 30);
+			this->toolStripMenuItem1->Size = System::Drawing::Size(44, 25);
 			this->toolStripMenuItem1->Text = L"計測";
 			this->toolStripMenuItem1->Click += gcnew System::EventHandler(this, &MyForm::toolStripMenuItem1_Click);
 			// 
 			// 計測開始ToolStripMenuItem
 			// 
 			this->計測開始ToolStripMenuItem->Name = L"計測開始ToolStripMenuItem";
-			this->計測開始ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
+			this->計測開始ToolStripMenuItem->Size = System::Drawing::Size(124, 22);
 			this->計測開始ToolStripMenuItem->Text = L"計測開始";
 			this->計測開始ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測開始ToolStripMenuItem_Click);
 			// 
 			// 計測停止ToolStripMenuItem
 			// 
 			this->計測停止ToolStripMenuItem->Name = L"計測停止ToolStripMenuItem";
-			this->計測停止ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
+			this->計測停止ToolStripMenuItem->Size = System::Drawing::Size(124, 22);
 			this->計測停止ToolStripMenuItem->Text = L"計測停止";
 			this->計測停止ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測停止ToolStripMenuItem_Click);
 			// 
 			// 計測設定ToolStripMenuItem
 			// 
 			this->計測設定ToolStripMenuItem->Name = L"計測設定ToolStripMenuItem";
-			this->計測設定ToolStripMenuItem->Size = System::Drawing::Size(146, 28);
+			this->計測設定ToolStripMenuItem->Size = System::Drawing::Size(124, 22);
 			this->計測設定ToolStripMenuItem->Text = L"計測設定";
 			// 
 			// ハードウェアToolStripMenuItem
@@ -916,27 +916,27 @@ namespace Project1
 			});
 			this->ハードウェアToolStripMenuItem->Name = L"ハードウェアToolStripMenuItem";
 			this->ハードウェアToolStripMenuItem->ShowShortcutKeys = false;
-			this->ハードウェアToolStripMenuItem->Size = System::Drawing::Size(52, 30);
+			this->ハードウェアToolStripMenuItem->Size = System::Drawing::Size(44, 25);
 			this->ハードウェアToolStripMenuItem->Text = L"通信";
 			// 
 			// 計測器接続ToolStripMenuItem
 			// 
 			this->計測器接続ToolStripMenuItem->Name = L"計測器接続ToolStripMenuItem";
-			this->計測器接続ToolStripMenuItem->Size = System::Drawing::Size(191, 28);
+			this->計測器接続ToolStripMenuItem->Size = System::Drawing::Size(160, 22);
 			this->計測器接続ToolStripMenuItem->Text = L"計測器接続";
 			this->計測器接続ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測器接続ToolStripMenuItem_Click);
 			// 
 			// 計測器切断
 			// 
 			this->計測器切断->Name = L"計測器切断";
-			this->計測器切断->Size = System::Drawing::Size(191, 28);
+			this->計測器切断->Size = System::Drawing::Size(160, 22);
 			this->計測器切断->Text = L"計測器切断";
 			this->計測器切断->Click += gcnew System::EventHandler(this, &MyForm::toolStripMenuItem2_Click);
 			// 
 			// 計測器接続設定ToolStripMenuItem
 			// 
 			this->計測器接続設定ToolStripMenuItem->Name = L"計測器接続設定ToolStripMenuItem";
-			this->計測器接続設定ToolStripMenuItem->Size = System::Drawing::Size(191, 28);
+			this->計測器接続設定ToolStripMenuItem->Size = System::Drawing::Size(160, 22);
 			this->計測器接続設定ToolStripMenuItem->Text = L"計測器接続設定";
 			this->計測器接続設定ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::計測器接続設定ToolStripMenuItem_Click);
 			// 
@@ -948,27 +948,27 @@ namespace Project1
 					this->グラフ設定ToolStripMenuItem
 			});
 			this->グラフToolStripMenuItem->Name = L"グラフToolStripMenuItem";
-			this->グラフToolStripMenuItem->Size = System::Drawing::Size(67, 30);
+			this->グラフToolStripMenuItem->Size = System::Drawing::Size(56, 25);
 			this->グラフToolStripMenuItem->Text = L"グラフ";
 			// 
 			// グラフ描画ToolStripMenuItem
 			// 
 			this->グラフ描画ToolStripMenuItem->Name = L"グラフ描画ToolStripMenuItem";
-			this->グラフ描画ToolStripMenuItem->Size = System::Drawing::Size(161, 28);
+			this->グラフ描画ToolStripMenuItem->Size = System::Drawing::Size(136, 22);
 			this->グラフ描画ToolStripMenuItem->Text = L"グラフ描画";
 			this->グラフ描画ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::グラフ描画ToolStripMenuItem_Click);
 			// 
 			// グラフ設定ToolStripMenuItem
 			// 
 			this->グラフ設定ToolStripMenuItem->Name = L"グラフ設定ToolStripMenuItem";
-			this->グラフ設定ToolStripMenuItem->Size = System::Drawing::Size(161, 28);
+			this->グラフ設定ToolStripMenuItem->Size = System::Drawing::Size(136, 22);
 			this->グラフ設定ToolStripMenuItem->Text = L"グラフ設定";
 			this->グラフ設定ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::グラフ設定ToolStripMenuItem_Click);
 			// 
 			// さようならToolStripMenuItem
 			// 
 			this->さようならToolStripMenuItem->Name = L"さようならToolStripMenuItem";
-			this->さようならToolStripMenuItem->Size = System::Drawing::Size(48, 30);
+			this->さようならToolStripMenuItem->Size = System::Drawing::Size(41, 25);
 			this->さようならToolStripMenuItem->Text = L"bye";
 			this->さようならToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::さようならToolStripMenuItem_Click);
 			// 
@@ -979,7 +979,7 @@ namespace Project1
 			this->toolStripTextBox1->Name = L"toolStripTextBox1";
 			this->toolStripTextBox1->ReadOnly = true;
 			this->toolStripTextBox1->RightToLeft = System::Windows::Forms::RightToLeft::Yes;
-			this->toolStripTextBox1->Size = System::Drawing::Size(100, 30);
+			this->toolStripTextBox1->Size = System::Drawing::Size(100, 25);
 			this->toolStripTextBox1->Text = L"#00000000";
 			// 
 			// toolStripMenuItem2
@@ -992,19 +992,19 @@ namespace Project1
 			});
 			this->toolStripMenuItem2->ForeColor = System::Drawing::Color::OrangeRed;
 			this->toolStripMenuItem2->Name = L"toolStripMenuItem2";
-			this->toolStripMenuItem2->Size = System::Drawing::Size(67, 30);
+			this->toolStripMenuItem2->Size = System::Drawing::Size(56, 25);
 			this->toolStripMenuItem2->Text = L"Ready";
 			// 
 			// toolStripMenuItem3
 			// 
 			this->toolStripMenuItem3->Name = L"toolStripMenuItem3";
-			this->toolStripMenuItem3->Size = System::Drawing::Size(149, 28);
+			this->toolStripMenuItem3->Size = System::Drawing::Size(126, 22);
 			this->toolStripMenuItem3->Text = L"DL750 - ";
 			// 
 			// toolStripMenuItem4
 			// 
 			this->toolStripMenuItem4->Name = L"toolStripMenuItem4";
-			this->toolStripMenuItem4->Size = System::Drawing::Size(149, 28);
+			this->toolStripMenuItem4->Size = System::Drawing::Size(126, 22);
 			this->toolStripMenuItem4->Text = L"DL850 - ";
 			// 
 			// toolStrip1
@@ -1018,7 +1018,7 @@ namespace Project1
 			});
 			this->toolStrip1->Location = System::Drawing::Point(3, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(206, 30);
+			this->toolStrip1->Size = System::Drawing::Size(170, 25);
 			this->toolStrip1->TabIndex = 1;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
@@ -1028,7 +1028,7 @@ namespace Project1
 			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
 			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton1->Name = L"toolStripButton1";
-			this->toolStripButton1->Size = System::Drawing::Size(66, 27);
+			this->toolStripButton1->Size = System::Drawing::Size(54, 22);
 			this->toolStripButton1->Text = L"＞Start";
 			this->toolStripButton1->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton1_Click);
 			// 
@@ -1038,7 +1038,7 @@ namespace Project1
 			this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton2.Image")));
 			this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton2->Name = L"toolStripButton2";
-			this->toolStripButton2->Size = System::Drawing::Size(63, 27);
+			this->toolStripButton2->Size = System::Drawing::Size(51, 22);
 			this->toolStripButton2->Text = L"□Stop";
 			this->toolStripButton2->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton2_Click);
 			// 
@@ -1048,17 +1048,17 @@ namespace Project1
 			this->toolStripButton3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton3.Image")));
 			this->toolStripButton3->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton3->Name = L"toolStripButton3";
-			this->toolStripButton3->Size = System::Drawing::Size(65, 27);
+			this->toolStripButton3->Size = System::Drawing::Size(53, 22);
 			this->toolStripButton3->Text = L"↓Save";
 			this->toolStripButton3->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton3_Click);
 			// 
 			// statusStrip1
 			// 
 			this->statusStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->statusStrip1->Location = System::Drawing::Point(0, 566);
+			this->statusStrip1->Location = System::Drawing::Point(0, 448);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 13, 0);
-			this->statusStrip1->Size = System::Drawing::Size(983, 22);
+			this->statusStrip1->Padding = System::Windows::Forms::Padding(1, 0, 10, 0);
+			this->statusStrip1->Size = System::Drawing::Size(737, 22);
 			this->statusStrip1->TabIndex = 2;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -1071,19 +1071,19 @@ namespace Project1
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
 			this->tabControl1->Location = System::Drawing::Point(0, 0);
-			this->tabControl1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->tabControl1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(983, 442);
+			this->tabControl1->Size = System::Drawing::Size(737, 344);
 			this->tabControl1->TabIndex = 3;
 			// 
 			// tabPage1
 			// 
 			this->tabPage1->Controls->Add(this->splitContainer1);
-			this->tabPage1->Location = System::Drawing::Point(4, 25);
+			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Margin = System::Windows::Forms::Padding(0);
 			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Size = System::Drawing::Size(975, 413);
+			this->tabPage1->Size = System::Drawing::Size(729, 318);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Plot YT";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -1115,85 +1115,77 @@ namespace Project1
 			this->splitContainer1->Panel2->Controls->Add(this->button3);
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
-			this->splitContainer1->Size = System::Drawing::Size(975, 413);
-			this->splitContainer1->SplitterDistance = 360;
+			this->splitContainer1->Size = System::Drawing::Size(729, 318);
+			this->splitContainer1->SplitterDistance = 268;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
 			// 
 			// numericUpDown2
 			// 
-			this->numericUpDown2->Location = System::Drawing::Point(352, 16);
-			this->numericUpDown2->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown2->Location = System::Drawing::Point(264, 13);
 			this->numericUpDown2->Name = L"numericUpDown2";
-			this->numericUpDown2->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown2->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown2->TabIndex = 9;
 			this->numericUpDown2->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown2_ValueChanged);
 			// 
 			// button5
 			// 
-			this->button5->Location = System::Drawing::Point(459, 16);
-			this->button5->Margin = System::Windows::Forms::Padding(4);
+			this->button5->Location = System::Drawing::Point(344, 13);
 			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(31, 29);
+			this->button5->Size = System::Drawing::Size(23, 23);
 			this->button5->TabIndex = 8;
 			this->button5->Text = L"≫";
 			this->button5->UseVisualStyleBackColor = true;
 			// 
 			// button6
 			// 
-			this->button6->Location = System::Drawing::Point(427, 16);
-			this->button6->Margin = System::Windows::Forms::Padding(4);
+			this->button6->Location = System::Drawing::Point(320, 13);
 			this->button6->Name = L"button6";
-			this->button6->Size = System::Drawing::Size(31, 29);
+			this->button6->Size = System::Drawing::Size(23, 23);
 			this->button6->TabIndex = 7;
 			this->button6->Text = L"<";
 			this->button6->UseVisualStyleBackColor = true;
 			// 
 			// button7
 			// 
-			this->button7->Location = System::Drawing::Point(309, 16);
-			this->button7->Margin = System::Windows::Forms::Padding(4);
+			this->button7->Location = System::Drawing::Point(232, 13);
 			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(31, 29);
+			this->button7->Size = System::Drawing::Size(23, 23);
 			this->button7->TabIndex = 6;
 			this->button7->Text = L"<";
 			this->button7->UseVisualStyleBackColor = true;
 			// 
 			// button8
 			// 
-			this->button8->Location = System::Drawing::Point(277, 16);
-			this->button8->Margin = System::Windows::Forms::Padding(4);
+			this->button8->Location = System::Drawing::Point(208, 13);
 			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(31, 29);
+			this->button8->Size = System::Drawing::Size(23, 23);
 			this->button8->TabIndex = 5;
 			this->button8->Text = L"≪";
 			this->button8->UseVisualStyleBackColor = true;
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(107, 16);
-			this->numericUpDown1->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown1->Location = System::Drawing::Point(80, 13);
 			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown1->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown1->TabIndex = 4;
 			this->numericUpDown1->ValueChanged += gcnew System::EventHandler(this, &MyForm::numericUpDown1_ValueChanged);
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(213, 16);
-			this->button4->Margin = System::Windows::Forms::Padding(4);
+			this->button4->Location = System::Drawing::Point(160, 13);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(31, 29);
+			this->button4->Size = System::Drawing::Size(23, 23);
 			this->button4->TabIndex = 3;
 			this->button4->Text = L"≫";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(181, 16);
-			this->button3->Margin = System::Windows::Forms::Padding(4);
+			this->button3->Location = System::Drawing::Point(136, 13);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(31, 29);
+			this->button3->Size = System::Drawing::Size(23, 23);
 			this->button3->TabIndex = 2;
 			this->button3->Text = L"<";
 			this->button3->UseVisualStyleBackColor = true;
@@ -1201,10 +1193,9 @@ namespace Project1
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(64, 16);
-			this->button2->Margin = System::Windows::Forms::Padding(4);
+			this->button2->Location = System::Drawing::Point(48, 13);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(31, 29);
+			this->button2->Size = System::Drawing::Size(23, 23);
 			this->button2->TabIndex = 1;
 			this->button2->Text = L"<";
 			this->button2->UseVisualStyleBackColor = true;
@@ -1212,10 +1203,9 @@ namespace Project1
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(32, 16);
-			this->button1->Margin = System::Windows::Forms::Padding(4);
+			this->button1->Location = System::Drawing::Point(24, 13);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(31, 29);
+			this->button1->Size = System::Drawing::Size(23, 23);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"≪";
 			this->button1->UseVisualStyleBackColor = true;
@@ -1223,10 +1213,10 @@ namespace Project1
 			// tabPage2
 			// 
 			this->tabPage2->Controls->Add(this->splitContainer2);
-			this->tabPage2->Location = System::Drawing::Point(4, 25);
+			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Margin = System::Windows::Forms::Padding(0);
 			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Size = System::Drawing::Size(975, 413);
+			this->tabPage2->Size = System::Drawing::Size(729, 344);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Analyze SP";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -1254,17 +1244,17 @@ namespace Project1
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox3);
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
-			this->splitContainer2->Size = System::Drawing::Size(975, 413);
-			this->splitContainer2->SplitterDistance = 360;
+			this->splitContainer2->Size = System::Drawing::Size(729, 344);
+			this->splitContainer2->SplitterDistance = 294;
 			this->splitContainer2->SplitterWidth = 1;
 			this->splitContainer2->TabIndex = 28;
 			// 
 			// button11
 			// 
-			this->button11->Location = System::Drawing::Point(744, 24);
-			this->button11->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button11->Location = System::Drawing::Point(558, 19);
+			this->button11->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button11->Name = L"button11";
-			this->button11->Size = System::Drawing::Size(75, 22);
+			this->button11->Size = System::Drawing::Size(56, 18);
 			this->button11->TabIndex = 23;
 			this->button11->Text = L"設定";
 			this->button11->UseVisualStyleBackColor = true;
@@ -1272,20 +1262,20 @@ namespace Project1
 			// 
 			// button10
 			// 
-			this->button10->Location = System::Drawing::Point(648, 24);
-			this->button10->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button10->Location = System::Drawing::Point(486, 19);
+			this->button10->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button10->Name = L"button10";
-			this->button10->Size = System::Drawing::Size(75, 22);
+			this->button10->Size = System::Drawing::Size(56, 18);
 			this->button10->TabIndex = 22;
 			this->button10->Text = L"結果表示";
 			this->button10->UseVisualStyleBackColor = true;
 			// 
 			// button9
 			// 
-			this->button9->Location = System::Drawing::Point(568, 24);
-			this->button9->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button9->Location = System::Drawing::Point(426, 19);
+			this->button9->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button9->Name = L"button9";
-			this->button9->Size = System::Drawing::Size(75, 22);
+			this->button9->Size = System::Drawing::Size(56, 18);
 			this->button9->TabIndex = 21;
 			this->button9->Text = L"再計算";
 			this->button9->UseVisualStyleBackColor = true;
@@ -1296,29 +1286,27 @@ namespace Project1
 			this->groupBox3->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox3->Controls->Add(this->numericUpDown7);
 			this->groupBox3->Controls->Add(this->numericUpDown8);
-			this->groupBox3->Location = System::Drawing::Point(384, 8);
-			this->groupBox3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox3->Location = System::Drawing::Point(288, 6);
+			this->groupBox3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox3->Size = System::Drawing::Size(168, 48);
+			this->groupBox3->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox3->Size = System::Drawing::Size(126, 38);
 			this->groupBox3->TabIndex = 20;
 			this->groupBox3->TabStop = false;
 			this->groupBox3->Text = L"Electron Saturation";
 			// 
 			// numericUpDown7
 			// 
-			this->numericUpDown7->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown7->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown7->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown7->Name = L"numericUpDown7";
-			this->numericUpDown7->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown7->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown7->TabIndex = 15;
 			// 
 			// numericUpDown8
 			// 
-			this->numericUpDown8->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown8->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown8->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown8->Name = L"numericUpDown8";
-			this->numericUpDown8->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown8->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown8->TabIndex = 14;
 			// 
 			// groupBox2
@@ -1326,29 +1314,27 @@ namespace Project1
 			this->groupBox2->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox2->Controls->Add(this->numericUpDown5);
 			this->groupBox2->Controls->Add(this->numericUpDown6);
-			this->groupBox2->Location = System::Drawing::Point(200, 8);
-			this->groupBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox2->Location = System::Drawing::Point(150, 6);
+			this->groupBox2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox2->Size = System::Drawing::Size(168, 48);
+			this->groupBox2->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox2->Size = System::Drawing::Size(126, 38);
 			this->groupBox2->TabIndex = 20;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Electron Returding";
 			// 
 			// numericUpDown5
 			// 
-			this->numericUpDown5->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown5->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown5->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown5->Name = L"numericUpDown5";
-			this->numericUpDown5->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown5->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown5->TabIndex = 13;
 			// 
 			// numericUpDown6
 			// 
-			this->numericUpDown6->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown6->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown6->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown6->Name = L"numericUpDown6";
-			this->numericUpDown6->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown6->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown6->TabIndex = 12;
 			// 
 			// groupBox1
@@ -1356,38 +1342,36 @@ namespace Project1
 			this->groupBox1->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox1->Controls->Add(this->numericUpDown3);
 			this->groupBox1->Controls->Add(this->numericUpDown4);
-			this->groupBox1->Location = System::Drawing::Point(16, 8);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox1->Location = System::Drawing::Point(12, 6);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox1->Size = System::Drawing::Size(168, 48);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox1->Size = System::Drawing::Size(126, 38);
 			this->groupBox1->TabIndex = 19;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Ion Saturation";
 			// 
 			// numericUpDown3
 			// 
-			this->numericUpDown3->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown3->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown3->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown3->Name = L"numericUpDown3";
-			this->numericUpDown3->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown3->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown3->TabIndex = 11;
 			// 
 			// numericUpDown4
 			// 
-			this->numericUpDown4->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown4->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown4->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown4->Name = L"numericUpDown4";
-			this->numericUpDown4->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown4->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown4->TabIndex = 10;
 			// 
 			// tabPage3
 			// 
 			this->tabPage3->Controls->Add(this->splitContainer3);
-			this->tabPage3->Location = System::Drawing::Point(4, 25);
+			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Margin = System::Windows::Forms::Padding(0);
 			this->tabPage3->Name = L"tabPage3";
-			this->tabPage3->Size = System::Drawing::Size(975, 413);
+			this->tabPage3->Size = System::Drawing::Size(729, 318);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"Analyze ISP";
 			this->tabPage3->UseVisualStyleBackColor = true;
@@ -1415,17 +1399,17 @@ namespace Project1
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox4);
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox5);
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox6);
-			this->splitContainer3->Size = System::Drawing::Size(975, 413);
-			this->splitContainer3->SplitterDistance = 360;
+			this->splitContainer3->Size = System::Drawing::Size(729, 318);
+			this->splitContainer3->SplitterDistance = 268;
 			this->splitContainer3->SplitterWidth = 1;
 			this->splitContainer3->TabIndex = 29;
 			// 
 			// button12
 			// 
-			this->button12->Location = System::Drawing::Point(744, 24);
-			this->button12->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button12->Location = System::Drawing::Point(558, 19);
+			this->button12->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button12->Name = L"button12";
-			this->button12->Size = System::Drawing::Size(75, 22);
+			this->button12->Size = System::Drawing::Size(56, 18);
 			this->button12->TabIndex = 23;
 			this->button12->Text = L"設定";
 			this->button12->UseVisualStyleBackColor = true;
@@ -1433,20 +1417,20 @@ namespace Project1
 			// 
 			// button13
 			// 
-			this->button13->Location = System::Drawing::Point(648, 24);
-			this->button13->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button13->Location = System::Drawing::Point(486, 19);
+			this->button13->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button13->Name = L"button13";
-			this->button13->Size = System::Drawing::Size(75, 22);
+			this->button13->Size = System::Drawing::Size(56, 18);
 			this->button13->TabIndex = 22;
 			this->button13->Text = L"結果表示";
 			this->button13->UseVisualStyleBackColor = true;
 			// 
 			// button14
 			// 
-			this->button14->Location = System::Drawing::Point(568, 24);
-			this->button14->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button14->Location = System::Drawing::Point(426, 19);
+			this->button14->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->button14->Name = L"button14";
-			this->button14->Size = System::Drawing::Size(75, 22);
+			this->button14->Size = System::Drawing::Size(56, 18);
 			this->button14->TabIndex = 21;
 			this->button14->Text = L"再計算";
 			this->button14->UseVisualStyleBackColor = true;
@@ -1457,31 +1441,27 @@ namespace Project1
 			this->groupBox4->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox4->Controls->Add(this->numericUpDown9);
 			this->groupBox4->Controls->Add(this->numericUpDown10);
-			this->groupBox4->Location = System::Drawing::Point(384, 8);
-			this->groupBox4->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox4->Location = System::Drawing::Point(288, 6);
+			this->groupBox4->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox4->Size = System::Drawing::Size(168, 48);
+			this->groupBox4->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox4->Size = System::Drawing::Size(126, 38);
 			this->groupBox4->TabIndex = 20;
 			this->groupBox4->TabStop = false;
 			this->groupBox4->Text = L"Electron Saturation";
 			// 
 			// numericUpDown9
 			// 
-			this->numericUpDown9->Enabled = false;
-			this->numericUpDown9->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown9->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown9->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown9->Name = L"numericUpDown9";
-			this->numericUpDown9->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown9->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown9->TabIndex = 15;
 			// 
 			// numericUpDown10
 			// 
-			this->numericUpDown10->Enabled = false;
-			this->numericUpDown10->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown10->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown10->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown10->Name = L"numericUpDown10";
-			this->numericUpDown10->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown10->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown10->TabIndex = 14;
 			// 
 			// groupBox5
@@ -1489,29 +1469,27 @@ namespace Project1
 			this->groupBox5->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox5->Controls->Add(this->numericUpDown11);
 			this->groupBox5->Controls->Add(this->numericUpDown12);
-			this->groupBox5->Location = System::Drawing::Point(200, 8);
-			this->groupBox5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox5->Location = System::Drawing::Point(150, 6);
+			this->groupBox5->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox5->Name = L"groupBox5";
-			this->groupBox5->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox5->Size = System::Drawing::Size(168, 48);
+			this->groupBox5->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox5->Size = System::Drawing::Size(126, 38);
 			this->groupBox5->TabIndex = 20;
 			this->groupBox5->TabStop = false;
 			this->groupBox5->Text = L"Ion Returding";
 			// 
 			// numericUpDown11
 			// 
-			this->numericUpDown11->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown11->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown11->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown11->Name = L"numericUpDown11";
-			this->numericUpDown11->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown11->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown11->TabIndex = 13;
 			// 
 			// numericUpDown12
 			// 
-			this->numericUpDown12->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown12->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown12->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown12->Name = L"numericUpDown12";
-			this->numericUpDown12->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown12->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown12->TabIndex = 12;
 			// 
 			// groupBox6
@@ -1519,11 +1497,11 @@ namespace Project1
 			this->groupBox6->BackColor = System::Drawing::Color::Transparent;
 			this->groupBox6->Controls->Add(this->numericUpDown13);
 			this->groupBox6->Controls->Add(this->numericUpDown14);
-			this->groupBox6->Location = System::Drawing::Point(16, 8);
-			this->groupBox6->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox6->Location = System::Drawing::Point(12, 6);
+			this->groupBox6->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->groupBox6->Name = L"groupBox6";
-			this->groupBox6->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox6->Size = System::Drawing::Size(168, 48);
+			this->groupBox6->Padding = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->groupBox6->Size = System::Drawing::Size(126, 38);
 			this->groupBox6->TabIndex = 19;
 			this->groupBox6->TabStop = false;
 			this->groupBox6->Text = L"Ion Saturation";
@@ -1531,19 +1509,17 @@ namespace Project1
 			// numericUpDown13
 			// 
 			this->numericUpDown13->Enabled = false;
-			this->numericUpDown13->Location = System::Drawing::Point(88, 16);
-			this->numericUpDown13->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown13->Location = System::Drawing::Point(66, 13);
 			this->numericUpDown13->Name = L"numericUpDown13";
-			this->numericUpDown13->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown13->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown13->TabIndex = 11;
 			// 
 			// numericUpDown14
 			// 
 			this->numericUpDown14->Enabled = false;
-			this->numericUpDown14->Location = System::Drawing::Point(16, 16);
-			this->numericUpDown14->Margin = System::Windows::Forms::Padding(4);
+			this->numericUpDown14->Location = System::Drawing::Point(12, 13);
 			this->numericUpDown14->Name = L"numericUpDown14";
-			this->numericUpDown14->Size = System::Drawing::Size(64, 22);
+			this->numericUpDown14->Size = System::Drawing::Size(48, 19);
 			this->numericUpDown14->TabIndex = 10;
 			// 
 			// toolStripContainer2
@@ -1556,13 +1532,13 @@ namespace Project1
 			// toolStripContainer2.ContentPanel
 			// 
 			this->toolStripContainer2->ContentPanel->Controls->Add(this->tabControl1);
-			this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(983, 442);
+			this->toolStripContainer2->ContentPanel->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->toolStripContainer2->ContentPanel->Size = System::Drawing::Size(737, 344);
 			this->toolStripContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->toolStripContainer2->Location = System::Drawing::Point(0, 0);
-			this->toolStripContainer2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->toolStripContainer2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->toolStripContainer2->Name = L"toolStripContainer2";
-			this->toolStripContainer2->Size = System::Drawing::Size(983, 566);
+			this->toolStripContainer2->Size = System::Drawing::Size(737, 448);
 			this->toolStripContainer2->TabIndex = 6;
 			this->toolStripContainer2->Text = L"toolStripContainer2";
 			// 
@@ -1582,9 +1558,9 @@ namespace Project1
 				this->toolStripButton6,
 					this->toolStripButton7
 			});
-			this->toolStrip3->Location = System::Drawing::Point(3, 30);
+			this->toolStrip3->Location = System::Drawing::Point(3, 25);
 			this->toolStrip3->Name = L"toolStrip3";
-			this->toolStrip3->Size = System::Drawing::Size(151, 30);
+			this->toolStrip3->Size = System::Drawing::Size(124, 25);
 			this->toolStrip3->TabIndex = 3;
 			// 
 			// toolStripButton6
@@ -1593,7 +1569,7 @@ namespace Project1
 			this->toolStripButton6->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton6.Image")));
 			this->toolStripButton6->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton6->Name = L"toolStripButton6";
-			this->toolStripButton6->Size = System::Drawing::Size(42, 27);
+			this->toolStripButton6->Size = System::Drawing::Size(34, 22);
 			this->toolStripButton6->Text = L"Plot";
 			this->toolStripButton6->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton6_Click);
 			// 
@@ -1603,7 +1579,7 @@ namespace Project1
 			this->toolStripButton7->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton7.Image")));
 			this->toolStripButton7->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton7->Name = L"toolStripButton7";
-			this->toolStripButton7->Size = System::Drawing::Size(97, 27);
+			this->toolStripButton7->Size = System::Drawing::Size(78, 22);
 			this->toolStripButton7->Text = L"Plot setting";
 			this->toolStripButton7->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton7_Click);
 			// 
@@ -1616,9 +1592,9 @@ namespace Project1
 				this->toolStripButton4,
 					this->toolStripButton5
 			});
-			this->toolStrip2->Location = System::Drawing::Point(3, 60);
+			this->toolStrip2->Location = System::Drawing::Point(3, 50);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(237, 30);
+			this->toolStrip2->Size = System::Drawing::Size(191, 25);
 			this->toolStrip2->TabIndex = 2;
 			// 
 			// toolStripButton4
@@ -1627,7 +1603,7 @@ namespace Project1
 			this->toolStripButton4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton4.Image")));
 			this->toolStripButton4->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton4->Name = L"toolStripButton4";
-			this->toolStripButton4->Size = System::Drawing::Size(74, 27);
+			this->toolStripButton4->Size = System::Drawing::Size(59, 22);
 			this->toolStripButton4->Text = L"Connect";
 			this->toolStripButton4->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton4_Click);
 			// 
@@ -1637,19 +1613,19 @@ namespace Project1
 			this->toolStripButton5->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton5.Image")));
 			this->toolStripButton5->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton5->Name = L"toolStripButton5";
-			this->toolStripButton5->Size = System::Drawing::Size(151, 27);
+			this->toolStripButton5->Size = System::Drawing::Size(120, 22);
 			this->toolStripButton5->Text = L"Connection setting";
 			this->toolStripButton5->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton5_Click);
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(983, 588);
+			this->ClientSize = System::Drawing::Size(737, 470);
 			this->Controls->Add(this->toolStripContainer2);
 			this->Controls->Add(this->statusStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->Name = L"MyForm";
 			this->Text = L"DT-ALPHA MCMS";
 			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
