@@ -130,11 +130,29 @@ public:
 					/ std::stod(static_cast<std::string>((*Setting)[group]["IGain"]))
 					* polarity()) + "))";
 		};
+	
+		auto ROIp = [&]()
+		{
+			switch (GetPreDataProcessType()) {
+			case PREDATAPROCESS::Raw:
+			case PREDATAPROCESS::SMA:
+				return "::" + std::to_string(GetStartPoint(
+					thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)))
+					+ "::" + std::to_string(GetStopPoint(
+						thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
+			case PREDATAPROCESS::SMA_KH:
+			case PREDATAPROCESS::SMA_KH_SMA:
+				return "::::" + std::to_string(GetOneCycleStopPoint(
+					thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
+			default:
+				return ""_s;
+			}
+		};
 
 		of << "fit " << fitrange.Ies.str() << " "
 			<< "F_Ies(x) "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"
@@ -169,7 +187,7 @@ public:
 		of << "set ylabel \"probe current [uA]\"" << std::endl;
 		of << "plot "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"
@@ -205,7 +223,7 @@ public:
 		of << "fit " << fitrange.Ie.str() << " "
 			<< "F_Ie(x) "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(20)
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(20) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"
@@ -217,7 +235,7 @@ public:
 		//of << "fit " << fitrange.Ies.str() << " "
 		//	<< "F_Ies(x) "
 		//	<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-		//	<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10)
+		//	<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
 		//	<< " using "
 		//	<< svp()
 		//	<< ":"
@@ -264,7 +282,7 @@ public:
 
 		of << "plot "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(40)
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(40) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"

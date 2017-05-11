@@ -54,7 +54,32 @@ namespace TKUTIL
 	*	開くことのできないファイルは存在しないとみなされます。
 	*/
 	bool IsExistFile(std::string const file_name);
+	
+	/**
+	* @blief
+	*	ユーザー定義リテラルを定義します。
+	*
+	* @note
+	* 	この機能を使用しない場合はTKUTIL_NO_USER_LITERALSを定義してください
+	*/
+	inline namespace Literals
+	{
+		/**
+		* @blief
+		*	文字列リテラルに対するサフィックス_sをstd::string型を示すユーザー定義リテラルとして定義します。
+		*
+		*/
+		static std::string operator"" _s(const char* str, std::size_t length)
+		{
+			return std::string(str, length);
+		}
+	}
+
 }
+
+#ifndef TKUTIL_NO_USER_LITERALS
+using namespace TKUTIL::Literals;
+#endif
 
 #ifdef _MANAGED
 static std::string TKUTIL::SystemStringToString(System::String ^ s)
