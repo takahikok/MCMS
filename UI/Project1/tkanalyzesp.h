@@ -140,8 +140,8 @@ public:
 						thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
 			case PREDATAPROCESS::SMA_KH:
 			case PREDATAPROCESS::SMA_KH_SMA:
-				return "::::" + std::to_string(GetOneCycleStopPoint(
-						thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
+				//return "::::" + std::to_string(GetOneCycleStopPoint(
+				//		thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
 			default:
 				return ""_s;
 			}

@@ -163,11 +163,15 @@ public:
 
 	unsigned int GetOneCycleStopPoint(int adc_id)
 	{
-		double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
-		double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
-		double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
-		double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
-		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + delay_time + 1 / frequency*(delay_cycle + 1)) / thisShot->GetHResolution(adc_id));
+		if ((*Setting)[group]["TimeRegion"] == "Auto") {
+			double delay_cycle = std::stod((*Setting)[group]["FunctionDelayCycle"]);
+			double delay_time = std::stod((*Setting)[group]["FunctionDelayTime"]);
+			double frequency = std::stod((*Setting)[group]["FunctionFrequency"]);
+			double sweep_cycle = std::stod((*Setting)[group]["FunctionSweepCycle"]);
+			return static_cast<unsigned int>((1 / frequency) / thisShot->GetHResolution(adc_id));
+		} else {
+			return static_cast<unsigned int>((std::stod((*Setting)[group]["TimeRegionStop"]) - std::stod((*Setting)[group]["TimeRegionStart"])) / thisShot->GetHResolution(adc_id));
+		}
 	}
 
 	PREDATAPROCESS GetPreDataProcessType()

@@ -142,8 +142,8 @@ public:
 						thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
 			case PREDATAPROCESS::SMA_KH:
 			case PREDATAPROCESS::SMA_KH_SMA:
-				return "::::" + std::to_string(GetOneCycleStopPoint(
-					thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
+				//return "::::" + std::to_string(GetOneCycleStopPoint(
+				//	thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)));
 			default:
 				return ""_s;
 			}
@@ -223,7 +223,7 @@ public:
 		of << "fit " << fitrange.Ie.str() << " "
 			<< "F_Ie(x) "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(20) << ROIp()
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(100) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"
@@ -282,7 +282,7 @@ public:
 
 		of << "plot "
 			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(40) << ROIp()
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(100) << ROIp()
 			<< " using "
 			<< svp()
 			<< ":"
