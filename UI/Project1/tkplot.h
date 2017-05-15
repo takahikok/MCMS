@@ -92,7 +92,7 @@ public:
 	};
 
 	/**
-	* @blief 
+	* @blief
 	*	データファイル形式型
 	*/
 	enum class DATASOURCE
@@ -355,17 +355,21 @@ public:
 	}
 
 
-	int PlotRaw(const TKPLOT::PLOTSIZE plot_size, const int shot_number)
+	int PlotRaw(const TKPLOT::PLOTSIZE plot_size, const int shot_number, bool replot = true)
 	{
 		plotInfo.clear();
 		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++)
 			for (int trace_index = 0; trace_index < thisShot->GetTraceTotalNumber(thisShot->GetADCID(data_index));
-			trace_index++)
+				trace_index++)
 				plotInfo.push_back(loadPlotInfoInstance(data_index, trace_index, plot_size));
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
+			if (!replot&&TKUTIL::IsExistFile(plotInfo[i].out_file_name + ".png"))
+				continue;
+
 			std::ofstream of;
 			of.open(plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
+
 			of << "set term png enhanced transparent truecolor font arial 11 size "
 				<< plotInfo[i].terminal_size.str() << std::endl;
 			of << "set out \"" << plotInfo[i].out_file_name << ".png\"" << std::endl;
