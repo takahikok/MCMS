@@ -146,6 +146,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DialogQuickLoadShot.cpp" />
     <ClCompile Include="SetupAnalyzeSP.cpp" />
     <ClCompile Include="tkanalyzesp.cpp" />
     <ClCompile Include="tkfileutil.cpp" />
@@ -177,6 +178,9 @@
     <Library Include="tmctl64.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DialogQuickLoadShot.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SetupAnalyzeSP.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -209,6 +213,9 @@
     <ClInclude Include="tmctl.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DialogQuickLoadShot.resx">
+      <DependentUpon>DialogQuickLoadShot.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm.resx">
       <DependentUpon>MyForm.h</DependentUpon>
     </EmbeddedResource>

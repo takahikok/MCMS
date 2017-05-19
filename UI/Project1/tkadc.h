@@ -31,8 +31,7 @@
 * @note
 *	もし新たな計測器を追加するようなことがあれば、可能な限りADCコントロールクラスを派生させて多態性を持たせてください。
 */
-class TKADCCONTROL
-{
+class TKADCCONTROL {
 public:
 	/**
 	* @enum ADCMODEL
@@ -44,8 +43,7 @@ public:
 	*	それら複数のADCが同じADCモデル名を持ちます。<br>
 	*	ADCモデルという呼称は横河電機の流儀に従ったものです。
 	*/
-	enum class ADCMODEL
-	{
+	enum class ADCMODEL {
 		DL750,
 		DL850
 	};
@@ -56,9 +54,32 @@ public:
 	*
 	*	ビットマスクはモデルによって異なるため、実際にビットマスクとして使用する為には継承されたクラスで再定義する必要があります。
 	*/
-	enum class CONDITIONFLAG
-	{
+	enum class CONDITIONFLAG {
 		ALL = 0xffff
+	};
+
+protected:
+private:
+	ADCMODEL adc_model;
+	int device_id;
+	int wire_type;
+	char adress[256];
+	char name[256];
+	char file_name_header[32];
+	char file_path[32];
+	int next_local_shot_number;
+	int local_shot_number_max = 99999999;
+
+
+public:
+	class Exception {
+	public:
+		int adc_id;	//TKADCINFO::ADCID
+		int error_number;
+	public:
+		Exception(int adc_id_, int error_number_) : adc_id(adc_id_), error_number(error_number_)
+		{
+		}
 	};
 
 public:
@@ -116,8 +137,8 @@ public:
 	*	tmctl.hで定義されたエラーコードを返します
 	*/
 	int SendMessage(const char* message);
-	
-	
+
+
 	/**
 	* @fn Start
 	* @blief ADCの計測を開始します。
@@ -173,9 +194,9 @@ public:
 	* @warning
 	*	DL750, DL850 ではファイルは上書き保存されず36進数で自動インクリメントされた名前が採用されます。<br>
 	*	指定した名前と異なるファイルに保存される可能性があることに注意してください。
-	* @todo 
+	* @todo
 	*	保存されたファイル名の取得
-	* @todo 
+	* @todo
 	*	許されないファイル名を拒否する
 	*/
 	int SaveShot(std::string file_name);
@@ -186,7 +207,7 @@ public:
 	* @blief ADCとの通信によって生成されるデバイスIDを取得します。
 	*
 	*	通常このデバイスIDを知る必要はありません。
-	* @return 
+	* @return
 	*	デバイスIDを返します
 	*/
 	int GetDeviceID();
@@ -236,20 +257,6 @@ public:
 	int IncrementLocalShotNumber();
 	int SetLocalShotNumberMax(int new_local_shot_number_max);
 	int GetLocalShotNumberMax();
-
-
-protected:
-private:
-	ADCMODEL adc_model;
-	int device_id;
-	int wire_type;
-	char adress[256];
-	char name[256];
-	char file_name_header[32];
-	char file_path[32];
-	int next_local_shot_number;
-	int local_shot_number_max = 99999999;
-
 };
 
 
@@ -261,15 +268,13 @@ private:
 *
 *	DL750をコントロールするためのクラスです。
 */
-class TKADCCONTROL_DL750 : public TKADCCONTROL
-{
+class TKADCCONTROL_DL750 : public TKADCCONTROL {
 public:
 
 	//The condition flag is depending on the ADC model.
 	//Details are described in the YOKOGAWA IM701210-18 document.
 
-	enum class CONDITIONFLAG
-	{
+	enum class CONDITIONFLAG {
 		ALL = 0xffff,	//16bit
 		RUN = 1 << 0,	//Running
 		TRG = 1 << 2,	//Awaiting trigger
@@ -300,15 +305,13 @@ public:
 *
 *	DL850をコントロールするためのクラスです。
 */
-class TKADCCONTROL_DL850 : public TKADCCONTROL
-{
+class TKADCCONTROL_DL850 : public TKADCCONTROL {
 public:
 
 	//The condition flag is depending on the ADC model.
 	//Details are described in the YOKOGAWA IMDL850E-17 document.
 
-	enum class CONDITIONFLAG
-	{
+	enum class CONDITIONFLAG {
 		ALL = 0xffff,	//16bit
 		CAP = 1 << 0,	//Capture
 		REC = 1 << 1,	//Record
@@ -325,7 +328,7 @@ public:
 		SCH = 1 << 11,	//Search
 		RUN = 1 << 12,	//Running
 		KLK = 1 << 13,	//Key lock
-		AN  = 1 << 14	//Analysis
+		AN = 1 << 14	//Analysis
 	};
 
 public:

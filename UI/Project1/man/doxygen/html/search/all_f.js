@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['literals',['Literals',['../namespace_t_k_u_t_i_l_1_1_literals.html',1,'TKUTIL']]],
   ['terminal_5fsize',['terminal_size',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#afe6df040b952e6ab1e234d17de6023d0',1,'TKPLOT::PLOTINFO']]],
   ['tkadc_2eh',['tkadc.h',['../tkadc_8h.html',1,'']]],
   ['tkadccontrol',['TKADCCONTROL',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html',1,'']]],
@@ -9,11 +10,14 @@ var searchData=
   ['tkanalyzeisp',['TKANALYZEISP',['../class_t_k_a_n_a_l_y_z_e_i_s_p.html',1,'']]],
   ['tkanalyzesp',['TKANALYZESP',['../class_t_k_a_n_a_l_y_z_e_s_p.html',1,'']]],
   ['tkdata',['TKDATA',['../class_t_k_d_a_t_a.html',1,'']]],
+  ['tkfileutil',['TKFILEUTIL',['../namespace_t_k_f_i_l_e_u_t_i_l.html',1,'']]],
+  ['tkfileutil_2eh',['tkfileutil.h',['../tkfileutil_8h.html',1,'']]],
   ['tkparticlepalameter',['TKParticlePalameter',['../class_t_k_particle_palameter.html',1,'']]],
   ['tkplasma',['TKPlasma',['../class_t_k_plasma.html',1,'']]],
   ['tkplasmaparameter',['TKPlasmaParameter',['../class_t_k_plasma_parameter.html',1,'']]],
   ['tkplot',['TKPLOT',['../class_t_k_p_l_o_t.html',1,'']]],
   ['tkshot',['TKSHOT',['../class_t_k_s_h_o_t.html',1,'']]],
+  ['tkutil',['TKUTIL',['../namespace_t_k_u_t_i_l.html',1,'']]],
   ['tkutil_2eh',['tkutil.h',['../tkutil_8h.html',1,'']]],
   ['todo一覧',['todo一覧',['../todo.html',1,'']]],
   ['trace_5findex',['trace_index',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#a48ef8281322bf15a1e48cca923d34eeb',1,'TKPLOT::PLOTINFO']]]

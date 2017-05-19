@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['_7emyform',['~MyForm',['../class_project1_1_1_my_form.html#a501b2b4481b72877fc73101f1d6f26be',1,'Project1::MyForm']]],
-  ['_7esetupadcconnection',['~SetupADCConnection',['../class_project1_1_1_setup_a_d_c_connection.html#a866e7e75c329629e9f2d18ff382a7dc4',1,'Project1::SetupADCConnection']]],
-  ['_7esetupadcmeasurement',['~SetupADCMeasurement',['../class_project1_1_1_setup_a_d_c_measurement.html#a63b1935cc1f23fc96d175fdb9f1f2fd3',1,'Project1::SetupADCMeasurement']]],
-  ['_7esetupanalyzesp',['~SetupAnalyzeSP',['../class_project1_1_1_setup_analyze_s_p.html#abb81aeae2341ceec276805a830e94b67',1,'Project1::SetupAnalyzeSP']]],
-  ['_7esetupplot',['~SetupPlot',['../class_project1_1_1_setup_plot.html#a99164cdf31bea63c1f4e01204e381538',1,'Project1::SetupPlot']]]
+  ['saveshot',['SaveShot',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a832915af5a7240efeef5c3fa139b99af',1,'TKADCCONTROL']]],
+  ['sendmessage',['SendMessage',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a2808f2efde28bcfc670d0ddfe2c6791e',1,'TKADCCONTROL']]],
+  ['start',['Start',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#afd243c443ca134193acc8a409368aaf3',1,'TKADCCONTROL']]],
+  ['stop',['Stop',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a3fc45766f6e7f770280f0e165827f86a',1,'TKADCCONTROL']]]
 ];

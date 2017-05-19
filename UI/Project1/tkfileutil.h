@@ -15,6 +15,11 @@
 #ifndef __TKFILEUTIL__
 #define __TKFILEUTIL__
 
+/**
+* @brief 便利な汎用関数等です。
+* @author Kobayashi Takahiko
+* @date 2017.5.14
+*/
 namespace TKFILEUTIL
 {
 	class SHOTFILENAME

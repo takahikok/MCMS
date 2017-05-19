@@ -89,12 +89,12 @@ TKANALYZE の継承関係図</div>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:aaf7dd74ca27bd81681431db1e0bad011"><td class="memItemLeft" align="right" valign="top"><a id="aaf7dd74ca27bd81681431db1e0bad011"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PREDATAPROCESSS</b> { <b>Raw</b>, 
+<tr class="memitem:a7a931f59627879ac86be378797e00e1e"><td class="memItemLeft" align="right" valign="top"><a id="a7a931f59627879ac86be378797e00e1e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>PREDATAPROCESS</b> { <b>Raw</b>, 
 <b>SMA</b>, 
 <b>SMA_KH</b>, 
 <b>SMA_KH_SMA</b>
  }</td></tr>
-<tr class="separator:aaf7dd74ca27bd81681431db1e0bad011"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7a931f59627879ac86be378797e00e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_class_t_k_p_l_o_t"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_t_k_p_l_o_t')"><img src="closed.png" alt="-"/>&#160;基底クラス <a class="el" href="class_t_k_p_l_o_t.html">TKPLOT</a> に属する継承公開型</td></tr>
 <tr class="memitem:a158082ae168750554cf23edde9a27416 inherit pub_types_class_t_k_p_l_o_t"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">PLOTSIZE</a> { <b>SMALL_SIZE</b>, 
 <b>MEDIUM_SIZE</b>
@@ -140,6 +140,9 @@ unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>GetStopPoint<
 <tr class="memitem:a607144cda4f6ad2cf472ee792c0aa8a7"><td class="memItemLeft" align="right" valign="top"><a id="a607144cda4f6ad2cf472ee792c0aa8a7"></a>
 unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>GetOneCycleStopPoint</b> (int adc_id)</td></tr>
 <tr class="separator:a607144cda4f6ad2cf472ee792c0aa8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1ff5012692d965c4a271c1c07f6488a"><td class="memItemLeft" align="right" valign="top"><a id="ab1ff5012692d965c4a271c1c07f6488a"></a>
+PREDATAPROCESS&#160;</td><td class="memItemRight" valign="bottom"><b>GetPreDataProcessType</b> ()</td></tr>
+<tr class="separator:ab1ff5012692d965c4a271c1c07f6488a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5be002cc215145a2af05c85cf50aabe7"><td class="memItemLeft" align="right" valign="top"><a id="a5be002cc215145a2af05c85cf50aabe7"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExecPreDataProcess</b> (int plot_info_index)</td></tr>
 <tr class="separator:a5be002cc215145a2af05c85cf50aabe7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,9 +150,9 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>ExecPreDataPro
 <tr class="memitem:aeb9168bcf7e45c45fc38dab63e6b90b3 inherit pub_methods_class_t_k_p_l_o_t"><td class="memItemLeft" align="right" valign="top"><a id="aeb9168bcf7e45c45fc38dab63e6b90b3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>TKPLOT</b> (<a class="el" href="class_t_k_s_h_o_t.html">TKSHOT</a> *TKShot_)</td></tr>
 <tr class="separator:aeb9168bcf7e45c45fc38dab63e6b90b3 inherit pub_methods_class_t_k_p_l_o_t"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af863044c92051bc4abc66911273d5f3e inherit pub_methods_class_t_k_p_l_o_t"><td class="memItemLeft" align="right" valign="top"><a id="af863044c92051bc4abc66911273d5f3e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>PlotRaw</b> (const <a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">TKPLOT::PLOTSIZE</a> plot_size, const int shot_number)</td></tr>
-<tr class="separator:af863044c92051bc4abc66911273d5f3e inherit pub_methods_class_t_k_p_l_o_t"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dcffb0672762042e8dca5791b97e182 inherit pub_methods_class_t_k_p_l_o_t"><td class="memItemLeft" align="right" valign="top"><a id="a0dcffb0672762042e8dca5791b97e182"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>PlotRaw</b> (const <a class="el" href="class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416">TKPLOT::PLOTSIZE</a> plot_size, const int shot_number, bool replot=true)</td></tr>
+<tr class="separator:a0dcffb0672762042e8dca5791b97e182 inherit pub_methods_class_t_k_p_l_o_t"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ddc4ef2a68d8649cfb2aebf507121fd inherit pub_methods_class_t_k_p_l_o_t"><td class="memItemLeft" align="right" valign="top"><a id="a5ddc4ef2a68d8649cfb2aebf507121fd"></a>
 std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html">TKPLOT::PLOTINFO</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPlotInfo</b> ()</td></tr>
 <tr class="separator:a5ddc4ef2a68d8649cfb2aebf507121fd inherit pub_methods_class_t_k_p_l_o_t"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,9 +165,6 @@ std::vector&lt; <a class="el" href="class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html">
 <tr class="memitem:a55e1a2c600ba6fb90f849f04e3dffc0d"><td class="memItemLeft" align="right" valign="top"><a id="a55e1a2c600ba6fb90f849f04e3dffc0d"></a>
 <a class="el" href="class_t_k_a_n_a_l_y_z_e_1_1_f_i_t_r_a_n_g_e.html">FITRANGE</a>&#160;</td><td class="memItemRight" valign="bottom"><b>fitrange</b></td></tr>
 <tr class="separator:a55e1a2c600ba6fb90f849f04e3dffc0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a924ebf2dbad843a1daf66c85cdfa4b4a"><td class="memItemLeft" align="right" valign="top"><a id="a924ebf2dbad843a1daf66c85cdfa4b4a"></a>
-PREDATAPROCESSS&#160;</td><td class="memItemRight" valign="bottom"><b>pre_data_process</b></td></tr>
-<tr class="separator:a924ebf2dbad843a1daf66c85cdfa4b4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 限定公開メンバ関数</h2></td></tr>
@@ -195,7 +195,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ma_sample_number</b></
 <tr class="separator:a7fd597ef5634b9ca6a346e305a0c1c23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
-<li>UI/Project1/<a class="el" href="tkanalyze_8h_source.html">tkanalyze.h</a></li>
+<li><a class="el" href="tkanalyze_8h_source.html">tkanalyze.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['delete',['Delete',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#afa385509f61162198950676d279f4c3c',1,'TKADCCONTROL::Delete()'],['../class_t_k_a_d_c_c_o_n_t_r_o_l___d_l750.html#a27ce5b790800ffee6d2daddeb0bf9e17',1,'TKADCCONTROL_DL750::Delete()'],['../class_t_k_a_d_c_c_o_n_t_r_o_l___d_l850.html#acef79a34544e50a51bab03b83652306a',1,'TKADCCONTROL_DL850::Delete()']]]
+  ['calceveryvalue',['CalcEveryValue',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html#aba014d5ce5807ab0e1c1a2bfb2aca7dd',1,'TKPLOT::PLOTINFO']]],
+  ['close',['Close',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a2f8903ef41b5b97ddf2d2f08a5374402',1,'TKADCCONTROL']]]
 ];

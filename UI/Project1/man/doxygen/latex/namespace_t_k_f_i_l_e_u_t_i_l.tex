@@ -1,0 +1,108 @@
+\hypertarget{namespace_t_k_f_i_l_e_u_t_i_l}{}\section{T\+K\+F\+I\+L\+E\+U\+T\+IL 名前空間}
+\label{namespace_t_k_f_i_l_e_u_t_i_l}\index{T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}}
+
+
+便利な汎用関数等です。  
+
+
+\subsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_t_k_f_i_l_e_u_t_i_l_1_1_s_h_o_t_f_i_l_e_n_a_m_e}{S\+H\+O\+T\+F\+I\+L\+E\+N\+A\+ME}
+\end{DoxyCompactItemize}
+\subsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{namespace_t_k_f_i_l_e_u_t_i_l_afb1f2be7ac9b585fc688a2c9a0e50094}{Binary\+To\+C\+SV} (std\+::string file\+\_\+path, bool force\+\_\+over\+\_\+write=false)
+\item 
+std\+::string \hyperlink{namespace_t_k_f_i_l_e_u_t_i_l_a021f69b1dbf05a9501e30326b836c2a9}{Extract\+W\+DF} (std\+::string file\+\_\+path, bool force\+\_\+over\+\_\+write=false)
+\item 
+std\+::vector$<$ std\+::string $>$ \hyperlink{namespace_t_k_f_i_l_e_u_t_i_l_a378ed1b7bfa3028b922a122f72f38b28}{Get\+Same\+Shot\+File\+Name} (std\+::string file\+\_\+path)
+\item 
+std\+::string \hyperlink{namespace_t_k_f_i_l_e_u_t_i_l_ae7b4e47d9221322ea5dbaaaefd83b2b6}{Remove\+Extension} (std\+::string file\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+便利な汎用関数等です。 
+
+\begin{DoxyAuthor}{著者}
+Kobayashi Takahiko 
+\end{DoxyAuthor}
+\begin{DoxyDate}{日付}
+2017.\+5.\+14 
+\end{DoxyDate}
+
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{namespace_t_k_f_i_l_e_u_t_i_l_afb1f2be7ac9b585fc688a2c9a0e50094}\label{namespace_t_k_f_i_l_e_u_t_i_l_afb1f2be7ac9b585fc688a2c9a0e50094}} 
+\index{T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}!Binary\+To\+C\+SV@{Binary\+To\+C\+SV}}
+\index{Binary\+To\+C\+SV@{Binary\+To\+C\+SV}!T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Binary\+To\+C\+S\+V()}{BinaryToCSV()}}
+{\footnotesize\ttfamily std\+::string T\+K\+F\+I\+L\+E\+U\+T\+I\+L\+::\+Binary\+To\+C\+SV (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+path,  }\item[{bool}]{force\+\_\+over\+\_\+write = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Y\+O\+K\+O\+G\+A\+WA DL シリーズの B\+I\+N\+A\+RY ファイルを A\+S\+C\+II C\+SV ファイルへ変換します。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+path} & 対象となる\+B\+I\+N\+A\+R\+Yファイルパスです。拡張子を含みます。 \\
+\hline
+\mbox{\tt in}  & {\em force\+\_\+over\+\_\+write} & 変換後のファイルと同じ名前のファイルが既に存在した場合、変換を行うかを指定します。 デフォルトではfalseで、変換は行われません。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+生成された\+C\+S\+Vファイルパスが返されます。拡張子を含みません。 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+変換が実行されたかによらず変換後のファイル名が返されます。 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespace_t_k_f_i_l_e_u_t_i_l_a021f69b1dbf05a9501e30326b836c2a9}\label{namespace_t_k_f_i_l_e_u_t_i_l_a021f69b1dbf05a9501e30326b836c2a9}} 
+\index{T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}!Extract\+W\+DF@{Extract\+W\+DF}}
+\index{Extract\+W\+DF@{Extract\+W\+DF}!T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Extract\+W\+D\+F()}{ExtractWDF()}}
+{\footnotesize\ttfamily std\+::string T\+K\+F\+I\+L\+E\+U\+T\+I\+L\+::\+Extract\+W\+DF (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+path,  }\item[{bool}]{force\+\_\+over\+\_\+write = {\ttfamily false} }\end{DoxyParamCaption})}
+
+Y\+O\+K\+O\+G\+A\+WA D\+L850 の W\+DF ファイルを W\+VF + H\+DR ファイルへ変換します。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+path} & 対象となる\+W\+D\+Fファイルパスです。拡張子を含みます。 \\
+\hline
+\mbox{\tt in}  & {\em force\+\_\+over\+\_\+write} & 変換後のファイルと同じ名前のファイルが既に存在した場合、変換を行うかを指定します。 デフォルトではfalseで、変換は行われません。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+生成された\+W\+V\+Fファイルパスが返されます。拡張子を含みません。 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+同時に出力される\+H\+D\+Rファイルは波形情報を取得する際に必要となります。 
+
+変換が実行されたかによらず変換後のファイル名が返されます。 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespace_t_k_f_i_l_e_u_t_i_l_a378ed1b7bfa3028b922a122f72f38b28}\label{namespace_t_k_f_i_l_e_u_t_i_l_a378ed1b7bfa3028b922a122f72f38b28}} 
+\index{T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}!Get\+Same\+Shot\+File\+Name@{Get\+Same\+Shot\+File\+Name}}
+\index{Get\+Same\+Shot\+File\+Name@{Get\+Same\+Shot\+File\+Name}!T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Get\+Same\+Shot\+File\+Name()}{GetSameShotFileName()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::string $>$ T\+K\+F\+I\+L\+E\+U\+T\+I\+L\+::\+Get\+Same\+Shot\+File\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+path }\end{DoxyParamCaption})}
+
+同一ショットのファイル名を取得します。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+path} & 対象となる\+B\+I\+N\+A\+R\+Yファイルパスです。拡張子を含みます。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+同一ショットの\+B\+I\+N\+A\+R\+Yファイルパスのvectorです。拡張子を含みます。 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+同一ショットが他に存在しない場合は元のファイルだけを要素に持つvectorが返されます。 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespace_t_k_f_i_l_e_u_t_i_l_ae7b4e47d9221322ea5dbaaaefd83b2b6}\label{namespace_t_k_f_i_l_e_u_t_i_l_ae7b4e47d9221322ea5dbaaaefd83b2b6}} 
+\index{T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}!Remove\+Extension@{Remove\+Extension}}
+\index{Remove\+Extension@{Remove\+Extension}!T\+K\+F\+I\+L\+E\+U\+T\+IL@{T\+K\+F\+I\+L\+E\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Remove\+Extension()}{RemoveExtension()}}
+{\footnotesize\ttfamily std\+::string T\+K\+F\+I\+L\+E\+U\+T\+I\+L\+::\+Remove\+Extension (\begin{DoxyParamCaption}\item[{std\+::string}]{file\+\_\+path }\end{DoxyParamCaption})}
+
+ファイル名またはファイルパスから拡張子を除きます。 \begin{DoxyReturn}{戻り値}
+拡張子を除いたファイル名またはファイルパスです。 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+複数拡張子を持たないファイルでは入力がそのまま返されます。 
+
+複数拡張子を持つ（.\+tar.\+gzのような）ファイルでは末尾の拡張子だけが除かれます。 
+\end{DoxyNote}

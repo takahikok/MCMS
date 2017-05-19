@@ -1,0 +1,68 @@
+\hypertarget{namespace_t_k_u_t_i_l}{}\section{T\+K\+U\+T\+IL 名前空間}
+\label{namespace_t_k_u_t_i_l}\index{T\+K\+U\+T\+IL@{T\+K\+U\+T\+IL}}
+
+
+便利な汎用関数等です。  
+
+
+\subsection*{名前空間}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_t_k_u_t_i_l_1_1_literals}{Literals}
+\end{DoxyCompactItemize}
+\subsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \hyperlink{namespace_t_k_u_t_i_l_a02b37f2f23e258b7a44b83e1ac5b81b7}{Zero\+Fill} (int const number, int const length)
+\item 
+bool \hyperlink{namespace_t_k_u_t_i_l_ab26eef58ef280f33492f52cb4fbe6b5d}{Is\+Exist\+File} (std\+::string const file\+\_\+name)
+\end{DoxyCompactItemize}
+
+
+\subsection{詳解}
+便利な汎用関数等です。 
+
+\begin{DoxyAuthor}{著者}
+Kobayashi Takahiko 
+\end{DoxyAuthor}
+\begin{DoxyDate}{日付}
+2017 
+\end{DoxyDate}
+
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{namespace_t_k_u_t_i_l_ab26eef58ef280f33492f52cb4fbe6b5d}\label{namespace_t_k_u_t_i_l_ab26eef58ef280f33492f52cb4fbe6b5d}} 
+\index{T\+K\+U\+T\+IL@{T\+K\+U\+T\+IL}!Is\+Exist\+File@{Is\+Exist\+File}}
+\index{Is\+Exist\+File@{Is\+Exist\+File}!T\+K\+U\+T\+IL@{T\+K\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Is\+Exist\+File()}{IsExistFile()}}
+{\footnotesize\ttfamily bool T\+K\+U\+T\+I\+L\+::\+Is\+Exist\+File (\begin{DoxyParamCaption}\item[{std\+::string const}]{file\+\_\+name }\end{DoxyParamCaption})}
+
+指定したファイルが存在するかどうかを確かめます。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em file\+\_\+name} & 存在を確認するファイル名です。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+true\+: ファイルは存在します。 
+
+false\+: ファイルは存在しません。 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+開くことのできないファイルは存在しないとみなされます。 
+\end{DoxyNote}
+\mbox{\Hypertarget{namespace_t_k_u_t_i_l_a02b37f2f23e258b7a44b83e1ac5b81b7}\label{namespace_t_k_u_t_i_l_a02b37f2f23e258b7a44b83e1ac5b81b7}} 
+\index{T\+K\+U\+T\+IL@{T\+K\+U\+T\+IL}!Zero\+Fill@{Zero\+Fill}}
+\index{Zero\+Fill@{Zero\+Fill}!T\+K\+U\+T\+IL@{T\+K\+U\+T\+IL}}
+\subsubsection{\texorpdfstring{Zero\+Fill()}{ZeroFill()}}
+{\footnotesize\ttfamily std\+::string T\+K\+U\+T\+I\+L\+::\+Zero\+Fill (\begin{DoxyParamCaption}\item[{int const}]{number,  }\item[{int const}]{length }\end{DoxyParamCaption})}
+
+整数を任意桁数で0で埋めた文字列を生成します。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\tt in}  & {\em number} & 対象となる整数です。 \\
+\hline
+\mbox{\tt in}  & {\em length} & 最終的な桁数です。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+生成されたstd\+::string型の文字列が返されます。 
+\end{DoxyReturn}

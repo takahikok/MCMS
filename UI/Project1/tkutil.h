@@ -1,6 +1,6 @@
-/**
+ï»¿/**
 * @file	tkutil.h
-* @brief •Ö—˜‚È”Ä—pŠÖ”“™‚Å‚·B
+* @brief ä¾¿åˆ©ãªæ±ç”¨é–¢æ•°ç­‰ã§ã™ã€‚
 * @author Kobayashi Takahiko
 * @date 2017
 */
@@ -12,61 +12,66 @@
 #ifndef __TKUTIL__
 #define __TKUTIL__
 
+/**
+* @brief ä¾¿åˆ©ãªæ±ç”¨é–¢æ•°ç­‰ã§ã™ã€‚
+* @author Kobayashi Takahiko
+* @date 2017
+*/
 namespace TKUTIL
 {
 #ifdef _MANAGED
 	/**
 	* @blief
-	*	System::StringŒ^‚ğstd::stringŒ^‚É•ÏX‚µ‚Ü‚·B
+	*	System::Stringå‹ã‚’std::stringå‹ã«å¤‰æ›´ã—ã¾ã™ã€‚
 	* @param[in] s
-	*	•ÏX‚³‚ê‚éSystem::StringŒ^‚Ì•¶š—ñ‚Å‚·B
+	*	å¤‰æ›´ã•ã‚Œã‚‹System::Stringå‹ã®æ–‡å­—åˆ—ã§ã™ã€‚
 	* @return
-	*	•ÏŠ·‚³‚ê‚½std::stringŒ^‚Ì•¶š—ñ‚ª•Ô‚³‚ê‚Ü‚·B
+	*	å¤‰æ›ã•ã‚ŒãŸstd::stringå‹ã®æ–‡å­—åˆ—ãŒè¿”ã•ã‚Œã¾ã™ã€‚
 	* @note
-	*	‹¤’ÊŒ¾Œêƒ‰ƒ“ƒ^ƒCƒ€ƒTƒ|[ƒgiclrj‚ª“Ç‚İ‚Ü‚ê‚½ê‡‚Ì‚İ—LŒø‚Å‚·B
+	*	å…±é€šè¨€èªãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã‚µãƒãƒ¼ãƒˆï¼ˆclrï¼‰ãŒèª­ã¿è¾¼ã¾ã‚ŒãŸå ´åˆã®ã¿æœ‰åŠ¹ã§ã™ã€‚
 	*/
-	static std::string SystemStringToString(System::String ^ s);
+	static std::string SystemStringToString(System::String ^ str);
 	//note: (to String) : gcnew System::String(char*);
 #endif
 
 	/**
 	* @blief
-	*	®”‚ğ”CˆÓŒ…”‚Å0‚Å–„‚ß‚½•¶š—ñ‚ğ¶¬‚µ‚Ü‚·B
+	*	æ•´æ•°ã‚’ä»»æ„æ¡æ•°ã§0ã§åŸ‹ã‚ãŸæ–‡å­—åˆ—ã‚’ç”Ÿæˆã—ã¾ã™ã€‚
 	* @param[in] number
-	*	‘ÎÛ‚Æ‚È‚é®”‚Å‚·B
+	*	å¯¾è±¡ã¨ãªã‚‹æ•´æ•°ã§ã™ã€‚
 	* @param[in] length
-	*	ÅI“I‚ÈŒ…”‚Å‚·B
+	*	æœ€çµ‚çš„ãªæ¡æ•°ã§ã™ã€‚
 	* @return
-	*	¶¬‚³‚ê‚½std::stringŒ^‚Ì•¶š—ñ‚ª•Ô‚³‚ê‚Ü‚·B
+	*	ç”Ÿæˆã•ã‚ŒãŸstd::stringå‹ã®æ–‡å­—åˆ—ãŒè¿”ã•ã‚Œã¾ã™ã€‚
 	*/
 	std::string ZeroFill(int const number, int const length);
 
 	/**
 	* @blief
-	*	w’è‚µ‚½ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚©‚Ç‚¤‚©‚ğŠm‚©‚ß‚Ü‚·B
+	*	æŒ‡å®šã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºã‹ã‚ã¾ã™ã€‚
 	* @param[in] file_name
-	*	‘¶İ‚ğŠm”F‚·‚éƒtƒ@ƒCƒ‹–¼‚Å‚·B
+	*	å­˜åœ¨ã‚’ç¢ºèªã™ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«åã§ã™ã€‚
 	* @return true:
-	*	ƒtƒ@ƒCƒ‹‚Í‘¶İ‚µ‚Ü‚·B
+	*	ãƒ•ã‚¡ã‚¤ãƒ«ã¯å­˜åœ¨ã—ã¾ã™ã€‚
 	* @return false:
-	*	ƒtƒ@ƒCƒ‹‚Í‘¶İ‚µ‚Ü‚¹‚ñB
+	*	ãƒ•ã‚¡ã‚¤ãƒ«ã¯å­˜åœ¨ã—ã¾ã›ã‚“ã€‚
 	* @note
-	*	ŠJ‚­‚±‚Æ‚Ì‚Å‚«‚È‚¢ƒtƒ@ƒCƒ‹‚Í‘¶İ‚µ‚È‚¢‚Æ‚İ‚È‚³‚ê‚Ü‚·B
+	*	é–‹ãã“ã¨ã®ã§ããªã„ãƒ•ã‚¡ã‚¤ãƒ«ã¯å­˜åœ¨ã—ãªã„ã¨ã¿ãªã•ã‚Œã¾ã™ã€‚
 	*/
 	bool IsExistFile(std::string const file_name);
 	
 	/**
 	* @blief
-	*	ƒ†[ƒU[’è‹`ƒŠƒeƒ‰ƒ‹‚ğ’è‹`‚µ‚Ü‚·B
+	*	ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ãƒªãƒ†ãƒ©ãƒ«ã‚’å®šç¾©ã—ã¾ã™ã€‚
 	*
 	* @note
-	* 	‚±‚Ì‹@”\‚ğg—p‚µ‚È‚¢ê‡‚ÍTKUTIL_NO_USER_LITERALS‚ğ’è‹`‚µ‚Ä‚­‚¾‚³‚¢
+	* 	ã“ã®æ©Ÿèƒ½ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã¯TKUTIL_NO_USER_LITERALSã‚’å®šç¾©ã—ã¦ãã ã•ã„
 	*/
 	inline namespace Literals
 	{
 		/**
 		* @blief
-		*	•¶š—ñƒŠƒeƒ‰ƒ‹‚É‘Î‚·‚éƒTƒtƒBƒbƒNƒX_s‚ğstd::stringŒ^‚ğ¦‚·ƒ†[ƒU[’è‹`ƒŠƒeƒ‰ƒ‹‚Æ‚µ‚Ä’è‹`‚µ‚Ü‚·B
+		*	æ–‡å­—åˆ—ãƒªãƒ†ãƒ©ãƒ«ã«å¯¾ã™ã‚‹ã‚µãƒ•ã‚£ãƒƒã‚¯ã‚¹_sã‚’std::stringå‹ã‚’ç¤ºã™ãƒ¦ãƒ¼ã‚¶ãƒ¼å®šç¾©ãƒªãƒ†ãƒ©ãƒ«ã¨ã—ã¦å®šç¾©ã—ã¾ã™ã€‚
 		*
 		*/
 		static std::string operator"" _s(const char* str, std::size_t length)
@@ -82,11 +87,11 @@ using namespace TKUTIL::Literals;
 #endif
 
 #ifdef _MANAGED
-static std::string TKUTIL::SystemStringToString(System::String ^ s)
+static std::string TKUTIL::SystemStringToString(System::String ^ str)
 {
 	std::string os;
 	using namespace System::Runtime::InteropServices;
-	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+	const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(str)).ToPointer();
 	os = chars;
 	Marshal::FreeHGlobal(System::IntPtr((void*)chars));
 	return os;

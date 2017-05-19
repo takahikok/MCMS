@@ -2,6 +2,7 @@
 #include "SetupADCMeasurement.h"
 #include "SetupAnalyzeSP.h"
 #include "SetupPlot.h"
+#include "DialogQuickLoadShot.h"
 #include "tkadc.h"
 #include "tkadcinfo.h"
 #include "tkshotinfo.h"
@@ -31,8 +32,7 @@
 
 #define MAX_PLOT_NUMBER 30
 
-namespace Project1
-{
+namespace Project1 {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -45,8 +45,7 @@ namespace Project1
 	/// <summary>
 	/// MyForm の概要
 	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
-	{
+	public ref class MyForm : public System::Windows::Forms::Form {
 	private:
 		clx::ini* Setting;
 		clx::ini* ShotSetting;
@@ -202,9 +201,12 @@ namespace Project1
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown13;
 	private: System::Windows::Forms::NumericUpDown^  numericUpDown14;
 	private: System::Windows::Forms::ToolStrip^  toolStrip2;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton1;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton2;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton3;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonStart;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonStop;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonSave;
+
+
+
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton6;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton7;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton4;
@@ -215,10 +217,13 @@ namespace Project1
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton9;
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator6;
+private: System::Windows::Forms::ToolStripButton^  toolStripButtonGo;
 
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton12;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton10;
-	private: System::Windows::Forms::ToolStripButton^  toolStripButton11;
+
+private: System::Windows::Forms::ToolStripButton^  toolStripButtonPrev;
+private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
+
+
 
 
 
@@ -237,21 +242,56 @@ namespace Project1
 
 	private:
 		void startMeasurement(Project1::MyForm^ parent);
+		//int Connection(bool on_startup)
+		//{
+		//	int error_no;
+		//	if (!(on_startup ^ (bool)((*Setting)["DL750"]["ConnectOnStartup"] == "Enable")))
+		//		if ((bool)((*Setting)["DL750"]["Control"] == "Enable"))
+		//			if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Open(TM_CTL_ETHER, ((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
+		//				goto error;
+		//	if (!(on_startup ^ (bool)((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")))
+		//		if ((bool)((*Setting)["DL850"]["Control"] == "Enable"))
+		//			if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
+		//				goto error;
+		//	flushADCState("Ready");
+		//	return 0;
+		//error:
+		//	throw TKADCCONTROL::Exception(static_cast<int>(TKADCINFO_ADC_ID_DL850), error_no);
+		//	return error_no;
+		//}
 		int Connection(bool on_startup)
 		{
-			int error_no;
-			if (!(on_startup ^ (bool)((*Setting)["DL750"]["ConnectOnStartup"] == "Enable")))
-				if ((bool)((*Setting)["DL750"]["Control"] == "Enable"))
-					if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Open(TM_CTL_ETHER, ((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
-						goto error;
-			if (!(on_startup ^ (bool)((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")))
-				if ((bool)((*Setting)["DL850"]["Control"] == "Enable"))
-					if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Open(TM_CTL_VXI11, (*Setting)["DL850"]["IPAddress"].c_str()))
-						goto error;
-			flushADCState("Ready");
-			return 0;
-		error:
-			return error_no;
+			try {
+				int error_no;
+				std::vector<TKADCCONTROL::Exception> exception;
+				if (!(on_startup ^ (bool)((*Setting)["DL750"]["ConnectOnStartup"] == "Enable")))
+					if ((bool)((*Setting)["DL750"]["Control"] == "Enable"))
+						if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Open(TM_CTL_ETHER,
+							((*Setting)["DL750"]["IPAddress"] + ",anonymous,").c_str()))
+							exception.push_back(TKADCCONTROL::Exception(static_cast<int>(TKADCINFO_ADC_ID_DL750), error_no));
+				if (!(on_startup ^ (bool)((*Setting)["DL850"]["ConnectOnStartup"] == "Enable")))
+					if ((bool)((*Setting)["DL850"]["Control"] == "Enable"))
+						if (error_no = TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Open(TM_CTL_VXI11,
+							(*Setting)["DL850"]["IPAddress"].c_str()))
+							exception.push_back(TKADCCONTROL::Exception(static_cast<int>(TKADCINFO_ADC_ID_DL850), error_no));
+				if (exception.size())
+					throw exception;
+
+				flushADCState("Ready");
+
+				this->toolStripButtonStart->Enabled = true;
+				this->計測器切断->Enabled = true;
+
+				return 0;
+			}
+			catch (std::vector<TKADCCONTROL::Exception> const &e) {
+				std::string error_section;
+				for (const auto& iter : e)
+					error_section = error_section + "Section:\t"_s
+					+ TKADCINFO::ADCIDToSectionName(static_cast<TKADCINFO::ADCID>(iter.adc_id)) + "\n";
+				MessageBox::Show(gcnew System::String(("Connection failed.\n"_s + error_section).c_str()));
+				return 1;
+			}
 		}
 
 		inline int downloadFromADC(TKADCINFO::ADCID adcid, std::string filename)
@@ -329,6 +369,10 @@ namespace Project1
 		void plotRaw(unsigned int shot_number, bool replot)
 		{
 			static int total_plot;
+
+			this->toolStripButtonPrev->Enabled = true;
+			this->toolStripButtonNext->Enabled = true;
+
 			for (int i = 0; i < picture_box_total_number; i++) {
 				//Plot
 				pBPlot[i]->Visible = false;
@@ -640,9 +684,7 @@ namespace Project1
 			thisAnalyzeSP = new TKANALYZESP(thisShot, Setting, "AnalyzeSP");
 			thisAnalyzeISP = new TKANALYZEISP(thisShot, Setting, "AnalyzeISP");
 
-			if (Connection(1))
-				MessageBox::Show("Connection failed.");
-
+			Connection(true);
 			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)
 				->SetLastLocalShotNumber(std::stoi((*Setting)["DL750"]["LastLocalShotNumber"]));
 			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)
@@ -830,13 +872,13 @@ namespace Project1
 			this->toolStripButton8 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButton9 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator6 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->toolStripButton10 = (gcnew System::Windows::Forms::ToolStripButton());
-			this->toolStripButton11 = (gcnew System::Windows::Forms::ToolStripButton());
-			this->toolStripButton12 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonPrev = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonNext = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonGo = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator5 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
-			this->toolStripButton2 = (gcnew System::Windows::Forms::ToolStripButton());
-			this->toolStripButton3 = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonStart = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonStop = (gcnew System::Windows::Forms::ToolStripButton());
+			this->toolStripButtonSave = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStripButton6 = (gcnew System::Windows::Forms::ToolStripButton());
 			this->toolStripButton7 = (gcnew System::Windows::Forms::ToolStripButton());
@@ -1023,6 +1065,7 @@ namespace Project1
 			// 
 			// 計測器切断
 			// 
+			this->計測器切断->Enabled = false;
 			this->計測器切断->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"計測器切断.Image")));
 			this->計測器切断->Name = L"計測器切断";
 			this->計測器切断->Size = System::Drawing::Size(160, 22);
@@ -1175,7 +1218,7 @@ namespace Project1
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Size = System::Drawing::Size(776, 360);
-			this->splitContainer1->SplitterDistance = 312;
+			this->splitContainer1->SplitterDistance = 330;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
 			// 
@@ -1300,7 +1343,7 @@ namespace Project1
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer2->Size = System::Drawing::Size(776, 360);
-			this->splitContainer2->SplitterDistance = 312;
+			this->splitContainer2->SplitterDistance = 330;
 			this->splitContainer2->SplitterWidth = 1;
 			this->splitContainer2->TabIndex = 28;
 			// 
@@ -1313,7 +1356,7 @@ namespace Project1
 			this->button11->TabIndex = 23;
 			this->button11->Text = L"設定";
 			this->button11->UseVisualStyleBackColor = true;
-			this->button11->Click += gcnew System::EventHandler(this, &MyForm::button11_Click_1);
+			this->button11->Click += gcnew System::EventHandler(this, &MyForm::button11_Click);
 			// 
 			// button10
 			// 
@@ -1334,7 +1377,7 @@ namespace Project1
 			this->button9->TabIndex = 21;
 			this->button9->Text = L"再計算";
 			this->button9->UseVisualStyleBackColor = true;
-			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click_1);
+			this->button9->Click += gcnew System::EventHandler(this, &MyForm::button9_Click);
 			// 
 			// groupBox3
 			// 
@@ -1455,7 +1498,7 @@ namespace Project1
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox5);
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox6);
 			this->splitContainer3->Size = System::Drawing::Size(776, 360);
-			this->splitContainer3->SplitterDistance = 312;
+			this->splitContainer3->SplitterDistance = 330;
 			this->splitContainer3->SplitterWidth = 1;
 			this->splitContainer3->TabIndex = 29;
 			// 
@@ -1468,7 +1511,7 @@ namespace Project1
 			this->button12->TabIndex = 23;
 			this->button12->Text = L"設定";
 			this->button12->UseVisualStyleBackColor = true;
-			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click_1);
+			this->button12->Click += gcnew System::EventHandler(this, &MyForm::button12_Click);
 			// 
 			// button13
 			// 
@@ -1489,7 +1532,7 @@ namespace Project1
 			this->button14->TabIndex = 21;
 			this->button14->Text = L"再計算";
 			this->button14->UseVisualStyleBackColor = true;
-			this->button14->Click += gcnew System::EventHandler(this, &MyForm::button14_Click_1);
+			this->button14->Click += gcnew System::EventHandler(this, &MyForm::button14_Click);
 			// 
 			// groupBox4
 			// 
@@ -1585,13 +1628,13 @@ namespace Project1
 			this->toolStrip2->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(16)
 			{
 				this->toolStripButton8,
-					this->toolStripButton9, this->toolStripSeparator6, this->toolStripButton10, this->toolStripButton11, this->toolStripButton12,
-					this->toolStripSeparator5, this->toolStripButton1, this->toolStripButton2, this->toolStripButton3, this->toolStripSeparator3,
+					this->toolStripButton9, this->toolStripSeparator6, this->toolStripButtonPrev, this->toolStripButtonNext, this->toolStripButtonGo,
+					this->toolStripSeparator5, this->toolStripButtonStart, this->toolStripButtonStop, this->toolStripButtonSave, this->toolStripSeparator3,
 					this->toolStripButton6, this->toolStripButton7, this->toolStripSeparator4, this->toolStripButton4, this->toolStripButton5
 			});
 			this->toolStrip2->Location = System::Drawing::Point(3, 0);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(555, 25);
+			this->toolStrip2->Size = System::Drawing::Size(641, 25);
 			this->toolStrip2->TabIndex = 2;
 			// 
 			// toolStripButton8
@@ -1618,64 +1661,72 @@ namespace Project1
 			this->toolStripSeparator6->Name = L"toolStripSeparator6";
 			this->toolStripSeparator6->Size = System::Drawing::Size(6, 25);
 			// 
-			// toolStripButton10
+			// toolStripButtonPrev
 			// 
-			this->toolStripButton10->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButton10->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton10.Image")));
-			this->toolStripButton10->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton10->Name = L"toolStripButton10";
-			this->toolStripButton10->Size = System::Drawing::Size(23, 22);
-			this->toolStripButton10->Text = L"Previous shot";
-			this->toolStripButton10->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton10_Click);
+			this->toolStripButtonPrev->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButtonPrev->Enabled = false;
+			this->toolStripButtonPrev->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonPrev.Image")));
+			this->toolStripButtonPrev->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonPrev->Name = L"toolStripButtonPrev";
+			this->toolStripButtonPrev->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonPrev->Text = L"Previous shot";
+			this->toolStripButtonPrev->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton10_Click);
 			// 
-			// toolStripButton11
+			// toolStripButtonNext
 			// 
-			this->toolStripButton11->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButton11->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton11.Image")));
-			this->toolStripButton11->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton11->Name = L"toolStripButton11";
-			this->toolStripButton11->Size = System::Drawing::Size(23, 22);
-			this->toolStripButton11->Text = L"Next shot";
-			this->toolStripButton11->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton11_Click);
+			this->toolStripButtonNext->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButtonNext->Enabled = false;
+			this->toolStripButtonNext->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonNext.Image")));
+			this->toolStripButtonNext->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonNext->Name = L"toolStripButtonNext";
+			this->toolStripButtonNext->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonNext->Text = L"Next shot";
+			this->toolStripButtonNext->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton11_Click);
 			// 
-			// toolStripButton12
+			// toolStripButtonGo
 			// 
-			this->toolStripButton12->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton12.Image")));
-			this->toolStripButton12->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton12->Name = L"toolStripButton12";
-			this->toolStripButton12->Size = System::Drawing::Size(46, 22);
-			this->toolStripButton12->Text = L"GO";
+			this->toolStripButtonGo->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonGo.Image")));
+			this->toolStripButtonGo->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonGo->Name = L"toolStripButtonGo";
+			this->toolStripButtonGo->Size = System::Drawing::Size(46, 22);
+			this->toolStripButtonGo->Text = L"GO";
+			this->toolStripButtonGo->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton12_Click);
 			// 
 			// toolStripSeparator5
 			// 
 			this->toolStripSeparator5->Name = L"toolStripSeparator5";
 			this->toolStripSeparator5->Size = System::Drawing::Size(6, 25);
 			// 
-			// toolStripButton1
+			// toolStripButtonStart
 			// 
-			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
-			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton1->Name = L"toolStripButton1";
-			this->toolStripButton1->Size = System::Drawing::Size(58, 22);
-			this->toolStripButton1->Text = L"Start";
+			this->toolStripButtonStart->Enabled = false;
+			this->toolStripButtonStart->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonStart.Image")));
+			this->toolStripButtonStart->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonStart->Name = L"toolStripButtonStart";
+			this->toolStripButtonStart->Size = System::Drawing::Size(58, 22);
+			this->toolStripButtonStart->Text = L"Start";
+			this->toolStripButtonStart->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton1_Click);
 			// 
-			// toolStripButton2
+			// toolStripButtonStop
 			// 
-			this->toolStripButton2->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButton2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton2.Image")));
-			this->toolStripButton2->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton2->Name = L"toolStripButton2";
-			this->toolStripButton2->Size = System::Drawing::Size(23, 22);
-			this->toolStripButton2->Text = L"□Stop";
+			this->toolStripButtonStop->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
+			this->toolStripButtonStop->Enabled = false;
+			this->toolStripButtonStop->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonStop.Image")));
+			this->toolStripButtonStop->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonStop->Name = L"toolStripButtonStop";
+			this->toolStripButtonStop->Size = System::Drawing::Size(23, 22);
+			this->toolStripButtonStop->Text = L"□Stop";
+			this->toolStripButtonStop->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton2_Click);
 			// 
-			// toolStripButton3
+			// toolStripButtonSave
 			// 
-			this->toolStripButton3->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButton3->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton3.Image")));
-			this->toolStripButton3->ImageTransparentColor = System::Drawing::Color::Magenta;
-			this->toolStripButton3->Name = L"toolStripButton3";
-			this->toolStripButton3->Size = System::Drawing::Size(23, 22);
-			this->toolStripButton3->Text = L"↓Save";
+			this->toolStripButtonSave->Enabled = false;
+			this->toolStripButtonSave->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonSave.Image")));
+			this->toolStripButtonSave->ImageTransparentColor = System::Drawing::Color::Magenta;
+			this->toolStripButtonSave->Name = L"toolStripButtonSave";
+			this->toolStripButtonSave->Size = System::Drawing::Size(57, 22);
+			this->toolStripButtonSave->Text = L"Save";
+			this->toolStripButtonSave->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton3_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -1707,12 +1758,12 @@ namespace Project1
 			// 
 			// toolStripButton4
 			// 
-			this->toolStripButton4->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
 			this->toolStripButton4->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton4.Image")));
 			this->toolStripButton4->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton4->Name = L"toolStripButton4";
-			this->toolStripButton4->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton4->Size = System::Drawing::Size(75, 22);
 			this->toolStripButton4->Text = L"Connect";
+			this->toolStripButton4->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton4_Click);
 			// 
 			// toolStripButton5
 			// 
@@ -1722,6 +1773,7 @@ namespace Project1
 			this->toolStripButton5->Name = L"toolStripButton5";
 			this->toolStripButton5->Size = System::Drawing::Size(120, 22);
 			this->toolStripButton5->Text = L"Connection setting";
+			this->toolStripButton5->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton5_Click);
 			// 
 			// MyForm
 			// 
@@ -1817,10 +1869,8 @@ namespace Project1
 	}
 	private: System::Void 計測器接続ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (!Connection(0))
+		if (!Connection(false))
 			MessageBox::Show("Connect!");
-		else
-			MessageBox::Show("Connection failed.");
 	}
 	private: System::Void すべて保存ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -1867,7 +1917,12 @@ namespace Project1
 #endif
 	private: System::Void 計測開始ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		this->toolStripButtonStart->Enabled = false;
+		this->toolStripButtonStop->Enabled = true;
 		startMeasurement(this);
+		this->toolStripButtonStart->Enabled = true;
+		this->toolStripButtonStop->Enabled = false;
+		this->toolStripButtonSave->Enabled = true;
 	}
 	private: System::Void 計測停止ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -1992,17 +2047,16 @@ namespace Project1
 				thisShot->AppendDataFile(TKFILEUTIL::RemoveExtension(file_list[i]));
 			(*Setting)["Utility"]["LastFile"] = file_list[0];
 		}
-		
-		enum class RELATIVELY
-		{
-			PREVIOUS, 
+
+		enum class RELATIVELY {
+			PREVIOUS,
 			NEXT
 		};
 
 		void openShot(RELATIVELY direction)
 		{
 			TKFILEUTIL::SHOTFILENAME current_shot_file((*Setting)["Utility"]["LastFile"]);
-			
+
 			if (!TKUTIL::IsExistFile(current_shot_file.GetFilePath()))
 				return;
 
@@ -2088,37 +2142,37 @@ namespace Project1
 	{
 		開くToolStripMenuItem_Click(sender, e);
 	}
-	private: System::Void button9_Click_1(System::Object^  sender, System::EventArgs^  e)
+	private: System::Void toolStripButton10_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		button9_Click(sender, e);
+		openShot(RELATIVELY::PREVIOUS);
+		plotRaw(0, false);
 	}
-private: System::Void button11_Click_1(System::Object^  sender, System::EventArgs^  e)
-{
-	button11_Click(sender, e);
-}
-private: System::Void button12_Click_1(System::Object^  sender, System::EventArgs^  e)
-{
-	button12_Click(sender, e);
-}
-private: System::Void button14_Click_1(System::Object^  sender, System::EventArgs^  e)
-{
-	button14_Click(sender, e);
-}
-private: System::Void toolStripButton10_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	openShot(RELATIVELY::PREVIOUS);
-	plotRaw(0, false);
-}
-private: System::Void toolStripButton11_Click(System::Object^  sender, System::EventArgs^  e)
-{
-	openShot(RELATIVELY::NEXT);
-	plotRaw(0, false);
-}
-};
+	private: System::Void toolStripButton11_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		openShot(RELATIVELY::NEXT);
+		plotRaw(0, false);
+	}
+	private: System::Void toolStripButton12_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		TKFILEUTIL::SHOTFILENAME shot_file_name((*Setting)["Utility"]["LastFile"]);
+
+		DialogQuickLoadShot^ f = gcnew DialogQuickLoadShot(shot_file_name.ShotNumber(), 0,
+			std::stoi((*Setting)["ShotNumber"]["LastShotNumber"]));
+
+		if (f->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			if (TKUTIL::IsExistFile(shot_file_name.GetFilePath())) {
+				openLocalFile(shot_file_name.GetFilePath());
+				plotRaw(0, false);
+			} else {
+				MessageBox::Show(gcnew System::String(("Open failed.\n"_s
+					+ "path: "_s + shot_file_name.GetFilePath()).c_str()));
+				開くToolStripMenuItem_Click(sender, e);
+			}
+	}
+	};
 }
 #if 1
-class exadcstart
-{
+class exadcstart {
 private:
 	TKADCINFO::ADCID adcid;
 	TKADCCONTROL::CONDITIONFLAG flag;
@@ -2138,8 +2192,7 @@ public:
 };
 
 
-class exfunctor
-{
+class exfunctor {
 private:
 	TKADCINFO::ADCID adcid;
 	clx::ini* Setting;
