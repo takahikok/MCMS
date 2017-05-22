@@ -401,7 +401,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//	pBPlot[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
 			//	try {
 			//		pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
-			//			+ ".png").c_str())));
+			//			+ ".svg").c_str())));
 			//	}
 			//	catch (...) {
 			//		pBPlot[i]->Image = gcnew Bitmap(1, 1);
@@ -524,7 +524,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//	pBPlot2[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
 			//	try {
 			//		pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-			//			+ ".png").c_str())));
+			//			+ ".svg").c_str())));
 			//	}
 			//	catch (...) {
 			//		pBPlot2[i]->Image = gcnew Bitmap(1, 1);
@@ -575,7 +575,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//	pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
 			//	try {
 			//		pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-			//			+ ".png").c_str())));
+			//			+ ".svg").c_str())));
 			//	}
 			//	catch (...) {
 			//		pBPlot3[i]->Image = gcnew Bitmap(1, 1);
@@ -679,9 +679,9 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//	pBPlot3[i]->TabStop = false;
 			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->EndInit();
 			//}
-			webBrowser1->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/ytsummary.html");
-			webBrowser2->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/spsummary.html");
-			webBrowser3->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/ispsummary.html");
+			webBrowser1->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/ytsummary.html");
+			webBrowser2->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/spsummary.html");
+			webBrowser3->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/ispsummary.html");
 
 			//
 			//TODO: ここにコンストラクター コードを追加します

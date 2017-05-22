@@ -248,6 +248,7 @@ ModelManifest.xml
 *.HDR
 *.plt
 *.png
+*.svg
 
 # FAKE - F# Make
 .fake/

@@ -60,7 +60,7 @@ public:
 			for (int i = 0; i < 4; i++)
 				plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
 		};
-		if (!replot&&TKUTIL::IsExistFile(plotInfo[i_channel_plot_info_index].out_file_name + "0" + ".png")) {
+		if (!replot&&TKUTIL::IsExistFile(plotInfo[i_channel_plot_info_index].out_file_name + "0" + ".svg")) {
 			finalize();
 			return static_cast<int>(plotInfo.size());
 		}
@@ -69,8 +69,9 @@ public:
 		of.open(group + ".plt", std::ios::trunc);
 
 
-		of << "set term png enhanced transparent truecolor font arial 11 size "
-			<< plotInfo[0].terminal_size.str() << std::endl;
+		//		of << "set term png enhanced transparent truecolor font arial 11 size "
+		of << R"(set term svg size )" << plotInfo[0].terminal_size.str()
+			<< R"( enhanced font "Arial, 11")" << std::endl;
 		of << "" << std::endl;
 		of << "set datafile separator \',\'" << std::endl;
 		of << "set grid xtics ytics" << std::endl;
@@ -164,7 +165,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "0.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "0.svg\"" << std::endl;
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		of << "set object 3 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -202,7 +203,7 @@ public:
 			return TKPLOT::RANGE<double>(fitrange.Ie.median() - v_pp / 2, fitrange.Ie.median() + v_pp / 2);
 		};
 
-		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "1.svg\"" << std::endl;
 		of << "set xrange " + opt_range(100).str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
@@ -257,7 +258,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "2.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "2.svg\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "unset object 2" << std::endl;
 		of << "set object 3 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -293,11 +294,22 @@ public:
 			<< "[" << fitrange.Ie.min - 20 << ":] F_Ies(x) lw 2 lc rgb \"dark-magenta\""
 			<< std::endl;
 
-		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.png\"" << std::endl;
+		of << "set out \"" + plotInfo[i_channel_plot_info_index].out_file_name + "3.svg\"" << std::endl;
 		of << "set xrange " + opt_range(100).str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
-		of << "replot" << std::endl;
+//		of << "replot" << std::endl;
+		of << "plot "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(100) << ROIp()
+			<< " using "
+			<< svp()
+			<< ":"
+			<< "(" << sip() << "-F_Iis(" << svp() << "))"
+			<< " pt 6 ps 0.2 lc rgb \"red\", "
+			<< "[" << fitrange.Ie.min - 20 << ":] F_Ie(x) lw 2 lc rgb \"blue\", "
+			<< "[" << fitrange.Ie.min - 20 << ":] F_Ies(x) lw 2 lc rgb \"dark-magenta\""
+			<< std::endl;
 
 		of << "" << std::endl;
 		of << "#---OUT---" << std::endl;
@@ -318,7 +330,7 @@ public:
 	void MakeHTML()
 	{
 		std::ofstream of;
-		of.open("C:\\Users\\user\\Source\\Repos\\MCMS\\UI\\Project1\\spsummary.html", std::ios::trunc);
+		of.open("C:\\Users\\ppl\\Source\\Repos\\MCMS\\UI\\Project1\\spsummary.html", std::ios::trunc);
 		of << R"(
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
@@ -331,10 +343,12 @@ public:
 		for (int i = 0; i < 4; i++) {
 			std::string img_src;
 			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
-			clx::replace_all(img_src, "$imgFileName"_s, plotInfo[i].plot_file_name + std::to_string(i) + ".png");
+			clx::replace_all(img_src, "$imgFileName"_s, plotInfo[i].plot_file_name + std::to_string(i) + ".svg");
 			clx::replace_all(img_src, "$imgAlt"_s, plotInfo[i].plot_file_name + std::to_string(i));
 			clx::replace_all(img_src, "#"_s, "%23"_s);
 			of << img_src << std::endl;
+			if (i == 1)
+				of << "<BR>" << std::endl;
 		}
 		of << R"(
 </BODY>

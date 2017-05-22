@@ -357,15 +357,16 @@ public:
 				plotInfo.push_back(loadPlotInfoInstance(data_index, trace_index, plot_size));
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
-			if (!replot&&TKUTIL::IsExistFile(plotInfo[i].out_file_name + ".png"))
+			if (!replot&&TKUTIL::IsExistFile(plotInfo[i].out_file_name + ".svg"))
 				continue;
 
 			std::ofstream of;
 			of.open(plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
 
-			of << "set term png enhanced transparent truecolor font arial 11 size "
-				<< plotInfo[i].terminal_size.str() << std::endl;
-			of << "set out \"" << plotInfo[i].out_file_name << ".png\"" << std::endl;
+			//		of << "set term png enhanced transparent truecolor font arial 11 size "
+			of << R"(set term svg size )" << plotInfo[i].terminal_size.str()
+				<< R"( enhanced font "Arial, 11")" << std::endl;
+			of << "set out \"" << plotInfo[i].out_file_name << ".svg\"" << std::endl;
 			of << "set datafile separator \',\'" << std::endl;
 			of << "set grid xtics ytics" << std::endl;
 			of << "set nokey" << std::endl;
@@ -475,7 +476,7 @@ public:
 		for (const auto& iter : plotInfo) {
 			std::string img_src;
 			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
-			clx::replace_all(img_src, "$imgFileName"_s, iter.plot_file_name + ".png");
+			clx::replace_all(img_src, "$imgFileName"_s, iter.plot_file_name + ".svg");
 			clx::replace_all(img_src, "$imgAlt"_s, iter.plot_file_name);
 			clx::replace_all(img_src, "#"_s, "%23"_s);
 			of << img_src << std::endl;
