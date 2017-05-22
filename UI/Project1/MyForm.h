@@ -217,11 +217,14 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator5;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButton9;
 	private: System::Windows::Forms::ToolStripSeparator^  toolStripSeparator6;
-private: System::Windows::Forms::ToolStripButton^  toolStripButtonGo;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonGo;
 
 
-private: System::Windows::Forms::ToolStripButton^  toolStripButtonPrev;
-private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonPrev;
+	private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
+	private: System::Windows::Forms::WebBrowser^  webBrowser1;
+private: System::Windows::Forms::WebBrowser^  webBrowser2;
+private: System::Windows::Forms::WebBrowser^  webBrowser3;
 
 
 
@@ -368,55 +371,58 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 		}
 		void plotRaw(unsigned int shot_number, bool replot)
 		{
-			static int total_plot;
-
-			this->toolStripButtonPrev->Enabled = true;
-			this->toolStripButtonNext->Enabled = true;
-
-			for (int i = 0; i < picture_box_total_number; i++) {
-				//Plot
-				pBPlot[i]->Visible = false;
-				delete pBPlot[i]->Image;
-
-#ifdef ENABLE_HVLINE
-				//Line
-				pBVLine[i]->Visible = false;
-				pBHLine[i]->Visible = false;
-				pBHLineText[i]->Visible = false;
-#endif
-			}
+			//			static int total_plot;
+			//
+			//
+			//			for (int i = 0; i < picture_box_total_number; i++) {
+			//				//Plot
+			//				pBPlot[i]->Visible = false;
+			//				delete pBPlot[i]->Image;
+			//
+			//#ifdef ENABLE_HVLINE
+			//				//Line
+			//				pBVLine[i]->Visible = false;
+			//				pBHLine[i]->Visible = false;
+			//				pBHLineText[i]->Visible = false;
+			//#endif
+			//			}
+			//this->toolStripButtonPrev->Enabled = true;
+			//this->toolStripButtonNext->Enabled = true;
 			thisPlot->PlotRaw(TKPLOT::PLOTSIZE::SMALL_SIZE, shot_number, replot);
-			total_plot = static_cast<int>(thisPlot->GetPlotInfo().size());
-			std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
-			pplot_info = thisPlot->GetPlotInfoPtr();
-			for (int i = 0; i < total_plot; i++) {
-				//Plot
-				pBPlot[i]->Location = System::Drawing::Point((pplot_info[i].terminal_size.w + 10)*(i % 3), (pplot_info[i].terminal_size.h + 0)*(i / 3));
-				pBPlot[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
-				try {
-					pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
-						+ ".png").c_str())));
-				}
-				catch (...) {
-					pBPlot[i]->Image = gcnew Bitmap(1, 1);
-					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
-				}
+			thisPlot->MakeHTML();
+			webBrowser1->Refresh();
 
-				pBPlot[i]->Visible = true;
-			}
-#ifdef ENABLE_HVLINE
-			refreshVLine();
-			refreshHLine();
-			for (int i = 0; i < total_plot; i++) {
-				//VLine
-				pBVLine[i]->Visible = true;
+			//total_plot = static_cast<int>(thisPlot->GetPlotInfo().size());
+			//std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+			//pplot_info = thisPlot->GetPlotInfoPtr();
+			//for (int i = 0; i < total_plot; i++) {
+			//	//Plot
+			//	pBPlot[i]->Location = System::Drawing::Point((pplot_info[i].terminal_size.w + 10)*(i % 3), (pplot_info[i].terminal_size.h + 0)*(i / 3));
+			//	pBPlot[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+			//	try {
+			//		pBPlot[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name
+			//			+ ".png").c_str())));
+			//	}
+			//	catch (...) {
+			//		pBPlot[i]->Image = gcnew Bitmap(1, 1);
+			//		MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+			//	}
 
-				//HLine
-				pBHLine[i]->Visible = true;
-				pBHLineText[i]->Visible = true;
-			}
-#endif
-
+			//	pBPlot[i]->Visible = true;
+			//}
+//#ifdef ENABLE_HVLINE
+//			refreshVLine();
+//			refreshHLine();
+//			for (int i = 0; i < total_plot; i++) {
+//				//VLine
+//				pBVLine[i]->Visible = true;
+//
+//				//HLine
+//				pBHLine[i]->Visible = true;
+//				pBHLineText[i]->Visible = true;
+//			}
+//#endif
+//
 			flushShotNumber();
 		}
 		void refreshVLine()
@@ -478,14 +484,14 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			}
 
 		}
-		void plotSP(unsigned int shot_number)
+		void plotSP(unsigned int shot_number, bool replot)
 		{
-			static int total_plot;
-			for (int i = 0; i < picture_box_total_number; i++) {
-				//Plot
-				pBPlot2[i]->Visible = false;
-				delete pBPlot2[i]->Image;
-			}
+			//static int total_plot;
+			//for (int i = 0; i < picture_box_total_number; i++) {
+			//	//Plot
+			//	pBPlot2[i]->Visible = false;
+			//	delete pBPlot2[i]->Image;
+			//}
 
 			const char group[] = "AnalyzeSP";
 
@@ -506,34 +512,37 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 				TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIesMin"]),
 					std::stod((*Setting)[group]["FitRangeIesMax"])));
 
-			thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
-			std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
-			pplot_info = thisAnalyzeSP->GetPlotInfoPtr();
-			for (int i = 0; i < 4; i++) {
-				//Plot
-				pBPlot2[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
-				pBPlot2[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
-				try {
-					pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-						+ ".png").c_str())));
-				}
-				catch (...) {
-					pBPlot2[i]->Image = gcnew Bitmap(1, 1);
-					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
-				}
-				pBPlot2[i]->Visible = true;
-			}
+			thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number, replot);
+			thisAnalyzeSP->MakeHTML();
+			webBrowser2->Refresh();
+
+			//std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+			//pplot_info = thisAnalyzeSP->GetPlotInfoPtr();
+			//for (int i = 0; i < 4; i++) {
+			//	//Plot
+			//	pBPlot2[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
+			//	pBPlot2[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+			//	try {
+			//		pBPlot2[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
+			//			+ ".png").c_str())));
+			//	}
+			//	catch (...) {
+			//		pBPlot2[i]->Image = gcnew Bitmap(1, 1);
+			//		MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+			//	}
+			//	pBPlot2[i]->Visible = true;
+			//}
 
 			flushShotNumber();
 		}
-		void plotISP(unsigned int shot_number)
+		void plotISP(unsigned int shot_number, bool replot)
 		{
-			static int total_plot;
-			for (int i = 0; i < picture_box_total_number; i++) {
-				//Plot
-				pBPlot3[i]->Visible = false;
-				delete pBPlot3[i]->Image;
-			}
+			//static int total_plot;
+			//for (int i = 0; i < picture_box_total_number; i++) {
+			//	//Plot
+			//	pBPlot3[i]->Visible = false;
+			//	delete pBPlot3[i]->Image;
+			//}
 
 			const char group[] = "AnalyzeISP";
 
@@ -554,23 +563,26 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 				TKPLOT::RANGE<double>(std::stod((*Setting)[group]["FitRangeIesMin"]),
 					std::stod((*Setting)[group]["FitRangeIesMax"])));
 
-			thisAnalyzeISP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number);
-			std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
-			pplot_info = thisAnalyzeISP->GetPlotInfoPtr();
-			for (int i = 0; i < 4; i++) {
-				//Plot
-				pBPlot3[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
-				pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
-				try {
-					pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
-						+ ".png").c_str())));
-				}
-				catch (...) {
-					pBPlot3[i]->Image = gcnew Bitmap(1, 1);
-					MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
-				}
-				pBPlot3[i]->Visible = true;
-			}
+			thisAnalyzeISP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number, replot);
+			thisAnalyzeISP->MakeHTML();
+			webBrowser3->Refresh();
+
+			//std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
+			//pplot_info = thisAnalyzeISP->GetPlotInfoPtr();
+			//for (int i = 0; i < 4; i++) {
+			//	//Plot
+			//	pBPlot3[i]->Location = System::Drawing::Point(pplot_info[i].terminal_size.w*(i % 2), pplot_info[i].terminal_size.h*(i / 2));
+			//	pBPlot3[i]->Size = System::Drawing::Size(pplot_info[i].terminal_size.w, pplot_info[i].terminal_size.h);
+			//	try {
+			//		pBPlot3[i]->Image = dynamic_cast<Image^>(gcnew Bitmap(gcnew System::String((pplot_info[i].plot_file_name + std::to_string(i)
+			//			+ ".png").c_str())));
+			//	}
+			//	catch (...) {
+			//		pBPlot3[i]->Image = gcnew Bitmap(1, 1);
+			//		MessageBox::Show("描画に失敗しました\nフィッティング範囲を変更するかフィッティングを無効にしてみてください。");
+			//	}
+			//	pBPlot3[i]->Visible = true;
+			//}
 
 			flushShotNumber();
 		}
@@ -579,94 +591,97 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADCCONTROL_DL750* DL750_, TKADCCONTROL_DL850* DL850_)
 		{
 			InitializeComponent();
-			for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
-				//Plot
-				pBPlot[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot[i]))->BeginInit();
-				this->splitContainer1->Panel1->Controls->Add(pBPlot[i]);
-				pBPlot[i]->Location = System::Drawing::Point(184, 24);
-				pBPlot[i]->Margin = System::Windows::Forms::Padding(2);
-				pBPlot[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot[i]))->EndInit();
+			//for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
+			//	//Plot
+			//	pBPlot[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot[i]))->BeginInit();
+			//	this->splitContainer1->Panel1->Controls->Add(pBPlot[i]);
+			//	pBPlot[i]->Location = System::Drawing::Point(184, 24);
+			//	pBPlot[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBPlot[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot[i]))->EndInit();
 
-				//VLine
-				pBVLine[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->BeginInit();
-				this->splitContainer1->Panel1->Controls->Add(pBVLine[i]);
-				pBVLine[i]->Location = System::Drawing::Point(184, 24);
-				pBVLine[i]->Margin = System::Windows::Forms::Padding(2);
-				pBVLine[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->EndInit();
-				pBVLine[i]->Size = System::Drawing::Size(1, 130);
-				Bitmap^ bmpPicBox = gcnew Bitmap(pBVLine[i]->Width, pBVLine[i]->Height);
-				pBVLine[i]->Image = bmpPicBox;
-				pBVLine[i]->BringToFront();
-				pBVLine[i]->Visible = false;
+			//	//VLine
+			//	pBVLine[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->BeginInit();
+			//	this->splitContainer1->Panel1->Controls->Add(pBVLine[i]);
+			//	pBVLine[i]->Location = System::Drawing::Point(184, 24);
+			//	pBVLine[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBVLine[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBVLine[i]))->EndInit();
+			//	pBVLine[i]->Size = System::Drawing::Size(1, 130);
+			//	Bitmap^ bmpPicBox = gcnew Bitmap(pBVLine[i]->Width, pBVLine[i]->Height);
+			//	pBVLine[i]->Image = bmpPicBox;
+			//	pBVLine[i]->BringToFront();
+			//	pBVLine[i]->Visible = false;
 
-				Graphics^ gV = Graphics::FromImage(pBVLine[i]->Image);
-				Pen^ myPenV = gcnew Pen(Color::Red);
-				myPenV->Width = 5;
-				gV->DrawLine(myPenV, 0, 0, 0, pBVLine[i]->Height);
+			//	Graphics^ gV = Graphics::FromImage(pBVLine[i]->Image);
+			//	Pen^ myPenV = gcnew Pen(Color::Red);
+			//	myPenV->Width = 5;
+			//	gV->DrawLine(myPenV, 0, 0, 0, pBVLine[i]->Height);
 
-				//HLine
-				pBHLine[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->BeginInit();
-				this->splitContainer1->Panel1->Controls->Add(pBHLine[i]);
-				pBHLine[i]->Location = System::Drawing::Point(184, 24);
-				pBHLine[i]->Margin = System::Windows::Forms::Padding(2);
-				pBHLine[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->EndInit();
-				pBHLine[i]->Size = System::Drawing::Size(1000, 1);
-				pBHLine[i]->Image = gcnew Bitmap(pBHLine[i]->Width, pBHLine[i]->Height);
-				pBHLine[i]->BringToFront();
-				pBHLine[i]->Visible = false;
+			//	//HLine
+			//	pBHLine[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->BeginInit();
+			//	this->splitContainer1->Panel1->Controls->Add(pBHLine[i]);
+			//	pBHLine[i]->Location = System::Drawing::Point(184, 24);
+			//	pBHLine[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBHLine[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLine[i]))->EndInit();
+			//	pBHLine[i]->Size = System::Drawing::Size(1000, 1);
+			//	pBHLine[i]->Image = gcnew Bitmap(pBHLine[i]->Width, pBHLine[i]->Height);
+			//	pBHLine[i]->BringToFront();
+			//	pBHLine[i]->Visible = false;
 
-				Graphics^ gH = Graphics::FromImage(pBHLine[i]->Image);
-				Pen^ myPenH = gcnew Pen(Color::Blue);
-				myPenH->Width = 5;
-				gH->DrawLine(myPenH, 0, 0, pBHLine[i]->Width, 0);
+			//	Graphics^ gH = Graphics::FromImage(pBHLine[i]->Image);
+			//	Pen^ myPenH = gcnew Pen(Color::Blue);
+			//	myPenH->Width = 5;
+			//	gH->DrawLine(myPenH, 0, 0, pBHLine[i]->Width, 0);
 
-				//HLineText
-				pBHLineText[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->BeginInit();
-				this->splitContainer1->Panel1->Controls->Add(pBHLineText[i]);
-				pBHLineText[i]->Location = System::Drawing::Point(184, 24);
-				pBHLineText[i]->Margin = System::Windows::Forms::Padding(2);
-				pBHLineText[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->EndInit();
-				pBHLineText[i]->Size = System::Drawing::Size(200, 16);
-				pBHLineText[i]->Image = gcnew Bitmap(pBHLineText[i]->Width, pBHLineText[i]->Height);
-				pBHLineText[i]->BringToFront();
-				pBHLineText[i]->Visible = false;
+			//	//HLineText
+			//	pBHLineText[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->BeginInit();
+			//	this->splitContainer1->Panel1->Controls->Add(pBHLineText[i]);
+			//	pBHLineText[i]->Location = System::Drawing::Point(184, 24);
+			//	pBHLineText[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBHLineText[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBHLineText[i]))->EndInit();
+			//	pBHLineText[i]->Size = System::Drawing::Size(200, 16);
+			//	pBHLineText[i]->Image = gcnew Bitmap(pBHLineText[i]->Width, pBHLineText[i]->Height);
+			//	pBHLineText[i]->BringToFront();
+			//	pBHLineText[i]->Visible = false;
 
-				Graphics^ gHT = Graphics::FromImage(pBHLineText[i]->Image);
-				String^ drawString = "V value";
+			//	Graphics^ gHT = Graphics::FromImage(pBHLineText[i]->Image);
+			//	String^ drawString = "V value";
 
-				// Create font and brush.
-				System::Drawing::Font^ drawFont = gcnew System::Drawing::Font("Arial", 11);
-				SolidBrush^ drawBrush = gcnew SolidBrush(Color::Black);
+			//	// Create font and brush.
+			//	System::Drawing::Font^ drawFont = gcnew System::Drawing::Font("Arial", 11);
+			//	SolidBrush^ drawBrush = gcnew SolidBrush(Color::Black);
 
-				// Create point for upper-left corner of drawing.
-				PointF drawPoint = PointF(150.0F, 150.0F);
-				gHT->DrawString(drawString, drawFont, drawBrush, 0, 0);
+			//	// Create point for upper-left corner of drawing.
+			//	PointF drawPoint = PointF(150.0F, 150.0F);
+			//	gHT->DrawString(drawString, drawFont, drawBrush, 0, 0);
 
-				//Plot2
-				pBPlot2[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot2[i]))->BeginInit();
-				this->splitContainer2->Panel1->Controls->Add(pBPlot2[i]);
-				pBPlot2[i]->Location = System::Drawing::Point(184, 24);
-				pBPlot2[i]->Margin = System::Windows::Forms::Padding(2);
-				pBPlot2[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot2[i]))->EndInit();
-				//Plot3
-				pBPlot3[i] = (gcnew System::Windows::Forms::PictureBox());
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->BeginInit();
-				this->splitContainer3->Panel1->Controls->Add(pBPlot3[i]);
-				pBPlot3[i]->Location = System::Drawing::Point(184, 24);
-				pBPlot3[i]->Margin = System::Windows::Forms::Padding(2);
-				pBPlot3[i]->TabStop = false;
-				(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->EndInit();
-			}
+			//	//Plot2
+			//	pBPlot2[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot2[i]))->BeginInit();
+			//	this->splitContainer2->Panel1->Controls->Add(pBPlot2[i]);
+			//	pBPlot2[i]->Location = System::Drawing::Point(184, 24);
+			//	pBPlot2[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBPlot2[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot2[i]))->EndInit();
+			//	//Plot3
+			//	pBPlot3[i] = (gcnew System::Windows::Forms::PictureBox());
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->BeginInit();
+			//	this->splitContainer3->Panel1->Controls->Add(pBPlot3[i]);
+			//	pBPlot3[i]->Location = System::Drawing::Point(184, 24);
+			//	pBPlot3[i]->Margin = System::Windows::Forms::Padding(2);
+			//	pBPlot3[i]->TabStop = false;
+			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->EndInit();
+			//}
+			webBrowser1->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/ytsummary.html");
+			webBrowser2->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/spsummary.html");
+			webBrowser3->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/ispsummary.html");
 
 			//
 			//TODO: ここにコンストラクター コードを追加します
@@ -830,6 +845,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
+			this->webBrowser1 = (gcnew System::Windows::Forms::WebBrowser());
 			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->button5 = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
@@ -842,6 +858,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
+			this->webBrowser2 = (gcnew System::Windows::Forms::WebBrowser());
 			this->button11 = (gcnew System::Windows::Forms::Button());
 			this->button10 = (gcnew System::Windows::Forms::Button());
 			this->button9 = (gcnew System::Windows::Forms::Button());
@@ -856,6 +873,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->numericUpDown4 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
 			this->splitContainer3 = (gcnew System::Windows::Forms::SplitContainer());
+			this->webBrowser3 = (gcnew System::Windows::Forms::WebBrowser());
 			this->button12 = (gcnew System::Windows::Forms::Button());
 			this->button13 = (gcnew System::Windows::Forms::Button());
 			this->button14 = (gcnew System::Windows::Forms::Button());
@@ -892,12 +910,14 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
+			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			this->tabPage2->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
+			this->splitContainer2->Panel1->SuspendLayout();
 			this->splitContainer2->Panel2->SuspendLayout();
 			this->splitContainer2->SuspendLayout();
 			this->groupBox3->SuspendLayout();
@@ -911,6 +931,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->BeginInit();
 			this->tabPage3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
+			this->splitContainer3->Panel1->SuspendLayout();
 			this->splitContainer3->Panel2->SuspendLayout();
 			this->splitContainer3->SuspendLayout();
 			this->groupBox4->SuspendLayout();
@@ -1203,6 +1224,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			// splitContainer1.Panel1
 			// 
 			this->splitContainer1->Panel1->AutoScroll = true;
+			this->splitContainer1->Panel1->Controls->Add(this->webBrowser1);
 			// 
 			// splitContainer1.Panel2
 			// 
@@ -1218,9 +1240,18 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->splitContainer1->Panel2->Controls->Add(this->button2);
 			this->splitContainer1->Panel2->Controls->Add(this->button1);
 			this->splitContainer1->Size = System::Drawing::Size(776, 360);
-			this->splitContainer1->SplitterDistance = 330;
+			this->splitContainer1->SplitterDistance = 310;
 			this->splitContainer1->SplitterWidth = 1;
 			this->splitContainer1->TabIndex = 27;
+			// 
+			// webBrowser1
+			// 
+			this->webBrowser1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->webBrowser1->Location = System::Drawing::Point(0, 0);
+			this->webBrowser1->MinimumSize = System::Drawing::Size(20, 20);
+			this->webBrowser1->Name = L"webBrowser1";
+			this->webBrowser1->Size = System::Drawing::Size(776, 310);
+			this->webBrowser1->TabIndex = 0;
 			// 
 			// numericUpDown2
 			// 
@@ -1332,6 +1363,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			// splitContainer2.Panel1
 			// 
 			this->splitContainer2->Panel1->AutoScroll = true;
+			this->splitContainer2->Panel1->Controls->Add(this->webBrowser2);
 			// 
 			// splitContainer2.Panel2
 			// 
@@ -1343,9 +1375,18 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox2);
 			this->splitContainer2->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer2->Size = System::Drawing::Size(776, 360);
-			this->splitContainer2->SplitterDistance = 330;
+			this->splitContainer2->SplitterDistance = 310;
 			this->splitContainer2->SplitterWidth = 1;
 			this->splitContainer2->TabIndex = 28;
+			// 
+			// webBrowser2
+			// 
+			this->webBrowser2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->webBrowser2->Location = System::Drawing::Point(0, 0);
+			this->webBrowser2->MinimumSize = System::Drawing::Size(20, 20);
+			this->webBrowser2->Name = L"webBrowser2";
+			this->webBrowser2->Size = System::Drawing::Size(776, 310);
+			this->webBrowser2->TabIndex = 0;
 			// 
 			// button11
 			// 
@@ -1487,6 +1528,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			// splitContainer3.Panel1
 			// 
 			this->splitContainer3->Panel1->AutoScroll = true;
+			this->splitContainer3->Panel1->Controls->Add(this->webBrowser3);
 			// 
 			// splitContainer3.Panel2
 			// 
@@ -1498,9 +1540,18 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox5);
 			this->splitContainer3->Panel2->Controls->Add(this->groupBox6);
 			this->splitContainer3->Size = System::Drawing::Size(776, 360);
-			this->splitContainer3->SplitterDistance = 330;
+			this->splitContainer3->SplitterDistance = 310;
 			this->splitContainer3->SplitterWidth = 1;
 			this->splitContainer3->TabIndex = 29;
+			// 
+			// webBrowser3
+			// 
+			this->webBrowser3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->webBrowser3->Location = System::Drawing::Point(0, 0);
+			this->webBrowser3->MinimumSize = System::Drawing::Size(20, 20);
+			this->webBrowser3->Name = L"webBrowser3";
+			this->webBrowser3->Size = System::Drawing::Size(776, 310);
+			this->webBrowser3->TabIndex = 0;
 			// 
 			// button12
 			// 
@@ -1634,7 +1685,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			});
 			this->toolStrip2->Location = System::Drawing::Point(3, 0);
 			this->toolStrip2->Name = L"toolStrip2";
-			this->toolStrip2->Size = System::Drawing::Size(641, 25);
+			this->toolStrip2->Size = System::Drawing::Size(610, 25);
 			this->toolStrip2->TabIndex = 2;
 			// 
 			// toolStripButton8
@@ -1664,7 +1715,6 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			// toolStripButtonPrev
 			// 
 			this->toolStripButtonPrev->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButtonPrev->Enabled = false;
 			this->toolStripButtonPrev->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonPrev.Image")));
 			this->toolStripButtonPrev->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonPrev->Name = L"toolStripButtonPrev";
@@ -1675,7 +1725,6 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			// toolStripButtonNext
 			// 
 			this->toolStripButtonNext->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButtonNext->Enabled = false;
 			this->toolStripButtonNext->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButtonNext.Image")));
 			this->toolStripButtonNext->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButtonNext->Name = L"toolStripButtonNext";
@@ -1741,6 +1790,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->toolStripButton6->Name = L"toolStripButton6";
 			this->toolStripButton6->Size = System::Drawing::Size(34, 22);
 			this->toolStripButton6->Text = L"Plot";
+			this->toolStripButton6->Click += gcnew System::EventHandler(this, &MyForm::toolStripButton6_Click);
 			// 
 			// toolStripButton7
 			// 
@@ -1796,12 +1846,14 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			this->toolStripContainer2->PerformLayout();
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
+			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			this->tabPage2->ResumeLayout(false);
+			this->splitContainer2->Panel1->ResumeLayout(false);
 			this->splitContainer2->Panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
@@ -1815,6 +1867,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown4))->EndInit();
 			this->tabPage3->ResumeLayout(false);
+			this->splitContainer3->Panel1->ResumeLayout(false);
 			this->splitContainer3->Panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
 			this->splitContainer3->ResumeLayout(false);
@@ -1997,7 +2050,10 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 	}
 	private: System::Void グラフ描画ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-		this->plotRaw(0, true);
+		//this->plotRaw(0, true);
+		plotRaw(0, true);
+		plotSP(0, true);
+		plotISP(0, true);
 	}
 	private: System::Void toolStripButton6_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -2111,7 +2167,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			button11_Click(sender, e);
 			return;
 		}
-		plotSP(0);
+		plotSP(0, true);
 	}
 
 	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e)
@@ -2130,7 +2186,7 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 			button12_Click(sender, e);
 			return;
 		}
-		plotISP(0);
+		plotISP(0, true);
 	}
 
 		 /**
@@ -2146,11 +2202,15 @@ private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 	{
 		openShot(RELATIVELY::PREVIOUS);
 		plotRaw(0, false);
+		plotSP(0, false);
+		plotISP(0, false);
 	}
 	private: System::Void toolStripButton11_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		openShot(RELATIVELY::NEXT);
 		plotRaw(0, false);
+		plotSP(0, false);
+		plotISP(0, false);
 	}
 	private: System::Void toolStripButton12_Click(System::Object^  sender, System::EventArgs^  e)
 	{

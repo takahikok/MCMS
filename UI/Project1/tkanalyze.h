@@ -95,7 +95,7 @@ public:
 		ma_sample_number = sample_number;
 	}
 
-	virtual int PlotAnalyzeSP(TKPLOT::PLOTSIZE plot_size, int shot_number) = 0;
+	virtual int PlotAnalyzeSP(TKPLOT::PLOTSIZE plot_size, int shot_number, bool replot) = 0;
 
 	std::vector<PLOTINFO> GetPlotInfo()
 	{
@@ -243,5 +243,6 @@ public:
 		}
 		return out_file;
 	}
+	virtual void MakeHTML() = 0;
 };
 #endif

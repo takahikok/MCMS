@@ -21,11 +21,9 @@
 * @blief
 *	グラフ描画に関するクラスです。
 */
-class TKPLOT
-{
+class TKPLOT {
 public:
-	template<typename T> class RANGE
-	{
+	template<typename T> class RANGE {
 	public:
 		T min;
 		T max;
@@ -47,8 +45,7 @@ public:
 			return (min + max) / 2;
 		}
 	};
-	template<typename T> class POSITION
-	{
+	template<typename T> class POSITION {
 	public:
 		T x;
 		T y;
@@ -67,8 +64,7 @@ public:
 			return std::to_string(x) + ", " + std::to_string(y);
 		}
 	};
-	template<typename T> class SIZE
-	{
+	template<typename T> class SIZE {
 	public:
 		T w;
 		T h;
@@ -85,8 +81,7 @@ public:
 	* @blief
 	*	グラフサイズ型
 	*/
-	enum class PLOTSIZE
-	{
+	enum class PLOTSIZE {
 		SMALL_SIZE,
 		MEDIUM_SIZE
 	};
@@ -95,8 +90,7 @@ public:
 	* @blief
 	*	データファイル形式型
 	*/
-	enum class DATASOURCE
-	{
+	enum class DATASOURCE {
 		/**
 		* @blief
 		*	バイナリファイル<br>
@@ -123,8 +117,7 @@ public:
 	*	ショット情報に関するPLOTINFOインスタンスは廃止し、TKSHOTを直接参照する
 	*/
 public:
-	class PLOTINFO
-	{
+	class PLOTINFO {
 
 	public:
 		/**
@@ -464,6 +457,33 @@ public:
 	std::vector<TKPLOT::PLOTINFO>::pointer GetPlotInfoPtr()
 	{
 		return plotInfo.data();
+	}
+
+	void MakeHTML()
+	{
+		std::ofstream of;
+		of.open("C:\\Users\\user\\Source\\Repos\\MCMS\\UI\\Project1\\ytsummary.html", std::ios::trunc);
+		of << R"(
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD> 
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+)" << std::endl;
+		for (const auto& iter : plotInfo) {
+			std::string img_src;
+			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
+			clx::replace_all(img_src, "$imgFileName"_s, iter.plot_file_name + ".png");
+			clx::replace_all(img_src, "$imgAlt"_s, iter.plot_file_name);
+			clx::replace_all(img_src, "#"_s, "%23"_s);
+			of << img_src << std::endl;
+		}
+		of << R"(
+</BODY>
+</HTML>
+)" << std::endl;
 	}
 
 };

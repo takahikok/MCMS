@@ -2,8 +2,7 @@
 #ifndef __TKANALYZEISP__
 #define __TKANALYZEISP__
 
-class TKANALYZEISP : public TKANALYZE
-{
+class TKANALYZEISP : public TKANALYZE {
 private:
 	int ma_sample_number;
 
@@ -37,7 +36,7 @@ public:
 	{
 	}
 
-	int PlotAnalyzeSP(TKPLOT::PLOTSIZE plot_size, int shot_number)
+	int PlotAnalyzeSP(TKPLOT::PLOTSIZE plot_size, int shot_number, bool replot = true)
 	{
 		plotInfo.clear();
 		for (int data_index = 0; data_index < thisShot->GetADCNumber(); data_index++)
@@ -55,6 +54,16 @@ public:
 
 		std::string ma_file_name = ExecPreDataProcess(i_channel_plot_info_index);
 
+		auto finalize = [&]() {
+			for (int i = 0; i < 4; i++)
+				plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
+		};
+		if (!replot&&TKUTIL::IsExistFile(plotInfo[i_channel_plot_info_index].out_file_name + "0" + ".png")) {
+			finalize();
+			return static_cast<int>(plotInfo.size());
+		}
+
+
 		std::ofstream of;
 		of.open(group + ".plt", std::ios::trunc);
 
@@ -63,14 +72,13 @@ public:
 			<< plotInfo[0].terminal_size.str() << std::endl;
 
 		of << "set zero 0.0" << std::endl;
-		
+
 		of << "set datafile separator \',\'" << std::endl;
 		of << "set grid xtics ytics" << std::endl;
 		of << "set nokey" << std::endl;
 		of << "" << std::endl;
 
-		auto def_const = [&]()
-		{
+		auto def_const = [&]() {
 			of << "#---CONST---" << std::endl;
 			of << "CONST_PI=3.14160" << std::endl;
 			of << "CONST_e=1.602176462e-19 #[C] ([J/eV])" << std::endl;
@@ -94,25 +102,24 @@ public:
 		//of << "F_Ies(x)=exp(a_Ies*x+b_Ies)" << std::endl;
 		of << "T_e(x)=x/CONST_k_B" << std::endl;
 		of << "" << std::endl;
+		of << "F_BG(x)=b_BG" << std::endl;
+
 
 		of << "#---FITTING---" << std::endl;
 		of << "set fit errorvariables" << std::endl;
 		of << "set fit quiet" << std::endl;
 		of << "" << std::endl;
 
-		auto polarity = [&]()
-		{
+		auto polarity = [&]() {
 			return (((*Setting)[group]["ProbeCurrentPolarity"] == "IonCurrent")
 				^ ((*Setting)[group]["AnalyzeCurrentPolarity"] == "IonCurrent") ? -1 : 1);
 		};
 
-		auto svp = [&]()
-		{
+		auto svp = [&]() {
 			return "($" + std::to_string(plotInfo[v_channel_plot_info_index].trace_index + 1)
 				+ "*(" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["VGain"]))
 					*((*Setting)[group]["VMonitorGain"] == "1/100" ? 100 : 1)) + ")"
-				+ [&]()
-			{
+				+ [&]() {
 				if ((*Setting)[group]["ProbeVoltageShift"] == "Consider")
 					return (std::string)" - " + "($" + std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
 					+ " * (" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["IGain"]))
@@ -123,16 +130,14 @@ public:
 				+ "))";
 		};
 
-		auto sip = [&]()
-		{
+		auto sip = [&]() {
 			return "($" + std::to_string(plotInfo[i_channel_plot_info_index].trace_index + 1)
 				+ "*(" + std::to_string(1.0 / std::stod(static_cast<std::string>((*Setting)[group]["IR"]))
 					/ std::stod(static_cast<std::string>((*Setting)[group]["IGain"]))
 					* polarity()) + "))";
 		};
-	
-		auto ROIp = [&]()
-		{
+
+		auto ROIp = [&]() {
 			switch (GetPreDataProcessType()) {
 			case PREDATAPROCESS::Raw:
 			case PREDATAPROCESS::SMA:
@@ -159,6 +164,16 @@ public:
 			<< sip()
 			<< "via b_Ies"
 			<< std::endl;
+		of << "fit " << "[0:200e3]" << " "
+			<< "F_BG(x) "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+			//<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
+			<< " using "
+			<< "($0)"
+			<< ":"
+			<< sip()
+			<< "via b_BG"
+			<< std::endl;
 		of << "" << std::endl;
 		of << "" << std::endl;
 
@@ -167,8 +182,7 @@ public:
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		//		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
-		auto graph_top_info = [&]()
-		{
+		auto graph_top_info = [&]() {
 			of << "set label 1 left at graph " << plotInfo[i_channel_plot_info_index].label_position[0].str() << " \""
 				<< "CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[v_channel_plot_info_index].data_index), plotInfo[v_channel_plot_info_index].trace_index)
 				<< " : CH" << thisShot->GetChannelNumber(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index), plotInfo[i_channel_plot_info_index].trace_index)
@@ -193,12 +207,13 @@ public:
 			<< ":"
 			<< "(" << sip() << "*1e6)"
 			<< " pt 6 ps 0.2 lc rgb \"red\""
-			<<", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
+			<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
+			<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
+
 			<< std::endl;
 
 
-		auto opt_range = [&](auto v_pp)
-		{
+		auto opt_range = [&](auto v_pp) {
 			return TKPLOT::RANGE<double>(fitrange.Ie.median() - v_pp / 2, fitrange.Ie.median() + v_pp / 2);
 		};
 
@@ -314,10 +329,36 @@ public:
 		of.close();
 		std::system(((std::string)"gnuplot " + group + ".plt").c_str());
 
-		for (int i = 0; i < 4; i++)
-			plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
+		//finalize:
+		finalize();
 
 		return static_cast<int>(plotInfo.size());
+	}
+	void MakeHTML()
+	{
+		std::ofstream of;
+		of.open("C:\\Users\\user\\Source\\Repos\\MCMS\\UI\\Project1\\ispsummary.html", std::ios::trunc);
+		of << R"(
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD> 
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE></TITLE>
+</HEAD>
+<BODY>
+)" << std::endl;
+		for (int i = 0; i < 4; i++) {
+			std::string img_src;
+			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
+			clx::replace_all(img_src, "$imgFileName"_s, plotInfo[i].plot_file_name + std::to_string(i) + ".png");
+			clx::replace_all(img_src, "$imgAlt"_s, plotInfo[i].plot_file_name + std::to_string(i));
+			clx::replace_all(img_src, "#"_s, "%23"_s);
+			of << img_src << std::endl;
+		}
+		of << R"(
+</BODY>
+</HTML>
+)" << std::endl;
 	}
 
 };
