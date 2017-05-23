@@ -588,10 +588,10 @@ namespace Project1
 			// comboBox1
 			// 
 			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Location = System::Drawing::Point(24, 64);
-			this->comboBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->comboBox1->Location = System::Drawing::Point(18, 51);
+			this->comboBox1->Margin = System::Windows::Forms::Padding(2);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(152, 23);
+			this->comboBox1->Size = System::Drawing::Size(115, 20);
 			this->comboBox1->TabIndex = 0;
 			// 
 			// groupBox1
@@ -602,11 +602,11 @@ namespace Project1
 			this->groupBox1->Controls->Add(this->textBox1);
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Controls->Add(this->comboBox1);
-			this->groupBox1->Location = System::Drawing::Point(16, 16);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox1->Location = System::Drawing::Point(12, 13);
+			this->groupBox1->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox1->Size = System::Drawing::Size(443, 104);
+			this->groupBox1->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox1->Size = System::Drawing::Size(332, 83);
 			this->groupBox1->TabIndex = 1;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"バイアス電圧";
@@ -614,19 +614,19 @@ namespace Project1
 			// label21
 			// 
 			this->label21->AutoSize = true;
-			this->label21->Location = System::Drawing::Point(203, 40);
+			this->label21->Location = System::Drawing::Point(152, 32);
+			this->label21->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label21->Name = L"label21";
-			this->label21->Size = System::Drawing::Size(81, 15);
+			this->label21->Size = System::Drawing::Size(65, 12);
 			this->label21->TabIndex = 5;
 			this->label21->Text = L"モニター出力";
 			// 
 			// checkBox1
 			// 
 			this->checkBox1->AutoSize = true;
-			this->checkBox1->Location = System::Drawing::Point(203, 60);
-			this->checkBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->checkBox1->Location = System::Drawing::Point(152, 48);
 			this->checkBox1->Name = L"checkBox1";
-			this->checkBox1->Size = System::Drawing::Size(79, 19);
+			this->checkBox1->Size = System::Drawing::Size(62, 16);
 			this->checkBox1->TabIndex = 4;
 			this->checkBox1->Text = L"1 / 100";
 			this->checkBox1->UseVisualStyleBackColor = true;
@@ -634,26 +634,28 @@ namespace Project1
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(320, 40);
+			this->label2->Location = System::Drawing::Point(240, 32);
+			this->label2->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(71, 15);
+			this->label2->Size = System::Drawing::Size(57, 12);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"測定ゲイン";
 			// 
 			// textBox1
 			// 
-			this->textBox1->Location = System::Drawing::Point(320, 64);
-			this->textBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox1->Location = System::Drawing::Point(240, 51);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 22);
+			this->textBox1->Size = System::Drawing::Size(76, 19);
 			this->textBox1->TabIndex = 2;
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(24, 40);
+			this->label1->Location = System::Drawing::Point(18, 32);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(52, 15);
+			this->label1->Size = System::Drawing::Size(41, 12);
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"トレース";
 			// 
@@ -667,11 +669,11 @@ namespace Project1
 			this->groupBox2->Controls->Add(this->label4);
 			this->groupBox2->Controls->Add(this->comboBox2);
 			this->groupBox2->Controls->Add(this->groupBox3);
-			this->groupBox2->Location = System::Drawing::Point(16, 128);
-			this->groupBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox2->Location = System::Drawing::Point(12, 102);
+			this->groupBox2->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox2->Size = System::Drawing::Size(440, 184);
+			this->groupBox2->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox2->Size = System::Drawing::Size(330, 147);
 			this->groupBox2->TabIndex = 4;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"プローブ電流";
@@ -680,11 +682,11 @@ namespace Project1
 			// 
 			this->groupBox10->Controls->Add(this->radioButton18);
 			this->groupBox10->Controls->Add(this->radioButton19);
-			this->groupBox10->Location = System::Drawing::Point(205, 96);
-			this->groupBox10->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox10->Location = System::Drawing::Point(154, 77);
+			this->groupBox10->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox10->Name = L"groupBox10";
-			this->groupBox10->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox10->Size = System::Drawing::Size(157, 80);
+			this->groupBox10->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox10->Size = System::Drawing::Size(118, 64);
 			this->groupBox10->TabIndex = 11;
 			this->groupBox10->TabStop = false;
 			this->groupBox10->Text = L"解析に用いる極性";
@@ -692,10 +694,10 @@ namespace Project1
 			// radioButton18
 			// 
 			this->radioButton18->AutoSize = true;
-			this->radioButton18->Location = System::Drawing::Point(16, 48);
-			this->radioButton18->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton18->Location = System::Drawing::Point(12, 38);
+			this->radioButton18->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton18->Name = L"radioButton18";
-			this->radioButton18->Size = System::Drawing::Size(88, 19);
+			this->radioButton18->Size = System::Drawing::Size(71, 16);
 			this->radioButton18->TabIndex = 10;
 			this->radioButton18->TabStop = true;
 			this->radioButton18->Text = L"電子電流";
@@ -705,10 +707,10 @@ namespace Project1
 			// 
 			this->radioButton19->AutoSize = true;
 			this->radioButton19->Checked = true;
-			this->radioButton19->Location = System::Drawing::Point(16, 24);
-			this->radioButton19->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton19->Location = System::Drawing::Point(12, 19);
+			this->radioButton19->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton19->Name = L"radioButton19";
-			this->radioButton19->Size = System::Drawing::Size(91, 19);
+			this->radioButton19->Size = System::Drawing::Size(74, 16);
 			this->radioButton19->TabIndex = 9;
 			this->radioButton19->TabStop = true;
 			this->radioButton19->Text = L"イオン電流";
@@ -717,64 +719,67 @@ namespace Project1
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(320, 40);
+			this->label5->Location = System::Drawing::Point(240, 32);
+			this->label5->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(71, 15);
+			this->label5->Size = System::Drawing::Size(57, 12);
 			this->label5->TabIndex = 5;
 			this->label5->Text = L"測定ゲイン";
 			// 
 			// textBox3
 			// 
-			this->textBox3->Location = System::Drawing::Point(320, 64);
-			this->textBox3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox3->Location = System::Drawing::Point(240, 51);
+			this->textBox3->Margin = System::Windows::Forms::Padding(2);
 			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(100, 22);
+			this->textBox3->Size = System::Drawing::Size(76, 19);
 			this->textBox3->TabIndex = 4;
 			// 
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(200, 40);
+			this->label3->Location = System::Drawing::Point(150, 32);
+			this->label3->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(67, 15);
+			this->label3->Size = System::Drawing::Size(53, 12);
 			this->label3->TabIndex = 3;
 			this->label3->Text = L"測定抵抗";
 			// 
 			// textBox2
 			// 
-			this->textBox2->Location = System::Drawing::Point(200, 64);
-			this->textBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox2->Location = System::Drawing::Point(150, 51);
+			this->textBox2->Margin = System::Windows::Forms::Padding(2);
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(100, 22);
+			this->textBox2->Size = System::Drawing::Size(76, 19);
 			this->textBox2->TabIndex = 2;
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(24, 40);
+			this->label4->Location = System::Drawing::Point(18, 32);
+			this->label4->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(52, 15);
+			this->label4->Size = System::Drawing::Size(41, 12);
 			this->label4->TabIndex = 1;
 			this->label4->Text = L"トレース";
 			// 
 			// comboBox2
 			// 
 			this->comboBox2->FormattingEnabled = true;
-			this->comboBox2->Location = System::Drawing::Point(24, 64);
-			this->comboBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->comboBox2->Location = System::Drawing::Point(18, 51);
+			this->comboBox2->Margin = System::Windows::Forms::Padding(2);
 			this->comboBox2->Name = L"comboBox2";
-			this->comboBox2->Size = System::Drawing::Size(152, 23);
+			this->comboBox2->Size = System::Drawing::Size(115, 20);
 			this->comboBox2->TabIndex = 0;
 			// 
 			// groupBox3
 			// 
 			this->groupBox3->Controls->Add(this->radioButton2);
 			this->groupBox3->Controls->Add(this->radioButton1);
-			this->groupBox3->Location = System::Drawing::Point(24, 96);
-			this->groupBox3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox3->Location = System::Drawing::Point(18, 77);
+			this->groupBox3->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox3->Name = L"groupBox3";
-			this->groupBox3->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox3->Size = System::Drawing::Size(157, 80);
+			this->groupBox3->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox3->Size = System::Drawing::Size(118, 64);
 			this->groupBox3->TabIndex = 9;
 			this->groupBox3->TabStop = false;
 			this->groupBox3->Text = L"IV変換の極性";
@@ -782,10 +787,10 @@ namespace Project1
 			// radioButton2
 			// 
 			this->radioButton2->AutoSize = true;
-			this->radioButton2->Location = System::Drawing::Point(16, 48);
-			this->radioButton2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton2->Location = System::Drawing::Point(12, 38);
+			this->radioButton2->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton2->Name = L"radioButton2";
-			this->radioButton2->Size = System::Drawing::Size(115, 19);
+			this->radioButton2->Size = System::Drawing::Size(93, 16);
 			this->radioButton2->TabIndex = 10;
 			this->radioButton2->TabStop = true;
 			this->radioButton2->Text = L"電子電流が正";
@@ -795,10 +800,10 @@ namespace Project1
 			// 
 			this->radioButton1->AutoSize = true;
 			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(16, 24);
-			this->radioButton1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton1->Location = System::Drawing::Point(12, 19);
+			this->radioButton1->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton1->Name = L"radioButton1";
-			this->radioButton1->Size = System::Drawing::Size(118, 19);
+			this->radioButton1->Size = System::Drawing::Size(96, 16);
 			this->radioButton1->TabIndex = 9;
 			this->radioButton1->TabStop = true;
 			this->radioButton1->Text = L"イオン電流が正";
@@ -822,56 +827,58 @@ namespace Project1
 			this->groupBox4->Controls->Add(this->label7);
 			this->groupBox4->Controls->Add(this->textBox4);
 			this->groupBox4->Controls->Add(this->label6);
-			this->groupBox4->Location = System::Drawing::Point(480, 16);
-			this->groupBox4->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox4->Location = System::Drawing::Point(360, 13);
+			this->groupBox4->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox4->Name = L"groupBox4";
-			this->groupBox4->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox4->Size = System::Drawing::Size(544, 294);
+			this->groupBox4->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox4->Size = System::Drawing::Size(408, 235);
 			this->groupBox4->TabIndex = 5;
 			this->groupBox4->TabStop = false;
 			this->groupBox4->Text = L"解析範囲";
 			// 
 			// textBox13
 			// 
-			this->textBox13->Location = System::Drawing::Point(155, 254);
-			this->textBox13->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox13->Location = System::Drawing::Point(116, 203);
+			this->textBox13->Margin = System::Windows::Forms::Padding(2);
 			this->textBox13->Name = L"textBox13";
-			this->textBox13->Size = System::Drawing::Size(100, 22);
+			this->textBox13->Size = System::Drawing::Size(76, 19);
 			this->textBox13->TabIndex = 16;
 			// 
 			// label18
 			// 
 			this->label18->AutoSize = true;
-			this->label18->Location = System::Drawing::Point(155, 230);
+			this->label18->Location = System::Drawing::Point(116, 184);
+			this->label18->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label18->Name = L"label18";
-			this->label18->Size = System::Drawing::Size(89, 15);
+			this->label18->Size = System::Drawing::Size(71, 12);
 			this->label18->TabIndex = 15;
 			this->label18->Text = L"掃引終了 [s]";
 			// 
 			// textBox14
 			// 
-			this->textBox14->Location = System::Drawing::Point(43, 254);
-			this->textBox14->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox14->Location = System::Drawing::Point(32, 203);
+			this->textBox14->Margin = System::Windows::Forms::Padding(2);
 			this->textBox14->Name = L"textBox14";
-			this->textBox14->Size = System::Drawing::Size(100, 22);
+			this->textBox14->Size = System::Drawing::Size(76, 19);
 			this->textBox14->TabIndex = 14;
 			// 
 			// label19
 			// 
 			this->label19->AutoSize = true;
-			this->label19->Location = System::Drawing::Point(43, 230);
+			this->label19->Location = System::Drawing::Point(32, 184);
+			this->label19->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label19->Name = L"label19";
-			this->label19->Size = System::Drawing::Size(89, 15);
+			this->label19->Size = System::Drawing::Size(71, 12);
 			this->label19->TabIndex = 13;
 			this->label19->Text = L"掃引開始 [s]";
 			// 
 			// radioButton14
 			// 
 			this->radioButton14->AutoSize = true;
-			this->radioButton14->Location = System::Drawing::Point(21, 200);
-			this->radioButton14->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton14->Location = System::Drawing::Point(16, 160);
+			this->radioButton14->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton14->Name = L"radioButton14";
-			this->radioButton14->Size = System::Drawing::Size(88, 19);
+			this->radioButton14->Size = System::Drawing::Size(71, 16);
 			this->radioButton14->TabIndex = 12;
 			this->radioButton14->Text = L"手動入力";
 			this->radioButton14->UseVisualStyleBackColor = true;
@@ -880,10 +887,10 @@ namespace Project1
 			// 
 			this->radioButton15->AutoSize = true;
 			this->radioButton15->Checked = true;
-			this->radioButton15->Location = System::Drawing::Point(21, 30);
-			this->radioButton15->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton15->Location = System::Drawing::Point(16, 24);
+			this->radioButton15->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton15->Name = L"radioButton15";
-			this->radioButton15->Size = System::Drawing::Size(170, 19);
+			this->radioButton15->Size = System::Drawing::Size(137, 16);
 			this->radioButton15->TabIndex = 11;
 			this->radioButton15->TabStop = true;
 			this->radioButton15->Text = L"掃引関数から自動計算";
@@ -893,86 +900,92 @@ namespace Project1
 			// label11
 			// 
 			this->label11->AutoSize = true;
-			this->label11->Location = System::Drawing::Point(43, 148);
+			this->label11->Location = System::Drawing::Point(32, 118);
+			this->label11->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(412, 15);
+			this->label11->Size = System::Drawing::Size(327, 12);
 			this->label11->TabIndex = 9;
 			this->label11->Text = L"(掃引終了時刻) = (掃引開始時刻) + 1 / (周波数) * (掃引周期)";
 			// 
 			// textBox7
 			// 
-			this->textBox7->Location = System::Drawing::Point(379, 84);
-			this->textBox7->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox7->Location = System::Drawing::Point(284, 67);
+			this->textBox7->Margin = System::Windows::Forms::Padding(2);
 			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(100, 22);
+			this->textBox7->Size = System::Drawing::Size(76, 19);
 			this->textBox7->TabIndex = 8;
 			// 
 			// label10
 			// 
 			this->label10->AutoSize = true;
-			this->label10->Location = System::Drawing::Point(379, 60);
+			this->label10->Location = System::Drawing::Point(284, 48);
+			this->label10->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(67, 15);
+			this->label10->Size = System::Drawing::Size(53, 12);
 			this->label10->TabIndex = 7;
 			this->label10->Text = L"掃引周期";
 			// 
 			// textBox6
 			// 
-			this->textBox6->Location = System::Drawing::Point(267, 84);
-			this->textBox6->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox6->Location = System::Drawing::Point(200, 67);
+			this->textBox6->Margin = System::Windows::Forms::Padding(2);
 			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(100, 22);
+			this->textBox6->Size = System::Drawing::Size(76, 19);
 			this->textBox6->TabIndex = 6;
 			// 
 			// label9
 			// 
 			this->label9->AutoSize = true;
-			this->label9->Location = System::Drawing::Point(267, 60);
+			this->label9->Location = System::Drawing::Point(200, 48);
+			this->label9->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(79, 15);
+			this->label9->Size = System::Drawing::Size(64, 12);
 			this->label9->TabIndex = 5;
 			this->label9->Text = L"ディレイ周期";
 			// 
 			// textBox5
 			// 
-			this->textBox5->Location = System::Drawing::Point(155, 84);
-			this->textBox5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox5->Location = System::Drawing::Point(116, 67);
+			this->textBox5->Margin = System::Windows::Forms::Padding(2);
 			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(100, 22);
+			this->textBox5->Size = System::Drawing::Size(76, 19);
 			this->textBox5->TabIndex = 4;
 			// 
 			// label8
 			// 
 			this->label8->AutoSize = true;
-			this->label8->Location = System::Drawing::Point(155, 60);
+			this->label8->Location = System::Drawing::Point(116, 48);
+			this->label8->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(84, 15);
+			this->label8->Size = System::Drawing::Size(66, 12);
 			this->label8->TabIndex = 3;
 			this->label8->Text = L"周波数 [Hz]";
 			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
-			this->label7->Location = System::Drawing::Point(43, 124);
+			this->label7->Location = System::Drawing::Point(32, 99);
+			this->label7->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(376, 15);
+			this->label7->Size = System::Drawing::Size(301, 12);
 			this->label7->TabIndex = 2;
 			this->label7->Text = L"(掃引開始時刻) = (ディレイ) + 1 / (周波数) * (ディレイ周期)";
 			// 
 			// textBox4
 			// 
-			this->textBox4->Location = System::Drawing::Point(43, 84);
-			this->textBox4->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox4->Location = System::Drawing::Point(32, 67);
+			this->textBox4->Margin = System::Windows::Forms::Padding(2);
 			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(100, 22);
+			this->textBox4->Size = System::Drawing::Size(76, 19);
 			this->textBox4->TabIndex = 1;
 			// 
 			// label6
 			// 
 			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(43, 60);
+			this->label6->Location = System::Drawing::Point(32, 48);
+			this->label6->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(71, 15);
+			this->label6->Size = System::Drawing::Size(58, 12);
 			this->label6->TabIndex = 0;
 			this->label6->Text = L"ディレイ [s]";
 			// 
@@ -986,11 +999,11 @@ namespace Project1
 			this->groupBox5->Controls->Add(this->label13);
 			this->groupBox5->Controls->Add(this->textBox9);
 			this->groupBox5->Controls->Add(this->comboBox3);
-			this->groupBox5->Location = System::Drawing::Point(107, 330);
-			this->groupBox5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox5->Location = System::Drawing::Point(80, 264);
+			this->groupBox5->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox5->Name = L"groupBox5";
-			this->groupBox5->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox5->Size = System::Drawing::Size(277, 230);
+			this->groupBox5->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox5->Size = System::Drawing::Size(208, 184);
 			this->groupBox5->TabIndex = 10;
 			this->groupBox5->TabStop = false;
 			this->groupBox5->Text = L"プローブチップ寸法";
@@ -998,10 +1011,9 @@ namespace Project1
 			// radioButton17
 			// 
 			this->radioButton17->AutoSize = true;
-			this->radioButton17->Location = System::Drawing::Point(21, 130);
-			this->radioButton17->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton17->Location = System::Drawing::Point(16, 104);
 			this->radioButton17->Name = L"radioButton17";
-			this->radioButton17->Size = System::Drawing::Size(88, 19);
+			this->radioButton17->Size = System::Drawing::Size(71, 16);
 			this->radioButton17->TabIndex = 13;
 			this->radioButton17->TabStop = true;
 			this->radioButton17->Text = L"手動入力";
@@ -1010,10 +1022,9 @@ namespace Project1
 			// radioButton16
 			// 
 			this->radioButton16->AutoSize = true;
-			this->radioButton16->Location = System::Drawing::Point(21, 30);
-			this->radioButton16->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton16->Location = System::Drawing::Point(16, 24);
 			this->radioButton16->Name = L"radioButton16";
-			this->radioButton16->Size = System::Drawing::Size(121, 19);
+			this->radioButton16->Size = System::Drawing::Size(97, 16);
 			this->radioButton16->TabIndex = 12;
 			this->radioButton16->TabStop = true;
 			this->radioButton16->Text = L"プリセットを使用";
@@ -1023,66 +1034,69 @@ namespace Project1
 			// label14
 			// 
 			this->label14->AutoSize = true;
-			this->label14->Location = System::Drawing::Point(43, 60);
+			this->label14->Location = System::Drawing::Point(32, 48);
+			this->label14->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label14->Name = L"label14";
-			this->label14->Size = System::Drawing::Size(59, 15);
+			this->label14->Size = System::Drawing::Size(46, 12);
 			this->label14->TabIndex = 11;
 			this->label14->Text = L"プリセット";
 			// 
 			// label12
 			// 
 			this->label12->AutoSize = true;
-			this->label12->Location = System::Drawing::Point(163, 160);
+			this->label12->Location = System::Drawing::Point(122, 128);
+			this->label12->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(69, 15);
+			this->label12->Size = System::Drawing::Size(55, 12);
 			this->label12->TabIndex = 10;
 			this->label12->Text = L"長さ [mm]";
 			// 
 			// textBox8
 			// 
-			this->textBox8->Location = System::Drawing::Point(163, 184);
-			this->textBox8->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox8->Location = System::Drawing::Point(122, 147);
+			this->textBox8->Margin = System::Windows::Forms::Padding(2);
 			this->textBox8->Name = L"textBox8";
-			this->textBox8->Size = System::Drawing::Size(100, 22);
+			this->textBox8->Size = System::Drawing::Size(76, 19);
 			this->textBox8->TabIndex = 9;
 			this->textBox8->TextChanged += gcnew System::EventHandler(this, &SetupAnalyzeSP::textBox8_TextChanged);
 			// 
 			// label13
 			// 
 			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(43, 160);
+			this->label13->Location = System::Drawing::Point(32, 128);
+			this->label13->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label13->Name = L"label13";
-			this->label13->Size = System::Drawing::Size(74, 15);
+			this->label13->Size = System::Drawing::Size(59, 12);
 			this->label13->TabIndex = 8;
 			this->label13->Text = L"半径 [mm]";
 			// 
 			// textBox9
 			// 
-			this->textBox9->Location = System::Drawing::Point(43, 184);
-			this->textBox9->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox9->Location = System::Drawing::Point(32, 147);
+			this->textBox9->Margin = System::Windows::Forms::Padding(2);
 			this->textBox9->Name = L"textBox9";
-			this->textBox9->Size = System::Drawing::Size(100, 22);
+			this->textBox9->Size = System::Drawing::Size(76, 19);
 			this->textBox9->TabIndex = 7;
 			this->textBox9->TextChanged += gcnew System::EventHandler(this, &SetupAnalyzeSP::textBox9_TextChanged);
 			// 
 			// comboBox3
 			// 
 			this->comboBox3->FormattingEnabled = true;
-			this->comboBox3->Location = System::Drawing::Point(43, 84);
-			this->comboBox3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->comboBox3->Location = System::Drawing::Point(32, 67);
+			this->comboBox3->Margin = System::Windows::Forms::Padding(2);
 			this->comboBox3->Name = L"comboBox3";
-			this->comboBox3->Size = System::Drawing::Size(224, 23);
+			this->comboBox3->Size = System::Drawing::Size(169, 20);
 			this->comboBox3->TabIndex = 6;
 			// 
 			// groupBox6
 			// 
 			this->groupBox6->Controls->Add(this->groupBox8);
 			this->groupBox6->Controls->Add(this->groupBox7);
-			this->groupBox6->Location = System::Drawing::Point(405, 330);
-			this->groupBox6->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox6->Location = System::Drawing::Point(304, 264);
+			this->groupBox6->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox6->Name = L"groupBox6";
-			this->groupBox6->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox6->Size = System::Drawing::Size(320, 250);
+			this->groupBox6->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox6->Size = System::Drawing::Size(240, 200);
 			this->groupBox6->TabIndex = 11;
 			this->groupBox6->TabStop = false;
 			this->groupBox6->Text = L"荷電粒子捕集面積";
@@ -1095,11 +1109,11 @@ namespace Project1
 			this->groupBox8->Controls->Add(this->radioButton8);
 			this->groupBox8->Controls->Add(this->radioButton9);
 			this->groupBox8->Controls->Add(this->radioButton10);
-			this->groupBox8->Location = System::Drawing::Point(168, 32);
-			this->groupBox8->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox8->Location = System::Drawing::Point(126, 26);
+			this->groupBox8->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox8->Name = L"groupBox8";
-			this->groupBox8->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox8->Size = System::Drawing::Size(128, 192);
+			this->groupBox8->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox8->Size = System::Drawing::Size(96, 154);
 			this->groupBox8->TabIndex = 13;
 			this->groupBox8->TabStop = false;
 			this->groupBox8->Text = L"イオン捕集面積";
@@ -1107,28 +1121,29 @@ namespace Project1
 			// label16
 			// 
 			this->label16->AutoSize = true;
-			this->label16->Location = System::Drawing::Point(16, 128);
+			this->label16->Location = System::Drawing::Point(12, 102);
+			this->label16->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label16->Name = L"label16";
-			this->label16->Size = System::Drawing::Size(88, 15);
+			this->label16->Size = System::Drawing::Size(70, 12);
 			this->label16->TabIndex = 12;
 			this->label16->Text = L"面積 [mm^2]";
 			// 
 			// textBox11
 			// 
 			this->textBox11->Enabled = false;
-			this->textBox11->Location = System::Drawing::Point(16, 152);
-			this->textBox11->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox11->Location = System::Drawing::Point(12, 122);
+			this->textBox11->Margin = System::Windows::Forms::Padding(2);
 			this->textBox11->Name = L"textBox11";
-			this->textBox11->Size = System::Drawing::Size(100, 22);
+			this->textBox11->Size = System::Drawing::Size(76, 19);
 			this->textBox11->TabIndex = 12;
 			// 
 			// radioButton7
 			// 
 			this->radioButton7->AutoSize = true;
-			this->radioButton7->Location = System::Drawing::Point(16, 72);
-			this->radioButton7->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton7->Location = System::Drawing::Point(12, 58);
+			this->radioButton7->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton7->Name = L"radioButton7";
-			this->radioButton7->Size = System::Drawing::Size(58, 19);
+			this->radioButton7->Size = System::Drawing::Size(47, 16);
 			this->radioButton7->TabIndex = 12;
 			this->radioButton7->TabStop = true;
 			this->radioButton7->Text = L"円筒";
@@ -1138,10 +1153,10 @@ namespace Project1
 			// radioButton8
 			// 
 			this->radioButton8->AutoSize = true;
-			this->radioButton8->Location = System::Drawing::Point(16, 96);
-			this->radioButton8->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton8->Location = System::Drawing::Point(12, 77);
+			this->radioButton8->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton8->Name = L"radioButton8";
-			this->radioButton8->Size = System::Drawing::Size(88, 19);
+			this->radioButton8->Size = System::Drawing::Size(71, 16);
 			this->radioButton8->TabIndex = 11;
 			this->radioButton8->TabStop = true;
 			this->radioButton8->Text = L"手動入力";
@@ -1151,10 +1166,10 @@ namespace Project1
 			// radioButton9
 			// 
 			this->radioButton9->AutoSize = true;
-			this->radioButton9->Location = System::Drawing::Point(16, 48);
-			this->radioButton9->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton9->Location = System::Drawing::Point(12, 38);
+			this->radioButton9->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton9->Name = L"radioButton9";
-			this->radioButton9->Size = System::Drawing::Size(44, 19);
+			this->radioButton9->Size = System::Drawing::Size(36, 16);
 			this->radioButton9->TabIndex = 10;
 			this->radioButton9->TabStop = true;
 			this->radioButton9->Text = L"4rl";
@@ -1165,10 +1180,10 @@ namespace Project1
 			// 
 			this->radioButton10->AutoSize = true;
 			this->radioButton10->Checked = true;
-			this->radioButton10->Location = System::Drawing::Point(16, 24);
-			this->radioButton10->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton10->Location = System::Drawing::Point(12, 19);
+			this->radioButton10->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton10->Name = L"radioButton10";
-			this->radioButton10->Size = System::Drawing::Size(44, 19);
+			this->radioButton10->Size = System::Drawing::Size(36, 16);
 			this->radioButton10->TabIndex = 9;
 			this->radioButton10->TabStop = true;
 			this->radioButton10->Text = L"2rl";
@@ -1183,11 +1198,11 @@ namespace Project1
 			this->groupBox7->Controls->Add(this->radioButton5);
 			this->groupBox7->Controls->Add(this->radioButton3);
 			this->groupBox7->Controls->Add(this->radioButton4);
-			this->groupBox7->Location = System::Drawing::Point(24, 32);
-			this->groupBox7->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox7->Location = System::Drawing::Point(18, 26);
+			this->groupBox7->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox7->Name = L"groupBox7";
-			this->groupBox7->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox7->Size = System::Drawing::Size(128, 192);
+			this->groupBox7->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox7->Size = System::Drawing::Size(96, 154);
 			this->groupBox7->TabIndex = 11;
 			this->groupBox7->TabStop = false;
 			this->groupBox7->Text = L"電子捕集面積";
@@ -1195,29 +1210,30 @@ namespace Project1
 			// label15
 			// 
 			this->label15->AutoSize = true;
-			this->label15->Location = System::Drawing::Point(16, 128);
+			this->label15->Location = System::Drawing::Point(12, 102);
+			this->label15->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label15->Name = L"label15";
-			this->label15->Size = System::Drawing::Size(88, 15);
+			this->label15->Size = System::Drawing::Size(70, 12);
 			this->label15->TabIndex = 12;
 			this->label15->Text = L"面積 [mm^2]";
 			// 
 			// textBox10
 			// 
 			this->textBox10->Enabled = false;
-			this->textBox10->Location = System::Drawing::Point(16, 152);
-			this->textBox10->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->textBox10->Location = System::Drawing::Point(12, 122);
+			this->textBox10->Margin = System::Windows::Forms::Padding(2);
 			this->textBox10->Name = L"textBox10";
-			this->textBox10->Size = System::Drawing::Size(100, 22);
+			this->textBox10->Size = System::Drawing::Size(76, 19);
 			this->textBox10->TabIndex = 12;
 			this->textBox10->Text = L"C";
 			// 
 			// radioButton6
 			// 
 			this->radioButton6->AutoSize = true;
-			this->radioButton6->Location = System::Drawing::Point(16, 72);
-			this->radioButton6->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton6->Location = System::Drawing::Point(12, 58);
+			this->radioButton6->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton6->Name = L"radioButton6";
-			this->radioButton6->Size = System::Drawing::Size(58, 19);
+			this->radioButton6->Size = System::Drawing::Size(47, 16);
 			this->radioButton6->TabIndex = 12;
 			this->radioButton6->TabStop = true;
 			this->radioButton6->Text = L"円筒";
@@ -1227,10 +1243,10 @@ namespace Project1
 			// radioButton5
 			// 
 			this->radioButton5->AutoSize = true;
-			this->radioButton5->Location = System::Drawing::Point(16, 96);
-			this->radioButton5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton5->Location = System::Drawing::Point(12, 77);
+			this->radioButton5->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton5->Name = L"radioButton5";
-			this->radioButton5->Size = System::Drawing::Size(88, 19);
+			this->radioButton5->Size = System::Drawing::Size(71, 16);
 			this->radioButton5->TabIndex = 11;
 			this->radioButton5->TabStop = true;
 			this->radioButton5->Text = L"手動入力";
@@ -1240,10 +1256,10 @@ namespace Project1
 			// radioButton3
 			// 
 			this->radioButton3->AutoSize = true;
-			this->radioButton3->Location = System::Drawing::Point(16, 48);
-			this->radioButton3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton3->Location = System::Drawing::Point(12, 38);
+			this->radioButton3->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton3->Name = L"radioButton3";
-			this->radioButton3->Size = System::Drawing::Size(44, 19);
+			this->radioButton3->Size = System::Drawing::Size(36, 16);
 			this->radioButton3->TabIndex = 10;
 			this->radioButton3->TabStop = true;
 			this->radioButton3->Text = L"4rl";
@@ -1254,10 +1270,10 @@ namespace Project1
 			// 
 			this->radioButton4->AutoSize = true;
 			this->radioButton4->Checked = true;
-			this->radioButton4->Location = System::Drawing::Point(16, 24);
-			this->radioButton4->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton4->Location = System::Drawing::Point(12, 19);
+			this->radioButton4->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton4->Name = L"radioButton4";
-			this->radioButton4->Size = System::Drawing::Size(44, 19);
+			this->radioButton4->Size = System::Drawing::Size(36, 16);
 			this->radioButton4->TabIndex = 9;
 			this->radioButton4->TabStop = true;
 			this->radioButton4->Text = L"2rl";
@@ -1267,10 +1283,10 @@ namespace Project1
 			// button3
 			// 
 			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->button3->Location = System::Drawing::Point(701, 596);
-			this->button3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button3->Location = System::Drawing::Point(526, 477);
+			this->button3->Margin = System::Windows::Forms::Padding(2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(100, 29);
+			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 14;
 			this->button3->Text = L"OK";
 			this->button3->UseVisualStyleBackColor = true;
@@ -1279,10 +1295,10 @@ namespace Project1
 			// button2
 			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->Location = System::Drawing::Point(816, 596);
-			this->button2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button2->Location = System::Drawing::Point(612, 477);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(100, 29);
+			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 13;
 			this->button2->Text = L"適用";
 			this->button2->UseVisualStyleBackColor = true;
@@ -1292,10 +1308,10 @@ namespace Project1
 			// 
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->button1->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->button1->Location = System::Drawing::Point(925, 596);
-			this->button1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button1->Location = System::Drawing::Point(694, 477);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(100, 29);
+			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 12;
 			this->button1->Text = L"キャンセル";
 			this->button1->UseVisualStyleBackColor = true;
@@ -1304,10 +1320,10 @@ namespace Project1
 			// button4
 			// 
 			this->button4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->button4->Location = System::Drawing::Point(16, 596);
-			this->button4->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button4->Location = System::Drawing::Point(12, 477);
+			this->button4->Margin = System::Windows::Forms::Padding(2);
 			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(100, 29);
+			this->button4->Size = System::Drawing::Size(75, 23);
 			this->button4->TabIndex = 15;
 			this->button4->Text = L"保存";
 			this->button4->UseVisualStyleBackColor = true;
@@ -1315,10 +1331,10 @@ namespace Project1
 			// button5
 			// 
 			this->button5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->button5->Location = System::Drawing::Point(128, 596);
-			this->button5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->button5->Location = System::Drawing::Point(96, 477);
+			this->button5->Margin = System::Windows::Forms::Padding(2);
 			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(100, 29);
+			this->button5->Size = System::Drawing::Size(75, 23);
 			this->button5->TabIndex = 16;
 			this->button5->Text = L"読込";
 			this->button5->UseVisualStyleBackColor = true;
@@ -1328,11 +1344,11 @@ namespace Project1
 			this->groupBox9->Controls->Add(this->radioButton13);
 			this->groupBox9->Controls->Add(this->radioButton11);
 			this->groupBox9->Controls->Add(this->radioButton12);
-			this->groupBox9->Location = System::Drawing::Point(21, 330);
-			this->groupBox9->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->groupBox9->Location = System::Drawing::Point(16, 264);
+			this->groupBox9->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox9->Name = L"groupBox9";
-			this->groupBox9->Padding = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->groupBox9->Size = System::Drawing::Size(75, 110);
+			this->groupBox9->Padding = System::Windows::Forms::Padding(2);
+			this->groupBox9->Size = System::Drawing::Size(56, 88);
 			this->groupBox9->TabIndex = 11;
 			this->groupBox9->TabStop = false;
 			this->groupBox9->Text = L"ガス種";
@@ -1340,10 +1356,10 @@ namespace Project1
 			// radioButton13
 			// 
 			this->radioButton13->AutoSize = true;
-			this->radioButton13->Location = System::Drawing::Point(16, 72);
-			this->radioButton13->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton13->Location = System::Drawing::Point(12, 58);
+			this->radioButton13->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton13->Name = L"radioButton13";
-			this->radioButton13->Size = System::Drawing::Size(37, 19);
+			this->radioButton13->Size = System::Drawing::Size(30, 16);
 			this->radioButton13->TabIndex = 11;
 			this->radioButton13->TabStop = true;
 			this->radioButton13->Text = L"P";
@@ -1352,10 +1368,10 @@ namespace Project1
 			// radioButton11
 			// 
 			this->radioButton11->AutoSize = true;
-			this->radioButton11->Location = System::Drawing::Point(16, 24);
-			this->radioButton11->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton11->Location = System::Drawing::Point(12, 19);
+			this->radioButton11->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton11->Name = L"radioButton11";
-			this->radioButton11->Size = System::Drawing::Size(42, 19);
+			this->radioButton11->Size = System::Drawing::Size(35, 16);
 			this->radioButton11->TabIndex = 10;
 			this->radioButton11->TabStop = true;
 			this->radioButton11->Text = L"Ar";
@@ -1365,10 +1381,10 @@ namespace Project1
 			// 
 			this->radioButton12->AutoSize = true;
 			this->radioButton12->Checked = true;
-			this->radioButton12->Location = System::Drawing::Point(16, 48);
-			this->radioButton12->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->radioButton12->Location = System::Drawing::Point(12, 38);
+			this->radioButton12->Margin = System::Windows::Forms::Padding(2);
 			this->radioButton12->Name = L"radioButton12";
-			this->radioButton12->Size = System::Drawing::Size(46, 19);
+			this->radioButton12->Size = System::Drawing::Size(37, 16);
 			this->radioButton12->TabIndex = 9;
 			this->radioButton12->TabStop = true;
 			this->radioButton12->Text = L"He";
@@ -1385,11 +1401,9 @@ namespace Project1
 			this->groupBox11->Controls->Add(this->radioButton22);
 			this->groupBox11->Controls->Add(this->radioButton21);
 			this->groupBox11->Controls->Add(this->radioButton20);
-			this->groupBox11->Location = System::Drawing::Point(747, 330);
-			this->groupBox11->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox11->Location = System::Drawing::Point(560, 264);
 			this->groupBox11->Name = L"groupBox11";
-			this->groupBox11->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
-			this->groupBox11->Size = System::Drawing::Size(277, 250);
+			this->groupBox11->Size = System::Drawing::Size(208, 200);
 			this->groupBox11->TabIndex = 17;
 			this->groupBox11->TabStop = false;
 			this->groupBox11->Text = L"解析前データ処理";
@@ -1398,11 +1412,9 @@ namespace Project1
 			// 
 			this->groupBox12->Controls->Add(this->radioButton25);
 			this->groupBox12->Controls->Add(this->radioButton24);
-			this->groupBox12->Location = System::Drawing::Point(21, 180);
-			this->groupBox12->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->groupBox12->Location = System::Drawing::Point(16, 144);
 			this->groupBox12->Name = L"groupBox12";
-			this->groupBox12->Padding = System::Windows::Forms::Padding(4, 4, 4, 4);
-			this->groupBox12->Size = System::Drawing::Size(245, 50);
+			this->groupBox12->Size = System::Drawing::Size(184, 40);
 			this->groupBox12->TabIndex = 10;
 			this->groupBox12->TabStop = false;
 			this->groupBox12->Text = L"掃引関数の初期位相 (KH)";
@@ -1410,10 +1422,9 @@ namespace Project1
 			// radioButton25
 			// 
 			this->radioButton25->AutoSize = true;
-			this->radioButton25->Location = System::Drawing::Point(128, 20);
-			this->radioButton25->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton25->Location = System::Drawing::Point(96, 16);
 			this->radioButton25->Name = L"radioButton25";
-			this->radioButton25->Size = System::Drawing::Size(106, 19);
+			this->radioButton25->Size = System::Drawing::Size(83, 16);
 			this->radioButton25->TabIndex = 1;
 			this->radioButton25->TabStop = true;
 			this->radioButton25->Text = L"90, 270 deg.";
@@ -1422,10 +1433,9 @@ namespace Project1
 			// radioButton24
 			// 
 			this->radioButton24->AutoSize = true;
-			this->radioButton24->Location = System::Drawing::Point(11, 20);
-			this->radioButton24->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton24->Location = System::Drawing::Point(8, 16);
 			this->radioButton24->Name = L"radioButton24";
-			this->radioButton24->Size = System::Drawing::Size(98, 19);
+			this->radioButton24->Size = System::Drawing::Size(77, 16);
 			this->radioButton24->TabIndex = 0;
 			this->radioButton24->TabStop = true;
 			this->radioButton24->Text = L"0, 180 deg.";
@@ -1434,50 +1444,47 @@ namespace Project1
 			// label20
 			// 
 			this->label20->AutoSize = true;
-			this->label20->Location = System::Drawing::Point(139, 120);
-			this->label20->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label20->Location = System::Drawing::Point(104, 96);
 			this->label20->Name = L"label20";
-			this->label20->Size = System::Drawing::Size(90, 15);
+			this->label20->Size = System::Drawing::Size(73, 12);
 			this->label20->TabIndex = 9;
 			this->label20->Text = L"SMA2サンプル";
 			// 
 			// label17
 			// 
 			this->label17->AutoSize = true;
-			this->label17->Location = System::Drawing::Point(21, 120);
-			this->label17->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label17->Location = System::Drawing::Point(16, 96);
 			this->label17->Name = L"label17";
-			this->label17->Size = System::Drawing::Size(90, 15);
+			this->label17->Size = System::Drawing::Size(73, 12);
 			this->label17->TabIndex = 8;
 			this->label17->Text = L"SMA1サンプル";
 			// 
 			// numericUpDown2
 			// 
-			this->numericUpDown2->Location = System::Drawing::Point(139, 140);
-			this->numericUpDown2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->numericUpDown2->Location = System::Drawing::Point(104, 112);
+			this->numericUpDown2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numericUpDown2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown2->Name = L"numericUpDown2";
-			this->numericUpDown2->Size = System::Drawing::Size(96, 22);
+			this->numericUpDown2->Size = System::Drawing::Size(72, 19);
 			this->numericUpDown2->TabIndex = 5;
 			this->numericUpDown2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(21, 140);
-			this->numericUpDown1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->numericUpDown1->Location = System::Drawing::Point(16, 112);
+			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000, 0, 0, 0 });
 			this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(96, 22);
+			this->numericUpDown1->Size = System::Drawing::Size(72, 19);
 			this->numericUpDown1->TabIndex = 4;
 			this->numericUpDown1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// radioButton23
 			// 
 			this->radioButton23->AutoSize = true;
-			this->radioButton23->Location = System::Drawing::Point(21, 90);
-			this->radioButton23->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton23->Location = System::Drawing::Point(16, 72);
 			this->radioButton23->Name = L"radioButton23";
-			this->radioButton23->Size = System::Drawing::Size(173, 19);
+			this->radioButton23->Size = System::Drawing::Size(138, 16);
 			this->radioButton23->TabIndex = 3;
 			this->radioButton23->TabStop = true;
 			this->radioButton23->Text = L"SMA1 -> KH -> SMA2";
@@ -1486,10 +1493,9 @@ namespace Project1
 			// radioButton22
 			// 
 			this->radioButton22->AutoSize = true;
-			this->radioButton22->Location = System::Drawing::Point(21, 70);
-			this->radioButton22->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton22->Location = System::Drawing::Point(16, 56);
 			this->radioButton22->Name = L"radioButton22";
-			this->radioButton22->Size = System::Drawing::Size(215, 19);
+			this->radioButton22->Size = System::Drawing::Size(175, 16);
 			this->radioButton22->TabIndex = 2;
 			this->radioButton22->TabStop = true;
 			this->radioButton22->Text = L"SMA1 -> Kill Hysteresis (KH)";
@@ -1498,10 +1504,9 @@ namespace Project1
 			// radioButton21
 			// 
 			this->radioButton21->AutoSize = true;
-			this->radioButton21->Location = System::Drawing::Point(21, 50);
-			this->radioButton21->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton21->Location = System::Drawing::Point(16, 40);
 			this->radioButton21->Name = L"radioButton21";
-			this->radioButton21->Size = System::Drawing::Size(231, 19);
+			this->radioButton21->Size = System::Drawing::Size(189, 16);
 			this->radioButton21->TabIndex = 1;
 			this->radioButton21->TabStop = true;
 			this->radioButton21->Text = L"Simple Moving Average (SMA) 1";
@@ -1510,10 +1515,9 @@ namespace Project1
 			// radioButton20
 			// 
 			this->radioButton20->AutoSize = true;
-			this->radioButton20->Location = System::Drawing::Point(21, 30);
-			this->radioButton20->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->radioButton20->Location = System::Drawing::Point(16, 24);
 			this->radioButton20->Name = L"radioButton20";
-			this->radioButton20->Size = System::Drawing::Size(54, 19);
+			this->radioButton20->Size = System::Drawing::Size(45, 16);
 			this->radioButton20->TabIndex = 0;
 			this->radioButton20->TabStop = true;
 			this->radioButton20->Text = L"Raw";
@@ -1522,10 +1526,11 @@ namespace Project1
 			// SetupAnalyzeSP
 			// 
 			this->AcceptButton = this->button3;
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->CancelButton = this->button1;
-			this->ClientSize = System::Drawing::Size(1037, 639);
+			this->ClientSize = System::Drawing::Size(778, 511);
+			this->ControlBox = false;
 			this->Controls->Add(this->groupBox11);
 			this->Controls->Add(this->groupBox9);
 			this->Controls->Add(this->button5);
@@ -1538,9 +1543,10 @@ namespace Project1
 			this->Controls->Add(this->groupBox4);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
-			this->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"SetupAnalyzeSP";
 			this->Text = L"SetupAnalyzeSP";
+			this->TopMost = true;
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);

@@ -18,11 +18,9 @@
 #ifndef __TKANALYZE__
 #define __TKANALYZE__
 
-class TKANALYZE : public TKPLOT
-{
+class TKANALYZE : public TKPLOT {
 public:
-	class FITRANGE
-	{
+	class FITRANGE {
 	public:
 		TKPLOT::RANGE<double> Iis;
 		TKPLOT::RANGE<double> Ie;
@@ -40,8 +38,7 @@ public:
 	};
 	FITRANGE fitrange;
 
-	enum class PREDATAPROCESS
-	{
+	enum class PREDATAPROCESS {
 		Raw,
 		SMA,
 		SMA_KH,
@@ -54,6 +51,7 @@ protected:
 	clx::ini* Setting;
 	std::string group;
 	std::vector<PLOTINFO> plotInfo;
+	std::string tmp_root;
 
 	int ma_sample_number;
 
@@ -83,11 +81,10 @@ protected:
 	}
 
 public:
-	TKANALYZE(TKSHOT* TKShot_, clx::ini* Setting_, std::string group_) : TKPLOT(TKShot_)
+	TKANALYZE(TKSHOT* TKShot_, clx::ini* Setting_, std::string group_)
+		: thisShot(TKShot_), Setting(Setting_), group(group_), TKPLOT(TKShot_, Setting_)
 	{
-		thisShot = TKShot_;
-		Setting = Setting_;
-		group = group_;
+		tmp_root = (*Setting)["Utility"]["TempPath"];
 	}
 
 	void SetMASampleNumber(int sample_number)
@@ -196,8 +193,7 @@ public:
 		for (int i = 0; i < 2; i++)
 			ma_sample[i] = std::stoi((*Setting)[group]["PreDataProcessingSMA" + std::to_string(i + 1) + "Sample"]);
 
-		auto execSMA = [&](const std::string source_file, const int sample_index)
-		{
+		auto execSMA = [&](const std::string source_file, const int sample_index) {
 			out_file = source_file + (std::string)"_SMA_" + std::to_string(ma_sample[sample_index]);
 			if (!TKUTIL::IsExistFile(out_file + ".CSV"))
 				std::system(((std::string)"MovingAverage.exe " + source_file + ".CSV "
@@ -206,8 +202,7 @@ public:
 			return out_file;
 		};
 
-		auto execKH = [&](const std::string source_file)
-		{
+		auto execKH = [&](const std::string source_file) {
 			out_file = source_file
 				+ "_KH_" + std::to_string(GetStartPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
 				+ "_" + std::to_string(GetOneCycleStopPoint(thisShot->GetADCID(plotInfo[plot_info_index].data_index)))
@@ -243,6 +238,14 @@ public:
 		}
 		return out_file;
 	}
-	virtual void MakeHTML() = 0;
+
+	virtual void MakeHTML(std::string html_path) = 0;
+
+protected:
+	std::string getExtension()
+	{
+		return TKPLOT::getExtension(group);
+	}
+
 };
 #endif

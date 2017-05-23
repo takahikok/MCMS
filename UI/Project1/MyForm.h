@@ -22,6 +22,8 @@
 #include "tkanalyzesp.h"
 #include "tkanalyzeisp.h"
 #include "tkfileutil.h"
+#include "tktemp.h"
+
 
 #pragma once
 #define SETTING_FILE_PATH "settings.ini"
@@ -223,8 +225,8 @@ namespace Project1 {
 	private: System::Windows::Forms::ToolStripButton^  toolStripButtonPrev;
 	private: System::Windows::Forms::ToolStripButton^  toolStripButtonNext;
 	private: System::Windows::Forms::WebBrowser^  webBrowser1;
-private: System::Windows::Forms::WebBrowser^  webBrowser2;
-private: System::Windows::Forms::WebBrowser^  webBrowser3;
+	private: System::Windows::Forms::WebBrowser^  webBrowser2;
+	private: System::Windows::Forms::WebBrowser^  webBrowser3;
 
 
 
@@ -389,7 +391,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//this->toolStripButtonPrev->Enabled = true;
 			//this->toolStripButtonNext->Enabled = true;
 			thisPlot->PlotRaw(TKPLOT::PLOTSIZE::SMALL_SIZE, shot_number, replot);
-			thisPlot->MakeHTML();
+			thisPlot->MakeHTML((*Setting)["Utility"]["TempPath"] + "ytsummary.html");
 			webBrowser1->Refresh();
 
 			//total_plot = static_cast<int>(thisPlot->GetPlotInfo().size());
@@ -513,7 +515,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 					std::stod((*Setting)[group]["FitRangeIesMax"])));
 
 			thisAnalyzeSP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number, replot);
-			thisAnalyzeSP->MakeHTML();
+			thisAnalyzeSP->MakeHTML((*Setting)["Utility"]["TempPath"] + "spsummary.html");
 			webBrowser2->Refresh();
 
 			//std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
@@ -564,7 +566,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 					std::stod((*Setting)[group]["FitRangeIesMax"])));
 
 			thisAnalyzeISP->PlotAnalyzeSP(TKPLOT::PLOTSIZE::MEDIUM_SIZE, shot_number, replot);
-			thisAnalyzeISP->MakeHTML();
+			thisAnalyzeISP->MakeHTML((*Setting)["Utility"]["TempPath"] + "ispsummary.html");
 			webBrowser3->Refresh();
 
 			//std::vector<TKPLOT::PLOTINFO>::pointer pplot_info;
@@ -589,6 +591,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 
 	public:
 		MyForm(clx::ini* Setting_, TKSHOT* thisShot_, TKPLOT* thisPlot_, TKADCCONTROL_DL750* DL750_, TKADCCONTROL_DL850* DL850_)
+			: Setting(Setting_), thisShot(thisShot_), thisPlot(thisPlot_), DL750(DL750_), DL850(DL850_)
 		{
 			InitializeComponent();
 			//for (int i = 0; i < MAX_PLOT_NUMBER; i++) {
@@ -679,25 +682,24 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 			//	pBPlot3[i]->TabStop = false;
 			//	(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(pBPlot3[i]))->EndInit();
 			//}
-			webBrowser1->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/ytsummary.html");
-			webBrowser2->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/spsummary.html");
-			webBrowser3->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/ispsummary.html");
-
 			//
 			//TODO: ここにコンストラクター コードを追加します
 			//
 	//			TKADCCONTROL* DL850;
 	//			DL850 = new TKADCCONTROL;
 	//			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Close();
-			Setting = Setting_;
-			DL750 = DL750_;
-			DL850 = DL850_;
+
+			//Setting = Setting_;
+			(*Setting)["Utility"]["TempPath"] = TKFILEUTIL::GetTemporaryPath("MCMS\\"_s);
+			//DL750 = DL750_;
+			//DL850 = DL850_;
 			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750) = DL750_;
 			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850) = DL850_;
-			thisShot = thisShot_;
-			thisPlot = thisPlot_;
+			//thisShot = thisShot_;
+			//thisPlot = thisPlot_;
 			thisAnalyzeSP = new TKANALYZESP(thisShot, Setting, "AnalyzeSP");
 			thisAnalyzeISP = new TKANALYZEISP(thisShot, Setting, "AnalyzeISP");
+
 
 			Connection(true);
 			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)
@@ -763,6 +765,13 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 				numericUpDown10->Value = std::stoi((*Setting)[group]["FitRangeIesMin"]);
 				numericUpDown9->Value = std::stoi((*Setting)[group]["FitRangeIesMax"]);
 			}
+
+			webBrowser1->Navigate(to_SystemString((*Setting)["Utility"]["TempPath"] + "ytsummary.html"_s));
+			webBrowser2->Navigate(to_SystemString((*Setting)["Utility"]["TempPath"] + "spsummary.html"_s));
+			webBrowser3->Navigate(to_SystemString((*Setting)["Utility"]["TempPath"] + "ispsummary.html"_s));
+			//webBrowser2->Navigate("C:/Users/ppl/Source/Repos/MCMS/UI/Project1/spsummary.html");
+			//webBrowser3->Navigate("C:/Users/user/Source/Repos/MCMS/UI/Project1/ispsummary.html");
+
 		}
 
 
@@ -2154,7 +2163,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 	private: System::Void button11_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeSP");
-		f->Show();
+		f->ShowDialog();
 	}
 	private: System::Void button9_Click(System::Object^  sender, System::EventArgs^  e)
 	{
@@ -2173,7 +2182,7 @@ private: System::Windows::Forms::WebBrowser^  webBrowser3;
 	private: System::Void button12_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		SetupAnalyzeSP^ f = gcnew SetupAnalyzeSP(Setting, thisShot, "AnalyzeISP");
-		f->Show();
+		f->ShowDialog();
 	}
 	private: System::Void button14_Click(System::Object^  sender, System::EventArgs^  e)
 	{

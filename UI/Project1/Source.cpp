@@ -16,6 +16,9 @@ using namespace System::Windows::Forms;
 [STAThreadAttribute]
 int main(array<String^>^ args)
 {
+	clx::ini* Setting;
+	Setting = new clx::ini(SETTING_FILE_PATH);
+
 	TKADCCONTROL_DL750* DL750;
 	TKADCCONTROL_DL850* DL850;
 	DL750 = new TKADCCONTROL_DL750();
@@ -23,11 +26,9 @@ int main(array<String^>^ args)
 	TKSHOT* thisShot;
 	thisShot = new TKSHOT;
 	TKPLOT* thisPlot;
-	thisPlot = new TKPLOT(thisShot);
+	thisPlot = new TKPLOT(thisShot, Setting);
 
 
-	clx::ini* Setting;
-	Setting = new clx::ini(SETTING_FILE_PATH);
 
 	try {
 		Application::EnableVisualStyles();

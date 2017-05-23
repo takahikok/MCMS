@@ -87,6 +87,7 @@ using namespace TKUTIL::Literals;
 #endif
 
 #ifdef _MANAGED
+#define to_SystemString(str) gcnew System::String((static_cast<std::string>(str)).c_str())
 static std::string TKUTIL::SystemStringToString(System::String ^ str)
 {
 	std::string os;

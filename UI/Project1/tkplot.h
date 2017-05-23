@@ -5,7 +5,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-//#include "clx/ini.h"
+#include "clx/ini.h"
 //#include "clx/ftp.h"
 #include <iomanip>
 #include <fstream>
@@ -280,7 +280,9 @@ public:
 
 private:
 	TKSHOT* thisShot;
+	clx::ini* Setting;
 	std::vector<TKPLOT::PLOTINFO> plotInfo;
+	std::string tmp_root;
 
 private:
 	template<typename T, template<class> class C> C<float> atGraph(C<T> const &argument, PLOTINFO const &plot_info)
@@ -341,10 +343,15 @@ protected:
 		return plot_info;
 	}
 
-public:
-	TKPLOT(TKSHOT* TKShot_)
+	std::string getExtension(std::string group)
 	{
-		thisShot = TKShot_;
+		return "."_s + (*Setting)[group]["Terminal"];
+	}
+
+public:
+	TKPLOT(TKSHOT* TKShot_, clx::ini* Setting_) : thisShot(TKShot_), Setting(Setting_)
+	{
+		tmp_root = (*Setting)["Utility"]["TempPath"];
 	}
 
 
@@ -357,16 +364,20 @@ public:
 				plotInfo.push_back(loadPlotInfoInstance(data_index, trace_index, plot_size));
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
-			if (!replot&&TKUTIL::IsExistFile(plotInfo[i].out_file_name + ".svg"))
+			if (!replot&&TKUTIL::IsExistFile(tmp_root + plotInfo[i].out_file_name + getExtension("PlotRaw")))
 				continue;
 
 			std::ofstream of;
-			of.open(plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
+			of.open(tmp_root + plotInfo[i].GeneratePlotFileName("PlotRaw") + ".plt", std::ios::trunc);
 
-			//		of << "set term png enhanced transparent truecolor font arial 11 size "
-			of << R"(set term svg size )" << plotInfo[i].terminal_size.str()
+			if ((*Setting)["PlotRaw"]["Terminal"] == "png")
+				of << "set term png enhanced transparent truecolor font arial 11 size "
+				<< plotInfo[i].terminal_size.str() << std::endl;
+			if ((*Setting)["PlotRaw"]["Terminal"] == "svg")
+				of << R"(set term svg size )" << plotInfo[i].terminal_size.str()
 				<< R"( enhanced font "Arial, 11")" << std::endl;
-			of << "set out \"" << plotInfo[i].out_file_name << ".svg\"" << std::endl;
+			of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\")
+				<< plotInfo[i].out_file_name << getExtension("PlotRaw")<<"\"" << std::endl;
 			of << "set datafile separator \',\'" << std::endl;
 			of << "set grid xtics ytics" << std::endl;
 			of << "set nokey" << std::endl;
@@ -427,7 +438,7 @@ public:
 
 			of.close();
 
-			std::system(((std::string)"gnuplot " + plotInfo[i].plot_file_name + ".plt").c_str());
+			std::system(((std::string)"gnuplot " + tmp_root + plotInfo[i].plot_file_name + ".plt").c_str());
 		}
 
 		for (int i = 0; i < static_cast<int>(plotInfo.size()); i++) {
@@ -460,10 +471,10 @@ public:
 		return plotInfo.data();
 	}
 
-	void MakeHTML()
+	void MakeHTML(std::string html_path)
 	{
 		std::ofstream of;
-		of.open("C:\\Users\\user\\Source\\Repos\\MCMS\\UI\\Project1\\ytsummary.html", std::ios::trunc);
+		of.open(html_path, std::ios::trunc);
 		of << R"(
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
@@ -476,7 +487,7 @@ public:
 		for (const auto& iter : plotInfo) {
 			std::string img_src;
 			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
-			clx::replace_all(img_src, "$imgFileName"_s, iter.plot_file_name + ".svg");
+			clx::replace_all(img_src, "$imgFileName"_s, iter.plot_file_name + getExtension("PlotRaw"));
 			clx::replace_all(img_src, "$imgAlt"_s, iter.plot_file_name);
 			clx::replace_all(img_src, "#"_s, "%23"_s);
 			of << img_src << std::endl;

@@ -150,6 +150,7 @@
     <ClCompile Include="SetupAnalyzeSP.cpp" />
     <ClCompile Include="tkanalyzesp.cpp" />
     <ClCompile Include="tkfileutil.cpp" />
+    <ClCompile Include="tktemp.cpp" />
     <ClCompile Include="tkutil.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="SetupADCConnection.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="tkanalyzeisp.h" />
     <ClInclude Include="tkanalyzesp.h" />
     <ClInclude Include="tkfileutil.h" />
+    <ClInclude Include="tktemp.h" />
     <ClInclude Include="tkutil.h" />
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
