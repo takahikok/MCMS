@@ -53,6 +53,10 @@ public:
 
 
 		std::string ma_file_name = ExecPreDataProcess(i_channel_plot_info_index);
+			ma_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + ma_file_name ;
+		if (!ma_file_name.find("\\")) {
+		}
+
 
 		auto finalize = [&]() {
 			for (int i = 0; i < 4; i++)
