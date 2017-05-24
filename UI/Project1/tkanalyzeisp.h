@@ -222,10 +222,22 @@ public:
 		};
 
 		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "1"+ getExtension()+"\"" << std::endl;
-		of << "set xrange " + opt_range(15).str() << std::endl;
+		of << "set xrange " + opt_range(20).str() << std::endl;
 		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
-		of << "replot" << std::endl;
+		of << "plot "
+			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(100) << ROIp()
+			<< " using "
+			<< svp()
+			<< ":"
+			<< "(" << sip() << "*1e6)"
+			<< " pt 6 ps 0.2 lc rgb \"red\""
+			<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
+			<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
+			<< std::endl;
+
+		//of << "replot" << std::endl;
 
 		of << "" << std::endl;
 		of << "" << std::endl;
@@ -317,7 +329,7 @@ public:
 			<< std::endl;
 
 		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "3"+ getExtension()+"\"" << std::endl;
-		of << "set xrange " + opt_range(15).str() << std::endl;
+		of << "set xrange " + opt_range(20).str() << std::endl;
 		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		//		of << "replot" << std::endl;
@@ -328,7 +340,7 @@ public:
 			<< svp()
 			<< ":"
 			<< "(" << sip() << "-F_Ies(" << svp() << "))"
-			<< " pt 6 ps 0.2 lc rgb \"red\", "
+			<< " pt 0 ps 0.2 lc rgb \"red\", "
 			<< "[" << fitrange.Ie.min - 20 << ":] F_Ie(x) lw 2 lc rgb \"blue\" "
 			<< std::endl;
 
@@ -371,6 +383,13 @@ public:
 			if (i == 1)
 				of << "<BR>" << std::endl;
 		}
+		std::chrono::system_clock::time_point p = std::chrono::system_clock::now();
+		std::time_t t = std::chrono::system_clock::to_time_t(p);
+		const std::tm* lt = std::localtime(&t);
+		const std::tm gt = thisShot->GetTime(thisShot->GetADCID(plotInfo[std::stoi((*Setting)[group]["IChannelIndex"])].data_index));
+		of << R"(<BR><BR><HR>)" << std::endl;
+		of << "Shot date : " << std::put_time(&gt, "%c") << "　　　　" << std::endl;
+		of << "Last modified : " << std::put_time(lt, "%c") << "" << std::endl;
 		of << R"(
 </BODY>
 </HTML>

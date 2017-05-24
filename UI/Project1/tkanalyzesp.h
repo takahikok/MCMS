@@ -69,7 +69,7 @@ public:
 		of.open(tmp_root + group + ".plt", std::ios::trunc);
 
 		if ((*Setting)[group]["Terminal"] == "png")
-			of << "set term png enhanced transparent truecolor font arial 11 size " 
+			of << "set term png enhanced transparent truecolor font arial 11 size "
 			<< plotInfo[0].terminal_size.str() << std::endl;
 		if ((*Setting)[group]["Terminal"] == "svg")
 			of << R"(set term svg size )" << plotInfo[0].terminal_size.str()
@@ -333,15 +333,13 @@ public:
 	{
 		std::ofstream of;
 		of.open(html_path, std::ios::trunc);
-		of << R"(
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+		of << R"(<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <HTML>
 <HEAD> 
 <META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <TITLE></TITLE>
 </HEAD>
-<BODY>
-)" << std::endl;
+<BODY>)" << std::endl;
 		for (int i = 0; i < 4; i++) {
 			std::string img_src;
 			img_src = R"(<img src="$imgFileName" alt="$imgAlt">)";
@@ -352,10 +350,15 @@ public:
 			if (i == 1)
 				of << "<BR>" << std::endl;
 		}
-		of << R"(
-</BODY>
-</HTML>
-)" << std::endl;
+		std::chrono::system_clock::time_point p = std::chrono::system_clock::now();
+		std::time_t t = std::chrono::system_clock::to_time_t(p);
+		const std::tm* lt = std::localtime(&t);
+		const std::tm gt = thisShot->GetTime(thisShot->GetADCID(plotInfo[std::stoi((*Setting)[group]["IChannelIndex"])].data_index));
+		of << R"(<BR><BR><HR>)" << std::endl;
+		of << "Shot date : " << std::put_time(&gt, "%c") << "　　　　" << std::endl;
+		of << "Last modified : " << std::put_time(lt, "%c") << "" << std::endl;
+		of << R"(</BODY>
+</HTML>)" << std::endl;
 	}
 
 };

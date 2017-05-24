@@ -116,6 +116,10 @@ public:
 	{
 		return CHData[0].block_size;
 	}
+	struct std::tm GetTime()
+	{
+		return CHData[0].time;
+	}
 	float GetHOffset()
 	{
 		return CHData[0].h_offset;
@@ -256,6 +260,10 @@ public:
 	std::string GetModelName(int adc_id)
 	{
 		return TKData[getADCDataIndexByADCID(adc_id)].GetModelName();
+	}
+	struct std::tm GetTime(int adc_id)
+	{
+		return TKData[getADCDataIndexByADCID(adc_id)].GetTime();
 	}
 	TKDATA::BYTEORDER GetByteOrder(int adc_id)
 	{

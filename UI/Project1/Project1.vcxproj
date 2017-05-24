@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="DialogQuickLoadShot.cpp" />
     <ClCompile Include="SetupAnalyzeSP.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
     <ClCompile Include="tkanalyzesp.cpp" />
     <ClCompile Include="tkfileutil.cpp" />
     <ClCompile Include="tktemp.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="SetupAnalyzeSP.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="tinyxml2.h" />
     <ClInclude Include="tkanalyzeisp.h" />
     <ClInclude Include="tkanalyzesp.h" />
     <ClInclude Include="tkfileutil.h" />

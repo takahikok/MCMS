@@ -15,6 +15,8 @@
 #include "tkplot.h"
 #include "tkutil.h"
 #include "tkphysics.h"
+#include <chrono>
+#include <ctime>
 #ifndef __TKANALYZE__
 #define __TKANALYZE__
 

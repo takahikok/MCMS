@@ -14,6 +14,8 @@
 #include <istream>
 #include "clx/salgorithm.h"
 #include "tkutil.h"
+#include <chrono>
+#include <ctime>
 #ifndef __TKPLOT__
 #define __TKPLOT__
 
@@ -492,6 +494,13 @@ public:
 			clx::replace_all(img_src, "#"_s, "%23"_s);
 			of << img_src << std::endl;
 		}
+		std::chrono::system_clock::time_point p = std::chrono::system_clock::now();
+		std::time_t t = std::chrono::system_clock::to_time_t(p);
+		const std::tm* lt = std::localtime(&t);
+		const std::tm gt = thisShot->GetTime(thisShot->GetADCID(plotInfo[0].data_index));
+		of << R"(<BR><BR><HR>)" << std::endl;
+		of << "Shot date : " << std::put_time(&gt, "%c") << "　　　　" << std::endl;
+		of << "Last modified : " << std::put_time(lt, "%c") << "" << std::endl;
 		of << R"(
 </BODY>
 </HTML>
