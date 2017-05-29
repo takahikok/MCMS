@@ -17,8 +17,7 @@
 #define M_PI       3.14159265358979323846   // pi
 #endif
 
-namespace Project1
-{
+namespace Project1 {
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -32,8 +31,7 @@ namespace Project1
 	/// <summary>
 	/// SetupAnalyzeSP の概要
 	/// </summary>
-	public ref class SetupAnalyzeSP : public System::Windows::Forms::Form
-	{
+	public ref class SetupAnalyzeSP : public System::Windows::Forms::Form {
 	private:
 		clx::ini* Setting;
 
@@ -65,6 +63,21 @@ namespace Project1
 	private: System::Windows::Forms::RadioButton^  radioButton20;
 	private: System::Windows::Forms::Label^  label21;
 	private: System::Windows::Forms::CheckBox^  checkBox1;
+	private: System::Windows::Forms::GroupBox^  groupBox13;
+	private: System::Windows::Forms::CheckBox^  checkBox2;
+	private: System::Windows::Forms::TextBox^  textBox12;
+	private: System::Windows::Forms::Label^  label23;
+	private: System::Windows::Forms::Label^  label22;
+	private: System::Windows::Forms::TextBox^  textBox15;
+	private: System::Windows::Forms::GroupBox^  groupBox14;
+	private: System::Windows::Forms::ComboBox^  comboBox4;
+	private: System::Windows::Forms::Label^  label26;
+	private: System::Windows::Forms::CheckBox^  checkBox4;
+	private: System::Windows::Forms::TextBox^  textBox16;
+	private: System::Windows::Forms::Label^  label24;
+	private: System::Windows::Forms::Label^  label25;
+	private: System::Windows::Forms::TextBox^  textBox17;
+	private: System::Windows::Forms::CheckBox^  checkBox3;
 
 		 TKSHOT* thisShot;
 
@@ -205,6 +218,34 @@ namespace Project1
 
 			(*Setting)[group]["PreDataProcessingPhase"] = radioButton24->Checked ? "0" : "90";
 
+
+			// save BG
+
+			(*Setting)[group]["BG"] = checkBox2->Checked ? "Enable" : "Disable";
+			(*Setting)[group]["BGStart"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox15->Text).c_str()));
+			(*Setting)[group]["BGStop"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox12->Text).c_str()));
+
+
+			// save Plot
+
+			(*Setting)[group]["PlotRaw"] = checkBox4->Checked ? "Enable" : "Disable";
+			(*Setting)[group]["EnlargementVRange"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox17->Text).c_str()));
+			(*Setting)[group]["PointPer1px"] = std::to_string(std::stod(TKUTIL::SystemStringToString(textBox16->Text).c_str()));
+			switch (comboBox4->SelectedIndex) {
+			case 0:
+				(*Setting)[group]["Terminal"] = "png";
+				break;
+			case 1:
+				(*Setting)[group]["Terminal"] = "svg";
+				break;
+			}
+
+
+			// save Analyze
+
+			(*Setting)[group]["Analyze"] = checkBox3->Checked ? "Enable" : "Disable";
+
+
 			return 0;
 		}
 
@@ -306,7 +347,7 @@ namespace Project1
 				textBox9->Enabled = true;
 				textBox8->Enabled = true;
 			}
-			comboBox3->SelectedIndex = std::stoi((*Setting)[group]["ProbeTipIndex"]);
+//			comboBox3->SelectedIndex = std::stoi((*Setting)[group]["ProbeTipIndex"]);
 			comboBox3->SelectedIndex = -1;
 
 			textBox9->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["ProbeTipRadius"]).c_str())*1e3)).c_str());
@@ -384,6 +425,29 @@ namespace Project1
 			numericUpDown2->Value = std::stoi((*Setting)[group]["PreDataProcessingSMA2Sample"]);
 			radioButton24->Checked = ((*Setting)[group]["PreDataProcessingPhase"] == "0");
 			radioButton25->Checked = ((*Setting)[group]["PreDataProcessingPhase"] == "90");
+
+
+			// load BG
+
+			checkBox2->Checked = ((*Setting)[group]["BG"] == "Enable");
+			textBox15->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["BGStart"]).c_str()))).c_str());
+			textBox12->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["BGStop"]).c_str()))).c_str());
+
+
+			// load Plot
+
+			checkBox4->Checked = ((*Setting)[group]["PlotRaw"] == "Enable");
+			textBox17->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["EnlargementVRange"]).c_str()))).c_str());
+			textBox16->Text = gcnew System::String((std::to_string(std::stod(((*Setting)[group]["PointPer1px"]).c_str()))).c_str());
+			if ((*Setting)[group]["Terminal"] == "png")
+				comboBox4->SelectedIndex = 0;
+			if ((*Setting)[group]["Terminal"] == "svg")
+				comboBox4->SelectedIndex = 1;
+
+
+			// load Analyze
+
+			checkBox3->Checked = ((*Setting)[group]["Analyze"] == "Enable");
 
 
 			return 0;
@@ -569,6 +633,21 @@ namespace Project1
 			this->radioButton22 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton21 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton20 = (gcnew System::Windows::Forms::RadioButton());
+			this->groupBox13 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
+			this->label22 = (gcnew System::Windows::Forms::Label());
+			this->textBox15 = (gcnew System::Windows::Forms::TextBox());
+			this->label23 = (gcnew System::Windows::Forms::Label());
+			this->checkBox2 = (gcnew System::Windows::Forms::CheckBox());
+			this->groupBox14 = (gcnew System::Windows::Forms::GroupBox());
+			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
+			this->textBox16 = (gcnew System::Windows::Forms::TextBox());
+			this->label24 = (gcnew System::Windows::Forms::Label());
+			this->label25 = (gcnew System::Windows::Forms::Label());
+			this->textBox17 = (gcnew System::Windows::Forms::TextBox());
+			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
+			this->label26 = (gcnew System::Windows::Forms::Label());
+			this->comboBox4 = (gcnew System::Windows::Forms::ComboBox());
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->groupBox10->SuspendLayout();
@@ -583,6 +662,8 @@ namespace Project1
 			this->groupBox12->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
+			this->groupBox13->SuspendLayout();
+			this->groupBox14->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// comboBox1
@@ -1003,7 +1084,7 @@ namespace Project1
 			this->groupBox5->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox5->Name = L"groupBox5";
 			this->groupBox5->Padding = System::Windows::Forms::Padding(2);
-			this->groupBox5->Size = System::Drawing::Size(208, 184);
+			this->groupBox5->Size = System::Drawing::Size(208, 192);
 			this->groupBox5->TabIndex = 10;
 			this->groupBox5->TabStop = false;
 			this->groupBox5->Text = L"プローブチップ寸法";
@@ -1096,7 +1177,7 @@ namespace Project1
 			this->groupBox6->Margin = System::Windows::Forms::Padding(2);
 			this->groupBox6->Name = L"groupBox6";
 			this->groupBox6->Padding = System::Windows::Forms::Padding(2);
-			this->groupBox6->Size = System::Drawing::Size(240, 200);
+			this->groupBox6->Size = System::Drawing::Size(240, 192);
 			this->groupBox6->TabIndex = 11;
 			this->groupBox6->TabStop = false;
 			this->groupBox6->Text = L"荷電粒子捕集面積";
@@ -1283,7 +1364,7 @@ namespace Project1
 			// button3
 			// 
 			this->button3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->button3->Location = System::Drawing::Point(526, 477);
+			this->button3->Location = System::Drawing::Point(751, 477);
 			this->button3->Margin = System::Windows::Forms::Padding(2);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
@@ -1295,7 +1376,7 @@ namespace Project1
 			// button2
 			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
-			this->button2->Location = System::Drawing::Point(612, 477);
+			this->button2->Location = System::Drawing::Point(837, 477);
 			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
@@ -1308,7 +1389,7 @@ namespace Project1
 			// 
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->button1->DialogResult = System::Windows::Forms::DialogResult::Cancel;
-			this->button1->Location = System::Drawing::Point(694, 477);
+			this->button1->Location = System::Drawing::Point(919, 477);
 			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
@@ -1401,7 +1482,7 @@ namespace Project1
 			this->groupBox11->Controls->Add(this->radioButton22);
 			this->groupBox11->Controls->Add(this->radioButton21);
 			this->groupBox11->Controls->Add(this->radioButton20);
-			this->groupBox11->Location = System::Drawing::Point(560, 264);
+			this->groupBox11->Location = System::Drawing::Point(784, 128);
 			this->groupBox11->Name = L"groupBox11";
 			this->groupBox11->Size = System::Drawing::Size(208, 200);
 			this->groupBox11->TabIndex = 17;
@@ -1523,14 +1604,169 @@ namespace Project1
 			this->radioButton20->Text = L"Raw";
 			this->radioButton20->UseVisualStyleBackColor = true;
 			// 
+			// groupBox13
+			// 
+			this->groupBox13->Controls->Add(this->checkBox2);
+			this->groupBox13->Controls->Add(this->textBox12);
+			this->groupBox13->Controls->Add(this->label23);
+			this->groupBox13->Controls->Add(this->label22);
+			this->groupBox13->Controls->Add(this->textBox15);
+			this->groupBox13->Location = System::Drawing::Point(784, 16);
+			this->groupBox13->Name = L"groupBox13";
+			this->groupBox13->Size = System::Drawing::Size(208, 96);
+			this->groupBox13->TabIndex = 18;
+			this->groupBox13->TabStop = false;
+			this->groupBox13->Text = L"BG処理";
+			// 
+			// textBox12
+			// 
+			this->textBox12->Location = System::Drawing::Point(112, 64);
+			this->textBox12->Margin = System::Windows::Forms::Padding(2);
+			this->textBox12->Name = L"textBox12";
+			this->textBox12->Size = System::Drawing::Size(76, 19);
+			this->textBox12->TabIndex = 20;
+			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Location = System::Drawing::Point(112, 45);
+			this->label22->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(87, 12);
+			this->label22->TabIndex = 19;
+			this->label22->Text = L"BG計測終了 [s]";
+			// 
+			// textBox15
+			// 
+			this->textBox15->Location = System::Drawing::Point(16, 64);
+			this->textBox15->Margin = System::Windows::Forms::Padding(2);
+			this->textBox15->Name = L"textBox15";
+			this->textBox15->Size = System::Drawing::Size(76, 19);
+			this->textBox15->TabIndex = 18;
+			// 
+			// label23
+			// 
+			this->label23->AutoSize = true;
+			this->label23->Location = System::Drawing::Point(16, 45);
+			this->label23->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label23->Name = L"label23";
+			this->label23->Size = System::Drawing::Size(87, 12);
+			this->label23->TabIndex = 17;
+			this->label23->Text = L"BG計測開始 [s]";
+			// 
+			// checkBox2
+			// 
+			this->checkBox2->AutoSize = true;
+			this->checkBox2->Location = System::Drawing::Point(16, 24);
+			this->checkBox2->Name = L"checkBox2";
+			this->checkBox2->Size = System::Drawing::Size(92, 16);
+			this->checkBox2->TabIndex = 6;
+			this->checkBox2->Text = L"BG処理を行う";
+			this->checkBox2->UseVisualStyleBackColor = true;
+			// 
+			// groupBox14
+			// 
+			this->groupBox14->Controls->Add(this->comboBox4);
+			this->groupBox14->Controls->Add(this->label26);
+			this->groupBox14->Controls->Add(this->checkBox4);
+			this->groupBox14->Controls->Add(this->textBox16);
+			this->groupBox14->Controls->Add(this->label24);
+			this->groupBox14->Controls->Add(this->label25);
+			this->groupBox14->Controls->Add(this->textBox17);
+			this->groupBox14->Location = System::Drawing::Point(560, 264);
+			this->groupBox14->Name = L"groupBox14";
+			this->groupBox14->Size = System::Drawing::Size(208, 192);
+			this->groupBox14->TabIndex = 19;
+			this->groupBox14->TabStop = false;
+			this->groupBox14->Text = L"描画オプション";
+			// 
+			// checkBox3
+			// 
+			this->checkBox3->AutoSize = true;
+			this->checkBox3->Location = System::Drawing::Point(792, 344);
+			this->checkBox3->Name = L"checkBox3";
+			this->checkBox3->Size = System::Drawing::Size(72, 16);
+			this->checkBox3->TabIndex = 6;
+			this->checkBox3->Text = L"解析実行";
+			this->checkBox3->UseVisualStyleBackColor = true;
+			// 
+			// textBox16
+			// 
+			this->textBox16->Location = System::Drawing::Point(104, 72);
+			this->textBox16->Margin = System::Windows::Forms::Padding(2);
+			this->textBox16->Name = L"textBox16";
+			this->textBox16->Size = System::Drawing::Size(76, 19);
+			this->textBox16->TabIndex = 20;
+			// 
+			// label24
+			// 
+			this->label24->AutoSize = true;
+			this->label24->Location = System::Drawing::Point(16, 53);
+			this->label24->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label24->Name = L"label24";
+			this->label24->Size = System::Drawing::Size(79, 12);
+			this->label24->TabIndex = 17;
+			this->label24->Text = L"拡大幅 [Vp-p]";
+			// 
+			// label25
+			// 
+			this->label25->AutoSize = true;
+			this->label25->Location = System::Drawing::Point(104, 53);
+			this->label25->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label25->Name = L"label25";
+			this->label25->Size = System::Drawing::Size(85, 12);
+			this->label25->TabIndex = 19;
+			this->label25->Text = L"1pxのデータ点数";
+			// 
+			// textBox17
+			// 
+			this->textBox17->Location = System::Drawing::Point(16, 72);
+			this->textBox17->Margin = System::Windows::Forms::Padding(2);
+			this->textBox17->Name = L"textBox17";
+			this->textBox17->Size = System::Drawing::Size(76, 19);
+			this->textBox17->TabIndex = 18;
+			// 
+			// checkBox4
+			// 
+			this->checkBox4->AutoSize = true;
+			this->checkBox4->Location = System::Drawing::Point(16, 24);
+			this->checkBox4->Name = L"checkBox4";
+			this->checkBox4->Size = System::Drawing::Size(129, 16);
+			this->checkBox4->TabIndex = 20;
+			this->checkBox4->Text = L"生データを重ねて表示";
+			this->checkBox4->UseVisualStyleBackColor = true;
+			// 
+			// label26
+			// 
+			this->label26->AutoSize = true;
+			this->label26->Location = System::Drawing::Point(18, 102);
+			this->label26->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
+			this->label26->Name = L"label26";
+			this->label26->Size = System::Drawing::Size(50, 12);
+			this->label26->TabIndex = 21;
+			this->label26->Text = L"ターミナル";
+			// 
+			// comboBox4
+			// 
+			this->comboBox4->FormattingEnabled = true;
+			this->comboBox4->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"png", L"svg" });
+			this->comboBox4->Location = System::Drawing::Point(16, 120);
+			this->comboBox4->Margin = System::Windows::Forms::Padding(2);
+			this->comboBox4->Name = L"comboBox4";
+			this->comboBox4->Size = System::Drawing::Size(115, 20);
+			this->comboBox4->TabIndex = 12;
+			// 
 			// SetupAnalyzeSP
 			// 
 			this->AcceptButton = this->button3;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->CancelButton = this->button1;
-			this->ClientSize = System::Drawing::Size(778, 511);
+			this->ClientSize = System::Drawing::Size(1003, 511);
 			this->ControlBox = false;
+			this->Controls->Add(this->checkBox3);
+			this->Controls->Add(this->groupBox14);
+			this->Controls->Add(this->groupBox13);
 			this->Controls->Add(this->groupBox11);
 			this->Controls->Add(this->groupBox9);
 			this->Controls->Add(this->button5);
@@ -1572,7 +1808,12 @@ namespace Project1
 			this->groupBox12->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
+			this->groupBox13->ResumeLayout(false);
+			this->groupBox13->PerformLayout();
+			this->groupBox14->ResumeLayout(false);
+			this->groupBox14->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion

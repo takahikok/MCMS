@@ -29,10 +29,8 @@ public:
 		TKPLOT::RANGE<double> Ies;
 	public:
 		FITRANGE(TKPLOT::RANGE<double> Iis_, TKPLOT::RANGE<double> Ie_, TKPLOT::RANGE<double> Ies_)
+			: Iis(Iis_), Ie(Ie_), Ies(Ies_)
 		{
-			Iis = Iis_;
-			Ie = Ie_;
-			Ies = Ies_;
 		}
 		FITRANGE()
 		{
@@ -239,6 +237,16 @@ public:
 			out_file = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[plot_info_index].data_index));
 		}
 		return out_file;
+	}
+
+	unsigned int GetBGStartPoint(int adc_id)
+	{
+		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + std::stod((*Setting)[group]["BGStart"])) / thisShot->GetHResolution(adc_id));
+	}
+
+	unsigned int GetBGStopPoint(int adc_id)
+	{
+		return static_cast<unsigned int>((-thisShot->GetHOffset(adc_id) + std::stod((*Setting)[group]["BGStop"])) / thisShot->GetHResolution(adc_id));
 	}
 
 	virtual void MakeHTML(std::string html_path) = 0;

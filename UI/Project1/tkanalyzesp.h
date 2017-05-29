@@ -54,9 +54,8 @@ public:
 		plotInfo[i_channel_plot_info_index].out_file_name = tok[tok.size() - 1] + "_" + group + "_";
 
 		std::string ma_file_name = ExecPreDataProcess(i_channel_plot_info_index);
-		ma_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + ma_file_name;
-		if (!ma_file_name.find(":")) {
-		}
+		if (ma_file_name.find(":") == std::string::npos) 
+			ma_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + ma_file_name;
 
 
 		auto finalize = [&]() {
@@ -70,6 +69,8 @@ public:
 
 		std::ofstream of;
 		of.open(tmp_root + group + ".plt", std::ios::trunc);
+
+		of << R"(printerr "--- Analyze SP ---")" << std::endl;
 
 		if ((*Setting)[group]["Terminal"] == "png")
 			of << "set term png enhanced transparent truecolor font arial 11 size "
@@ -204,12 +205,13 @@ public:
 		of << "" << std::endl;
 		of << "" << std::endl;
 
-		auto opt_range = [&](auto v_pp) {
+		auto opt_range = [&]() {
+			double v_pp = std::stod((*Setting)[group]["EnlargementVRange"]);
 			return TKPLOT::RANGE<double>(fitrange.Ie.median() - v_pp / 2, fitrange.Ie.median() + v_pp / 2);
 		};
 
 		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "1" + getExtension() + "\"" << std::endl;
-		of << "set xrange " + opt_range(100).str() << std::endl;
+		of << "set xrange " + opt_range().str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "replot" << std::endl;
@@ -300,7 +302,7 @@ public:
 			<< std::endl;
 
 		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "3" + getExtension() + "\"" << std::endl;
-		of << "set xrange " + opt_range(100).str() << std::endl;
+		of << "set xrange " + opt_range().str() << std::endl;
 		of << "set xtics 10" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		//		of << "replot" << std::endl;

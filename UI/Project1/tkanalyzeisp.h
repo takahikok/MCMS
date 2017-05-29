@@ -52,25 +52,28 @@ public:
 		plotInfo[i_channel_plot_info_index].out_file_name = tok[tok.size() - 1] + "_" + group + "_";
 
 
+		std::string source_file_name = thisShot->GetDataFileName(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index));
+		if (source_file_name.find(":") == std::string::npos)
+			source_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + source_file_name;
 		std::string ma_file_name = ExecPreDataProcess(i_channel_plot_info_index);
-			ma_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + ma_file_name ;
-		if (!ma_file_name.find("\\")) {
-		}
+		if (ma_file_name.find(":") == std::string::npos)
+			ma_file_name = R"(C:\Users\ppl\Source\Repos\MCMS\UI\Project1\)" + ma_file_name;
 
 
 		auto finalize = [&]() {
 			for (int i = 0; i < 4; i++)
 				plotInfo[i].plot_file_name = plotInfo[i_channel_plot_info_index].out_file_name;
 		};
-		if (!replot&&TKUTIL::IsExistFile(tmp_root+plotInfo[i_channel_plot_info_index].out_file_name + "0" + getExtension())) {
+		if (!replot&&TKUTIL::IsExistFile(tmp_root + plotInfo[i_channel_plot_info_index].out_file_name + "0" + getExtension())) {
 			finalize();
 			return static_cast<int>(plotInfo.size());
 		}
 
 
 		std::ofstream of;
-		of.open(tmp_root+group + ".plt", std::ios::trunc);
+		of.open(tmp_root + group + ".plt", std::ios::trunc);
 
+		of << R"(printerr "--- Analyze ISP ---")" << std::endl;
 
 		if ((*Setting)[group]["Terminal"] == "png")
 			of << "set term png enhanced transparent truecolor font arial 11 size "
@@ -104,7 +107,7 @@ public:
 
 		of << "#---FUNCTION---" << std::endl;
 		//of << "F_Ies(x)=a_Ies*x+b_Ies" << std::endl;
-		of << "F_Ies(x)=b_Ies" << std::endl;
+		//of << "F_Ies(x)=b_Ies" << std::endl;
 		of << "F_Ii(x)=a_Ii*x+b_Ii" << std::endl;
 		of << "F_Ie(x)=exp(a_Ie*x+b_Ie)" << std::endl;
 		//of << "F_Ies(x)=exp(a_Ies*x+b_Ies)" << std::endl;
@@ -162,19 +165,20 @@ public:
 			}
 		};
 
-		of << "fit " << fitrange.Ies.str() << " "
-			<< "F_Ies(x) "
-			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
-			<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
-			<< " using "
-			<< svp()
-			<< ":"
-			<< sip()
-			<< "via b_Ies"
-			<< std::endl;
-		of << "fit " << "[0:200e3]" << " "
+		//of << "fit " << fitrange.Ies.str() << " "
+		//	<< "F_Ies(x) "
+		//	<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+		//	<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
+		//	<< " using "
+		//	<< svp()
+		//	<< ":"
+		//	<< sip()
+		//	<< "via b_Ies"
+		//	<< std::endl;
+		of << "fit " << "[" << GetBGStartPoint(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index))
+			<< ":" << GetBGStopPoint(thisShot->GetADCID(plotInfo[i_channel_plot_info_index].data_index)) << "]" << " "
 			<< "F_BG(x) "
-			<< "\"" << clx::replace_all_copy(ma_file_name, "\\", "\\\\") << ".CSV\""
+			<< "\"" << clx::replace_all_copy(source_file_name, "\\", "\\\\") << ".CSV\""
 			//<< " every " << plotInfo[i_channel_plot_info_index].CalcEveryValue(10) << ROIp()
 			<< " using "
 			<< "($0)"
@@ -182,11 +186,11 @@ public:
 			<< sip()
 			<< "via b_BG"
 			<< std::endl;
-		of << "" << std::endl;
+		of << R"(printerr sprintf("BG: %e A", b_BG))" << std::endl;
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "0"+ getExtension()+"\"" << std::endl;
+		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "0" + getExtension() + "\"" << std::endl;
 		of << "set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		//		of << "set object 2 rect from first " << fitrange.Iis.min << ", graph 0 to first " << fitrange.Iis.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -213,20 +217,21 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "(" << sip() << "*1e6)"
+			<< "((" << sip() << " - F_BG(" << svp() << "))*1e6)"
 			<< " pt 6 ps 0.2 lc rgb \"red\""
-			<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
-			<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
+			//<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
+			//<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
 
 			<< std::endl;
 
 
-		auto opt_range = [&](auto v_pp) {
+		auto opt_range = [&]() {
+			double v_pp = std::stod((*Setting)[group]["EnlargementVRange"]);
 			return TKPLOT::RANGE<double>(fitrange.Ie.median() - v_pp / 2, fitrange.Ie.median() + v_pp / 2);
 		};
 
-		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "1"+ getExtension()+"\"" << std::endl;
-		of << "set xrange " + opt_range(20).str() << std::endl;
+		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "1" + getExtension() + "\"" << std::endl;
+		of << "set xrange " + opt_range().str() << std::endl;
 		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		of << "plot "
@@ -235,10 +240,10 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "(" << sip() << "*1e6)"
+			<< "((" << sip() << " - F_BG(" << svp() << "))*1e6)"
 			<< " pt 6 ps 0.2 lc rgb \"red\""
-			<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
-			<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
+			//<< ", F_Ies(x) * 1e6 lw 2 lc rgb \"dark-green\""
+			//<< ", F_BG(x) * 1e6 lw 1 lc rgb \"dark-magenta\" "
 			<< std::endl;
 
 		//of << "replot" << std::endl;
@@ -262,7 +267,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "(" << sip() << "-F_Ies(" << svp() << "))"
+			<< "(" << sip() << "-F_BG(" << svp() << "))"
 			<< "via a_Ie, b_Ie"
 			<< std::endl;
 		of << "" << std::endl;
@@ -294,7 +299,7 @@ public:
 		of << "" << std::endl;
 
 		of << "#---PLOT---" << std::endl;
-		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "2"+ getExtension()+"\"" << std::endl;
+		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "2" + getExtension() + "\"" << std::endl;
 		of << "#set object 1 rect from graph 0, 0 to graph 1, 1 behind linewidth 0 fillcolor rgb \"yellow\" fill solid 0.3 noborder" << std::endl;
 		of << "set object 2 rect from first " << fitrange.Ie.min << ", graph 0 to first " << fitrange.Ie.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
 		//		of << "set object 3 rect from first " << fitrange.Ies.min << ", graph 0 to first " << fitrange.Ies.max << ", graph 1 behind linewidth 0 fillcolor rgb \"skyblue\" fill solid 0.1 noborder" << std::endl;
@@ -321,7 +326,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "(" << sip() << "-F_Ies(" << svp() << "))"
+			<< "(" << sip() << "-F_BG(" << svp() << "))"
 			//<< sip()
 			<< " pt 6 ps 0.2 lc rgb \"red\", "
 
@@ -332,8 +337,8 @@ public:
 			//			<< "[" << fitrange.Ie.min - 20 << ":] F_Ies(x) lw 2 lc rgb \"dark-magenta\""
 			<< std::endl;
 
-		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "3"+ getExtension()+"\"" << std::endl;
-		of << "set xrange " + opt_range(20).str() << std::endl;
+		of << "set out \"" << clx::replace_all_copy(tmp_root, "\\", "\\\\") + plotInfo[i_channel_plot_info_index].out_file_name + "3" + getExtension() + "\"" << std::endl;
+		of << "set xrange " + opt_range().str() << std::endl;
 		of << "set xtics 5" << std::endl;
 		of << "set mxtics 5" << std::endl;
 		//		of << "replot" << std::endl;
@@ -343,7 +348,7 @@ public:
 			<< " using "
 			<< svp()
 			<< ":"
-			<< "(" << sip() << "-F_Ies(" << svp() << "))"
+			<< "(" << sip() << "-F_BG(" << svp() << "))"
 			<< " pt 0 ps 0.2 lc rgb \"red\", "
 			<< "[" << fitrange.Ie.min - 20 << ":] F_Ie(x) lw 2 lc rgb \"blue\" "
 			<< std::endl;
@@ -357,7 +362,7 @@ public:
 		of << "" << std::endl;
 
 		of.close();
-		std::system(((std::string)"gnuplot " + tmp_root+ group + ".plt").c_str());
+		std::system(((std::string)"gnuplot " + tmp_root + group + ".plt").c_str());
 
 		//finalize:
 		finalize();
