@@ -59,6 +59,11 @@ std::string& TKFILEUTIL::SHOTFILENAME::Extension()
 	return extension;
 }
 
+std::string TKFILEUTIL::SHOTFILENAME::GetShotName()
+{
+	return "#" + TKUTIL::ZeroFill(shot_number, 8);
+}
+
 std::string TKFILEUTIL::SHOTFILENAME::GetFileName()
 {
 	return "#" + TKUTIL::ZeroFill(shot_number, 8) + "_" + suffix;

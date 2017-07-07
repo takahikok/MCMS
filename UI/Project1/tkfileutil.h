@@ -28,7 +28,8 @@ namespace TKFILEUTIL
 		std::string file_path;		//c:\\data\\#00000005_DL850.WDF
 		std::string dir;		//c:\\data\\ 
 		std::string file_name;		//#00000005_DL850
-		unsigned int shot_number;	//00000005
+		std::string shot_name;		//#00000005
+		unsigned int shot_number;	//5
 		std::string suffix;		//DL850
 		std::string extension;		//WDF
 
@@ -40,6 +41,7 @@ namespace TKFILEUTIL
 		unsigned int &ShotNumber();
 		std::string &Suffix();
 		std::string &Extension();
+		std::string GetShotName();
 		std::string GetFileName();
 		std::string GetFileNameWithExtension();
 		std::string GetDirectory();
