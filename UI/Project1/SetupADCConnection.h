@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <iostream>
 #include "clx/ini.h"
@@ -16,7 +16,7 @@ namespace Project1 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// SetupADCConnection ‚ÌŠT—v
+	/// SetupADCConnection ã®æ¦‚è¦
 	/// </summary>
 	public ref class SetupADCConnection : public System::Windows::Forms::Form
 	{
@@ -63,7 +63,7 @@ namespace Project1 {
 		{
 			InitializeComponent();
 			//
-			//TODO: ‚±‚±‚ÉƒRƒ“ƒXƒgƒ‰ƒNƒ^[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·
+			//TODO: ã“ã“ã«ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™
 			//
 //			clx::ini setting(SETTING_FILE_PATH);
 			Setting = Setting_;
@@ -72,7 +72,7 @@ namespace Project1 {
 
 	protected:
 		/// <summary>
-		/// g—p’†‚ÌƒŠƒ\[ƒX‚ğ‚·‚×‚ÄƒNƒŠ[ƒ“ƒAƒbƒv‚µ‚Ü‚·B
+		/// ä½¿ç”¨ä¸­ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’ã™ã¹ã¦ã‚¯ãƒªãƒ¼ãƒ³ã‚¢ãƒƒãƒ—ã—ã¾ã™ã€‚
 		/// </summary>
 		~SetupADCConnection()
 		{
@@ -126,14 +126,14 @@ namespace Project1 {
 
 	private:
 		/// <summary>
-		/// •K—v‚ÈƒfƒUƒCƒi[•Ï”‚Å‚·B
+		/// å¿…è¦ãªãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼å¤‰æ•°ã§ã™ã€‚
 		/// </summary>
 
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ƒfƒUƒCƒi[ ƒTƒ|[ƒg‚É•K—v‚Èƒƒ\ƒbƒh‚Å‚·B‚±‚Ìƒƒ\ƒbƒh‚Ì“à—e‚ğ
-		/// ƒR[ƒh ƒGƒfƒBƒ^[‚Å•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+		/// ãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼ ã‚µãƒãƒ¼ãƒˆã«å¿…è¦ãªãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã®å†…å®¹ã‚’
+		/// ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ã§å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -204,7 +204,7 @@ namespace Project1 {
 			this->checkBox2->Name = L"checkBox2";
 			this->checkBox2->Size = System::Drawing::Size(84, 16);
 			this->checkBox2->TabIndex = 15;
-			this->checkBox2->Text = L"‹N“®Ú‘±";
+			this->checkBox2->Text = L"èµ·å‹•æ™‚æ¥ç¶š";
 			this->checkBox2->UseVisualStyleBackColor = true;
 			this->checkBox2->CheckedChanged += gcnew System::EventHandler(this, &SetupADCConnection::checkBox2_CheckedChanged);
 			// 
@@ -216,7 +216,7 @@ namespace Project1 {
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(52, 12);
 			this->label6->TabIndex = 14;
-			this->label6->Text = L"ƒpƒXƒ[ƒh";
+			this->label6->Text = L"ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰";
 			// 
 			// textBox3
 			// 
@@ -243,7 +243,7 @@ namespace Project1 {
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(57, 12);
 			this->label8->TabIndex = 10;
-			this->label8->Text = L"ƒ†[ƒU[–¼";
+			this->label8->Text = L"ãƒ¦ãƒ¼ã‚¶ãƒ¼å";
 			this->label8->Click += gcnew System::EventHandler(this, &SetupADCConnection::label8_Click);
 			// 
 			// label5
@@ -254,7 +254,7 @@ namespace Project1 {
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(64, 12);
 			this->label5->TabIndex = 9;
-			this->label5->Text = L"USBƒAƒhƒŒƒX";
+			this->label5->Text = L"USBã‚¢ãƒ‰ãƒ¬ã‚¹";
 			// 
 			// label4
 			// 
@@ -264,7 +264,7 @@ namespace Project1 {
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(70, 12);
 			this->label4->TabIndex = 8;
-			this->label4->Text = L"ƒXƒgƒŒ[ƒWƒpƒX";
+			this->label4->Text = L"ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ãƒ‘ã‚¹";
 			// 
 			// label3
 			// 
@@ -274,7 +274,7 @@ namespace Project1 {
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(59, 12);
 			this->label3->TabIndex = 7;
-			this->label3->Text = L"ƒRƒ“ƒgƒ[ƒ‹";
+			this->label3->Text = L"ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«";
 			// 
 			// textBox2
 			// 
@@ -301,7 +301,7 @@ namespace Project1 {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(51, 12);
 			this->label1->TabIndex = 3;
-			this->label1->Text = L"IPƒAƒhƒŒƒX";
+			this->label1->Text = L"IPã‚¢ãƒ‰ãƒ¬ã‚¹";
 			// 
 			// checkBox1
 			// 
@@ -311,7 +311,7 @@ namespace Project1 {
 			this->checkBox1->Name = L"checkBox1";
 			this->checkBox1->Size = System::Drawing::Size(48, 16);
 			this->checkBox1->TabIndex = 1;
-			this->checkBox1->Text = L"—LŒø";
+			this->checkBox1->Text = L"æœ‰åŠ¹";
 			this->checkBox1->UseVisualStyleBackColor = true;
 			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &SetupADCConnection::checkBox1_CheckedChanged);
 			// 
@@ -323,7 +323,7 @@ namespace Project1 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"ƒLƒƒƒ“ƒZƒ‹";
+			this->button1->Text = L"ã‚­ãƒ£ãƒ³ã‚»ãƒ«";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &SetupADCConnection::button1_Click);
 			// 
@@ -334,7 +334,7 @@ namespace Project1 {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 2;
-			this->button2->Text = L"“K—p";
+			this->button2->Text = L"é©ç”¨";
 			this->button2->UseVisualStyleBackColor = true;
 			this->button2->Click += gcnew System::EventHandler(this, &SetupADCConnection::button2_Click);
 			// 
@@ -386,7 +386,7 @@ namespace Project1 {
 			this->checkBox3->Name = L"checkBox3";
 			this->checkBox3->Size = System::Drawing::Size(84, 16);
 			this->checkBox3->TabIndex = 15;
-			this->checkBox3->Text = L"‹N“®Ú‘±";
+			this->checkBox3->Text = L"èµ·å‹•æ™‚æ¥ç¶š";
 			this->checkBox3->UseVisualStyleBackColor = true;
 			// 
 			// label2
@@ -397,7 +397,7 @@ namespace Project1 {
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(52, 12);
 			this->label2->TabIndex = 14;
-			this->label2->Text = L"ƒpƒXƒ[ƒh";
+			this->label2->Text = L"ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰";
 			// 
 			// textBox5
 			// 
@@ -424,7 +424,7 @@ namespace Project1 {
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(57, 12);
 			this->label7->TabIndex = 10;
-			this->label7->Text = L"ƒ†[ƒU[–¼";
+			this->label7->Text = L"ãƒ¦ãƒ¼ã‚¶ãƒ¼å";
 			// 
 			// label9
 			// 
@@ -434,7 +434,7 @@ namespace Project1 {
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(64, 12);
 			this->label9->TabIndex = 9;
-			this->label9->Text = L"USBƒAƒhƒŒƒX";
+			this->label9->Text = L"USBã‚¢ãƒ‰ãƒ¬ã‚¹";
 			// 
 			// label10
 			// 
@@ -444,7 +444,7 @@ namespace Project1 {
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(70, 12);
 			this->label10->TabIndex = 8;
-			this->label10->Text = L"ƒXƒgƒŒ[ƒWƒpƒX";
+			this->label10->Text = L"ã‚¹ãƒˆãƒ¬ãƒ¼ã‚¸ãƒ‘ã‚¹";
 			// 
 			// label11
 			// 
@@ -454,7 +454,7 @@ namespace Project1 {
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(59, 12);
 			this->label11->TabIndex = 7;
-			this->label11->Text = L"ƒRƒ“ƒgƒ[ƒ‹";
+			this->label11->Text = L"ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«";
 			// 
 			// textBox7
 			// 
@@ -480,7 +480,7 @@ namespace Project1 {
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(51, 12);
 			this->label12->TabIndex = 3;
-			this->label12->Text = L"IPƒAƒhƒŒƒX";
+			this->label12->Text = L"IPã‚¢ãƒ‰ãƒ¬ã‚¹";
 			// 
 			// checkBox4
 			// 
@@ -490,7 +490,7 @@ namespace Project1 {
 			this->checkBox4->Name = L"checkBox4";
 			this->checkBox4->Size = System::Drawing::Size(48, 16);
 			this->checkBox4->TabIndex = 1;
-			this->checkBox4->Text = L"—LŒø";
+			this->checkBox4->Text = L"æœ‰åŠ¹";
 			this->checkBox4->UseVisualStyleBackColor = true;
 			// 
 			// SetupADCConnection

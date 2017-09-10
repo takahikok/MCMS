@@ -1,0 +1,17 @@
+digraph "Project1::MyForm::~MyForm"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="Project1::MyForm::\l~MyForm",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node0 -> Node1 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="TKADCCONTROL::Close",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_k_a_d_c_c_o_n_t_r_o_l.html#a2f8903ef41b5b97ddf2d2f08a5374402"];
+  Node0 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="TKADCCONTROL::Start",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_k_a_d_c_c_o_n_t_r_o_l.html#afd243c443ca134193acc8a409368aaf3"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="TKADCCONTROL::SendMessage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_k_a_d_c_c_o_n_t_r_o_l.html#a2808f2efde28bcfc670d0ddfe2c6791e"];
+  Node0 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="TKADCCONTROL::WaitADC",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_k_a_d_c_c_o_n_t_r_o_l.html#a7d6629217b6f034b9b546f88603d7f58"];
+  Node0 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="TKADCCONTROL::SaveShot",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_t_k_a_d_c_c_o_n_t_r_o_l.html#a832915af5a7240efeef5c3fa139b99af"];
+}

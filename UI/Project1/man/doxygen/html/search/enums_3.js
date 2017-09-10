@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['plotsize',['PLOTSIZE',['../class_t_k_p_l_o_t.html#a158082ae168750554cf23edde9a27416',1,'TKPLOT']]]
+  ['predataprocess',['PREDATAPROCESS',['../class_t_k_a_n_a_l_y_z_e.html#a7a931f59627879ac86be378797e00e1e',1,'TKANALYZE']]]
 ];

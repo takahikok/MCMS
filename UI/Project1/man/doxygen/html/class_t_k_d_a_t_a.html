@@ -67,11 +67,13 @@ $(function() {
 <div class="title">TKDATA クラス</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="tkshotinfo_8h_source.html">tkshotinfo.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 公開型</h2></td></tr>
-<tr class="memitem:ab55f2c2d1c76bbeb3c1820ad2e749f38"><td class="memItemLeft" align="right" valign="top"><a id="ab55f2c2d1c76bbeb3c1820ad2e749f38"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>BYTEORDER</b> { <b>BIG_ENDIAN</b>, 
-<b>LITTLE_ENDIAN</b>
+<tr class="memitem:ab55f2c2d1c76bbeb3c1820ad2e749f38"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38">BYTEORDER</a> { <a class="el" href="class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38a3e3837ede152d846a1d1c6e4b5de4432">BYTEORDER::BIG_ENDIAN</a>, 
+<a class="el" href="class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c">BYTEORDER::LITTLE_ENDIAN</a>
  }</td></tr>
 <tr class="separator:ab55f2c2d1c76bbeb3c1820ad2e749f38"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add3f58dbf65c97f4c9998e3a8b3f79fd"><td class="memItemLeft" align="right" valign="top"><a id="add3f58dbf65c97f4c9998e3a8b3f79fd"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>DATAFORMAT</b> { <b>TRACE</b>, 
@@ -81,9 +83,8 @@ $(function() {
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:ad142911ef868b94bd2607ab4ca69f84d"><td class="memItemLeft" align="right" valign="top"><a id="ad142911ef868b94bd2607ab4ca69f84d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>ParseHDR</b> ()</td></tr>
-<tr class="separator:ad142911ef868b94bd2607ab4ca69f84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3908aef9f0e122bf8edf4ae39242304"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_k_d_a_t_a.html#aa3908aef9f0e122bf8edf4ae39242304">ParseHDR</a> ()</td></tr>
+<tr class="separator:aa3908aef9f0e122bf8edf4ae39242304"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64f288a761012bf276a5aa7f74dfcb44"><td class="memItemLeft" align="right" valign="top"><a id="a64f288a761012bf276a5aa7f74dfcb44"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>SetADCID</b> (int iadc_id)</td></tr>
 <tr class="separator:a64f288a761012bf276a5aa7f74dfcb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +115,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>GetVMinData</b> (int c
 <tr class="memitem:a5fe237cba051e352845786e13c0cd54f"><td class="memItemLeft" align="right" valign="top"><a id="a5fe237cba051e352845786e13c0cd54f"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetBlockSize</b> ()</td></tr>
 <tr class="separator:a5fe237cba051e352845786e13c0cd54f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92cf4028c059bd418905006275b8c727"><td class="memItemLeft" align="right" valign="top"><a id="a92cf4028c059bd418905006275b8c727"></a>
+struct std::tm&#160;</td><td class="memItemRight" valign="bottom"><b>GetTime</b> ()</td></tr>
+<tr class="separator:a92cf4028c059bd418905006275b8c727"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac823854fcfb02d7788ec491b38f4d615"><td class="memItemLeft" align="right" valign="top"><a id="ac823854fcfb02d7788ec491b38f4d615"></a>
 float&#160;</td><td class="memItemRight" valign="bottom"><b>GetHOffset</b> ()</td></tr>
 <tr class="separator:ac823854fcfb02d7788ec491b38f4d615"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,7 +125,7 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>GetHOffset</b> ()</t
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>GetModelName</b> ()</td></tr>
 <tr class="separator:af0a676448ec4d492290517a7e60a2de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63437cd1b2448b0b54ee6ec56da1321e"><td class="memItemLeft" align="right" valign="top"><a id="a63437cd1b2448b0b54ee6ec56da1321e"></a>
-TKDATA::BYTEORDER&#160;</td><td class="memItemRight" valign="bottom"><b>GetByteOrder</b> ()</td></tr>
+<a class="el" href="class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38">TKDATA::BYTEORDER</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetByteOrder</b> ()</td></tr>
 <tr class="separator:a63437cd1b2448b0b54ee6ec56da1321e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86117b4edecbf2e3013973fb016877e2"><td class="memItemLeft" align="right" valign="top"><a id="a86117b4edecbf2e3013973fb016877e2"></a>
 TKDATA::DATAFORMAT&#160;</td><td class="memItemRight" valign="bottom"><b>GetDataFormat</b> ()</td></tr>
@@ -139,6 +143,65 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>ChannnelNumberToTraceN
 int&#160;</td><td class="memItemRight" valign="bottom"><b>GetChannelNumber</b> (int const trace_index)</td></tr>
 <tr class="separator:a8282e57fcee3618dfe533b6771adce96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>データクラス</p>
+<p>ADCで取得したデータを管理するクラスです。<br />
+ 1つのデータクラスが管理するのは1台のADCで計測した1ショット分のデータです。 </p>
+</div><h2 class="groupheader">列挙型メンバ詳解</h2>
+<a id="ab55f2c2d1c76bbeb3c1820ad2e749f38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab55f2c2d1c76bbeb3c1820ad2e749f38">&#9670;&nbsp;</a></span>BYTEORDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38">TKDATA::BYTEORDER</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>バイトオーダー列挙型</p>
+<p>バイナリーファイルのバイトオーダーです。<br />
+ バイナリーファイルから直接データを読み出す際に必要です。</p>
+<p>データフォーマット列挙型</p>
+<p>バイナリーファイルのデータフォーマットです。<br />
+ 詳細は横河電機のドキュメントを参照してください。 </p>
+<table class="fieldtable">
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="ab55f2c2d1c76bbeb3c1820ad2e749f38a3e3837ede152d846a1d1c6e4b5de4432"></a>BIG_ENDIAN&#160;</td><td class="fielddoc"><p>680xx </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c"></a>LITTLE_ENDIAN&#160;</td><td class="fielddoc"><p>80x86 </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="aa3908aef9f0e122bf8edf4ae39242304"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3908aef9f0e122bf8edf4ae39242304">&#9670;&nbsp;</a></span>ParseHDR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TKDATA::ParseHDR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ヘッダーファイルのパースを行います。</p>
+<p>ヘッダーファイルからバイナリーデータフォーマット及び計測設定情報を取得します。 </p><dl class="section return"><dt>戻り値</dt><dd>0: 正常終了 </dd></dl>
+
+</div>
+</div>
 <hr/>このクラス詳解は次のファイルから抽出されました:<ul>
 <li><a class="el" href="tkshotinfo_8h_source.html">tkshotinfo.h</a></li>
 <li>tkshotinfo.cpp</li>

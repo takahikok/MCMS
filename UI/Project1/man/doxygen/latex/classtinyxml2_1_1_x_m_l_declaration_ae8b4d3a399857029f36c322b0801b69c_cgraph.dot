@@ -1,0 +1,11 @@
+digraph "tinyxml2::XMLDeclaration::ShallowEqual"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node7 [label="tinyxml2::XMLDeclaration\l::ShallowEqual",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="tinyxml2::XMLNode::\lToDeclaration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a174fd4c22c010b58138c1b84a0dfbd51",tooltip="Safely cast to a Declaration, or null. "];
+  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="tinyxml2::XMLNode::\lValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a0485e51c670e741884cfd8362274d680"];
+}

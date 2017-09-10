@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['datasource',['DATASOURCE',['../class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfa',1,'TKPLOT']]]
+  ['conditionflag',['CONDITIONFLAG',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a4ec8bb3e68a489f7a757d08a855ffb61',1,'TKADCCONTROL']]]
 ];

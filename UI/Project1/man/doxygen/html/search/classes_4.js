@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['plotinfo',['PLOTINFO',['../class_t_k_p_l_o_t_1_1_p_l_o_t_i_n_f_o.html',1,'TKPLOT']]],
-  ['position',['POSITION',['../class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html',1,'TKPLOT']]],
-  ['position_3c_20int_20_3e',['POSITION&lt; int &gt;',['../class_t_k_p_l_o_t_1_1_p_o_s_i_t_i_o_n.html',1,'TKPLOT']]]
+  ['longfitsintosizetminusone',['LongFitsIntoSizeTMinusOne',['../structtinyxml2_1_1_long_fits_into_size_t_minus_one.html',1,'tinyxml2']]],
+  ['longfitsintosizetminusone_3c_20false_20_3e',['LongFitsIntoSizeTMinusOne&lt; false &gt;',['../structtinyxml2_1_1_long_fits_into_size_t_minus_one_3_01false_01_4.html',1,'tinyxml2']]]
 ];

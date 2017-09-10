@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['removeextension',['RemoveExtension',['../namespace_t_k_f_i_l_e_u_t_i_l.html#ae7b4e47d9221322ea5dbaaaefd83b2b6',1,'TKFILEUTIL']]]
+  ['hasbom',['HasBOM',['../classtinyxml2_1_1_x_m_l_document.html#a33fc5d159db873a179fa26338adb05bd',1,'tinyxml2::XMLDocument']]]
 ];

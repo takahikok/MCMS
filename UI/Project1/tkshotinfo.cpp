@@ -184,7 +184,7 @@ int TKDATA::ParseHDR()
 				CHData[trace_number_offset + i].trace_name = sdata[i];
 				//TraceNameからADCチャンネルを推測(HDRパースには不要)
 				CHData[trace_number_offset + i].ch_number = traceNameToCHNumber(sdata[i]);
-				if (CHData[trace_number_offset + i].ch_number != -1)
+				if (CHData[trace_number_offset + i].ch_number)
 					channel_number_to_trace_number[CHData[trace_number_offset + i].ch_number]
 					= trace_number_offset + i;
 			}
@@ -289,8 +289,8 @@ int TKDATA::ParseHDR()
 }
 int TKDATA::traceNameToCHNumber(std::string trace_name)
 {
-	for (int i = 0; i < 100; i++)
+	for (int i = 1; i < 100; i++)
 		if (trace_name == ("CH" + std::to_string(i)))
 			return i;
-	return -1;
+	return 0;
 }

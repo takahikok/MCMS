@@ -1,4 +1,12 @@
-﻿#include "tkanalyze.h"
+﻿/**
+* @file	
+* @brief ISP解析に必要なクラスを提供します。
+*	個々の解析手法に応じて派生させてください。
+* @author Kobayashi Takahiko
+* @date 2017
+*/
+
+#include "tkanalyze.h"
 #ifndef __TKANALYZEISP__
 #define __TKANALYZEISP__
 

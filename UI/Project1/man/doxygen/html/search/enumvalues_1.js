@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['binary',['BINARY',['../class_t_k_p_l_o_t.html#a28dfea1dd78dfc49c1926518da615bfaa98ad0e8750ae10ad556ed7a62affb452',1,'TKPLOT']]]
+  ['little_5fendian',['LITTLE_ENDIAN',['../class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c',1,'TKDATA']]]
 ];

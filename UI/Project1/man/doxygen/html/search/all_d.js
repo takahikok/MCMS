@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['range',['RANGE',['../class_t_k_p_l_o_t_1_1_r_a_n_g_e.html',1,'TKPLOT']]],
-  ['range_3c_20double_20_3e',['RANGE&lt; double &gt;',['../class_t_k_p_l_o_t_1_1_r_a_n_g_e.html',1,'TKPLOT']]],
-  ['range_3c_20float_20_3e',['RANGE&lt; float &gt;',['../class_t_k_p_l_o_t_1_1_r_a_n_g_e.html',1,'TKPLOT']]],
-  ['removeextension',['RemoveExtension',['../namespace_t_k_f_i_l_e_u_t_i_l.html#ae7b4e47d9221322ea5dbaaaefd83b2b6',1,'TKFILEUTIL']]]
+  ['open',['Open',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a307cc5bd3358c89db6ec7798d47b2840',1,'TKADCCONTROL']]],
+  ['openelement',['OpenElement',['../classtinyxml2_1_1_x_m_l_printer.html#a20fb06c83bd13e5140d7dd13af06c010',1,'tinyxml2::XMLPrinter']]],
+  ['operator_3d',['operator=',['../classtinyxml2_1_1_x_m_l_handle.html#a75b908322bb4b83be3281b6845252b20',1,'tinyxml2::XMLHandle']]]
 ];

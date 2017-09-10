@@ -1,0 +1,19 @@
+digraph "tinyxml2::XMLDocument::LoadFile"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node19 [label="tinyxml2::XMLDocument\l::LoadFile",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node19 -> Node20 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node20 [label="tinyxml2::XMLDocument\l::Clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a65656b0b2cbc822708eb351504178aaf",tooltip="Clear the document, resetting it to the initial state. "];
+  Node20 -> Node21 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 [label="tinyxml2::XMLNode::\lDeleteChildren",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a0360085cc54df5bff85d5c5da13afdce"];
+  Node20 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 [label="tinyxml2::XMLDocument\l::Error",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a34e6318e182e40e3cc4f4ba5d59ed9ed",tooltip="Return true if there was an error parsing the document. "];
+  Node19 -> Node23 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 [label="tinyxml2::XMLDocument\l::Parse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a1819bd34f540a7304c105a6232d25a1f"];
+  Node23 -> Node20 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 -> Node23 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 -> Node22 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node23 -> Node21 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

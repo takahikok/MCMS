@@ -1,0 +1,19 @@
+digraph "tinyxml2::XMLNode::DeleteChildren"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node10 [label="tinyxml2::XMLNode::\lDeleteChildren",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="tinyxml2::XMLDocument\l::Clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a65656b0b2cbc822708eb351504178aaf",tooltip="Clear the document, resetting it to the initial state. "];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="tinyxml2::XMLDocument\l::XMLDocument",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a57ddf17b6e054dda10af98991b1b8f70",tooltip="constructor "];
+  Node11 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="tinyxml2::XMLDocument\l::LoadFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a2ebd4647a8af5fc6831b294ac26a150a"];
+  Node11 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="tinyxml2::XMLDocument\l::Parse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a1819bd34f540a7304c105a6232d25a1f"];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="tinyxml2::XMLDocument\l::LoadFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a5f1d330fad44c52f3d265338dd2a6dc2"];
+  Node14 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

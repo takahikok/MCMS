@@ -1,0 +1,11 @@
+digraph "tinyxml2::XMLDeclaration::ShallowClone"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node3 [label="tinyxml2::XMLDeclaration\l::ShallowClone",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="tinyxml2::XMLDocument\l::NewDeclaration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#ae519030c0262fa2daff8993681990e16"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="tinyxml2::XMLNode::\lSetValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a09dd68cf9eae137579f6e50f36487513"];
+}

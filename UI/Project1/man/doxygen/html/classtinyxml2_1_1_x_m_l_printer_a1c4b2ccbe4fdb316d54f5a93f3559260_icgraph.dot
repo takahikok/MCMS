@@ -1,0 +1,19 @@
+digraph "tinyxml2::XMLPrinter::PrintSpace"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node13 [label="tinyxml2::XMLPrinter\l::PrintSpace",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node13 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="tinyxml2::XMLPrinter\l::OpenElement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#a20fb06c83bd13e5140d7dd13af06c010"];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="tinyxml2::XMLPrinter\l::VisitEnter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#a169b2509d8eabb70811b2bb8cfd1f5d1",tooltip="Visit an element. "];
+  Node13 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="tinyxml2::XMLPrinter\l::CloseElement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#af1fb439e5d800999646f333fa2f0699a",tooltip="If streaming, close the Element. "];
+  Node16 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="tinyxml2::XMLPrinter\l::VisitExit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#a2edd48405971a88951c71c9df86a2f50",tooltip="Visit an element. "];
+  Node13 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 [label="tinyxml2::XMLPrinter\l::PushComment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#afc8416814219591c2fd5656e0c233140",tooltip="Add a comment "];
+  Node18 -> Node19 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="tinyxml2::XMLPrinter\l::Visit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#aa294c5c01af0ebb9114902456e4cb53c",tooltip="Visit a comment node. "];
+}

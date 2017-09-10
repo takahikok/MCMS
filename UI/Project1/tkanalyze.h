@@ -1,3 +1,11 @@
+﻿/**
+* @file
+* @brief 解析に必要な基底クラスを提供します。
+*	個々の解析手法に応じて派生させてください。
+* @author Kobayashi Takahiko
+* @date 2017
+*/
+
 #include "tkadc.h"
 #include "tkadcinfo.h"
 #include "tkshotinfo.h"
@@ -20,6 +28,18 @@
 #ifndef __TKANALYZE__
 #define __TKANALYZE__
 
+/**
+* @class TKANALYZE
+* @blief 解析クラス
+*
+*	解析を行うめの基底クラスです。<br>
+*	静電計測法の解析に共通する基本計算、データ前処理、変数を提供します。<br>
+* @par この基底クラスが作られた背景
+*	SPとISPのデータ解析で共通する部分を基底クラス化しました。<br>
+*	RFAやDP等の他の静電計測法の解析にも適用可能です。<br>
+* @note
+*	もし新たな静電計測器を追加し、解析コードを開発する場合はこの基底クラスを派生させてください。
+*/
 class TKANALYZE : public TKPLOT {
 public:
 	class FITRANGE {
@@ -38,10 +58,20 @@ public:
 	};
 	FITRANGE fitrange;
 
+	/**
+	* @enum PREDATAPROCESS
+	* @blief データ前処理手法列挙型
+	*
+	*	データの前処理手法を区別するための型です。
+	*/
 	enum class PREDATAPROCESS {
+		//! 生データを使用します
 		Raw,
+		//! 単純移動平均を行います
 		SMA,
+		//! 単純移動平均の後ヒステリシス除去処理を行います。掃引を\f$2\pi\f$以上の間行っている必要があります。\f$2\pi\f$を超える領域は無視されます。
 		SMA_KH,
+		//! 単純移動平均の後ヒステリシス除去処理を行い、さらに単純移動平均を行います。
 		SMA_KH_SMA
 	};
 
@@ -56,6 +86,19 @@ protected:
 	int ma_sample_number;
 
 protected:
+	/**
+	* @fn calcSurfaceArea
+	* @blief 粒子捕集面積を計算します。
+	* @param[in] particle_type
+	*	荷電粒子種を選択します。
+	* @return
+	*	計算結果を返します。
+	* @note
+	*	単位はmです。
+	* @todo
+	*	計算手法をPREDATAPROCESS同様enum化する。<br>
+	*	引数が不適切であるので廃止してラッパ関数を用意する。
+	*/
 	double calcSurfaceArea(TKChargedParticleType particle_type)
 	{
 		double r = std::stod((*Setting)[group]["ProbeTipRadius"]);

@@ -1,0 +1,23 @@
+digraph "tinyxml2::XMLNode::SetValue"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node31 [label="tinyxml2::XMLNode::\lSetValue",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node31 -> Node32 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node32 [label="tinyxml2::XMLDocument\l::NewComment",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a386df0befd06aadb5e0cd21381aa955a"];
+  Node32 -> Node33 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node33 [label="tinyxml2::XMLComment\l::ShallowClone",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_comment.html#adf5b5c0319351dcc339df098d11e8fb2"];
+  Node31 -> Node34 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node34 [label="tinyxml2::XMLDocument\l::NewText",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#acece5de77a0819f2341b08c1e1ed9987"];
+  Node34 -> Node35 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node35 [label="tinyxml2::XMLText::\lShallowClone",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_text.html#a86d265c93152726c8c6831e9594840e6"];
+  Node31 -> Node36 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node36 [label="tinyxml2::XMLDocument\l::NewDeclaration",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#ae519030c0262fa2daff8993681990e16"];
+  Node36 -> Node37 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node37 [label="tinyxml2::XMLDeclaration\l::ShallowClone",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_declaration.html#ad9d60e6d2df75c13eb6bf7319985b747"];
+  Node31 -> Node38 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node38 [label="tinyxml2::XMLDocument\l::NewUnknown",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a4954f502c5fd7f49de54c3c0c99bb73d"];
+  Node38 -> Node39 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node39 [label="tinyxml2::XMLUnknown\l::ShallowClone",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_unknown.html#ab73b48b819aa4b2ef3815dc2d7d20d5f"];
+}

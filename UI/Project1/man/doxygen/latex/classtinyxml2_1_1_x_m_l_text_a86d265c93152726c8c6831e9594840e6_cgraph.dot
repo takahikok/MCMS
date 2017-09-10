@@ -1,0 +1,13 @@
+digraph "tinyxml2::XMLText::ShallowClone"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node3 [label="tinyxml2::XMLText::\lShallowClone",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="tinyxml2::XMLDocument\l::NewText",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#acece5de77a0819f2341b08c1e1ed9987"];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="tinyxml2::XMLNode::\lSetValue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a09dd68cf9eae137579f6e50f36487513"];
+  Node3 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="tinyxml2::XMLText::\lSetCData",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_text.html#ad080357d76ab7cc59d7651249949329d",tooltip="Declare whether this should be CDATA or standard text. "];
+}

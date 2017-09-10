@@ -1,0 +1,17 @@
+digraph "tinyxml2::XMLDocument::Print"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node51 [label="tinyxml2::XMLDocument\l::Print",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node51 -> Node52 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node52 [label="tinyxml2::XMLDocument\l::Accept",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#ab7be651917a35ab1ff0e4e6d4e565cdf"];
+  Node52 -> Node53 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node53 [label="tinyxml2::XMLVisitor\l::VisitEnter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_visitor.html#acb3c22fc5f60eb9db98f533f2761f67d",tooltip="Visit a document. "];
+  Node52 -> Node54 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node54 [label="tinyxml2::XMLNode::\lNextSibling",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a79db9ef0fe014d27790f2218b87bcbb5",tooltip="Get the next (right) sibling node of this node. "];
+  Node52 -> Node55 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node55 [label="tinyxml2::XMLNode::\lAccept",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a81e66df0a44c67a7af17f3b77a152785"];
+  Node52 -> Node56 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node56 [label="tinyxml2::XMLVisitor\l::VisitExit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_visitor.html#a170e9989cd046ba904f302d087e07086",tooltip="Visit a document. "];
+}

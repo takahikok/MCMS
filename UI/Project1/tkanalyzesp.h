@@ -1,7 +1,19 @@
-﻿#include "tkanalyze.h"
+﻿/**
+* @file
+* @brief SP解析に必要なクラスを提供します。
+*	個々の解析手法に応じて派生させてください。
+* @author Kobayashi Takahiko
+* @date 2017
+*/
+
+#include "tkanalyze.h"
 #ifndef __TKANALYZESP__
 #define __TKANALYZESP__
 
+/**
+* @class 
+* @blief 
+*/
 class TKANALYZESP : public TKANALYZE {
 private:
 	double calcSurfaceArea(TKChargedParticleType particle_type)

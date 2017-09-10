@@ -1,0 +1,13 @@
+digraph "tinyxml2::XMLDocument::LoadFile"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node14 [label="tinyxml2::XMLDocument\l::LoadFile",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node14 -> Node15 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="tinyxml2::XMLDocument\l::Clear",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a65656b0b2cbc822708eb351504178aaf",tooltip="Clear the document, resetting it to the initial state. "];
+  Node15 -> Node16 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 [label="tinyxml2::XMLNode::\lDeleteChildren",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a0360085cc54df5bff85d5c5da13afdce"];
+  Node15 -> Node17 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 [label="tinyxml2::XMLDocument\l::Error",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a34e6318e182e40e3cc4f4ba5d59ed9ed",tooltip="Return true if there was an error parsing the document. "];
+}

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 namespace Project1 {
 
@@ -10,7 +10,7 @@ namespace Project1 {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// SetupADCMeasurement ‚ÌŠT—v
+	/// SetupADCMeasurement ã®æ¦‚è¦
 	/// </summary>
 	public ref class SetupADCMeasurement : public System::Windows::Forms::Form
 	{
@@ -19,13 +19,13 @@ namespace Project1 {
 		{
 			InitializeComponent();
 			//
-			//TODO: ‚±‚±‚ÉƒRƒ“ƒXƒgƒ‰ƒNƒ^[ ƒR[ƒh‚ğ’Ç‰Á‚µ‚Ü‚·
+			//TODO: ã“ã“ã«ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ãƒ¼ ã‚³ãƒ¼ãƒ‰ã‚’è¿½åŠ ã—ã¾ã™
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// g—p’†‚ÌƒŠƒ\[ƒX‚ğ‚·‚×‚ÄƒNƒŠ[ƒ“ƒAƒbƒv‚µ‚Ü‚·B
+		/// ä½¿ç”¨ä¸­ã®ãƒªã‚½ãƒ¼ã‚¹ã‚’ã™ã¹ã¦ã‚¯ãƒªãƒ¼ãƒ³ã‚¢ãƒƒãƒ—ã—ã¾ã™ã€‚
 		/// </summary>
 		~SetupADCMeasurement()
 		{
@@ -49,14 +49,14 @@ namespace Project1 {
 
 	private:
 		/// <summary>
-		/// •K—v‚ÈƒfƒUƒCƒi[•Ï”‚Å‚·B
+		/// å¿…è¦ãªãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼å¤‰æ•°ã§ã™ã€‚
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// ƒfƒUƒCƒi[ ƒTƒ|[ƒg‚É•K—v‚Èƒƒ\ƒbƒh‚Å‚·B‚±‚Ìƒƒ\ƒbƒh‚Ì“à—e‚ğ
-		/// ƒR[ƒh ƒGƒfƒBƒ^[‚Å•ÏX‚µ‚È‚¢‚Å‚­‚¾‚³‚¢B
+		/// ãƒ‡ã‚¶ã‚¤ãƒŠãƒ¼ ã‚µãƒãƒ¼ãƒˆã«å¿…è¦ãªãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã®å†…å®¹ã‚’
+		/// ã‚³ãƒ¼ãƒ‰ ã‚¨ãƒ‡ã‚£ã‚¿ãƒ¼ã§å¤‰æ›´ã—ãªã„ã§ãã ã•ã„ã€‚
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -95,7 +95,7 @@ namespace Project1 {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 1;
-			this->button1->Text = L"“Ç";
+			this->button1->Text = L"èª­è¾¼";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
 			// button3
@@ -115,7 +115,7 @@ namespace Project1 {
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 5;
-			this->button2->Text = L"“K—p";
+			this->button2->Text = L"é©ç”¨";
 			this->button2->UseVisualStyleBackColor = true;
 			// 
 			// button4
@@ -126,7 +126,7 @@ namespace Project1 {
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(75, 23);
 			this->button4->TabIndex = 4;
-			this->button4->Text = L"ƒLƒƒƒ“ƒZƒ‹";
+			this->button4->Text = L"ã‚­ãƒ£ãƒ³ã‚»ãƒ«";
 			this->button4->UseVisualStyleBackColor = true;
 			// 
 			// checkBox1
@@ -155,7 +155,7 @@ namespace Project1 {
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(64, 12);
 			this->label5->TabIndex = 13;
-			this->label5->Text = L"USBƒAƒhƒŒƒX";
+			this->label5->Text = L"USBã‚¢ãƒ‰ãƒ¬ã‚¹";
 			// 
 			// label4
 			// 
@@ -165,7 +165,7 @@ namespace Project1 {
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(53, 12);
 			this->label4->TabIndex = 12;
-			this->label4->Text = L"‘Ñˆæ§ŒÀ";
+			this->label4->Text = L"å¸¯åŸŸåˆ¶é™";
 			// 
 			// label3
 			// 
@@ -175,7 +175,7 @@ namespace Project1 {
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(45, 12);
 			this->label3->TabIndex = 11;
-			this->label3->Text = L"—LŒøCH";
+			this->label3->Text = L"æœ‰åŠ¹CH";
 			// 
 			// label1
 			// 
@@ -185,7 +185,7 @@ namespace Project1 {
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(65, 12);
 			this->label1->TabIndex = 10;
-			this->label1->Text = L"‚’¼²Š´“x";
+			this->label1->Text = L"å‚ç›´è»¸æ„Ÿåº¦";
 			// 
 			// SetupADCMeasurement
 			// 

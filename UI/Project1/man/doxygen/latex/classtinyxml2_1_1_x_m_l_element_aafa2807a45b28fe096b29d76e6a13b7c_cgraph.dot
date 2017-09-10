@@ -1,0 +1,17 @@
+digraph "tinyxml2::XMLElement::ShallowClone"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node25 [label="tinyxml2::XMLElement\l::ShallowClone",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node25 -> Node26 [color="midnightblue",fontsize="10",style="solid"];
+  Node26 [label="tinyxml2::XMLDocument\l::NewElement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a3c335a700a43d7c363a393142a23f234"];
+  Node26 -> Node27 [color="midnightblue",fontsize="10",style="solid"];
+  Node27 [label="tinyxml2::XMLElement\l::SetName",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_element.html#a97712009a530d8cb8a63bf705f02b4f1",tooltip="Set the name of the element. "];
+  Node25 -> Node28 [color="midnightblue",fontsize="10",style="solid"];
+  Node28 [label="tinyxml2::XMLAttribute\l::Next",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_attribute.html#aee53571b21e7ce5421eb929523a8bbe6",tooltip="The next attribute in the list. "];
+  Node25 -> Node29 [color="midnightblue",fontsize="10",style="solid"];
+  Node29 [label="tinyxml2::XMLElement\l::SetAttribute",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_element.html#a11943abf2d0831548c3790dd5d9f119c",tooltip="Sets the named attribute to value. "];
+  Node29 -> Node30 [color="midnightblue",fontsize="10",style="solid"];
+  Node30 [label="tinyxml2::XMLAttribute\l::SetAttribute",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_attribute.html#a406d2c4a13c7af99a65edb59dd9f7581",tooltip="Set the attribute to a string value. "];
+}

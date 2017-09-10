@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['conditionflag',['CONDITIONFLAG',['../class_t_k_a_d_c_c_o_n_t_r_o_l.html#a4ec8bb3e68a489f7a757d08a855ffb61',1,'TKADCCONTROL']]]
+  ['byteorder',['BYTEORDER',['../class_t_k_d_a_t_a.html#ab55f2c2d1c76bbeb3c1820ad2e749f38',1,'TKDATA']]]
 ];

@@ -1,0 +1,19 @@
+digraph "tinyxml2::XMLNode::Value"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node45 [label="tinyxml2::XMLNode::\lValue",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node45 -> Node46 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node46 [label="tinyxml2::XMLNode::\lPreviousSiblingElement",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_node.html#a9453cda5e970375a7b1b2099f8a7c40a",tooltip="Get the previous (left) sibling element of this node, with an optionally supplied name..."];
+  Node45 -> Node47 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node47 [label="tinyxml2::XMLText::\lShallowEqual",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_text.html#a99d8bce4dc01df889126e047f358cdfc"];
+  Node45 -> Node48 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node48 [label="tinyxml2::XMLComment\l::ShallowEqual",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_comment.html#a965d880a99d58dd915caa88dc37a9b51"];
+  Node45 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node49 [label="tinyxml2::XMLDeclaration\l::ShallowEqual",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_declaration.html#ae8b4d3a399857029f36c322b0801b69c"];
+  Node45 -> Node50 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node50 [label="tinyxml2::XMLUnknown\l::ShallowEqual",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_unknown.html#ac46767cd721d666e690a6231dfb618d1"];
+  Node45 -> Node51 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node51 [label="tinyxml2::XMLPrinter\l::Visit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_printer.html#adc0e42b4f6fcb90a95630c79575d030b",tooltip="Visit a text node. "];
+}

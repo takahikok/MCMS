@@ -1,0 +1,15 @@
+digraph "tinyxml2::XMLNode::Accept"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="tinyxml2::XMLNode::\lAccept",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="tinyxml2::XMLDocument\l::Accept",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#ab7be651917a35ab1ff0e4e6d4e565cdf"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="tinyxml2::XMLDocument\l::Print",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a867cf5fa3e3ff6ae4847a8b7ee8ec083"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="tinyxml2::XMLDocument\l::SaveFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_document.html#a8b95779479a0035acc67b3a61dfe1b74"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="tinyxml2::XMLElement\l::Accept",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtinyxml2_1_1_x_m_l_element.html#a9b2119831e8b85827d5d3e5076788e4a"];
+}

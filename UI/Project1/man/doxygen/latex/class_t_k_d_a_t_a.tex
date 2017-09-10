@@ -1,11 +1,14 @@
 \hypertarget{class_t_k_d_a_t_a}{}\section{T\+K\+D\+A\+TA クラス}
 \label{class_t_k_d_a_t_a}\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}
+
+
+{\ttfamily \#include $<$tkshotinfo.\+h$>$}
+
 \subsection*{公開型}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}\label{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}} 
-enum {\bfseries B\+Y\+T\+E\+O\+R\+D\+ER} \{ {\bfseries B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}, 
-{\bfseries L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}
+enum \hyperlink{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}{B\+Y\+T\+E\+O\+R\+D\+ER} \{ \hyperlink{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38a3e3837ede152d846a1d1c6e4b5de4432}{B\+Y\+T\+E\+O\+R\+D\+E\+R\+::\+B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}, 
+\hyperlink{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c}{B\+Y\+T\+E\+O\+R\+D\+E\+R\+::\+L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}
  \}
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_add3f58dbf65c97f4c9998e3a8b3f79fd}\label{class_t_k_d_a_t_a_add3f58dbf65c97f4c9998e3a8b3f79fd}} 
@@ -16,8 +19,7 @@ enum {\bfseries D\+A\+T\+A\+F\+O\+R\+M\+AT} \{ {\bfseries T\+R\+A\+CE},
 \subsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_t_k_d_a_t_a_ad142911ef868b94bd2607ab4ca69f84d}\label{class_t_k_d_a_t_a_ad142911ef868b94bd2607ab4ca69f84d}} 
-int {\bfseries Parse\+H\+DR} ()
+int \hyperlink{class_t_k_d_a_t_a_aa3908aef9f0e122bf8edf4ae39242304}{Parse\+H\+DR} ()
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a64f288a761012bf276a5aa7f74dfcb44}\label{class_t_k_d_a_t_a_a64f288a761012bf276a5aa7f74dfcb44}} 
 int {\bfseries Set\+A\+D\+C\+ID} (int iadc\+\_\+id)
@@ -49,6 +51,9 @@ int {\bfseries Get\+V\+Min\+Data} (int const trace\+\_\+index)
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a5fe237cba051e352845786e13c0cd54f}\label{class_t_k_d_a_t_a_a5fe237cba051e352845786e13c0cd54f}} 
 int {\bfseries Get\+Block\+Size} ()
 \item 
+\mbox{\Hypertarget{class_t_k_d_a_t_a_a92cf4028c059bd418905006275b8c727}\label{class_t_k_d_a_t_a_a92cf4028c059bd418905006275b8c727}} 
+struct std\+::tm {\bfseries Get\+Time} ()
+\item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_ac823854fcfb02d7788ec491b38f4d615}\label{class_t_k_d_a_t_a_ac823854fcfb02d7788ec491b38f4d615}} 
 float {\bfseries Get\+H\+Offset} ()
 \item 
@@ -56,7 +61,7 @@ float {\bfseries Get\+H\+Offset} ()
 std\+::string {\bfseries Get\+Model\+Name} ()
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a63437cd1b2448b0b54ee6ec56da1321e}\label{class_t_k_d_a_t_a_a63437cd1b2448b0b54ee6ec56da1321e}} 
-T\+K\+D\+A\+T\+A\+::\+B\+Y\+T\+E\+O\+R\+D\+ER {\bfseries Get\+Byte\+Order} ()
+\hyperlink{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}{T\+K\+D\+A\+T\+A\+::\+B\+Y\+T\+E\+O\+R\+D\+ER} {\bfseries Get\+Byte\+Order} ()
 \item 
 \mbox{\Hypertarget{class_t_k_d_a_t_a_a86117b4edecbf2e3013973fb016877e2}\label{class_t_k_d_a_t_a_a86117b4edecbf2e3013973fb016877e2}} 
 T\+K\+D\+A\+T\+A\+::\+D\+A\+T\+A\+F\+O\+R\+M\+AT {\bfseries Get\+Data\+Format} ()
@@ -75,7 +80,54 @@ int {\bfseries Get\+Channel\+Number} (int const trace\+\_\+index)
 \end{DoxyCompactItemize}
 
 
+\subsection{詳解}
+データクラス
+
+A\+D\+Cで取得したデータを管理するクラスです。~\newline
+ 1つのデータクラスが管理するのは1台の\+A\+D\+Cで計測した1ショット分のデータです。 
+
+\subsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}\label{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}} 
+\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}!B\+Y\+T\+E\+O\+R\+D\+ER@{B\+Y\+T\+E\+O\+R\+D\+ER}}
+\index{B\+Y\+T\+E\+O\+R\+D\+ER@{B\+Y\+T\+E\+O\+R\+D\+ER}!T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}
+\subsubsection{\texorpdfstring{B\+Y\+T\+E\+O\+R\+D\+ER}{BYTEORDER}}
+{\footnotesize\ttfamily enum \hyperlink{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38}{T\+K\+D\+A\+T\+A\+::\+B\+Y\+T\+E\+O\+R\+D\+ER}\hspace{0.3cm}{\ttfamily [strong]}}
+
+バイトオーダー列挙型
+
+バイナリーファイルのバイトオーダーです。~\newline
+ バイナリーファイルから直接データを読み出す際に必要です。
+
+データフォーマット列挙型
+
+バイナリーファイルのデータフォーマットです。~\newline
+ 詳細は横河電機のドキュメントを参照してください。 \begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN@{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}!T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}!B\+I\+G\+\_\+\+E\+N\+D\+I\+AN@{B\+I\+G\+\_\+\+E\+N\+D\+I\+AN}}}\mbox{\Hypertarget{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38a3e3837ede152d846a1d1c6e4b5de4432}\label{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38a3e3837ede152d846a1d1c6e4b5de4432}} 
+B\+I\+G\+\_\+\+E\+N\+D\+I\+AN&680xx \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN@{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}!T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}!L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN@{L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN}}}\mbox{\Hypertarget{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c}\label{class_t_k_d_a_t_a_ab55f2c2d1c76bbeb3c1820ad2e749f38ad2a887ba52940d91adca3b45876dcf7c}} 
+L\+I\+T\+T\+L\+E\+\_\+\+E\+N\+D\+I\+AN&80x86 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\subsection{関数詳解}
+\mbox{\Hypertarget{class_t_k_d_a_t_a_aa3908aef9f0e122bf8edf4ae39242304}\label{class_t_k_d_a_t_a_aa3908aef9f0e122bf8edf4ae39242304}} 
+\index{T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}!Parse\+H\+DR@{Parse\+H\+DR}}
+\index{Parse\+H\+DR@{Parse\+H\+DR}!T\+K\+D\+A\+TA@{T\+K\+D\+A\+TA}}
+\subsubsection{\texorpdfstring{Parse\+H\+D\+R()}{ParseHDR()}}
+{\footnotesize\ttfamily T\+K\+D\+A\+T\+A\+::\+Parse\+H\+DR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+ヘッダーファイルのパースを行います。
+
+ヘッダーファイルからバイナリーデータフォーマット及び計測設定情報を取得します。 \begin{DoxyReturn}{戻り値}
+0\+: 正常終了 
+\end{DoxyReturn}
+
+
 このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
-tkshotinfo.\+h\item 
+\hyperlink{tkshotinfo_8h}{tkshotinfo.\+h}\item 
 tkshotinfo.\+cpp\end{DoxyCompactItemize}
