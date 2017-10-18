@@ -39,8 +39,8 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 
 	flushADCState("Checking file...");
 
-//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL750));
-//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL850));
+	//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL750));
+	//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL850));
 
 	flushADCState("Calibration", System::Drawing::Color::OrangeRed);
 	{
@@ -67,16 +67,54 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	}
 
 	flushADCState("Getting file...");
-#if 0
+#if 1
 	{
-		clx::thread t1(exfunctor(Setting, TKADCINFO_ADC_ID_DL750, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::ALL)));
-		clx::thread t2(exfunctor(Setting, TKADCINFO_ADC_ID_DL850, static_cast<TKADCCONTROL::CONDITIONFLAG>(TKADCCONTROL_DL750::CONDITIONFLAG::ALL)));
+		System::Threading::Thread^ thread750 = gcnew System::Threading::Thread(
+			gcnew System::Threading::ThreadStart(this, &MyForm::threadADCWaitandDownload750));
+		//		gcnew System::Threading::ParameterizedThreadStart(this, &MyForm::threadADCWaitandDownload));
+		System::Threading::Thread^ thread850 = gcnew System::Threading::Thread(
+			gcnew System::Threading::ThreadStart(this, &MyForm::threadADCWaitandDownload850));
 
-		t1.join();
-		t2.join();
 
-		t1.detach();
-		t2.detach();
+		thread750->Start();
+		thread850->Start();
+
+		thread750->Join();
+		thread850->Join();
+
+		std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750)
+			+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
+		std::system(((std::string)"WDFCon.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
+		std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850)
+			+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
+		TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
+		TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
+		(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
+		(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());
+	}
+#elif 0
+	{
+		std::string setting[2][10];
+		for (TKADCINFO::ADCID adcid = TKADCINFO_ADC_ID_DL750; adcid < TKADCINFO_ADC_ID_DL850; adcid++) {
+			setting[static_cast<unsigned int>(adcid)][0] = (*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LocalShotNamePrefix"];
+			setting[static_cast<unsigned int>(adcid)][0] = (*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["IPAddress"];
+			setting[static_cast<unsigned int>(adcid)][0] = (*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["UserName"];
+			setting[static_cast<unsigned int>(adcid)][0] = (std::string)(clx::base64::decode((*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["Password"].c_str()));
+			setting[static_cast<unsigned int>(adcid)][0] = (*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["StragePath"];
+		}
+
+		clx::thread t3(exfunctor(setting[static_cast<unsigned int>(TKADCINFO_ADC_ID_DL750)], TKADCINFO_ADC_ID_DL750));
+		clx::thread t4(exfunctor(setting[static_cast<unsigned int>(TKADCINFO_ADC_ID_DL750)], TKADCINFO_ADC_ID_DL850));
+
+		t3.join();
+		t4.join();
+
+		t3.detach();
+		t4.detach();
+		//		TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
+		//TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
+		//(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
+		//(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());
 	}
 #else
 	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->WaitADC();
@@ -92,10 +130,10 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	downloadFromADC(TKADCINFO_ADC_ID_DL850, makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ".WDF"));
 	std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750)
 		+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
-			std::system(((std::string)"WDFCon.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
-			std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850)
-				+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
-			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
+	std::system(((std::string)"WDFCon.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
+	std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850)
+		+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
 	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
 	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
 	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());

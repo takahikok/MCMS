@@ -2348,19 +2348,85 @@ namespace Project1 {
 			plotSP(0, false);
 			plotISP(0, false);
 		}
-	}
+	}		 
+		 void threadADCWaitandDownload(Object^ adcid)
+		 {
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+				 ->SaveShot(getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid));
+			 switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
+			 case TKADC_ADC_MODEL_DL750:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WVF");
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".HDR");
+				 break;
+			 case TKADC_ADC_MODEL_DL850:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 getNextLocalFileName((TKADCINFO::ADCID)(Int32)adcid) + ".WDF");
+				 break;
+			 }
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
+			 (*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
+				 = std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+					 ->GetLastLocalShotNumber());
+		 }
+		 void threadADCWaitandDownload750()
+		 {
+			 TKADCINFO::ADCID adcid = TKADCINFO_ADC_ID_DL750;
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+				 ->SaveShot(makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ""));
+			 switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
+			 case TKADC_ADC_MODEL_DL750:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".WVF"));
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".HDR"));
+				 break;
+			 case TKADC_ADC_MODEL_DL850:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".WDF"));
+				 break;
+			 }
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
+			 (*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
+				 = std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+					 ->GetLastLocalShotNumber());
+		 }
+		 void threadADCWaitandDownload850()
+		 {
+			 TKADCINFO::ADCID adcid = TKADCINFO_ADC_ID_DL850;
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->WaitADC();
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+				 ->SaveShot(makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ""));
+			 switch (TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->Model()) {
+			 case TKADC_ADC_MODEL_DL750:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".WVF"));
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".HDR"));
+				 break;
+			 case TKADC_ADC_MODEL_DL850:
+				 downloadFromADC((TKADCINFO::ADCID)(Int32)adcid,
+					 makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->GetNextLocalShotNumber(), 5, ".WDF"));
+				 break;
+			 }
+			 TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)->IncrementLocalShotNumber();
+			 (*Setting)[TKADCINFO::ADCIDToSectionName((TKADCINFO::ADCID)(Int32)adcid)]["LastLocalShotNumber"]
+				 = std::to_string(TKADCINFO::ADCIDToTKADCPtr((TKADCINFO::ADCID)(Int32)adcid)
+					 ->GetLastLocalShotNumber());
+		 }
 	};
 }
-#if 1
 class exadcstart {
 private:
 	TKADCINFO::ADCID adcid;
 	TKADCCONTROL::CONDITIONFLAG flag;
 public:
 	exadcstart(TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
+		: adcid(adcid_), flag(flag_)
 	{
-		adcid = adcid_;
-		flag = flag_;
 	}
 
 	virtual ~exadcstart() {};
@@ -2370,13 +2436,14 @@ public:
 		TKADCINFO::ADCIDToTKADCPtr(adcid)->GetStatusCondition(flag);
 	}
 };
-
-
+#if 0
 class exfunctor {
 private:
 	TKADCINFO::ADCID adcid;
-	clx::ini* Setting;
-	std::string makeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
+	std::string setting[10];
+	clx::mutex m_;
+
+	inline std::string makeLocalFileName(std::string prefix, int local_shot_number, int shot_number_length, std::string suffix)
 	{
 		std::ostringstream fname;
 		fname << prefix << std::setfill('0') << std::setw(shot_number_length) << std::right << (local_shot_number) << suffix;
@@ -2408,10 +2475,10 @@ private:
 
 
 public:
-	exfunctor(clx::ini* const Setting_, TKADCINFO::ADCID const adcid_, TKADCCONTROL::CONDITIONFLAG flag_)
+	exfunctor(std::string* setting_, TKADCINFO::ADCID const adcid_)
+		: adcid(adcid_)
 	{
-		adcid = adcid_;
-		Setting = Setting_;
+		setting[0] = setting_[0];
 	}
 
 	virtual ~exfunctor() {};
@@ -2434,9 +2501,12 @@ public:
 				+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
 			break;
 		}
+
+		clx::mutex::scoped_lock lk(m_);
 		TKADCINFO::ADCIDToTKADCPtr(adcid)->IncrementLocalShotNumber();
 		(*Setting)[TKADCINFO::ADCIDToSectionName(adcid)]["LastLocalShotNumber"]
 			= std::to_string(TKADCINFO::ADCIDToTKADCPtr(adcid)->GetLastLocalShotNumber());
 	}
 };
+
 #endif
