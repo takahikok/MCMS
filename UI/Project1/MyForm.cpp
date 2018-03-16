@@ -39,8 +39,8 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 
 	flushADCState("Checking file...");
 
-//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL750));
-//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL850));
+	//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL750));
+	//	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->Delete(getNextLocalFileName(TKADCINFO_ADC_ID_DL850));
 
 	flushADCState("Calibration", System::Drawing::Color::OrangeRed);
 	{
@@ -90,17 +90,14 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".WVF"));
 	downloadFromADC(TKADCINFO_ADC_ID_DL750, makeLocalFileName("D7T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetNextLocalShotNumber(), 5, ".HDR"));
 	downloadFromADC(TKADCINFO_ADC_ID_DL850, makeLocalFileName("D8T", TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetNextLocalShotNumber(), 5, ".WDF"));
-	std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750)
-		+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
-			std::system(((std::string)"WDFCon.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
-			std::system(((std::string)"wvfconv.exe " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850)
-				+ " > " + getNextLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
-			TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
+	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->IncrementLocalShotNumber();
 	TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->IncrementLocalShotNumber();
 	(*Setting)["DL750"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL750)->GetLastLocalShotNumber());
 	(*Setting)["DL850"]["LastLocalShotNumber"] = std::to_string(TKADCINFO::ADCIDToTKADCPtr(TKADCINFO_ADC_ID_DL850)->GetLastLocalShotNumber());
 #endif
 	Setting->write(SETTING_FILE_PATH);
+
+	std::system(((std::string)"WDFCon.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".WDF").c_str());
 
 	flushADCState("Ready");
 
@@ -109,6 +106,11 @@ void Project1::MyForm::startMeasurement(Project1::MyForm^ parent)
 	thisShot->AppendDataFile(getLastLocalFileName(TKADCINFO_ADC_ID_DL850));
 	parent->plotRaw(0, true);
 	parent->webBrowser1->Refresh();
+
+	std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750)
+		+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL750) + ".CSV").c_str());
+	std::system(((std::string)"wvfconv.exe " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850)
+		+ " > " + getLastLocalFileName(TKADCINFO_ADC_ID_DL850) + ".CSV").c_str());
 #endif
 
 }
